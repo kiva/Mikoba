@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-
+using mikoba.UI;
 using Xamarin.Forms;
 
 namespace mikoba
@@ -15,6 +15,7 @@ namespace mikoba
             var strDate = ((DateTime)data).ToString("D", CultureInfo.CurrentCulture);
             this.lblInfo.Text = String.Format("Wallet Created on {0}", strDate);
             this.btnDestroyWallet.Clicked += BtnDestroyWallet_Clicked;
+            this.BindingContext = new MenuPageViewModel(this.Navigation);
         }
 
         private async void BtnDestroyWallet_Clicked(object sender, EventArgs e)

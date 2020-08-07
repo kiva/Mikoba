@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="clr-namespace:mikoba.UI;assembly=mikoba"
+    mc:Ignorable="d"
+    x:Class="mikoba.UI.ConnectionsListPage"
+>
+    <StackLayout Padding="20">
+        <Label Text="Connections" FontSize="40" HorizontalOptions="Center"></Label>
+        <Frame>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Frame Padding="15" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" CornerRadius="50" BorderColor="Black">
+                    <Image Source="{ui:ImageResource KivaProtocolMobileApp.images.kiva.png}" WidthRequest="50" HeightRequest="50"></Image>
+                </Frame>
+                <Label Grid.Row="0" Grid.Column="2" Text="Kiva Demo"></Label>
+                <Label Grid.Row="1" Grid.Column="2" Text="Organization"></Label>
+                <Label Grid.Row="2" Grid.Column="2" Text="San Francisco, CA, USA"></Label>
+            </Grid>
+        </Frame>
+        <Frame>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Frame Padding="12" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" CornerRadius="50" BorderColor="Black">
+                    <Image Source="{ui:ImageResource KivaProtocolMobileApp.images.ncra.png}" WidthRequest="50" HeightRequest="50"></Image>
+                </Frame>
+                <Label Grid.Row="0" Grid.Column="2" Text="National Civil Registry"></Label>
+                <Label Grid.Row="1" Grid.Column="2" Text="Authority Government Institution"></Label>
+                <Label Grid.Row="2" Grid.Column="2" Text="Freetown, Sierra Leone"></Label>
+            </Grid>
+        </Frame>
+        <Frame>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Frame Padding="12" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" CornerRadius="50" BorderColor="Black">
+                    <Image Source="{ui:ImageResource KivaProtocolMobileApp.images.bsl.jpeg}" WidthRequest="50" HeightRequest="50"></Image>
+                </Frame>
+                <Label Grid.Row="0" Grid.Column="2" Text="Bank of Sierra Leone"></Label>
+                <Label Grid.Row="1" Grid.Column="2" Text="Authority Government Institution"></Label>
+                <Label Grid.Row="2" Grid.Column="2" Text="Freetown, Sierra Leone"></Label>
+            </Grid>
+        </Frame>
+        <Button Text="See Connection Details View" Clicked="OnCredentialsPageButtonClicked"/>
+    </StackLayout>
+</ContentPage>

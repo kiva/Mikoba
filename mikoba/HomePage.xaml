@@ -18,18 +18,20 @@
                 Text="*"
                 FontSize="Medium"/>
             <Button
-                Text="Present Credentials"
+                Text="Open Connection"
                     CornerRadius="5"
                     Padding="20"
                     BackgroundColor="#f2f2f2"
                     TextColor="Blue"
+                    Command="{Binding OpenConnectionCommand}"
                     FontSize="18"/>
              <Button
-                Text="Retrieve Credentials"
+                Text="My Credentials"
                     CornerRadius="5"
                     Padding="20"
                     BackgroundColor="#f2f2f2"
                     TextColor="Blue"
+                    Command="{Binding ShowCredentialsListViewCommand}"
                     FontSize="18"/>
               <Button
                 Text="Restore from Cloud"
@@ -83,6 +85,5 @@
                 Text="v1.0.0"
                 FontSize="Small"/>
                </StackLayout>
-   
     </ContentPage>
 </TabbedPage>

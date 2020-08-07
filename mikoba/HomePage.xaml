@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="mikoba.HomePage">
+    <ContentPage Title="Actions" IconImageSource="mikoba.png">
+         <StackLayout x:Name="btnContinue"
+                     Grid.Row="1"
+                     Orientation="Vertical"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center">
+              <Label
+                x:Name="lblInfo"
+                Margin="20"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                TextColor="Gray"
+                Text="*"
+                FontSize="Medium"/>
+            <Button
+                Text="Present Credentials"
+                    CornerRadius="5"
+                    Padding="20"
+                    BackgroundColor="#f2f2f2"
+                    TextColor="Blue"
+                    FontSize="18"/>
+             <Button
+                Text="Retrieve Credentials"
+                    CornerRadius="5"
+                    Padding="20"
+                    BackgroundColor="#f2f2f2"
+                    TextColor="Blue"
+                    FontSize="18"/>
+              <Button
+                Text="Restore from Cloud"
+                    CornerRadius="5"
+                    Padding="20"
+                    BackgroundColor="#f2f2f2"
+                    TextColor="Blue"
+                    FontSize="18"/>
+                <Button
+                    x:Name="btnDestroyWallet"
+                Text="Destroy Wallet"
+                    CornerRadius="5"
+                    Padding="20"
+                    BackgroundColor="#f2f2f2"
+                    TextColor="Red"
+                    FontSize="12"/>
+        </StackLayout>
+    </ContentPage>
+    <ContentPage Title="Credentials" IconImageSource="mikoba.png">
+           <StackLayout
+                     Orientation="Horizontal"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center">
+            <Label
+                
+                Margin="20"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                TextColor="Gray"
+                Text="You have no credentials"
+                FontSize="Body"/>
+               </StackLayout>
+    </ContentPage>
+    <ContentPage Title="Connections" IconImageSource="mikoba.png">
+          <StackLayout
+                    
+                     IsVisible="False"
+                     Orientation="Horizontal"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center">
+            <Label
+                
+                Margin="20"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                TextColor="Gray"
+                Text="v1.0.0"
+                FontSize="Small"/>
+               </StackLayout>
+   
+    </ContentPage>
+</TabbedPage>

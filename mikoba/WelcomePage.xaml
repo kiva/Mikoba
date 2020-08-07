@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             BackgroundColor="White"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="mikoba.WelcomePage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+
+          <Label Grid.Row="0"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Text="Welcome!"
+               TextColor="Gray"
+               FontSize="30"
+               HorizontalTextAlignment="Center"
+               FontAttributes="Bold"/>
+
+        
+        <StackLayout Grid.Row="1"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center">
+            <Button
+                x:Name="btnGetStarted"
+                Text="Get Started"
+                    CornerRadius="0"
+                    Padding="10"
+                    BackgroundColor="#002EA6"
+                    TextColor="White"
+                    FontSize="18"/>
+            <Button
+                x:Name="btnClaimExistingWallet"
+                Margin="20"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                TextColor="#002EA6"
+                Text="Claim Existing Wallet"
+                FontSize="Small"/>
+        </StackLayout>
+
+        <StackLayout Grid.Row="2"
+                     Orientation="Horizontal"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center">
+             <Label
+                Margin="20"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                TextColor="Gray"
+                Text="Terms of Service"
+                FontSize="Small"/>
+             <Label
+                Margin="20"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                TextColor="Gray"
+                Text="Privacy Policy"
+                FontSize="Small"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>

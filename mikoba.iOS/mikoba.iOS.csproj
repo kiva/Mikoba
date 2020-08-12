@@ -69,6 +69,7 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <MtouchLink>Full</MtouchLink>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -144,11 +145,7 @@
     <BundleResource Include="Resources\mikoba.png" />
   </ItemGroup>
   <ItemGroup>
-    <NativeReference Include="..\libs\ios\libcrypto.a">
-      <Kind>Static</Kind>
-      <SmartLink>False</SmartLink>
-    </NativeReference>
-    <NativeReference Include="..\libs\ios\libindy.a">
+       <NativeReference Include="..\libs\ios\libcrypto.a">
       <Kind>Static</Kind>
       <SmartLink>False</SmartLink>
     </NativeReference>
@@ -163,7 +160,11 @@
     <NativeReference Include="..\libs\ios\libzmq.a">
       <Kind>Static</Kind>
       <SmartLink>False</SmartLink>
-            <IsCxx>True</IsCxx>
+      <IsCxx>True</IsCxx>
+    </NativeReference>
+    <NativeReference Include="..\libs\ios\libindy.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
     </NativeReference>
   </ItemGroup>
 </Project>

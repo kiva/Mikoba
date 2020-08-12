@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using System.IO;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using Sentry;
 
 namespace mikoba
 {
@@ -56,6 +57,7 @@ namespace mikoba
         async Task CreateWallet()
         {
             await Task.Delay(1000);
+            SentrySdk.CaptureEvent(new SentryEvent() {Message = "Wallet Creation"});
             
             await WalletUtils.CreateWalletAsync(firstWalletConfig, firstWalletCredentials);
             using (var firstWallet = await Wallet.OpenWalletAsync(firstWalletConfig, firstWalletCredentials))

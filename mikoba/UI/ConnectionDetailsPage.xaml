@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="clr-namespace:mikoba.UI;assembly=mikoba"
+    mc:Ignorable="d"
+    x:Class="mikoba.UI.ConnectionDetailsPage"
+>
+    <StackLayout Padding="20">
+        <Label
+            Text="Kiva Demo"
+            FontSize="40"
+            HorizontalOptions="Center"
+        ></Label>
+        <Frame
+            Padding="15"
+            CornerRadius="50"
+            BorderColor="Black"
+            WidthRequest="50"
+            HorizontalOptions="Center"
+         >
+            <Image Source="{ui:ImageResource KivaProtocolMobileApp.images.kiva.png}" WidthRequest="50" HeightRequest="50"></Image>
+        </Frame>
+        <Label
+            FontSize="15"
+            HorizontalOptions="Center"
+            Text="Organization"
+            TextColor="Black"
+        ></Label>
+        <Label
+            FontSize="15"
+            HorizontalOptions="Center"
+            Text="San Francisco, CA, USA"
+            TextColor="Black"
+        ></Label>
+        <Frame>
+            <Label
+                HorizontalTextAlignment="Center"
+                Text="Credential Accepted by Ray Chang June 15th, 2020, 8:10 PM"></Label>
+        </Frame>
+        <Frame>
+            <Label
+                HorizontalTextAlignment="Center"
+                Text="Credential Offer Sent by Kiva Demo June 15th, 2020, 8:08 PM"></Label>
+        </Frame>
+        <Frame>
+            <Label
+                HorizontalTextAlignment="Center"
+                Text="Connection Established June 15th, 2020, 8:03 PM"></Label>
+        </Frame>
+        <Button Text="See Credential Offer Review" Clicked="OnCredentialOfferReviewPageButtonClicked"/>
+    </StackLayout>
+</ContentPage>

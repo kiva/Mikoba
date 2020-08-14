@@ -22,4 +22,35 @@
       <HintPath>..\..\..\..\..\Library\Frameworks\Xamarin.Android.framework\Versions\10.3.1.4\lib\xamarin.android\xbuild-frameworks\MonoAndroid\v9.0\Mono.Android.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="AddNewButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CredentialCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CredentialsListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <None Remove="images\bsl.jpeg" />
+    <EmbeddedResource Include="images\bsl.jpeg" />
+    <None Remove="images\kiva.png" />
+    <EmbeddedResource Include="images\kiva.png" />
+    <None Remove="images\ncra.png" />
+    <EmbeddedResource Include="images\ncra.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="AddNewButton.xaml.cs">
+      <DependentUpon>AddNewButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CredentialCard.xaml.cs">
+      <DependentUpon>CredentialCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CredentialsListView.xaml.cs">
+      <DependentUpon>CredentialsListPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

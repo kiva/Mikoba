@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="mikoba.HomePage">
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="mikoba.HomePage" xmlns:local="clr-namespace:mikoba">
     <ContentPage Title="Actions" IconImageSource="mikoba.png">
          <StackLayout x:Name="btnContinue"
                      Grid.Row="1"
@@ -53,17 +53,18 @@
                      Orientation="Horizontal"
                      HorizontalOptions="Center"
                      VerticalOptions="Center">
-            <Label
-                
-                Margin="20"
-                VerticalTextAlignment="Center"
-                HorizontalTextAlignment="Center"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                TextColor="Gray"
-                Text="You have no credentials"
-                FontSize="Body"/>
-               </StackLayout>
+                <!-- <Label -->
+                <!--     Margin="20" -->
+                <!--     VerticalTextAlignment="Center" -->
+                <!--     HorizontalTextAlignment="Center" -->
+                <!--     HorizontalOptions="Center" -->
+                <!--     VerticalOptions="Center" -->
+                <!--     TextColor="Gray" -->
+                <!--     Text="You have no credentials" -->
+                <!--     FontSize="Body"/> -->
+                <local:CredentialsListView Padding="0" Margin="0"
+                />
+           </StackLayout>
     </ContentPage>
     <ContentPage Title="Connections" IconImageSource="mikoba.png">
           <StackLayout

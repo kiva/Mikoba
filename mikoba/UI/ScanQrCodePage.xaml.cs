@@ -1,6 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Xamarin.Forms;
+using ZXing;
 
 namespace mikoba.UI
 {
@@ -9,15 +9,27 @@ namespace mikoba.UI
     [DesignTimeVisible(false)]
     public partial class ScanQrCodePage : ContentPage
     {
-        public ScanQrCodePage()
+
+        public void Handle_OnScanResult(Result result)
         {
-            InitializeComponent();
-            BindingContext = new ScanQrCodeViewModel();
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await DisplayAlert("Scanned result", result.Text, "OK");
+            });
         }
 
-        async void OnConnectionsListViewButtonClicked(object sender, EventArgs e)
+        protected override void OnAppearing()
         {
-            await Navigation.PushAsync(new ConnectionsListPage());
+            base.OnAppearing();
+
+            ScanView.IsScanning = true;
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            ScanView.IsScanning = false;
         }
     }
 }

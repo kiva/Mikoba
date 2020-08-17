@@ -57,6 +57,9 @@ namespace mikoba.Droid
             LoadApplication(new App());
 
             CheckAndRequestRequiredPermissions();
+            
+            Xamarin.Essentials.Platform.Init(Application);
+            ZXing.Net.Mobile.Forms.Android.Platform.Init();
         }
 
 
@@ -64,6 +67,7 @@ namespace mikoba.Droid
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions,
             Permission[] grantResults)
         {
+            global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult (requestCode, permissions, grantResults);
             if (grantResults.Length == _permissionsToBeGranted.Count)
                 System.Diagnostics.Debug.WriteLine("All permissions required that werent granted, have now been granted");
             else

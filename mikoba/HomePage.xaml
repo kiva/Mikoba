@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="mikoba.HomePage">
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="mikoba.HomePage" xmlns:local="clr-namespace:mikoba">
     <ContentPage Title="Actions" IconImageSource="mikoba.png">
          <StackLayout x:Name="btnContinue"
                      Grid.Row="1"
@@ -56,7 +56,6 @@
                      HorizontalOptions="Center"
                      VerticalOptions="Center">
             <Label
-                
                 Margin="20"
                 VerticalTextAlignment="Center"
                 HorizontalTextAlignment="Center"
@@ -68,22 +67,18 @@
                </StackLayout>
     </ContentPage>
     <ContentPage Title="Connections" IconImageSource="mikoba.png">
-          <StackLayout
-                    
-                     IsVisible="False"
-                     Orientation="Horizontal"
-                     HorizontalOptions="Center"
-                     VerticalOptions="Center">
+        <StackLayout VerticalOptions="Center">
             <Label
-                
                 Margin="20"
-                VerticalTextAlignment="Center"
-                HorizontalTextAlignment="Center"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
                 TextColor="Gray"
-                Text="v1.0.0"
-                FontSize="Small"/>
-               </StackLayout>
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Text="No connections yet.  Once you establish connections, they will show up here."
+                FontSize="Body"/>
+            <local:AddNewButton
+                HorizontalOptions="Center"
+                Command="{Binding ShowScanQrCodePageCommand}"
+            />
+        </StackLayout>
     </ContentPage>
 </TabbedPage>

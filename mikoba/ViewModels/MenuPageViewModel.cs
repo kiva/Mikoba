@@ -13,8 +13,7 @@ namespace mikoba.UI
     {
         public INavigation NavigationService { get; private set; }
         public ICommand OpenConnectionCommand { get; set; }
-        public ICommand ShowCredentialsListViewCommand { get; set; }
-        public ICommand ShowScanQrCodePageCommand { get; set; }
+        public ICommand ShowWalletHomePageCommand { get; set; }
         
         public MenuPageViewModel(INavigation service)
         {
@@ -24,15 +23,10 @@ namespace mikoba.UI
                 SentrySdk.CaptureEvent(new SentryEvent(){Message = "Open Connection"});
                 await this.NavigationService.PushAsync(new ScanQrCodePage());
             });
-            this.ShowCredentialsListViewCommand = new Command(async () =>
-            {
-                SentrySdk.CaptureEvent(new SentryEvent(){Message = "Show Credentials"});
-                await this.NavigationService.PushAsync(new CredentialsListPage());
-            });
-            this.ShowScanQrCodePageCommand = new Command(async () =>
+            this.ShowWalletHomePageCommand = new Command(async () =>
             {
                 SentrySdk.CaptureEvent(new SentryEvent(){Message = "Scan QR Code"});
-                await this.NavigationService.PushAsync(new ScanQrCodePage());
+                await this.NavigationService.PushAsync(new WalletHomePage());
             });
         }
 

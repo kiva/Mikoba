@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
+             mc:Ignorable="d" 
+             x:Class="mikoba.UI.SplashPage" 
+             BackgroundColor="#F9F9F9">
+    <Grid HorizontalOptions="Fill"
+          VerticalOptions="Fill">
+        <abstractions:SvgImage
+            SvgAssembly="{Binding SvgAssembly}"
+            SvgPath="{Binding Wave}"
+            HeightRequest="235"
+            WidthRequest="180"
+            BackgroundColor="#F9F9F9"
+            HorizontalOptions="End"
+            VerticalOptions="Start" />
+        <abstractions:SvgImage
+            SvgAssembly="{Binding SvgAssembly}"
+            SvgPath="{Binding Orange}"
+            HeightRequest="200"
+            WidthRequest="214"
+            BackgroundColor="#F9F9F9"
+            HorizontalOptions="Start"
+            VerticalOptions="End" />
+        <abstractions:SvgImage
+            SvgAssembly="{Binding SvgAssembly}"
+            SvgPath="{Binding Dots}"
+            HeightRequest="83"
+            WidthRequest="97"
+            BackgroundColor="#F9F9F9"
+            HorizontalOptions="End"
+            VerticalOptions="End" />
+        <abstractions:SvgImage
+            x:Name="AppLogo"
+            SvgAssembly="{Binding SvgAssembly}"
+            SvgPath="{Binding KivaLogo}"
+            HeightRequest="100"
+            WidthRequest="100"
+            BackgroundColor="#F9F9F9"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+        <Grid x:Name="gridOptions"
+              IsVisible="False"
+              HorizontalOptions="Fill"
+              VerticalOptions="Fill">
+            <d:Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </d:Grid.ColumnDefinitions>
+
+            <StackLayout Orientation="Vertical"
+                         d:Grid.ColumnSpan="2"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center">
+                <Label
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"
+                    TextColor="#004FD4"
+                    FontSize="27"
+                    FontAttributes="Bold">
+                    Hey there!
+                </Label>
+                <Label
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"
+                    TextColor="#004FD4"
+                    FontSize="27"
+                    FontAttributes="Bold">
+                    Welcome to your
+                </Label>
+                <Label
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"
+                    TextColor="#004FD4"
+                    FontSize="27"
+                    FontAttributes="Bold">
+                    Kiva Wallet
+                </Label>
+            </StackLayout>
+            <StackLayout VerticalOptions="End"
+                         d:Grid.ColumnSpan="2"
+                         Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                         Margin="0,0,0,40">
+                <Button
+                    CornerRadius="8"
+                    FontAttributes="Bold"
+                    Padding="20"
+                    Text="I Have a Wallet"
+                    Command="{Binding ClaimWalletCommand}"
+                    BackgroundColor="#FAFAFA"
+                    TextColor="#000"
+                    Margin="20,0,0,0"
+                    FontSize="20" />
+                <Button
+                    Text="Get Started"
+                    FontAttributes="Bold"
+                    Command="{Binding GetStartedCommand}"
+                    CornerRadius="8"
+                    Padding="20"
+                    Margin="0,0,20,0"
+                    BackgroundColor="#004FD4"
+                    TextColor="White"
+                    FontSize="20" />
+            </StackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

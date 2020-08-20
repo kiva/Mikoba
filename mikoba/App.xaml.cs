@@ -1,4 +1,5 @@
 using System;
+using mikoba.UI;
 using Sentry;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -17,14 +18,7 @@ namespace mikoba
         protected override void OnStart()
         {
             SentrySdk.CaptureEvent(new SentryEvent(){Message = "App Starting"});
-            if (Application.Current.Properties.ContainsKey("WalletCreationDate"))
-            {
-                MainPage = new NavigationPage(new HomePage());
-            }
-            else
-            {
-                MainPage = new NavigationPage(new MainPage());
-            }
+            MainPage = new NavigationPage(new SplashPage());
         }
 
         protected override void OnSleep()

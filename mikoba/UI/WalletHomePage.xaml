@@ -2,18 +2,71 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
              x:Class="mikoba.UI.WalletHomePage">
     <ContentPage.Resources>
         <StyleSheet Source="../Styles/WalletHomePage.css"></StyleSheet>
     </ContentPage.Resources>
-    <ContentPage.Content>
-        <StackLayout>
-            <Frame StyleClass="displayFrame">
+     <Grid HorizontalOptions="Fill"
+          VerticalOptions="Fill">
+        <abstractions:SvgImage
+            SvgAssembly="{Binding SvgAssembly}"
+            SvgPath="{Binding Wave}"
+            HeightRequest="235"
+            WidthRequest="180"
+            BackgroundColor="#F9F9F9"
+            HorizontalOptions="End"
+            VerticalOptions="Start" />
+        <abstractions:SvgImage
+            SvgAssembly="{Binding SvgAssembly}"
+            SvgPath="{Binding Orange}"
+            HeightRequest="200"
+            WidthRequest="214"
+            BackgroundColor="#F9F9F9"
+            HorizontalOptions="Start"
+            VerticalOptions="End" />
+        <abstractions:SvgImage
+            SvgAssembly="{Binding SvgAssembly}"
+            SvgPath="{Binding Dots}"
+            HeightRequest="83"
+            WidthRequest="97"
+            BackgroundColor="#F9F9F9"
+            HorizontalOptions="End"
+            VerticalOptions="End" />
+        <Grid x:Name="gridOptions"
+              HorizontalOptions="Fill"
+              VerticalOptions="Fill">
+            <StackLayout Orientation="Vertical"
+                         Grid.ColumnSpan="2"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center">
                 <Label
-                    Text="Hello, world!"
-                    VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="CenterAndExpand" />
-            </Frame>
-        </StackLayout>
-    </ContentPage.Content>
+                    x:Name="lblInfo"
+                    Margin="20"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    TextColor="Gray"
+                    Text="{Binding WalletCreationText}"
+                    FontSize="Medium" />
+                <Button
+                    Text="Credentials"
+                    CornerRadius="5"
+                    Padding="20"
+                    BackgroundColor="#f2f2f2"
+                    TextColor="Blue"
+                    Command="{Binding ShowCredentialsCommand}"
+                    FontSize="18" />
+                <Button
+                    x:Name="btnDestroyWallet"
+                    Text="Destroy Wallet"
+                    CornerRadius="5"
+                    Padding="20"
+                    BackgroundColor="#f2f2f2"
+                    TextColor="Red"
+                    FontSize="12" />
+            </StackLayout>
+        </Grid>
+    </Grid>
 </ContentPage>

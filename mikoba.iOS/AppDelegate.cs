@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using SVG.Forms.Plugin.iOS;
 using UIKit;
 
 namespace mikoba.iOS
@@ -27,9 +28,8 @@ namespace mikoba.iOS
 #endif
             global::Xamarin.Forms.Forms.Init();
             ZXing.Net.Mobile.Forms.iOS.Platform.Init();
-
+            SvgImageRenderer.Init();
             LoadApplication(new App());
-
             return base.FinishedLaunching(app, options);
         }
     }

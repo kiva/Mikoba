@@ -5,6 +5,7 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:local="clr-namespace:mikoba.UI"
     x:Class="mikoba.UI.CreateConnectionPage">
     <StackLayout Padding="20">
         <Label
@@ -18,9 +19,7 @@
                 <ColumnDefinition Width="75" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Frame Grid.Column="1" Grid.ColumnSpan="1" HasShadow="False" CornerRadius="50" Padding="0" IsClippedToBounds="True">
-                <Button HeightRequest="75" Clicked="OnScanQrCodePageButtonClicked" CornerRadius="50" Text="+" FontSize="35" BorderWidth="10" BorderColor="#002EA6" TextColor="#002EA6" BackgroundColor="White"></Button>
-            </Frame>
+            <local:AddNewButton Command="{Binding OnScanQrCodePageButtonClicked}"/>
         </Grid>
     </StackLayout>
 </ContentPage>

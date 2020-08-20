@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="mikoba.HomePage" xmlns:local="clr-namespace:mikoba">
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="mikoba.HomePage" xmlns:local="clr-namespace:mikoba.UI">
     <ContentPage Title="Actions" IconImageSource="mikoba.png">
          <StackLayout x:Name="btnContinue"
                      Grid.Row="1"
@@ -17,6 +17,14 @@
                 TextColor="Gray"
                 Text="*"
                 FontSize="Medium"/>
+              <Button
+                  Text="WalletHome"
+                  CornerRadius="5"
+                  Padding="20"
+                  BackgroundColor="#f2f2f2"
+                  TextColor="Blue"
+                  Command="{Binding ShowWalletHomePageCommand}"
+                  FontSize="18"/>
             <Button
                 Text="Open Connection"
                     CornerRadius="5"
@@ -24,14 +32,6 @@
                     BackgroundColor="#f2f2f2"
                     TextColor="Blue"
                     Command="{Binding OpenConnectionCommand}"
-                    FontSize="18"/>
-             <Button
-                Text="My Credentials"
-                    CornerRadius="5"
-                    Padding="20"
-                    BackgroundColor="#f2f2f2"
-                    TextColor="Blue"
-                    Command="{Binding ShowCredentialsListViewCommand}"
                     FontSize="18"/>
               <Button
                 Text="Restore from Cloud"
@@ -55,15 +55,8 @@
                      Orientation="Horizontal"
                      HorizontalOptions="Center"
                      VerticalOptions="Center">
-            <Label
-                Margin="20"
-                VerticalTextAlignment="Center"
-                HorizontalTextAlignment="Center"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                TextColor="Gray"
-                Text="You have no credentials"
-                FontSize="Body"/>
+            <local:CredentialsListView Padding="0" Margin="0"
+            />
                </StackLayout>
     </ContentPage>
     <ContentPage Title="Connections" IconImageSource="mikoba.png">

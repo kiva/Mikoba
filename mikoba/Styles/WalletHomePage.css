@@ -1,0 +1,9 @@
+^ContentPage
+{
+    background-color: azure;
+}
+
+.displayFrame {
+    background-color: white;
+    border-radius: 12;
+}

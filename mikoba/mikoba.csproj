@@ -86,14 +86,15 @@
       <SubType>Designer</SubType>
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="AddNewButton.xaml">
+    <EmbeddedResource Update="UI\WalletHomePage.xaml">
       <SubType>Designer</SubType>
       <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="AddNewButton.xaml.cs">
-      <DependentUpon>AddNewButton.xaml</DependentUpon>
+    <Compile Update="UI\WalletHomePage.xaml.cs">
+      <DependentUpon>WalletHome.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 </Project>

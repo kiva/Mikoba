@@ -20,15 +20,11 @@ namespace mikoba.UI
 
         protected override void OnAppearing()
         {
-            base.OnAppearing();
-
             ScanView.IsScanning = true;
         }
 
         protected override void OnDisappearing()
         {
-            base.OnDisappearing();
-
             ScanView.IsScanning = false;
         }
     }

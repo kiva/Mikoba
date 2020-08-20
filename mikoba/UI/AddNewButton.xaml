@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView
+<ContentView 
+    xmlns:local="clr-namespace:mikoba"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="mikoba.UI.AddNewButton"
@@ -11,8 +12,13 @@
                 <ColumnDefinition Width="75" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Frame Grid.Column="1" Grid.ColumnSpan="1" HasShadow="False" CornerRadius="50" Padding="0" IsClippedToBounds="True">
-                <Button HeightRequest="75" Clicked="OnScanQrCodePageButtonClicked" CornerRadius="50" Text="+" FontSize="35" BorderWidth="10" BorderColor="#002EA6" TextColor="#002EA6" BackgroundColor="White"></Button>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="75" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Frame Grid.Column="1" Grid.Row="1" HasShadow="False" CornerRadius="50" Padding="0" IsClippedToBounds="True">
+                <Button Clicked="ButtonClicked" CornerRadius="50" Text="+" FontSize="35" BorderWidth="10" BorderColor="#002EA6" TextColor="#002EA6" BackgroundColor="White"></Button>
             </Frame>
         </Grid>
     </ContentView.Content>

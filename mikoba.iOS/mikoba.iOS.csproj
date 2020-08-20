@@ -17,6 +17,7 @@
     <ProvisioningType>automatic</ProvisioningType>
     <ReleaseVersion>0.4</ReleaseVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <MtouchExtraArgs>-gcc_flags -dead_strip -v</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,7 +30,6 @@
     <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
-    <MtouchExtraArgs>-gcc_flags -dead_strip -v</MtouchExtraArgs>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
@@ -57,7 +57,6 @@
     <MtouchLink>None</MtouchLink>
     <MtouchInterpreter>-all</MtouchInterpreter>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <MtouchExtraArgs>-gcc_flags -dead_strip -v</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -120,6 +119,7 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\mikoba-01.png" />
+    <ImageAsset Include="Assets.xcassets\Image.imageset\Contents.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -130,6 +130,7 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Xam.Plugins.Forms.Svg" Version="1.0.0.27" />
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.495" />
     <PackageReference Include="Xamarin.TestCloud.Agent" Version="0.21.9" />
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
@@ -142,7 +143,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\bsl.jpeg" />
+    <BundleResource Include="Resources\dots.svg" />
+    <BundleResource Include="Resources\kiva.png" />
+    <BundleResource Include="Resources\kiva.svg" />
     <BundleResource Include="Resources\mikoba.png" />
+    <BundleResource Include="Resources\ncra.png" />
+    <BundleResource Include="Resources\orange.svg" />
+    <BundleResource Include="Resources\pink.svg" />
+    <BundleResource Include="Resources\wave.svg" />
   </ItemGroup>
   <ItemGroup>
        <NativeReference Include="..\libs\ios\libcrypto.a">

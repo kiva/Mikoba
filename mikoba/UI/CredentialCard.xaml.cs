@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Xamarin.Forms;
 
 namespace mikoba.UI
@@ -20,7 +20,6 @@ namespace mikoba.UI
             get { return (string)GetValue(OrganizationTextProperty); }
             set { SetValue(OrganizationTextProperty, value); }
         }
-
         public static readonly BindableProperty MemberIdTextProperty =
             BindableProperty.Create("MemberIdText", typeof(string), typeof(CredentialCard), default(string));
         public string MemberIdText
@@ -28,7 +27,6 @@ namespace mikoba.UI
             get { return (string)GetValue(MemberIdTextProperty); }
             set { SetValue(MemberIdTextProperty, value); }
         }
-
         public static readonly BindableProperty ImageUrlSourceProperty =
             BindableProperty.Create("ImageUrlSource", typeof(string), typeof(CredentialCard), default(string));
         public string ImageUrlSource

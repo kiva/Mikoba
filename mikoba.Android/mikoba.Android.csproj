@@ -71,6 +71,14 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bsl.jpeg" />
+    <AndroidResource Include="Resources\drawable\dots.svg" />
+    <AndroidResource Include="Resources\drawable\kiva.png" />
+    <AndroidResource Include="Resources\drawable\kiva.svg" />
+    <AndroidResource Include="Resources\drawable\ncra.png" />
+    <AndroidResource Include="Resources\drawable\orange.svg" />
+    <AndroidResource Include="Resources\drawable\pink.svg" />
+    <AndroidResource Include="Resources\drawable\wave.svg" />
     <AndroidResource Include="Resources\layout\Tabbar.xml" />
     <AndroidResource Include="Resources\layout\Toolbar.xml" />
     <AndroidResource Include="Resources\values\styles.xml" />

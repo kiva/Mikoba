@@ -1,3 +1,4 @@
+using mikoba.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,6 +10,8 @@ namespace mikoba.UI
         public WalletHomePage()
         {
             InitializeComponent();
+            WalletHomePageViewModel.Instance.NavigationService = this.Navigation;
+            this.BindingContext = WalletHomePageViewModel.Instance;
         }
     }
 }

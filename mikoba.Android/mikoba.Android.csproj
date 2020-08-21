@@ -71,9 +71,7 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\bsl.jpeg" />
     <AndroidResource Include="Resources\drawable\dots.svg" />
-    <AndroidResource Include="Resources\drawable\kiva.png" />
     <AndroidResource Include="Resources\drawable\kiva.svg" />
     <AndroidResource Include="Resources\drawable\ncra.png" />
     <AndroidResource Include="Resources\drawable\orange.svg" />
@@ -130,6 +128,13 @@
     <AndroidNativeLibrary Include="..\libs\android\x86_64\libc++_shared.so">
       <Link>android\x86_64\libc++_shared.so</Link>
     </AndroidNativeLibrary>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\drawable\locationpin.svg" />
+    <EmbeddedResource Include="Resources\drawable\qrCodeScan.svg" />
+    <EmbeddedResource Include="Resources\drawable\rightCaret.svg" />
+    <EmbeddedResource Include="Resources\drawable\secure.svg" />
+    <EmbeddedResource Include="Resources\drawable\selfie.svg" />
   </ItemGroup>
  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

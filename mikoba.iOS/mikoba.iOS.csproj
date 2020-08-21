@@ -176,4 +176,11 @@
       <SmartLink>False</SmartLink>
     </NativeReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\locationpin.svg" />
+    <BundleResource Include="Resources\qrCodeScan.svg" />
+    <BundleResource Include="Resources\rightCaret.svg" />
+    <BundleResource Include="Resources\secure.svg" />
+    <BundleResource Include="Resources\selfie.svg" />
+  </ItemGroup>
 </Project>

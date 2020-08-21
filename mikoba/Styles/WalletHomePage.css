@@ -1,9 +1,26 @@
-^ContentPage
-{
-    background-color: azure;
-}
-
 .displayFrame {
     background-color: white;
     border-radius: 12;
+    border-color: transparent;
+    margin-bottom: 10;
+}
+
+.displayFrameText {
+    font-weight: bolder;
+    font-size: 16;
+    color: #000000;
+    width: 250;
+    margin-left: 30;
+}
+
+.header1 {
+    font-size: 21;
+    color: #004FD4;
+    font-weight: bolder;
+    margin-bottom: 20;
+    margin-top: 20;
+}
+
+.content {
+    margin: 25;
 }

@@ -89,15 +89,10 @@
       <SubType>Designer</SubType>
       <Generator></Generator>
     </EmbeddedResource>
-    <None Remove="images\kiva.svg" />
     <EmbeddedResource Include="Images\kiva.svg" />
-    <None Remove="images\orange.svg" />
     <EmbeddedResource Include="Images\orange.svg" />
-    <None Remove="images\pink.svg" />
     <EmbeddedResource Include="Images\pink.svg" />
-    <None Remove="images\wave.svg" />
     <EmbeddedResource Include="Images\wave.svg" />
-    <None Remove="images\dots.svg" />
     <EmbeddedResource Include="Images\dots.svg" />
     <EmbeddedResource Update="UI\WalletCreationPage.xaml">
       <SubType>Designer</SubType>
@@ -116,6 +111,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="UI\MenuOption.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\locationpin.svg" />
+    <EmbeddedResource Include="Images\qrCodeScan.svg" />
+    <EmbeddedResource Include="Images\selfie.svg" />
+    <EmbeddedResource Include="Images\secure.svg" />
+    <EmbeddedResource Include="Images\rightCaret.svg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="UI\WalletHomePage.xaml.cs">
@@ -136,5 +140,8 @@
   <ItemGroup>
     <Folder Include="UI\Components" />
     <Folder Include="UI\Pages" />
+    <Compile Update="UI\MenuOption.xaml.cs">
+      <DependentUpon>MenuOption.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

@@ -48,11 +48,11 @@ namespace mikoba.ViewModels
             {
                 SentrySdk.CaptureEvent(new SentryEvent() {Message = "Scan QR Code"});
                 await this.NavigationService.PushAsync(new WalletHomePage());
-
-                this.ShowCredentialsCommand = new Command(async () =>
-                {
-                    await this.NavigationService.PushAsync(new CredentialsListView());
-                });
+            });
+            
+            this.ShowCredentialsCommand = new Command(async () =>
+            {
+                await NavigationService.PushAsync(new CredentialsListView());
             });
             
             this.DestroyWalletCommand = new Command(async () =>

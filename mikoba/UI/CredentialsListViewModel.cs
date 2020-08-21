@@ -28,7 +28,13 @@ namespace mikoba.UI
             Credentials = new ObservableCollection<CredentialModel>();
             AddCredential = new Command(() =>
             {
-                
+                Credentials.Add(new CredentialModel
+                {
+                    Issued = "Hello World",
+                    Organization = "Org",
+                    MemberId = "543245",
+                    ImageUrl = "ncra.png"
+                });
             });
         }
         public event PropertyChangedEventHandler PropertyChanged;

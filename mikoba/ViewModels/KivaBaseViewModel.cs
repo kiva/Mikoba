@@ -33,5 +33,30 @@ namespace mikoba.ViewModels
         {
             get { return "mikoba.Images.pink.svg"; }
         }
+
+        public string LocationPin
+        {
+            get { return "mikoba.Images.locationpin.svg"; }
+        }
+        
+        public string QrCodeScan
+        {
+            get { return "mikoba.Images.qrCodeScan.svg"; }
+        }
+        
+        public string RightCaret
+        {
+            get { return "mikoba.Images.rightCaret.svg"; }
+        }
+        
+        public string Secure
+        {
+            get { return "mikoba.Images.secure.svg"; }
+        }
+        
+        public string Selfie
+        {
+            get { return "mikoba.Images.selfie.svg"; }
+        }
     }
 }

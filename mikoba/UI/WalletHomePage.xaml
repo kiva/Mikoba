@@ -3,7 +3,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
-             x:Class="mikoba.UI.WalletHomePage">
+             xmlns:local="clr-namespace:mikoba.UI"
+             x:Class="mikoba.UI.WalletHomePage"
+             BackgroundColor="#F2F2F2">
     <ContentPage.Resources>
         <StyleSheet Source="../Styles/WalletHomePage.css"></StyleSheet>
     </ContentPage.Resources>
@@ -14,7 +16,7 @@
             SvgPath="{Binding Wave}"
             HeightRequest="235"
             WidthRequest="180"
-            BackgroundColor="#F9F9F9"
+            BackgroundColor="#F2F2F2"
             HorizontalOptions="End"
             VerticalOptions="Start" />
         <abstractions:SvgImage
@@ -22,7 +24,7 @@
             SvgPath="{Binding Orange}"
             HeightRequest="200"
             WidthRequest="214"
-            BackgroundColor="#F9F9F9"
+            BackgroundColor="#F2F2F2"
             HorizontalOptions="Start"
             VerticalOptions="End" />
         <abstractions:SvgImage
@@ -30,16 +32,39 @@
             SvgPath="{Binding Dots}"
             HeightRequest="83"
             WidthRequest="97"
-            BackgroundColor="#F9F9F9"
+            BackgroundColor="#F2F2F2"
             HorizontalOptions="End"
             VerticalOptions="End" />
         <Grid x:Name="gridOptions"
+              StyleClass="content"
               HorizontalOptions="Fill"
               VerticalOptions="Fill">
             <StackLayout Orientation="Vertical"
                          Grid.ColumnSpan="2"
                          HorizontalOptions="Center"
                          VerticalOptions="Center">
+                
+                <Label StyleClass="header1" Text="Welcome to your Kiva Wallet, here are a few ways to get started:"></Label>
+                <local:MenuOption
+                    LeftSvgImage="{Binding Wave}"
+                    RightSvgImage="{Binding Wave}"
+                    MenuOptionText="Recover Wallet Instead"
+                    Command="{Binding ShowCredentialsCommand}"/>
+                <local:MenuOption
+                    LeftSvgImage="{Binding Wave}"
+                    RightSvgImage="{Binding Wave}"
+                    MenuOptionText="Receive Credentials"
+                    Command="{Binding ShowCredentialsCommand}"/>
+                <local:MenuOption
+                    LeftSvgImage="{Binding Wave}"
+                    RightSvgImage="{Binding Wave}"
+                    MenuOptionText="Save and secure your wallet"
+                    Command="{Binding ShowCredentialsCommand}"/>
+                <local:MenuOption
+                    LeftSvgImage="{Binding Wave}"
+                    RightSvgImage="{Binding LocationPin}"
+                    MenuOptionText="Take a selfie"
+                    Command="{Binding ShowCredentialsCommand}"/>
                 <Label
                     x:Name="lblInfo"
                     Margin="20"
@@ -50,22 +75,6 @@
                     TextColor="Gray"
                     Text="{Binding WalletCreationText}"
                     FontSize="Medium" />
-                <Button
-                    Text="Credentials"
-                    CornerRadius="5"
-                    Padding="20"
-                    BackgroundColor="#f2f2f2"
-                    TextColor="Blue"
-                    Command="{Binding ShowCredentialsCommand}"
-                    FontSize="18" />
-                <Button
-                    x:Name="btnDestroyWallet"
-                    Text="Destroy Wallet"
-                    CornerRadius="5"
-                    Padding="20"
-                    BackgroundColor="#f2f2f2"
-                    TextColor="Red"
-                    FontSize="12" />
             </StackLayout>
         </Grid>
     </Grid>

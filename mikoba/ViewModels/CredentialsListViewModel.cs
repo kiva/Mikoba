@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using mikoba.Annotations;
+using mikoba.Models;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels

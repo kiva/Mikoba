@@ -4,10 +4,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
              xmlns:local="clr-namespace:mikoba.UI"
-             x:Class="mikoba.UI.WalletHomePage"
+             x:Class="mikoba.UI.Pages.WalletHomePage"
+             NavigationPage.HasNavigationBar="False"
              BackgroundColor="#F2F2F2">
     <ContentPage.Resources>
-        <StyleSheet Source="../Styles/WalletHomePage.css"></StyleSheet>
+        <StyleSheet Source="../../Styles/WalletHomePage.css"></StyleSheet>
     </ContentPage.Resources>
      <Grid HorizontalOptions="Fill"
           VerticalOptions="Fill">

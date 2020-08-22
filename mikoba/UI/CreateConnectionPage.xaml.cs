@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using mikoba.UI.Pages;
 using Xamarin.Forms;
 
 namespace mikoba.UI

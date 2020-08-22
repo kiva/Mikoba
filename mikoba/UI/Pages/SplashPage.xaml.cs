@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using mikoba.ViewModels;
 using Xamarin.Forms;
-     
-namespace mikoba.UI
+
+namespace mikoba.UI.Pages
 {
     public partial class SplashPage : ContentPage
     {
         public SplashPage()
         {
             InitializeComponent();
-            this.BindingContext = new MainPageViewModel(this.Navigation);
+            this.BindingContext = new SplashPageViewModel(this.Navigation);
         }
 
         protected override async void OnAppearing()

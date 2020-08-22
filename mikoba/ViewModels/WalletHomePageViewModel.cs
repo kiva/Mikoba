@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using mikoba.Annotations;
 using mikoba.UI;
+using mikoba.UI.Pages;
 using Sentry;
 using Xamarin.Forms;
 

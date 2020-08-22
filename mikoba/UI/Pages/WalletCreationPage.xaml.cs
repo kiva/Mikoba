@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Xamarin.Essentials;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using Hyperledger.Indy.DidApi;
-using Hyperledger.Indy.WalletApi;
-using Xamarin.Forms;
-using System.IO;
-using Newtonsoft.Json;
-using System.Diagnostics;
-using System.Linq;
 using mikoba.Services;
-using mikoba.UI;
 using mikoba.ViewModels;
 using Sentry;
+using Xamarin.Forms;
 
-namespace mikoba
+namespace mikoba.UI.Pages
 {
     public partial class WalletCreationPage : ContentPage
     {

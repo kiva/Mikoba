@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
              mc:Ignorable="d"
-             x:Class="mikoba.WalletCreationPage"
+             x:Class="mikoba.UI.Pages.WalletCreationPage"
+             NavigationPage.HasNavigationBar="False"
              BackgroundColor="#F9F9F9">
     <Grid>
         <StackLayout

@@ -5,18 +5,19 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using mikoba.Annotations;
 using mikoba.UI;
+using mikoba.UI.Pages;
 using Sentry;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels
 {
-    public class MainPageViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class SplashPageViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
         public INavigation NavigationService { get; private set; }
         public ICommand GetStartedCommand { get; set; }
         public ICommand ClaimWalletCommand { get; set; }
 
-        public MainPageViewModel(INavigation navigationService)
+        public SplashPageViewModel(INavigation navigationService)
         {
             this.NavigationService = navigationService;
             this.GetStartedCommand = new Command(async () =>

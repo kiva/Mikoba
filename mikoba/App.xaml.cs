@@ -1,5 +1,6 @@
 using System;
 using mikoba.UI;
+using mikoba.UI.Pages;
 using Sentry;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

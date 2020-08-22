@@ -85,19 +85,11 @@
       <SubType>Designer</SubType>
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="UI\WalletHomePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator></Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="Images\kiva.svg" />
     <EmbeddedResource Include="Images\orange.svg" />
     <EmbeddedResource Include="Images\pink.svg" />
     <EmbeddedResource Include="Images\wave.svg" />
     <EmbeddedResource Include="Images\dots.svg" />
-    <EmbeddedResource Update="UI\WalletCreationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Remove="UI\CredentialsListView.xaml" />
     <EmbeddedResource Update="UI\CredentialCard.xaml">
       <SubType>Designer</SubType>
@@ -106,10 +98,6 @@
     <EmbeddedResource Update="UI\CredentialListView.xaml">
       <SubType>Designer</SubType>
       <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="UI\SplashPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="UI\MenuOption.xaml">
       <SubType>Designer</SubType>
@@ -120,26 +108,47 @@
     <EmbeddedResource Include="Images\selfie.svg" />
     <EmbeddedResource Include="Images\secure.svg" />
     <EmbeddedResource Include="Images\rightCaret.svg" />
+    <EmbeddedResource Update="UI\Pages\SplashPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Pages\WalletCreationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Pages\WalletHomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Pages\ScanQrCodePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="UI\WalletHomePage.xaml.cs">
-      <DependentUpon>WalletHome.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="UI\WalletCreationPage.xaml.cs">
-      <DependentUpon>WalletCreationPage.xaml</DependentUpon>
-    </Compile>
     <Compile Remove="UI\CredentialsListView.xaml.cs" />
     <Compile Update="UI\CredentialListView.xaml.cs">
       <DependentUpon>CredentialListView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="UI\SplashPage.xaml.cs">
+    <Compile Update="UI\Pages\SplashPage.xaml.cs">
       <DependentUpon>SplashPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\WalletCreationPage.xaml.cs">
+      <DependentUpon>WalletCreationPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\WalletHomePage.xaml.cs">
+      <DependentUpon>WalletHomePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\ScanQrCodePage.xaml.cs">
+      <DependentUpon>ScanQrCodePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\Components" />
-    <Folder Include="UI\Pages" />
     <Compile Update="UI\MenuOption.xaml.cs">
       <DependentUpon>MenuOption.xaml</DependentUpon>
     </Compile>

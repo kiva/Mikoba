@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace mikoba
+namespace mikoba.Models
 {
     public class Credential
     {

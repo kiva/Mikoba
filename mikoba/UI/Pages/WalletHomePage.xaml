@@ -44,7 +44,6 @@
                          Grid.ColumnSpan="2"
                          HorizontalOptions="Center"
                          VerticalOptions="Center">
-                
                 <Label StyleClass="header1" Text="Welcome to your Kiva Wallet, here are a few ways to get started:"></Label>
                 <local:MenuOption
                     LeftSvgImage="{Binding Wave}"
@@ -64,8 +63,8 @@
                 <local:MenuOption
                     LeftSvgImage="{Binding Wave}"
                     RightSvgImage="{Binding LocationPin}"
-                    MenuOptionText="Take a selfie"
-                    Command="{Binding ShowCredentialsCommand}"/>
+                    MenuOptionText="Open Connection"
+                    Command="{Binding OpenConnectionCommand}"/>
                 <Label
                     x:Name="lblInfo"
                     Margin="20"

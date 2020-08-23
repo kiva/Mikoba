@@ -42,7 +42,7 @@ namespace mikoba.ViewModels
             this.OpenConnectionCommand = new Command(async () =>
             {
                 SentrySdk.CaptureEvent(new SentryEvent() {Message = "Open Connection"});
-                await this.NavigationService.PushAsync(new ScanQrCodePage());
+                await this.NavigationService.PushAsync(new QrScanPage());
             });
 
             this.ShowWalletHomePageCommand = new Command(async () =>

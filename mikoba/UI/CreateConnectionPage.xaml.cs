@@ -18,7 +18,7 @@ namespace mikoba.UI
 
         async void OnScanQrCodePageButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ScanQrCodePage());
+            await Navigation.PushAsync(new QrScanPage());
         }
     }
 }

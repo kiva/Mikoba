@@ -18,6 +18,11 @@ namespace mikoba.ViewModels
         {
             get { return "mikoba.Images.wave.svg"; }
         }
+        
+        public string Leaf
+        {
+            get { return "mikoba.Images.leaf.svg"; }
+        }
 
         public string Orange
         {

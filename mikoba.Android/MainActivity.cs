@@ -48,6 +48,7 @@ namespace mikoba.Droid
 
             base.OnCreate(savedInstanceState);
 
+            Xamarin.Forms.Forms.SetFlags("Shapes_Experimental");
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
@@ -69,9 +70,14 @@ namespace mikoba.Droid
         {
             global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult (requestCode, permissions, grantResults);
             if (grantResults.Length == _permissionsToBeGranted.Count)
-                System.Diagnostics.Debug.WriteLine("All permissions required that werent granted, have now been granted");
+            {
+                System.Diagnostics.Debug.WriteLine(
+                    "All permissions required that werent granted, have now been granted");
+            }
             else
+            {
                 System.Diagnostics.Debug.WriteLine("Some permissions requested were denied by the user");
+            }
 
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);

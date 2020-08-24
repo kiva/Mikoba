@@ -108,7 +108,6 @@
     <EmbeddedResource Include="Images\qrcodescan.svg" />
     <EmbeddedResource Include="Images\selfie.svg" />
     <EmbeddedResource Include="Images\secure.svg" />
-<<<<<<< HEAD
     <EmbeddedResource Include="Images\rightCaret.svg" />
     <EmbeddedResource Update="UI\Pages\SplashPage.xaml">
       <SubType>Designer</SubType>

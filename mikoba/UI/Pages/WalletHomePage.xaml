@@ -36,35 +36,61 @@
             BackgroundColor="#F2F2F2"
             HorizontalOptions="End"
             VerticalOptions="End" />
-        <Grid x:Name="gridOptions"
-              StyleClass="content"
-              HorizontalOptions="Fill"
-              VerticalOptions="Fill">
+        <RelativeLayout StyleClass="content">
             <StackLayout Orientation="Vertical"
-                         Grid.ColumnSpan="2"
                          HorizontalOptions="Center"
                          VerticalOptions="Center">
+<<<<<<< HEAD:mikoba/UI/Pages/WalletHomePage.xaml
                 <Label StyleClass="header1" Text="Welcome to your Kiva Wallet, here are a few ways to get started:"></Label>
+=======
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <abstractions:SvgImage
+                        SvgAssembly="{Binding SvgAssembly}"
+                        SvgPath="{Binding KivaLogoBlue}"
+                        HeightRequest="35"
+                        WidthRequest="35"
+                        BackgroundColor="#F2F2F2"
+                        HorizontalOptions="Start" />
+                    <abstractions:SvgImage
+                        SvgAssembly="{Binding SvgAssembly}"
+                        SvgPath="{Binding Gear}"
+                        HeightRequest="35"
+                        WidthRequest="35"
+                        BackgroundColor="#F2F2F2"
+                        HorizontalOptions="EndAndExpand" />
+                </StackLayout>
+                <Label
+                    StyleClass="header1"
+                    Text="Welcome to your Kiva  Wallet, here are a few ways to get started:">
+                </Label>
+>>>>>>> PRO-2264 svg sizing, positioning of assets:mikoba/UI/WalletHomePage.xaml
                 <local:MenuOption
-                    LeftSvgImage="{Binding Wave}"
-                    RightSvgImage="{Binding Wave}"
+                    LeftSvgImage="{Binding LocationPin}"
+                    RightSvgImage="{Binding RightCaret}"
                     MenuOptionText="Recover Wallet Instead"
                     Command="{Binding ShowCredentialsCommand}"/>
                 <local:MenuOption
-                    LeftSvgImage="{Binding Wave}"
-                    RightSvgImage="{Binding Wave}"
+                    LeftSvgImage="{Binding QrCodeScan}"
+                    RightSvgImage="{Binding RightCaret}"
                     MenuOptionText="Receive Credentials"
                     Command="{Binding ShowCredentialsCommand}"/>
                 <local:MenuOption
-                    LeftSvgImage="{Binding Wave}"
-                    RightSvgImage="{Binding Wave}"
+                    LeftSvgImage="{Binding Secure}"
+                    RightSvgImage="{Binding RightCaret}"
                     MenuOptionText="Save and secure your wallet"
                     Command="{Binding ShowCredentialsCommand}"/>
                 <local:MenuOption
+<<<<<<< HEAD:mikoba/UI/Pages/WalletHomePage.xaml
                     LeftSvgImage="{Binding Wave}"
                     RightSvgImage="{Binding LocationPin}"
                     MenuOptionText="Open Connection"
                     Command="{Binding OpenConnectionCommand}"/>
+=======
+                    LeftSvgImage="{Binding Selfie}"
+                    RightSvgImage="{Binding RightCaret}"
+                    MenuOptionText="Take a selfie"
+                    Command="{Binding ShowCredentialsCommand}"/>
+>>>>>>> PRO-2264 svg sizing, positioning of assets:mikoba/UI/WalletHomePage.xaml
                 <Label
                     x:Name="lblInfo"
                     Margin="20"
@@ -76,6 +102,12 @@
                     Text="{Binding WalletCreationText}"
                     FontSize="Medium" />
             </StackLayout>
+<<<<<<< HEAD:mikoba/UI/Pages/WalletHomePage.xaml
         </Grid>
     </Grid>
 </ContentPage>
+=======
+        </RelativeLayout>
+     </Grid>
+</ContentPage>
+>>>>>>> PRO-2264 svg sizing, positioning of assets:mikoba/UI/WalletHomePage.xaml

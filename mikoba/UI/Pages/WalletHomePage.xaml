@@ -60,8 +60,8 @@
                 <Frame Padding="0" BackgroundColor="Transparent" HasShadow="False">
                     <Label
                         StyleClass="header1"
-                        FontFamily="KivaPostGrot-Light"
-                        Text="Welcome to your Kiva Wallet, here are a few ways to get started:">
+                        FontFamily="KivaPostGrot-Medium"
+                        Text="Welcome to your Kiva Wallet,&#10;here are a few ways to get started:">
                     </Label>
                 </Frame>
                 <local:MenuOption

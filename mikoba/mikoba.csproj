@@ -106,8 +106,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Images\locationpin.svg" />
     <EmbeddedResource Include="Images\qrcodescan.svg" />
-    <EmbeddedResource Include="Images\selfie.svg" />
-    <EmbeddedResource Include="Images\secure.svg" />
     <EmbeddedResource Include="Images\rightCaret.svg" />
     <EmbeddedResource Update="UI\Pages\SplashPage.xaml">
       <SubType>Designer</SubType>
@@ -130,6 +128,18 @@
     <EmbeddedResource Include="Images\rightcaret.svg" />
     <EmbeddedResource Include="Images\kivalogoblue.svg" />
     <EmbeddedResource Include="Images\gear.svg" />
+    <EmbeddedResource Include="Resources\Fonts\KivaPostGrot-Bold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\KivaPostGrot-BoldItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\KivaPostGrot-Book.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\KivaPostGrot-BookItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\KivaPostGrot-Light.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\KivaPostGrot-LightItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\KivaPostGrot-Medium.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\KivaPostGrot-MediumItalic.ttf" />
+    <None Remove="Images\secure.svg" />
+    <EmbeddedResource Include="Images\secure.svg" />
+    <None Remove="Images\selfie.svg" />
+    <EmbeddedResource Include="Images\selfie.svg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="UI\CredentialsListView.xaml.cs" />

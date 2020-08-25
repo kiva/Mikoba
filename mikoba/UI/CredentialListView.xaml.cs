@@ -6,12 +6,12 @@ using Xamarin.Forms;
 namespace mikoba.UI
 {
     
-    public partial class CredentialsListView : ContentPage
+    public partial class CredentialListView : ContentPage
     {
-        public CredentialsListView()
+        public CredentialListView()
         {
             InitializeComponent();
-            BindingContext = CredentialsListViewModel.Instance;
+            BindingContext = CredentialListViewModel.Instance;
         }
     }
 }

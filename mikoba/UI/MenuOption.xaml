@@ -7,7 +7,7 @@
     x:Class="mikoba.UI.MenuOption"
 >
     <ContentView.Content>
-        <Frame StyleClass="displayFrame">
+        <Frame StyleClass="displayFrame" HasShadow="False">
             <FlexLayout>
                 <FlexLayout.GestureRecognizers>
                     <TapGestureRecognizer Tapped="ButtonClicked"/>
@@ -19,7 +19,11 @@
                     WidthRequest="30"
                     BackgroundColor="#FFFFFF"
                     HorizontalOptions="Start"/>
-                <Label StyleClass="displayFrameText" x:Name="menuOptionTextLabel"/>
+                <Label
+                    StyleClass="displayFrameText"
+                    x:Name="menuOptionTextLabel"
+                    FontFamily="KivaPostGrot-Bold"
+                    />
                 <abstractions:SvgImage
                     StyleClass="rightCaret"
                     x:Name="rightSvgImage"

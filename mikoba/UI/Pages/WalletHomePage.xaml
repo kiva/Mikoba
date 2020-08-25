@@ -15,8 +15,9 @@
         <abstractions:SvgImage
             SvgAssembly="{Binding SvgAssembly}"
             SvgPath="{Binding Wave}"
-            HeightRequest="235"
-            WidthRequest="180"
+            StyleClass="waveBackground"
+            HeightRequest="360"
+            WidthRequest="640"
             BackgroundColor="#F2F2F2"
             HorizontalOptions="End"
             VerticalOptions="Start" />
@@ -40,13 +41,15 @@
             <StackLayout Orientation="Vertical"
                          HorizontalOptions="Center"
                          VerticalOptions="Center">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                    <abstractions:SvgImage
-                        SvgAssembly="{Binding SvgAssembly}"
-                        SvgPath="{Binding KivaLogoBlue}"
-                        HeightRequest="35"
-                        WidthRequest="35"
-                        HorizontalOptions="Start" />
+                <StackLayout StyleClass="topLogos" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Frame Padding="0" CornerRadius="5" IsClippedToBounds="True" HasShadow="False">
+                        <abstractions:SvgImage
+                            SvgAssembly="{Binding SvgAssembly}"
+                            SvgPath="{Binding KivaLogoBlue}"
+                            HeightRequest="35"
+                            WidthRequest="35"
+                            HorizontalOptions="Start" />
+                    </Frame>
                     <abstractions:SvgImage
                         SvgAssembly="{Binding SvgAssembly}"
                         SvgPath="{Binding Gear}"
@@ -54,11 +57,13 @@
                         WidthRequest="35"
                         HorizontalOptions="EndAndExpand" />
                 </StackLayout>
-                <Label
-                    StyleClass="header1"
-                    Text="Welcome to your Kiva  Wallet, here are a few ways to get started:">
-                </Label>
-
+                <Frame Padding="0" BackgroundColor="Transparent" HasShadow="False">
+                    <Label
+                        StyleClass="header1"
+                        FontFamily="KivaPostGrot-Medium"
+                        Text="Welcome to your Kiva Wallet,&#10;here are a few ways to get started:">
+                    </Label>
+                </Frame>
                 <local:MenuOption
                     LeftSvgImage="{Binding LocationPin}"
                     RightSvgImage="{Binding RightCaret}"
@@ -79,17 +84,6 @@
                     RightSvgImage="{Binding RightCaret}"
                     MenuOptionText="Take a selfie"
                     Command="{Binding ShowCredentialsCommand}"/>
-
-                <Label
-                    x:Name="lblInfo"
-                    Margin="20"
-                    VerticalTextAlignment="Center"
-                    HorizontalTextAlignment="Center"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    TextColor="Gray"
-                    Text="{Binding WalletCreationText}"
-                    FontSize="Medium" />
             </StackLayout>
         </RelativeLayout>
      </Grid>

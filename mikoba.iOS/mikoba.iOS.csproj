@@ -76,6 +76,8 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Resources\gear.svg" />
+    <None Include="Resources\kivalogoblue.svg" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -146,17 +148,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\bsl.jpeg" />
-    <BundleResource Include="Resources\dots.svg" />
-    <BundleResource Include="Resources\kiva.png" />
-    <BundleResource Include="Resources\kiva.svg" />
-    <BundleResource Include="Resources\mikoba.png" />
-    <BundleResource Include="Resources\ncra.png" />
-    <BundleResource Include="Resources\orange.svg" />
-    <BundleResource Include="Resources\pink.svg" />
-    <BundleResource Include="Resources\wave.svg" />
-  </ItemGroup>
-  <ItemGroup>
        <NativeReference Include="..\libs\ios\libcrypto.a">
       <Kind>Static</Kind>
       <SmartLink>False</SmartLink>
@@ -180,10 +171,15 @@
     </NativeReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\locationpin.svg" />
-    <BundleResource Include="Resources\qrCodeScan.svg" />
-    <BundleResource Include="Resources\rightCaret.svg" />
-    <BundleResource Include="Resources\secure.svg" />
-    <BundleResource Include="Resources\selfie.svg" />
+    <EmbeddedResource Include="Resources\dots.svg" />
+    <EmbeddedResource Include="Resources\kiva.svg" />
+    <EmbeddedResource Include="Resources\locationpin.svg" />
+    <EmbeddedResource Include="Resources\orange.svg" />
+    <EmbeddedResource Include="Resources\pink.svg" />
+    <EmbeddedResource Include="Resources\qrcodescan.svg" />
+    <EmbeddedResource Include="Resources\rightcaret.svg" />
+    <EmbeddedResource Include="Resources\secure.svg" />
+    <EmbeddedResource Include="Resources\selfie.svg" />
+    <EmbeddedResource Include="Resources\wave.svg" />
   </ItemGroup>
 </Project>

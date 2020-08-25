@@ -46,12 +46,12 @@ namespace mikoba.ViewModels
         
         public string QrCodeScan
         {
-            get { return "mikoba.Images.qrCodeScan.svg"; }
+            get { return "mikoba.Images.qrcodescan.svg"; }
         }
         
         public string RightCaret
         {
-            get { return "mikoba.Images.rightCaret.svg"; }
+            get { return "mikoba.Images.rightcaret.svg"; }
         }
         
         public string Secure
@@ -62,6 +62,16 @@ namespace mikoba.ViewModels
         public string Selfie
         {
             get { return "mikoba.Images.selfie.svg"; }
+        }
+        
+        public string KivaLogoBlue
+        {
+            get { return "mikoba.Images.kivalogoblue.svg"; }
+        }
+        
+        public string Gear
+        {
+            get { return "mikoba.Images.gear.svg"; }
         }
     }
 }

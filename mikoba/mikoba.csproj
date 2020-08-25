@@ -105,7 +105,7 @@
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Images\locationpin.svg" />
-    <EmbeddedResource Include="Images\qrCodeScan.svg" />
+    <EmbeddedResource Include="Images\qrcodescan.svg" />
     <EmbeddedResource Include="Images\selfie.svg" />
     <EmbeddedResource Include="Images\secure.svg" />
     <EmbeddedResource Include="Images\rightCaret.svg" />
@@ -127,6 +127,9 @@
     </EmbeddedResource>
     <None Remove="Images\leaf.svg" />
     <EmbeddedResource Include="Images\leaf.svg" />
+    <EmbeddedResource Include="Images\rightcaret.svg" />
+    <EmbeddedResource Include="Images\kivalogoblue.svg" />
+    <EmbeddedResource Include="Images\gear.svg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="UI\CredentialsListView.xaml.cs" />

@@ -18,16 +18,15 @@
                     HeightRequest="30"
                     WidthRequest="30"
                     BackgroundColor="#FFFFFF"
-                    HorizontalOptions="Start"
-                    VerticalOptions="Center" />
-                <Label StyleClass="displayFrameText" HorizontalOptions="Center" x:Name="menuOptionTextLabel"/>
+                    HorizontalOptions="Start"/>
+                <Label StyleClass="displayFrameText" x:Name="menuOptionTextLabel"/>
                 <abstractions:SvgImage
+                    StyleClass="rightCaret"
                     x:Name="rightSvgImage"
                     SvgAssembly="{Binding SvgAssembly}"
-                    HeightRequest="30"
-                    WidthRequest="30"
+                    HeightRequest="12"
+                    WidthRequest="8"
                     BackgroundColor="#FFFFFF"
-                    VerticalOptions="Center"
                     HorizontalOptions="EndAndExpand"/>
             </FlexLayout>
         </Frame>

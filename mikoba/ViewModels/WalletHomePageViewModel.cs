@@ -53,7 +53,7 @@ namespace mikoba.ViewModels
             
             this.ShowCredentialsCommand = new Command(async () =>
             {
-                await NavigationService.PushAsync(new CredentialsListView());
+                await NavigationService.PushAsync(new CredentialListView());
             });
             
             this.DestroyWalletCommand = new Command(async () =>

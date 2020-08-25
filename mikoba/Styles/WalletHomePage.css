@@ -3,6 +3,7 @@
     border-radius: 12;
     border-color: transparent;
     margin-bottom: 10;
+    box-shadow: none;
 }
 
 .displayFrameText {
@@ -11,7 +12,7 @@
     color: #000000;
     width: 250;
     margin-left: 30;
-    margin-top: 2;
+    margin-top: 4;
 }
 
 .rightCaret {
@@ -30,4 +31,13 @@
     margin-left: 25;
     margin-right: 25;
     margin-top: 10;
+}
+
+.waveBackground {
+    margin-top: -70;
+    margin-right: -150;
+}
+
+.topLogos {
+    margin-top: 35;
 }

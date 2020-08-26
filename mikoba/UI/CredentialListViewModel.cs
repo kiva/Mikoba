@@ -26,15 +26,16 @@ namespace mikoba.UI
         public CredentialListViewModel()
         {
             Credentials = new ObservableCollection<CredentialModel>();
-            AddCredential = new Command(() =>
+            LoadDefaultCredentials();
+        }
+
+        public void LoadDefaultCredentials()
+        {
+            Credentials.Add(new CredentialModel
             {
-                Credentials.Add(new CredentialModel
-                {
-                    Issued = "Hello World",
-                    Organization = "Org",
-                    MemberId = "543245",
-                    ImageUrl = "ncra.png"
-                });
+                Organization = "Org",
+                MemberId = "543245",
+                LogoName = "mikoba.Images.wave.svg"
             });
         }
         public event PropertyChangedEventHandler PropertyChanged;

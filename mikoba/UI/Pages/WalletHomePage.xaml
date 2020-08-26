@@ -84,6 +84,11 @@
                     RightSvgImage="{Binding RightCaret}"
                     MenuOptionText="Take a selfie"
                     Command="{Binding ShowCredentialsCommand}"/>
+                <local:MenuOption
+                    LeftSvgImage="{Binding Selfie}"
+                    RightSvgImage="{Binding RightCaret}"
+                    MenuOptionText="View credentials"
+                    Command="{Binding ShowCredentialsCommand}"/>
             </StackLayout>
         </RelativeLayout>
      </Grid>

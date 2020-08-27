@@ -1,6 +1,8 @@
+using mikoba.ViewModels;
+
 namespace mikoba.UI
 {
-    public class CredentialModel
+    public class CredentialModel : KivaBaseViewModel
     {
         private string _organization;
         private string _memberId;

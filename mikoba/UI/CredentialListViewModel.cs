@@ -1,10 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using mikoba.ViewModels;
 using Xamarin.Forms;
 
 namespace mikoba.UI
 {
-    public class CredentialListViewModel : INotifyPropertyChanged
+    public class CredentialListViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
         public ObservableCollection<CredentialModel> Credentials { get; set; }
         

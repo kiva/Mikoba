@@ -2,16 +2,10 @@ namespace mikoba.UI
 {
     public class CredentialModel
     {
-        private string _issued;
         private string _organization;
         private string _memberId;
-        private string _imageUrl;
-
-        public string Issued
-        {
-            get { return _issued; }
-            set { _issued = value; }
-        }
+        private string _logo;
+        
         
         public string Organization
         {
@@ -25,10 +19,10 @@ namespace mikoba.UI
             set { _memberId = value; }
         }
 
-        public string ImageUrl
+        public string LogoName
         {
-            get { return _imageUrl; }
-            set { _imageUrl = value; }
+            get { return _logo; }
+            set { _logo = value; }
         }
     }
 }

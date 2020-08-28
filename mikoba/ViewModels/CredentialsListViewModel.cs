@@ -1,42 +1,44 @@
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using mikoba.Annotations;
-using mikoba.Models;
+using mikoba.ViewModels;
 using Xamarin.Forms;
 
-namespace mikoba.ViewModels
+namespace mikoba.UI.ViewModels
 {
-    public class CredentialsListViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class WalletPageViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
-        public Command AddCredentialCommand { get; set; }
-        public ObservableCollection<Credential> Credentials { get; set; }
+        public ObservableCollection<CredentialModel> Credentials { get; set; }
+        
+        public Command AddCredential { get; private set; }
 
-        public static CredentialsListViewModel Instance { get; }
-
-        static CredentialsListViewModel()
+        private static WalletPageViewModel m_instance;
+        public static WalletPageViewModel Instance
         {
-            Instance = new CredentialsListViewModel();
-            Console.WriteLine(Instance.Credentials);
-        }
-        public CredentialsListViewModel()
-        {
-            Credentials = new ObservableCollection<Credential>();
-        }
-
-        public void AddCredential(Credential info)
-        {
-            Credentials.Add(info);
-            OnPropertyChanged("Credentials");
+            get
+            {
+                if (m_instance == null)
+                {
+                    m_instance = new WalletPageViewModel();
+                }
+                return m_instance;
+            }
         }
         
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public WalletPageViewModel()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Credentials = new ObservableCollection<CredentialModel>();
+            LoadDefaultCredentials();
         }
+
+        public void LoadDefaultCredentials()
+        {
+            Credentials.Add(new CredentialModel
+            {
+                Organization = "First Bank of Sierra Leone",
+                MemberId = "GOVERNMENT",
+                LogoName = "mikoba.Images.government.svg"
+            });
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

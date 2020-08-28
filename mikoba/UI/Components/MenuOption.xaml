@@ -22,7 +22,7 @@
                 <Label
                     StyleClass="displayFrameText"
                     x:Name="menuOptionTextLabel"
-                    FontFamily="KivaPostGrot-Bold"
+                    FontFamily="KivaPostGrot-Medium"
                     />
                 <abstractions:SvgImage
                     StyleClass="rightCaret"

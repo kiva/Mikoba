@@ -145,6 +145,8 @@
       <SubType>Designer</SubType>
       <Generator></Generator>
     </EmbeddedResource>
+    <None Remove="Images\bsl.svg" />
+    <EmbeddedResource Include="Images\bsl.svg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="UI\CredentialsListView.xaml.cs" />

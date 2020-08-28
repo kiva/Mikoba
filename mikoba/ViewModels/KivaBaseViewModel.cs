@@ -43,6 +43,11 @@ namespace mikoba.ViewModels
             get { return "mikoba.Images.wave.svg"; }
         }
         
+        public string Bsl
+        {
+            get { return "mikoba.Images.bsl.svg"; }
+        }
+        
         public string Leaf
         {
             get { return "mikoba.Images.leaf.svg"; }

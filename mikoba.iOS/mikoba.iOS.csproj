@@ -182,4 +182,7 @@
     <EmbeddedResource Include="Resources\selfie.svg" />
     <EmbeddedResource Include="Resources\wave.svg" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bsl.svg" />
+  </ItemGroup>
 </Project>

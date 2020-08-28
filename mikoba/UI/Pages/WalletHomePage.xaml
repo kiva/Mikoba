@@ -61,7 +61,7 @@
                 <Frame Padding="0" BackgroundColor="Transparent" HasShadow="False">
                     <Label
                         StyleClass="header1"
-                        FontFamily="KivaPostGrot-Medium"
+                        FontFamily="KivaPostGrot-Light"
                         Text="Welcome to your Kiva Wallet,&#10;here are a few ways to get started:">
                     </Label>
                 </Frame>
@@ -84,7 +84,7 @@
                     LeftSvgImage="{Binding Selfie}"
                     RightSvgImage="{Binding RightCaret}"
                     MenuOptionText="Take a selfie"
-                    Command="{Binding ShowCredentialsCommand}"/>
+                    Command="{Binding DestroyWalletCommand}"/>
             </StackLayout>
         </RelativeLayout>
      </Grid>

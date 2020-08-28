@@ -74,6 +74,7 @@
     <None Include="Resources\drawable\kivalogoblue.svg" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bsl.svg" />
     <AndroidResource Include="Resources\layout\Tabbar.xml" />
     <AndroidResource Include="Resources\layout\Toolbar.xml" />
     <AndroidResource Include="Resources\values\styles.xml" />

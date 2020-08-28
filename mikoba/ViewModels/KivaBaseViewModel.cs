@@ -1,9 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using mikoba.Annotations;
+using mikoba.UI;
+using mikoba.UI.Pages;
+using Sentry;
+using Xamarin.Forms;
+
 
 namespace mikoba.ViewModels
 {
     public class KivaBaseViewModel
     {
+        public ICommand DestroyWalletCommand { get; set; }
+
+        public KivaBaseViewModel()
+        {
+            this.DestroyWalletCommand = new Command(async () =>
+            {
+                Application.Current.Properties.Clear();
+                await Application.Current.SavePropertiesAsync();
+                System.Diagnostics.Process.GetCurrentProcess().Kill();
+            });
+        }
+        
         public Assembly SvgAssembly
         {
             get { return typeof(App).GetTypeInfo().Assembly; }

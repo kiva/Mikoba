@@ -19,9 +19,7 @@ namespace mikoba.ViewModels
         public ICommand OpenConnectionCommand { get; set; }
         public ICommand ShowWalletHomePageCommand { get; set; }
         public ICommand ShowCredentialsCommand { get; set; }
-        
-        public ICommand DestroyWalletCommand { get; set; }
-        
+
         public string WalletCreationText { get; set; }
 
         public static WalletHomePageViewModel Instance
@@ -53,7 +51,7 @@ namespace mikoba.ViewModels
             
             this.ShowCredentialsCommand = new Command(async () =>
             {
-                await NavigationService.PushAsync(new CredentialListView());
+                await NavigationService.PushAsync(new WalletPage());
             });
             
             this.DestroyWalletCommand = new Command(async () =>

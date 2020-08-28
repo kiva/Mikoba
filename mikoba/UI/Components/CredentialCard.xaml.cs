@@ -1,7 +1,7 @@
 using Xamarin.Forms;
 using SVG.Forms.Plugin.Abstractions;
 
-namespace mikoba.UI
+namespace mikoba.UI.Components
 {
     public partial class CredentialCard : ContentView
     {

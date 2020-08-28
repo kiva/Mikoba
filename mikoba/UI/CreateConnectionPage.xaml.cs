@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using mikoba.UI.Pages;
+using mikoba.UI.ViewModels;
 using Xamarin.Forms;
 
 namespace mikoba.UI

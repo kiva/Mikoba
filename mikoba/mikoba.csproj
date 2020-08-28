@@ -86,24 +86,13 @@
       <SubType>Designer</SubType>
       <Generator></Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Images\government.svg" />
     <EmbeddedResource Include="Images\kiva.svg" />
     <EmbeddedResource Include="Images\orange.svg" />
     <EmbeddedResource Include="Images\pink.svg" />
     <EmbeddedResource Include="Images\wave.svg" />
     <EmbeddedResource Include="Images\dots.svg" />
     <EmbeddedResource Remove="UI\CredentialsListView.xaml" />
-    <EmbeddedResource Update="UI\CredentialCard.xaml">
-      <SubType>Designer</SubType>
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="UI\CredentialListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="UI\MenuOption.xaml">
-      <SubType>Designer</SubType>
-      <Generator></Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="Images\locationpin.svg" />
     <EmbeddedResource Include="Images\qrcodescan.svg" />
     <EmbeddedResource Include="Images\rightCaret.svg" />
@@ -140,12 +129,25 @@
     <EmbeddedResource Include="Images\secure.svg" />
     <None Remove="Images\selfie.svg" />
     <EmbeddedResource Include="Images\selfie.svg" />
+    <None Remove="Images\background1.svg" />
+    <EmbeddedResource Include="Images\background1.svg" />
+    <EmbeddedResource Update="UI\Components\MenuOption.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Components\CredentialCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <None Remove="Images\background2.svg" />
+    <EmbeddedResource Include="Images\background2.svg" />
+    <EmbeddedResource Update="UI\Pages\WalletPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="UI\CredentialsListView.xaml.cs" />
-    <Compile Update="UI\CredentialListView.xaml.cs">
-      <DependentUpon>CredentialListView.xaml</DependentUpon>
-    </Compile>
     <Compile Update="UI\Pages\SplashPage.xaml.cs">
       <DependentUpon>SplashPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -161,11 +163,17 @@
     <Compile Update="UI\Pages\QrScanPage.xaml.cs">
       <DependentUpon>QrScanPage.xaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\Components" />
-    <Compile Update="UI\MenuOption.xaml.cs">
+    <Compile Update="UI\Components\MenuOption.xaml.cs">
       <DependentUpon>MenuOption.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Components\CredentialCard.xaml.cs">
+      <DependentUpon>CredentialCard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\WalletPage.xaml.cs">
+      <DependentUpon>CredentialListView.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 </Project>

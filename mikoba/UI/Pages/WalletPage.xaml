@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
-             xmlns:local="clr-namespace:mikoba.UI"
-             xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
-             x:Class="mikoba.UI.Pages.WalletHomePage"
-             NavigationPage.HasNavigationBar="False"
-             BackgroundColor="#F2F2F2">
+<ContentPage
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:mikoba.UI"
+    xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
+    xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
+    NavigationPage.HasNavigationBar="False"
+    x:Class="mikoba.UI.Pages.WalletPage"
+    BackgroundColor="#F2F2F2">
     <ContentPage.Resources>
         <StyleSheet Source="../../Styles/WalletHomePage.css"></StyleSheet>
     </ContentPage.Resources>
-     <Grid HorizontalOptions="Fill"
+    <Grid HorizontalOptions="Fill"
           VerticalOptions="Fill">
         <abstractions:SvgImage
             SvgAssembly="{Binding SvgAssembly}"
@@ -58,36 +61,27 @@
                         WidthRequest="35"
                         HorizontalOptions="EndAndExpand" />
                 </StackLayout>
-                <Frame Padding="0" BackgroundColor="Transparent" HasShadow="False">
-                    <Label
-                        StyleClass="header1"
-                        FontFamily="KivaPostGrot-Medium"
-                        Text="Welcome to your Kiva Wallet,&#10;here are a few ways to get started:">
-                    </Label>
-                </Frame>
                 <components:MenuOption
-                    LeftSvgImage="{Binding LocationPin}"
-                    RightSvgImage="{Binding RightCaret}"
-                    MenuOptionText="Recover Wallet Instead"
-                    Command="{Binding ShowCredentialsCommand}"/>
-                <components:MenuOption
-                    LeftSvgImage="{Binding QrCodeScan}"
-                    RightSvgImage="{Binding RightCaret}"
-                    MenuOptionText="Receive Credentials"
-                    Command="{Binding OpenConnectionCommand}"/>
-                <components:MenuOption
+                    Margin="0,20,0,0"
                     LeftSvgImage="{Binding Secure}"
                     RightSvgImage="{Binding RightCaret}"
                     MenuOptionText="Save and secure your wallet"
                     Command="{Binding ShowCredentialsCommand}"/>
-                <components:MenuOption
-                    LeftSvgImage="{Binding Selfie}"
-                    RightSvgImage="{Binding RightCaret}"
-                    MenuOptionText="Take a selfie"
-                    Command="{Binding ShowCredentialsCommand}"/>
+                <ScrollView Margin="0,10,0,0">
+                    <StackLayout Padding="0">
+                        <CollectionView ItemsSource="{Binding Credentials}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <components:CredentialCard
+                                        OrganizationText="{Binding Organization}"
+                                        MemberIdText="{Binding MemberId}"
+                                        Logo="{Binding LogoName}" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </ScrollView>
             </StackLayout>
         </RelativeLayout>
      </Grid>
 </ContentPage>
-
-

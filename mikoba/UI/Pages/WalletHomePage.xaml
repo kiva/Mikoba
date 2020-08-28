@@ -69,7 +69,7 @@
                     LeftSvgImage="{Binding LocationPin}"
                     RightSvgImage="{Binding RightCaret}"
                     MenuOptionText="Recover Wallet Instead"
-                    Command="{Binding ShowCredentialsCommand}"/>
+                    Command="{Binding OpenConnectionCommand}"/>
                 <components:MenuOption
                     LeftSvgImage="{Binding QrCodeScan}"
                     RightSvgImage="{Binding RightCaret}"
@@ -78,13 +78,11 @@
                 <components:MenuOption
                     LeftSvgImage="{Binding Secure}"
                     RightSvgImage="{Binding RightCaret}"
-                    MenuOptionText="Save and secure your wallet"
-                    Command="{Binding ShowCredentialsCommand}"/>
+                    MenuOptionText="Save and secure your wallet" />
                 <components:MenuOption
                     LeftSvgImage="{Binding Selfie}"
                     RightSvgImage="{Binding RightCaret}"
-                    MenuOptionText="Take a selfie"
-                    Command="{Binding ShowCredentialsCommand}"/>
+                    MenuOptionText="Take a selfie" />
             </StackLayout>
         </RelativeLayout>
      </Grid>

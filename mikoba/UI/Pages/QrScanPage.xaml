@@ -20,6 +20,7 @@
                 x:Name="ScannerView"
                 WidthRequest="200"
                 HeightRequest="200"
+                
                 OnScanResult="ScannerView_OnOnScanResult" />
 
             <Grid x:Name="Skin"

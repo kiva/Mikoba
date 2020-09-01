@@ -88,9 +88,19 @@ namespace mikoba.ViewModels
             get { return "mikoba.Images.rightcaret.svg"; }
         }
         
+        public string RightCaretYellow
+        {
+            get { return "mikoba.Images.rightcaretyellow.svg"; }
+        }
+        
         public string Secure
         {
             get { return "mikoba.Images.secure.svg"; }
+        }
+        
+        public string Clock
+        {
+            get { return "mikoba.Images.clock.svg"; }
         }
         
         public string Selfie

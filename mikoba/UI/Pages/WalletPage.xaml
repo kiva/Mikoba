@@ -60,14 +60,19 @@
                         WidthRequest="35"
                         HorizontalOptions="EndAndExpand" />
                 </StackLayout>
-                <components:MenuOption
-                    Margin="0,20,0,0"
-                    LeftSvgImage="{Binding Secure}"
-                    RightSvgImage="{Binding RightCaret}"
-                    MenuOptionText="Save and secure your wallet"
-                    Command="{Binding ShowCredentialsCommand}"/>
                 <ScrollView>
                     <StackLayout Padding="0">
+                        <components:MenuOption
+                            Margin="0,20,0,0"
+                            LeftSvgImage="{Binding Secure}"
+                            RightSvgImage="{Binding RightCaret}"
+                            MenuOptionText="Save and secure your wallet"
+                            Command="{Binding ShowCredentialsCommand}"/>
+                        <components:MenuOption
+                            LeftSvgImage="{Binding Clock}"
+                            RightSvgImage="{Binding RightCaretYellow}"
+                            MenuOptionText="1 offer"
+                            Command="{Binding ShowCredentialOfferCommand}"/>
                         <CollectionView ItemsSource="{Binding Credentials}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>

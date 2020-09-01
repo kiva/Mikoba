@@ -20,6 +20,7 @@
                 x:Name="ScannerView"
                 WidthRequest="200"
                 HeightRequest="200"
+                
                 OnScanResult="ScannerView_OnOnScanResult" />
 
             <Grid x:Name="Skin"
@@ -35,15 +36,7 @@
                 VerticalTextAlignment="Center">
             </Label>
             
-
-            <abstractions:SvgImage
-                Grid.RowSpan="3"
-                Margin="100,400,0,0"
-                SvgAssembly="{Binding SvgAssembly}"
-                SvgPath="{Binding Leaf}"
-                WidthRequest="200"
-                HorizontalOptions="Center"
-                VerticalOptions="Center" />
+            
             <Grid 
                 HorizontalOptions="FillAndExpand" 
                 VerticalOptions="FillAndExpand" 

@@ -34,9 +34,21 @@ namespace mikoba.UI
         {
             Credentials.Add(new CredentialModel
             {
-                Organization = "Org",
-                MemberId = "543245",
-                LogoName = "mikoba.Images.wave.svg"
+                Organization = "GOVERNMENT",
+                MemberId = "First Bank",
+                LogoName = "mikoba.Images.kiva.svg"
+            });
+            Credentials.Add(new CredentialModel
+            {
+                Organization = "GOVERNMENT",
+                MemberId = "Second Bank",
+                LogoName = "mikoba.Images.kiva.svg"
+            });
+            Credentials.Add(new CredentialModel
+            {
+                Organization = "GOVERNMENT",
+                MemberId = "Third Bank",
+                LogoName = "mikoba.Images.kiva.svg"
             });
         }
         public event PropertyChangedEventHandler PropertyChanged;

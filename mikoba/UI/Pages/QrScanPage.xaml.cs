@@ -48,17 +48,17 @@ namespace mikoba.UI.Pages
             float size = 600;
             float posX = (info.Width - size) / 2;
             float posY = (info.Height - size) / 2;
-            
+
             using (SKPath path = new SKPath())
             {
                 var fillRect = SKRect.Create(info.Width, info.Height);
                 var codeRect = SKRect.Create(posX, posY, size, size);
                 var roundRect = new SKRoundRect(codeRect, 20);
-                canvas.ClipRoundRect(roundRect,SKClipOperation.Difference,true);
-                
+                canvas.ClipRoundRect(roundRect, SKClipOperation.Difference, true);
+
                 SKColor maskColor;
                 SKColor.TryParse("003AB6", out maskColor);
-                
+
                 using (SKPaint paint = new SKPaint())
                 {
                     paint.Style = SKPaintStyle.Fill;
@@ -80,13 +80,27 @@ namespace mikoba.UI.Pages
             Device.BeginInvokeOnMainThread(async () =>
             {
                 ScannerView.IsAnalyzing = false;
-                this.MyLabel.Text = result.Text;
+                Application.Current.Properties["WalletInitialized"] = true;
+                await Application.Current.SavePropertiesAsync();
+                var page = Navigation.NavigationStack.Last();
+                await Navigation.PushAsync(new WalletPage());
+                Navigation.RemovePage(page);
             });
         }
+        
 
         private void Button_OnClicked(object sender, EventArgs e)
         {
-            this.Navigation.PopAsync();
+            //If not invoking on the UI thread the App crashes
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                ScannerView.IsAnalyzing = false;
+                Application.Current.Properties["WalletInitialized"] = true;
+                await Application.Current.SavePropertiesAsync();
+                var page = Navigation.NavigationStack.Last();
+                await Navigation.PushAsync(new WalletPage());
+                Navigation.RemovePage(page);
+            });
         }
     }
 }

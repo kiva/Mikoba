@@ -3,7 +3,7 @@ using Xamarin.Forms.Xaml;
 using System.Windows.Input;
 using SVG.Forms.Plugin.Abstractions;
 
-namespace mikoba.UI
+namespace mikoba.UI.Components
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuOption : ContentView

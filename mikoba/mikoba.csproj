@@ -147,6 +147,12 @@
     </EmbeddedResource>
     <None Remove="Images\bsl.svg" />
     <EmbeddedResource Include="Images\bsl.svg" />
+    <EmbeddedResource Update="UI\Components\ActionButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <None Remove="Images\qrcodescan2.svg" />
+    <EmbeddedResource Include="Images\qrcodescan2.svg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="UI\CredentialsListView.xaml.cs" />
@@ -175,6 +181,10 @@
     </Compile>
     <Compile Update="UI\Pages\WalletPage.xaml.cs">
       <DependentUpon>CredentialListView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Components\ActionButton.xaml.cs">
+      <DependentUpon>ActionButton.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

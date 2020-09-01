@@ -1,30 +1,33 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using mikoba.ViewModels;
 using Xamarin.Forms;
+using System.Windows.Input;
 
-namespace mikoba.UI
+namespace mikoba.UI.ViewModels
 {
-    public class CredentialListViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class WalletPageViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
         public ObservableCollection<CredentialModel> Credentials { get; set; }
         
+        public ICommand ShowCredentialsCommand { get; set; }
+
         public Command AddCredential { get; private set; }
 
-        private static CredentialListViewModel m_instance;
-        public static CredentialListViewModel Instance
+        private static WalletPageViewModel m_instance;
+        public static WalletPageViewModel Instance
         {
             get
             {
                 if (m_instance == null)
                 {
-                    m_instance = new CredentialListViewModel();
+                    m_instance = new WalletPageViewModel();
                 }
                 return m_instance;
             }
         }
         
-        public CredentialListViewModel()
+        public WalletPageViewModel()
         {
             Credentials = new ObservableCollection<CredentialModel>();
             LoadDefaultCredentials();

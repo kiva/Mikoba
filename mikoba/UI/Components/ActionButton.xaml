@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView 
+    xmlns:local="clr-namespace:mikoba"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
+    x:Class="mikoba.UI.Components.ActionButton"
+>
+    <ContentView.Resources>
+        <StyleSheet Source="../../Styles/ActionButton.css"></StyleSheet>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Frame
+            StyleClass="actionButton"
+            HorizontalOptions="Center"
+            WidthRequest="140"
+            HeightRequest="45"
+            HasShadow="False">
+            <FlexLayout>
+                <FlexLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ButtonClicked"/>
+                </FlexLayout.GestureRecognizers>
+                <abstractions:SvgImage
+                    x:Name="actionButtonSvg"
+                    HorizontalOptions="Start"
+                    SvgAssembly="{Binding SvgAssembly}"
+                    HeightRequest="30"
+                    WidthRequest="30"/>
+                <Label
+                    StyleClass="actionButtonText"
+                    x:Name="ActionButtonTextLabel"
+                    FontFamily="KivaPostGrot-Medium"
+                    FontSize="13"
+                />
+            </FlexLayout>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

@@ -6,7 +6,6 @@ using Xamarin.Forms;
 
 namespace mikoba.UI.Pages
 {
-    
     public partial class WalletPage : ContentPage
     {
         public WalletPage()

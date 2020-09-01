@@ -78,6 +78,11 @@ namespace mikoba.ViewModels
             get { return "mikoba.Images.qrcodescan.svg"; }
         }
         
+        public string QrCodeScan2
+        {
+            get { return "mikoba.Images.qrcodescan2.svg"; }
+        }
+        
         public string RightCaret
         {
             get { return "mikoba.Images.rightcaret.svg"; }

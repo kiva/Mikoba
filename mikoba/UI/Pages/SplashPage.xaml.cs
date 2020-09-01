@@ -25,8 +25,7 @@ namespace mikoba.UI.Pages
             if (Application.Current.Properties.ContainsKey("WalletCreationDate"))
             {
                 var page = Navigation.NavigationStack.Last();
-                // await Navigation.PushAsync(new WalletHomePage());
-                await Navigation.PushAsync(new WalletPage());
+                await Navigation.PushAsync(new WalletHomePage());
                 Navigation.RemovePage(page);
             }
             else

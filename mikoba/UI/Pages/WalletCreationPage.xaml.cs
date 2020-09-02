@@ -9,8 +9,6 @@ namespace mikoba.UI.Pages
 {
     public partial class WalletCreationPage : ContentPage
     {
-        
-
         public WalletCreationPage()
         {
             InitializeComponent();

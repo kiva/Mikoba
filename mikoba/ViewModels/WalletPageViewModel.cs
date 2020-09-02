@@ -12,16 +12,18 @@ namespace mikoba.UI.ViewModels
         public INavigation NavigationService { get; private set; }
         public ObservableCollection<CredentialModel> Credentials { get; set; }
         public ObservableCollection<WalletActionModel> WalletActions { get; set; }
-        
+
         public ICommand ScanCodeCommand { get; set; }
 
         public Command SettingsCommand { get; private set; }
 
         private static WalletPageViewModel m_instance;
+
         public WalletPageViewModel(INavigation navigationService)
         {
             this.NavigationService = navigationService;
         }
+
         public static WalletPageViewModel Instance
         {
             get
@@ -30,20 +32,15 @@ namespace mikoba.UI.ViewModels
                 {
                     m_instance = new WalletPageViewModel();
                 }
+
                 return m_instance;
             }
         }
-        
+
         public WalletPageViewModel()
         {
-            this.SettingsCommand = new Command(async () =>
-            {
-                await NavigationService.PushAsync(new SettingsPage());
-            });           
-            this.ScanCodeCommand = new Command(async () =>
-            {
-                await NavigationService.PushAsync(new QrScanPage());
-            });
+            this.SettingsCommand = new Command(async () => { await NavigationService.PushAsync(new SettingsPage()); });
+            this.ScanCodeCommand = new Command(async () => { await NavigationService.PushAsync(new QrScanPage()); });
             Credentials = new ObservableCollection<CredentialModel>();
             WalletActions = new ObservableCollection<WalletActionModel>();
             LoadDefaultCredentials();
@@ -65,7 +62,7 @@ namespace mikoba.UI.ViewModels
                 LeftIcon = this.Clock,
             });
         }
-        
+
         private void LoadDefaultCredentials()
         {
             Credentials.Add(new CredentialModel
@@ -86,7 +83,26 @@ namespace mikoba.UI.ViewModels
                 MemberId = "Third Bank",
                 LogoName = "mikoba.Images.kiva.svg"
             });
+            Credentials.Add(new CredentialModel
+            {
+                Organization = "GOVERNMENT",
+                MemberId = "Third Bank",
+                LogoName = "mikoba.Images.kiva.svg"
+            });
+            Credentials.Add(new CredentialModel
+            {
+                Organization = "GOVERNMENT",
+                MemberId = "Third Bank",
+                LogoName = "mikoba.Images.kiva.svg"
+            });
+            Credentials.Add(new CredentialModel
+            {
+                Organization = "GOVERNMENT",
+                MemberId = "Third Bank",
+                LogoName = "mikoba.Images.kiva.svg"
+            });
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -41,7 +41,7 @@ namespace mikoba.UI.Pages
             await Task.Delay(1000);
             
             var page = Navigation.NavigationStack.Last();
-            await Navigation.PushAsync(new WalletHomePage());
+            await Navigation.PushAsync(new WalletFirstActionsPage());
             Navigation.RemovePage(page);
         }
     }

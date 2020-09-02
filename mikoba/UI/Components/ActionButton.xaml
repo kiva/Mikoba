@@ -15,24 +15,35 @@
             HorizontalOptions="Center"
             WidthRequest="140"
             HeightRequest="45"
+            Padding="20,5"
             HasShadow="False">
-            <FlexLayout>
-                <FlexLayout.GestureRecognizers>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.GestureRecognizers>
                     <TapGestureRecognizer Tapped="ButtonClicked"/>
-                </FlexLayout.GestureRecognizers>
+                </Grid.GestureRecognizers>
                 <abstractions:SvgImage
+                    Grid.Column="0"
                     x:Name="actionButtonSvg"
-                    HorizontalOptions="Start"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
                     SvgAssembly="{Binding SvgAssembly}"
                     HeightRequest="30"
                     WidthRequest="30"/>
                 <Label
+                    Grid.Column="1"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center"
+                    HorizontalTextAlignment="Center"
                     StyleClass="actionButtonText"
                     x:Name="ActionButtonTextLabel"
                     FontFamily="KivaPostGrot-Medium"
-                    FontSize="13"
+                    FontSize="15"
                 />
-            </FlexLayout>
+            </Grid>
         </Frame>
     </ContentView.Content>
 </ContentView>

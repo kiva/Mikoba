@@ -7,13 +7,13 @@ namespace mikoba.UI.Pages
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
-    public partial class WalletHomePage : ContentPage
+    public partial class WalletFirstActionsPage : ContentPage
     {
-        public WalletHomePage()
+        public WalletFirstActionsPage()
         {
             InitializeComponent();
-            WalletHomePageViewModel.Instance.NavigationService = this.Navigation;
-            this.BindingContext = WalletHomePageViewModel.Instance;
+            WalletFirstActionsPageViewModel.Instance.NavigationService = this.Navigation;
+            this.BindingContext = WalletFirstActionsPageViewModel.Instance;
         }
     }
 }

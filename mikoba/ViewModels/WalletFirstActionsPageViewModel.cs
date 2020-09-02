@@ -12,9 +12,9 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels
 {
-    public sealed class WalletHomePageViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public sealed class WalletFirstActionsPageViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
-        private static WalletHomePageViewModel m_instance;
+        private static WalletFirstActionsPageViewModel m_instance;
         public INavigation NavigationService { get; set; }
         public ICommand OpenConnectionCommand { get; set; }
         public ICommand ShowWalletHomePageCommand { get; set; }
@@ -22,20 +22,20 @@ namespace mikoba.ViewModels
 
         public string WalletCreationText { get; set; }
 
-        public static WalletHomePageViewModel Instance
+        public static WalletFirstActionsPageViewModel Instance
         {
             get
             {
                 if (m_instance == null)
                 {
-                    m_instance = new WalletHomePageViewModel();
+                    m_instance = new WalletFirstActionsPageViewModel();
                 }
 
                 return m_instance;
             }
         }
 
-        public WalletHomePageViewModel()
+        public WalletFirstActionsPageViewModel()
         {
             this.OpenConnectionCommand = new Command(async () =>
             {
@@ -46,7 +46,7 @@ namespace mikoba.ViewModels
             this.ShowWalletHomePageCommand = new Command(async () =>
             {
                 SentrySdk.CaptureEvent(new SentryEvent() {Message = "Scan QR Code"});
-                await this.NavigationService.PushAsync(new WalletHomePage());
+                await this.NavigationService.PushAsync(new WalletFirstActionsPage());
             });
             
             this.ShowCredentialsCommand = new Command(async () =>

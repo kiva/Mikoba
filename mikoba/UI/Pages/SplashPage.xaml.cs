@@ -28,7 +28,7 @@ namespace mikoba.UI.Pages
             {
                 Console.WriteLine("Navigating to Wallet First Actions Sequence");
                 var page = Navigation.NavigationStack.Last();
-                await Navigation.PushAsync(new WalletHomePage());
+                await Navigation.PushAsync(new WalletFirstActionsPage());
                 Navigation.RemovePage(page);
             }
             else

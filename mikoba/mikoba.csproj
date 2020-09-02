@@ -104,7 +104,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="UI\Pages\WalletHomePage.xaml">
+    <EmbeddedResource Update="UI\Pages\WalletFirstActionsPage.xaml">
       <SubType>Designer</SubType>
       <Generator></Generator>
     </EmbeddedResource>
@@ -177,6 +177,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="UI\Pages\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="UI\CredentialsListView.xaml.cs" />
@@ -188,7 +192,7 @@
       <DependentUpon>WalletCreationPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\Pages\WalletHomePage.xaml.cs">
+    <Compile Update="UI\Pages\WalletFirstActionsPage.xaml.cs">
       <DependentUpon>WalletHomePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -229,6 +233,10 @@
     </Compile>
     <Compile Update="UI\Components\AddNewButton.xaml.cs">
       <DependentUpon>AddNewButton.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

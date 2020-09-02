@@ -5,7 +5,7 @@
              xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
              xmlns:local="clr-namespace:mikoba.UI"
              xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
-             x:Class="mikoba.UI.Pages.WalletHomePage"
+             x:Class="mikoba.UI.Pages.WalletFirstActionsPage"
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="#F2F2F2">
     <ContentPage.Resources>

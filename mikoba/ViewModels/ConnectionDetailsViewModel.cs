@@ -4,11 +4,11 @@ using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace mikoba.UI
+namespace mikoba.ViewModels
 {
-    public class ConnectionsListViewModel : INotifyPropertyChanged
+    public class ConnectionDetailsViewModel : INotifyPropertyChanged
     {
-        public ConnectionsListViewModel()
+        public ConnectionDetailsViewModel()
         {
             UpdateToDoListCommand = new Command(UpdateToDoList);
         }

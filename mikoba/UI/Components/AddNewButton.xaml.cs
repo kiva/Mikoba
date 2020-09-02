@@ -1,8 +1,8 @@
-﻿using Xamarin.Forms;
+﻿using System.Windows.Input;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Windows.Input;
 
-namespace mikoba.UI
+namespace mikoba.UI.Components
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddNewButton : ContentView

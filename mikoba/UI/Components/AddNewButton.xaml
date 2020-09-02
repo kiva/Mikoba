@@ -3,7 +3,7 @@
     xmlns:local="clr-namespace:mikoba"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="mikoba.UI.AddNewButton"
+    x:Class="mikoba.UI.Components.AddNewButton"
 >
     <ContentView.Content>
         <Grid>

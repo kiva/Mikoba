@@ -157,6 +157,26 @@
     <EmbeddedResource Include="Images\clock.svg" />
     <None Remove="Images\rightcaretyellow.svg" />
     <EmbeddedResource Include="Images\rightcaretyellow.svg" />
+    <EmbeddedResource Update="UI\Pages\CreateConnectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Pages\ConnectionsListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Pages\ConnectionDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Pages\CredentialOfferReviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Components\AddNewButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="UI\CredentialsListView.xaml.cs" />
@@ -189,6 +209,26 @@
     </Compile>
     <Compile Update="UI\Components\ActionButton.xaml.cs">
       <DependentUpon>ActionButton.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\CreateConnectionPage.xaml.cs">
+      <DependentUpon>CreateConnectionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\ConnectionsListPage.xaml.cs">
+      <DependentUpon>ConnectionsListPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\ConnectionDetailsPage.xaml.cs">
+      <DependentUpon>ConnectionDetailsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\CredentialOfferReviewPage.xaml.cs">
+      <DependentUpon>CredentialOfferReviewPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Components\AddNewButton.xaml.cs">
+      <DependentUpon>AddNewButton.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

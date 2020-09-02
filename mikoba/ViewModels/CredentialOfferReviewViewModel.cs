@@ -4,14 +4,12 @@ using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace mikoba.UI
+namespace mikoba.ViewModels
 {
-    public class HomeViewModel : INotifyPropertyChanged
+    public class CredentialOfferReviewViewModel : INotifyPropertyChanged
     {
-        public INavigation NavigationService { get; protected set; }
-        public HomeViewModel(INavigation navigationService)
+        public CredentialOfferReviewViewModel()
         {
-            this.NavigationService = navigationService;
             UpdateToDoListCommand = new Command(UpdateToDoList);
         }
         public ICommand UpdateToDoListCommand { get; }
@@ -36,7 +34,8 @@ namespace mikoba.UI
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-        
+
+
         List<string> ToDoList = new System.Collections.Generic.List<string>();
         public String ToDoListArr { get; set; }
 

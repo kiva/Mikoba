@@ -6,7 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns:local="clr-namespace:mikoba.UI"
-    x:Class="mikoba.UI.CreateConnectionPage">
+    xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
+    x:Class="mikoba.UI.Pages.CreateConnectionPage">
     <StackLayout Padding="20">
         <Label
             Text="Connections"
@@ -19,7 +20,7 @@
                 <ColumnDefinition Width="75" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <local:AddNewButton Command="{Binding OnScanQrCodePageButtonClicked}"/>
+            <components:AddNewButton Command="{Binding OnScanQrCodePageButtonClicked}"/>
         </Grid>
     </StackLayout>
 </ContentPage>

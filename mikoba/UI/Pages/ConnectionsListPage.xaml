@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="clr-namespace:mikoba.UI;assembly=mikoba"
     mc:Ignorable="d"
-    x:Class="mikoba.UI.ConnectionsListPage"
+    x:Class="mikoba.UI.Pages.ConnectionsListPage"
 >
     <StackLayout Padding="20">
         <Label Text="Connections" FontSize="40" HorizontalOptions="Center"></Label>

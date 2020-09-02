@@ -1,38 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentView 
+
+<ContentView
     xmlns:local="clr-namespace:mikoba"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
-    x:Class="mikoba.UI.Components.MenuOption"
->
+    x:Class="mikoba.UI.Components.MenuOption">
     <ContentView.Content>
         <Frame StyleClass="displayFrame" HasShadow="False">
-            <FlexLayout>
-                <FlexLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="ButtonClicked"/>
-                </FlexLayout.GestureRecognizers>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                </Grid.ColumnDefinitions>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ButtonClicked" />
+                </Grid.GestureRecognizers>
                 <abstractions:SvgImage
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
                     x:Name="leftSvgImage"
                     SvgAssembly="{Binding SvgAssembly}"
                     HeightRequest="30"
-                    WidthRequest="30"
-                    BackgroundColor="#FFFFFF"
-                    HorizontalOptions="Start"/>
+                    WidthRequest="30" />
+
                 <Label
+                    Grid.Column="1"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center"
+                    HorizontalTextAlignment="Start"
                     StyleClass="displayFrameText"
                     x:Name="menuOptionTextLabel"
-                    FontFamily="KivaPostGrot-Medium"
-                    />
+                    FontFamily="KivaPostGrot-Medium" />
+
                 <abstractions:SvgImage
+                    Grid.Column="2"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
                     StyleClass="rightCaret"
                     x:Name="rightSvgImage"
                     SvgAssembly="{Binding SvgAssembly}"
                     HeightRequest="12"
                     WidthRequest="8"
-                    BackgroundColor="#FFFFFF"
-                    HorizontalOptions="EndAndExpand"/>
-            </FlexLayout>
+                    />
+            </Grid>
         </Frame>
     </ContentView.Content>
 </ContentView>

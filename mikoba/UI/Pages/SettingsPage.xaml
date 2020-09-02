@@ -11,6 +11,10 @@
     NavigationPage.HasNavigationBar="False"
     x:Class="mikoba.UI.Pages.SettingsPage"
     BackgroundColor="#F2F2F2">
+    <ContentPage.Resources>
+        <StyleSheet Source="../../Styles/WalletHomePage.css"></StyleSheet>
+        <StyleSheet Source="../../Styles/Global.css"></StyleSheet>
+    </ContentPage.Resources>
     <Grid HorizontalOptions="Fill"
           VerticalOptions="Fill">
         <Grid.RowDefinitions>

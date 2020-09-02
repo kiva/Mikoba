@@ -13,6 +13,8 @@ namespace mikoba.UI.ViewModels
         public ObservableCollection<WalletActionModel> WalletActions { get; set; }
 
         public ICommand ScanCodeCommand { get; set; }
+        
+        public ICommand ShowCredentialOfferReviewPageCommand { get; set; }
 
         public Command SettingsCommand { get; private set; }
 
@@ -41,6 +43,10 @@ namespace mikoba.UI.ViewModels
             {
                 await NavigationService.PushAsync(new QrScanPage());
             });
+            this.ShowCredentialOfferReviewPageCommand  = new Command(async () =>
+            {
+                await NavigationService.PushAsync(new CredentialOfferReviewPage());
+            });
             Credentials = new ObservableCollection<CredentialModel>();
             WalletActions = new ObservableCollection<WalletActionModel>();
             LoadDefaultCredentials();
@@ -62,7 +68,7 @@ namespace mikoba.UI.ViewModels
                 LeftIcon = this.Clock,
                 ActionCommand = new Command(async () =>
                 {
-                    await NavigationService.PushAsync(new QrScanPage());
+                    await NavigationService.PushAsync(new CredentialOfferReviewPage());
                 })
             });
         }

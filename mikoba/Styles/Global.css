@@ -1,0 +1,30 @@
+.displayFrame {
+    background-color: white;
+    border-radius: 12;
+    margin-bottom: 10;
+    box-shadow: none;
+}
+
+.displayFrameText {
+    font-weight: bolder;
+    font-size: 16;
+    color: #000000;
+    width: 250;
+    margin-left: 30;
+    margin-top: 4;
+}
+
+.header1 {
+    font-size: 21;
+    color: #004FD4;
+    font-weight: bolder;
+    margin-bottom: 20;
+    margin-top: 20;
+}
+
+.header2 {
+    font-size: 18;
+    color: #004FD4;
+    margin-bottom: 20;
+    margin-top: 20;
+}

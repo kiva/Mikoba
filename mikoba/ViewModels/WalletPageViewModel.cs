@@ -11,11 +11,11 @@ namespace mikoba.UI.ViewModels
     {
         public INavigation NavigationService { get; private set; }
         public ObservableCollection<CredentialModel> Credentials { get; set; }
+        public ObservableCollection<WalletActionModel> WalletActions { get; set; }
         
-        public ICommand ShowCredentialsCommand { get; set; }
-        public ICommand ShowCredentialOfferCommand { get; set; }
+        public ICommand ScanCodeCommand { get; set; }
 
-        public Command AddCredential { get; private set; }
+        public Command SettingsCommand { get; private set; }
 
         private static WalletPageViewModel m_instance;
         public WalletPageViewModel(INavigation navigationService)
@@ -36,19 +36,37 @@ namespace mikoba.UI.ViewModels
         
         public WalletPageViewModel()
         {
-            this.ShowCredentialsCommand = new Command(async () =>
+            this.SettingsCommand = new Command(async () =>
             {
-                await NavigationService.PushAsync(new WalletPage());
-            });
-            this.ShowCredentialOfferCommand = new Command(async () =>
+                await NavigationService.PushAsync(new SettingsPage());
+            });           
+            this.ScanCodeCommand = new Command(async () =>
             {
-                await NavigationService.PushAsync(new CredentialOfferReviewPage());
+                await NavigationService.PushAsync(new QrScanPage());
             });
             Credentials = new ObservableCollection<CredentialModel>();
+            WalletActions = new ObservableCollection<WalletActionModel>();
             LoadDefaultCredentials();
+            LoadDefaultActions();
         }
 
-        public void LoadDefaultCredentials()
+        private void LoadDefaultActions()
+        {
+            WalletActions.Add(new WalletActionModel
+            {
+                ActionLabel = "Save and secure your wallet",
+                RightIcon = this.RightCaret,
+                LeftIcon = this.Secure,
+            });
+            WalletActions.Add(new WalletActionModel
+            {
+                ActionLabel = "1 offer",
+                RightIcon = this.RightCaretYellow,
+                LeftIcon = this.Clock,
+            });
+        }
+        
+        private void LoadDefaultCredentials()
         {
             Credentials.Add(new CredentialModel
             {

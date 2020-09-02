@@ -66,17 +66,17 @@
                 </abstractions:SvgImage>
             </StackLayout>
             <Grid>
-
                 <ScrollView
                     HorizontalOptions="Start"
                     VerticalOptions="Start"
                     Margin="0,0,0,10">
                     <StackLayout>
-                        <CollectionView ItemsSource="{Binding WalletActions}"
-                                        HorizontalOptions="Start"
-                                        VerticalOptions="Start"
-                                        VerticalScrollBarVisibility="Never"
-                                        HeightRequest="180">
+                        <CollectionView
+                            ItemsSource="{Binding WalletActions}"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            VerticalScrollBarVisibility="Never"
+                            HeightRequest="180">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <components:MenuOption
@@ -88,7 +88,8 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-                        <CollectionView ItemsSource="{Binding Credentials}" VerticalScrollBarVisibility="Never"
+                        <CollectionView ItemsSource="{Binding Credentials}"
+                                        VerticalScrollBarVisibility="Never"
                                         HorizontalOptions="Start"
                                         VerticalOptions="Start">
                             <CollectionView.ItemTemplate>

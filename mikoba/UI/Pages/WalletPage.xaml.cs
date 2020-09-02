@@ -12,6 +12,7 @@ namespace mikoba.UI.Pages
         {
             InitializeComponent();
             BindingContext = WalletPageViewModel.Instance;
+            WalletPageViewModel.Instance.NavigationService = this.Navigation;
         }
 
         private void TapGestureRecognizer_OnTapped(object sender, EventArgs e)

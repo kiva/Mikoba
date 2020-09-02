@@ -14,6 +14,10 @@ namespace mikoba.UI.Pages
             InitializeComponent();
             WalletFirstActionsPageViewModel.Instance.NavigationService = this.Navigation;
             this.BindingContext = WalletFirstActionsPageViewModel.Instance;
+            
+            //TODO: Make it better
+            Application.Current.Properties["WalletInitialized"] = true;
+            Application.Current.SavePropertiesAsync();
         }
     }
 }

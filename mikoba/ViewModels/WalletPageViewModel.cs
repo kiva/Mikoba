@@ -9,7 +9,7 @@ namespace mikoba.UI.ViewModels
 {
     public class WalletPageViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
-        public INavigation NavigationService { get; private set; }
+        public INavigation NavigationService { get;  set; }
         public ObservableCollection<CredentialModel> Credentials { get; set; }
         public ObservableCollection<WalletActionModel> WalletActions { get; set; }
 
@@ -18,11 +18,6 @@ namespace mikoba.UI.ViewModels
         public Command SettingsCommand { get; private set; }
 
         private static WalletPageViewModel m_instance;
-
-        public WalletPageViewModel(INavigation navigationService)
-        {
-            this.NavigationService = navigationService;
-        }
 
         public static WalletPageViewModel Instance
         {
@@ -39,8 +34,14 @@ namespace mikoba.UI.ViewModels
 
         public WalletPageViewModel()
         {
-            this.SettingsCommand = new Command(async () => { await NavigationService.PushAsync(new SettingsPage()); });
-            this.ScanCodeCommand = new Command(async () => { await NavigationService.PushAsync(new QrScanPage()); });
+            this.SettingsCommand = new Command(async () =>
+            {
+                await NavigationService.PushAsync(new SettingsPage());
+            });
+            this.ScanCodeCommand = new Command(async () =>
+            {
+                await NavigationService.PushAsync(new QrScanPage());
+            });
             Credentials = new ObservableCollection<CredentialModel>();
             WalletActions = new ObservableCollection<WalletActionModel>();
             LoadDefaultCredentials();
@@ -60,6 +61,10 @@ namespace mikoba.UI.ViewModels
                 ActionLabel = "1 offer",
                 RightIcon = this.RightCaretYellow,
                 LeftIcon = this.Clock,
+                ActionCommand = new Command(async () =>
+                {
+                    await NavigationService.PushAsync(new QrScanPage());
+                })
             });
         }
 

@@ -16,7 +16,7 @@ namespace mikoba.UI.Pages
 
         protected override async void OnAppearing()
         {
-            await Task.Delay(1500);
+            await Task.Delay(500);
             if (Application.Current.Properties.ContainsKey("WalletInitialized"))
             {
                 Console.WriteLine("Navigating to Wallet Page");

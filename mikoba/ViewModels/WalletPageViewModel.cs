@@ -9,7 +9,6 @@ namespace mikoba.UI.ViewModels
 {
     public class WalletPageViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
-        public INavigation NavigationService { get;  set; }
         public ObservableCollection<CredentialModel> Credentials { get; set; }
         public ObservableCollection<WalletActionModel> WalletActions { get; set; }
 

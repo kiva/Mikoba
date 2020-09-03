@@ -24,7 +24,6 @@
                     SvgAssembly="{Binding SvgAssembly}"
                     HeightRequest="30"
                     WidthRequest="30" />
-
                 <Label
                     Grid.Column="1"
                     HorizontalOptions="FillAndExpand"
@@ -33,7 +32,6 @@
                     StyleClass="displayFrameText"
                     x:Name="menuOptionTextLabel"
                     FontFamily="KivaPostGrot-Medium" />
-
                 <abstractions:SvgImage
                     Grid.Column="2"
                     HorizontalOptions="Center"

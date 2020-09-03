@@ -9,19 +9,10 @@ namespace mikoba.UI.ViewModels
 {
     public class SettingsPageViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
-        public INavigation NavigationService { get; private set; }
-        public ObservableCollection<CredentialModel> Credentials { get; set; }
-        
-        public ICommand ShowCredentialsCommand { get; set; }
-        public ICommand ShowCredentialOfferCommand { get; set; }
-
-        public Command AddCredential { get; private set; }
-
         private static SettingsPageViewModel m_instance;
-        public SettingsPageViewModel(INavigation navigationService)
-        {
-            this.NavigationService = navigationService;
-        }
+        
+        public ObservableCollection<WalletActionModel> SettingsActions { get; set; }
+        
         public static SettingsPageViewModel Instance
         {
             get
@@ -36,11 +27,36 @@ namespace mikoba.UI.ViewModels
         
         public SettingsPageViewModel()
         {
-            this.ShowCredentialsCommand = new Command(async () =>
+            SettingsActions.Add(new WalletActionModel
             {
-                await NavigationService.PushAsync(new WalletPage());
+                ActionLabel = "General Settings",
+                RightIcon = this.RightCaret,
+                LeftIcon = this.Secure,
             });
-           
+            SettingsActions.Add(new WalletActionModel
+            {
+                ActionLabel = "Profile",
+                RightIcon = this.RightCaret,
+                LeftIcon = this.Secure,
+            });            
+            SettingsActions.Add(new WalletActionModel
+            {
+                ActionLabel = "Network",
+                RightIcon = this.RightCaret,
+                LeftIcon = this.Secure,
+            });            
+            SettingsActions.Add(new WalletActionModel
+            {
+                ActionLabel = "Privacy Policy",
+                RightIcon = this.RightCaret,
+                LeftIcon = this.Secure,
+            });            
+            SettingsActions.Add(new WalletActionModel
+            {
+                ActionLabel = "Terms of Service",
+                RightIcon = this.RightCaret,
+                LeftIcon = this.Secure,
+            });
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

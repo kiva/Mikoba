@@ -17,6 +17,9 @@ namespace mikoba.ViewModels
     public class KivaBaseViewModel
     {
         public ICommand DestroyWalletCommand { get; set; }
+        public Command GoBackCommand { get; set; }
+        
+        public INavigation NavigationService { get;  set; }
 
         public KivaBaseViewModel()
         {
@@ -25,6 +28,13 @@ namespace mikoba.ViewModels
                 Application.Current.Properties.Clear();
                 await Application.Current.SavePropertiesAsync();
                 System.Diagnostics.Process.GetCurrentProcess().Kill();
+            });
+            GoBackCommand = new Command(async () =>
+            {
+                if (this.NavigationService != null)
+                {
+                    this.NavigationService.PopAsync();
+                }
             });
         }
         

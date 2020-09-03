@@ -3,49 +3,34 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using mikoba.ViewModels;
+using Xamarin.Forms;
+using System.Windows.Input;
+using mikoba.UI.Pages;
 
 namespace mikoba.ViewModels
 {
-    public class CredentialOfferReviewViewModel : INotifyPropertyChanged
+    public class CredentialOfferReviewViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
-        public CredentialOfferReviewViewModel()
-        {
-            UpdateToDoListCommand = new Command(UpdateToDoList);
-        }
-        public ICommand UpdateToDoListCommand { get; }
+        private static CredentialOfferReviewViewModel m_instance;
 
-        string name = string.Empty;
-        public string Name
+
+        public static CredentialOfferReviewViewModel Instance
         {
-            get => name;
-            set
+            get
             {
-                if (name == value)
-                    return;
-                name = value;
-                OnPropertyChanged(nameof(Name));
-                OnPropertyChanged(nameof(DisplayName));
+                if (m_instance == null)
+                {
+                    m_instance = new CredentialOfferReviewViewModel();
+                }
+
+                return m_instance;
             }
         }
-        public string DisplayName => $"Name Entered: {Name}";
 
         public event PropertyChangedEventHandler PropertyChanged;
-        void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
-
-        List<string> ToDoList = new System.Collections.Generic.List<string>();
-        public String ToDoListArr { get; set; }
-
-        void UpdateToDoList()
-        {
-            ToDoList.Add(Name);
-            ToDoListArr = string.Join(",", ToDoList.ToArray());
-            OnPropertyChanged(nameof(DisplayToDoList));
-        }
-        public string DisplayToDoList => $"The to do list is: {ToDoListArr}";
 
     }
 }

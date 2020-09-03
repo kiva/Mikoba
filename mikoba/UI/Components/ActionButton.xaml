@@ -5,6 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
     x:Class="mikoba.UI.Components.ActionButton"
+    Padding="0"
+    Margin="0"
 >
     <ContentView.Resources>
         <StyleSheet Source="../../Styles/ActionButton.css"></StyleSheet>
@@ -16,34 +18,13 @@
             WidthRequest="140"
             HeightRequest="45"
             Padding="20,5"
+            Margin="0"
             HasShadow="False">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.GestureRecognizers>
+            <StackLayout x:Name="ButtonGrid" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Tapped="ButtonClicked"/>
-                </Grid.GestureRecognizers>
-                <abstractions:SvgImage
-                    Grid.Column="0"
-                    x:Name="actionButtonSvg"
-                    HorizontalOptions="End"
-                    VerticalOptions="Center"
-                    SvgAssembly="{Binding SvgAssembly}"
-                    HeightRequest="30"
-                    WidthRequest="30"/>
-                <Label
-                    Grid.Column="1"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="Center"
-                    HorizontalTextAlignment="Center"
-                    StyleClass="actionButtonText"
-                    x:Name="ActionButtonTextLabel"
-                    FontFamily="KivaPostGrot-Medium"
-                    FontSize="15"
-                />
-            </Grid>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
         </Frame>
     </ContentView.Content>
 </ContentView>

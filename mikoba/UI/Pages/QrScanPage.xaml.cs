@@ -74,7 +74,7 @@ namespace mikoba.UI.Pages
             base.OnDisappearing();
         }
 
-        private async void ScannerView_OnOnScanResult(Result result)
+        private async void ScannerView_OnScanResult(Result result)
         {
             //If not invoking on the UI thread the App crashes
             Device.BeginInvokeOnMainThread(async () =>

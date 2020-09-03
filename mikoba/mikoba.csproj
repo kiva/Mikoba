@@ -181,6 +181,10 @@
       <SubType>Designer</SubType>
       <Generator></Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="UI\Components\CredentialOfferCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="UI\CredentialsListView.xaml.cs" />
@@ -238,6 +242,9 @@
     <Compile Update="UI\Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Components\CredentialOfferCard.xaml.cs">
+      <DependentUpon>CredentialOfferCard.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

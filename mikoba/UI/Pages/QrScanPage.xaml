@@ -21,7 +21,7 @@
                 WidthRequest="200"
                 HeightRequest="200"
                 
-                OnScanResult="ScannerView_OnOnScanResult" />
+                OnScanResult="ScannerView_OnScanResult" />
 
             <Grid x:Name="Skin"
                   Grid.RowSpan="3"

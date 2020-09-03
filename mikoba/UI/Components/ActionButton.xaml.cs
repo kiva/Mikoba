@@ -1,3 +1,4 @@
+using System.Reflection;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Windows.Input;
@@ -8,6 +9,10 @@ namespace mikoba.UI.Components
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ActionButton : ContentView
     {
+        public Assembly SvgAssembly
+        {
+            get { return typeof(App).GetTypeInfo().Assembly; }
+        }
         public static readonly BindableProperty ActionButtonTextProperty =
             BindableProperty.Create("ActionButtonText", typeof(string), typeof(ActionButton), default(string));
         public string ActionButtonText
@@ -45,8 +50,27 @@ namespace mikoba.UI.Components
         public ActionButton()
         {
             InitializeComponent();
-            ActionButtonTextLabel.SetBinding(Label.TextProperty, new Binding("ActionButtonText", source: this));
-            actionButtonSvg.SetBinding(SvgImage.SvgPathProperty, new Binding("ActionButtonSvg", source: this));
+
+            if (false)
+            {
+                var svgEl = new SvgImage
+                {
+                    VerticalOptions=LayoutOptions.Center
+                };
+                ButtonGrid.Children.Add(svgEl);
+                svgEl.SetBinding(SvgImage.SvgPathProperty, new Binding("ActionButtonSvg", source: this));
+                svgEl.SetBinding(SvgImage.SvgAssemblyProperty, new Binding("SvgAssembly", source: this));
+            }
+            
+            var labelEl = new Label
+            {
+                VerticalOptions = LayoutOptions.Center,
+                FontFamily = "KivaPostGrot-Medium",
+                FontSize = 15,
+                TextColor = Color.FromHex("#FFFFFF")
+            };
+            labelEl.SetBinding(Label.TextProperty, new Binding("ActionButtonText", source: this));
+            ButtonGrid.Children.Add(labelEl);
         }
 
         void ButtonClicked(System.Object sender, System.EventArgs e)

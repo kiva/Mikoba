@@ -104,7 +104,6 @@
                         </CollectionView>
                     </StackLayout>
                 </ScrollView>
-
                 <components:ActionButton
                     HorizontalOptions="Center"
                     VerticalOptions="End"

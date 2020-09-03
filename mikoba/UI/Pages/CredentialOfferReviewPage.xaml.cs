@@ -13,12 +13,9 @@ namespace mikoba.UI.Pages
         public CredentialOfferReviewPage()
         {
             InitializeComponent();
-            BindingContext = new CredentialOfferReviewViewModel();
+            BindingContext = CredentialOfferReviewViewModel.Instance;
+            CredentialOfferReviewViewModel.Instance.NavigationService = this.Navigation;
         }
-
-        async void OnCredentialsPageButtonClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new ConnectionDetailsPage());
-        }
+        
     }
 }

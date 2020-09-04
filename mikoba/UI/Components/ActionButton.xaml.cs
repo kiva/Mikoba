@@ -51,8 +51,7 @@ namespace mikoba.UI.Components
         {
             InitializeComponent();
 
-            if (false)
-            {
+            
                 var svgEl = new SvgImage
                 {
                     VerticalOptions=LayoutOptions.Center
@@ -60,7 +59,7 @@ namespace mikoba.UI.Components
                 ButtonGrid.Children.Add(svgEl);
                 svgEl.SetBinding(SvgImage.SvgPathProperty, new Binding("ActionButtonSvg", source: this));
                 svgEl.SetBinding(SvgImage.SvgAssemblyProperty, new Binding("SvgAssembly", source: this));
-            }
+            
             
             var labelEl = new Label
             {

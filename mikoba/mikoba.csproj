@@ -96,6 +96,7 @@
     <EmbeddedResource Include="Images\locationpin.svg" />
     <EmbeddedResource Include="Images\qrcodescan.svg" />
     <EmbeddedResource Include="Images\rightCaret.svg" />
+    <EmbeddedResource Include="Images\cornercircles.svg" />
     <EmbeddedResource Update="UI\Pages\SplashPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -117,6 +118,7 @@
     <EmbeddedResource Include="Images\rightcaret.svg" />
     <EmbeddedResource Include="Images\kivalogoblue.svg" />
     <EmbeddedResource Include="Images\gear.svg" />
+    <EmbeddedResource Include="Images\leftarrow_yellow.svg" />
     <EmbeddedResource Include="Resources\Fonts\KivaPostGrot-Bold.ttf" />
     <EmbeddedResource Include="Resources\Fonts\KivaPostGrot-BoldItalic.ttf" />
     <EmbeddedResource Include="Resources\Fonts\KivaPostGrot-Book.ttf" />
@@ -182,6 +184,10 @@
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="UI\Components\CredentialOfferCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Pages\WalletOwnerInputPage.xaml">
       <SubType>Designer</SubType>
       <Generator></Generator>
     </EmbeddedResource>

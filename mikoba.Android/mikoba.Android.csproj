@@ -77,6 +77,8 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\bsl.svg" />
+    <AndroidResource Include="Resources\drawable\cornercircles.svg" />
+    <AndroidResource Include="Resources\drawable\leftarrow_yellow.svg" />
     <AndroidResource Include="Resources\layout\Tabbar.xml" />
     <AndroidResource Include="Resources\layout\Toolbar.xml" />
     <AndroidResource Include="Resources\values\styles.xml" />
@@ -140,6 +142,8 @@
     <EmbeddedResource Include="Resources\drawable\secure.svg" />
     <EmbeddedResource Include="Resources\drawable\selfie.svg" />
     <EmbeddedResource Include="Resources\drawable\wave.svg" />
+    <EmbeddedResource Include="Resources\drawable\cornercircles.svg" />
+    <EmbeddedResource Include="Resources\drawable\leftarrow_yellow.svg" />
   </ItemGroup>
  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

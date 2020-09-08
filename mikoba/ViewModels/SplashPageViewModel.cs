@@ -19,12 +19,10 @@ namespace mikoba.ViewModels
 
         public SplashPageViewModel(INavigation navigationService)
         {
-            this.NavigationService = navigationService;
-            this.GetStartedCommand = new Command(async () =>
+            NavigationService = navigationService;
+            GetStartedCommand = new Command(async () =>
             {
-                var page = NavigationService.NavigationStack.Last();
-                await NavigationService.PushAsync(new WalletCreationPage());
-                NavigationService.RemovePage(page);
+                await NavigationService.PushAsync(new WalletOwnerInputPage(), true);
             });
             this.ClaimWalletCommand = new Command(async () =>
             {

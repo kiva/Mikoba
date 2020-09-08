@@ -181,6 +181,8 @@
     <EmbeddedResource Include="Resources\secure.svg" />
     <EmbeddedResource Include="Resources\selfie.svg" />
     <EmbeddedResource Include="Resources\wave.svg" />
+    <EmbeddedResource Include="Resources\cornercircles.svg" />
+    <EmbeddedResource Include="Resources\leftarrow_yellow.svg" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\bsl.svg" />

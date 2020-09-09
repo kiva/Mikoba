@@ -30,9 +30,9 @@ namespace mikoba.ViewModels
             }
         }
 
-        private ICommand GoBack { get; set; }
+        public ICommand GoBack { get; set; }
         
-        private ICommand SetOwner { get; set; }
+        public ICommand SetOwner { get; set; }
         
         private INavigation NavigationService { get; set; }
 
@@ -49,7 +49,7 @@ namespace mikoba.ViewModels
                 if (!Owner.Equals(string.Empty))
                 {
                     Application.Current.Properties["WalletOwner"] = Owner;
-                    await NavigationService.PushAsync(new WalletPinSetPage());
+                    await NavigationService.PushAsync(new WalletPinSetPage(), true);
                 }
                 else
                 {

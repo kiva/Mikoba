@@ -52,7 +52,7 @@
                     TextColor="#004FD4"
                     HeightRequest="83"
                     VerticalOptions="Start"
-                    HorizontalOptions="Start" />
+                    HorizontalOptions="Center" />
                 <Entry
                     x:Name="OwnerEntry"
                     FontSize="21"

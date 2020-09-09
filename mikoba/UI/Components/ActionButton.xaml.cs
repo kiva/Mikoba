@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -25,10 +26,18 @@ namespace mikoba.UI.Components
             BindableProperty.Create("ActionButtonSvg", typeof(string), typeof(ActionButton), default(string));
         public string ActionButtonSvg
         {
-            get { return (string)GetValue(ActionButtonSvgProperty); }
-            set { SetValue(ActionButtonSvgProperty, value); }
+            get
+            {
+                var result = (string)GetValue(ActionButtonSvgProperty) ?? "mikoba.Images.noImage.svg";
+                return result;
+            }
+            set
+            {
+                SetValue(ActionButtonSvgProperty, value);
+                OnPropertyChanged("ActionButtonSvg");
+            }
         }
-
+        
         public static readonly BindableProperty CommandProperty =
             BindableProperty.Create("Command", typeof(ICommand), typeof(ActionButton), null);
 
@@ -50,18 +59,14 @@ namespace mikoba.UI.Components
         public ActionButton()
         {
             InitializeComponent();
-
-            if (false)
+            var svgEl = new SvgImage
             {
-                var svgEl = new SvgImage
-                {
-                    VerticalOptions=LayoutOptions.Center
-                };
-                ButtonGrid.Children.Add(svgEl);
-                svgEl.SetBinding(SvgImage.SvgPathProperty, new Binding("ActionButtonSvg", source: this));
-                svgEl.SetBinding(SvgImage.SvgAssemblyProperty, new Binding("SvgAssembly", source: this));
-            }
-            
+                VerticalOptions = LayoutOptions.Center
+            };
+            ButtonGrid.Children.Add(svgEl);
+            svgEl.SetBinding(SvgImage.SvgPathProperty, new Binding("ActionButtonSvg", source: this));
+            svgEl.SetBinding(SvgImage.SvgAssemblyProperty, new Binding("SvgAssembly", source: this));
+
             var labelEl = new Label
             {
                 VerticalOptions = LayoutOptions.Center,

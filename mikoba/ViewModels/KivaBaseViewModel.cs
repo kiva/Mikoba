@@ -11,7 +11,6 @@ using mikoba.UI.Pages;
 using Sentry;
 using Xamarin.Forms;
 
-
 namespace mikoba.ViewModels
 {
     public class KivaBaseViewModel
@@ -102,6 +101,11 @@ namespace mikoba.ViewModels
         {
             get { return "mikoba.Images.rightcaretyellow.svg"; }
         }
+
+        public string LeftArrowYellow
+        {
+            get { return "mikoba.Images.leftarrow_yellow.svg"; }
+        }
         
         public string Secure
         {
@@ -126,6 +130,11 @@ namespace mikoba.ViewModels
         public string Gear
         {
             get { return "mikoba.Images.gear.svg"; }
+        }
+
+        public string CornerCircles
+        {
+            get { return "mikoba.Images.cornercircles.svg";  }
         }
     }
 }

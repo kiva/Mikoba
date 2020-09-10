@@ -8,13 +8,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:mikoba.UI"
     xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
     NavigationPage.HasNavigationBar="False"
     x:Class="mikoba.UI.Pages.WalletPage"
+    ios:Page.UseSafeArea="true"
     BackgroundColor="#F2F2F2">
     <ContentPage.Resources>
         <StyleSheet Source="../../Styles/WalletHomePage.css" />
-        <StyleSheet Source="../../Styles/Global.css"></StyleSheet>
+        <StyleSheet Source="../../Styles/Global.css" />
     </ContentPage.Resources>
     <Grid HorizontalOptions="Fill"
           VerticalOptions="Fill">
@@ -70,7 +72,7 @@
                 <ScrollView
                     HorizontalOptions="Start"
                     VerticalOptions="Start"
-                    Margin="0,0,0,10">
+                    Margin="0,0,0,0">
                     <StackLayout>
                         <CollectionView
                             ItemsSource="{Binding WalletActions}"

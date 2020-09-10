@@ -19,5 +19,13 @@ namespace mikoba.UI.Pages
         {
             WalletPageViewModel.Instance.SettingsCommand.Execute(this);
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            var current = this.Padding;
+            current.Bottom = 0;
+            this.Padding = current;
+        }
     }
 }

@@ -112,7 +112,7 @@
                     Margin="15"
                     ActionButtonSvg="mikoba.Images.qrcodescan2.svg"
                     ActionButtonText="Scan QR Code"
-                    Command="{Binding ScanQrCodeCommand}" />
+                    Command="{Binding ScanCodeCommand}" />
             </Grid>
         </StackLayout>
     </Grid>

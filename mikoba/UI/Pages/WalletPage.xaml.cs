@@ -17,7 +17,7 @@ namespace mikoba.UI.Pages
 
         private void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
         {
-            WalletPageViewModel.Instance.SettingsCommand.Execute(this);
+            // WalletPageViewModel.Instance.SettingsCommand.Execute(this);
         }
 
         protected override void OnAppearing()

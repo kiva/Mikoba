@@ -43,7 +43,11 @@ namespace mikoba.UI.Components
 
         public ICommand Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
+            get
+            {
+                var command = (ICommand)GetValue(CommandProperty);
+                return command;
+            }
             set { SetValue(CommandProperty, value); }
         }
 
@@ -59,23 +63,9 @@ namespace mikoba.UI.Components
         public ActionButton()
         {
             InitializeComponent();
-            var svgEl = new SvgImage
-            {
-                VerticalOptions = LayoutOptions.Center
-            };
-            ButtonGrid.Children.Add(svgEl);
-            svgEl.SetBinding(SvgImage.SvgPathProperty, new Binding("ActionButtonSvg", source: this));
-            svgEl.SetBinding(SvgImage.SvgAssemblyProperty, new Binding("SvgAssembly", source: this));
-
-            var labelEl = new Label
-            {
-                VerticalOptions = LayoutOptions.Center,
-                FontFamily = "KivaPostGrot-Medium",
-                FontSize = 15,
-                TextColor = Color.FromHex("#FFFFFF")
-            };
-            labelEl.SetBinding(Label.TextProperty, new Binding("ActionButtonText", source: this));
-            ButtonGrid.Children.Add(labelEl);
+            actionButtonSvg.SetBinding(SvgImage.SvgPathProperty, new Binding("ActionButtonSvg", source: this));
+            actionButtonSvg.SetBinding(SvgImage.SvgAssemblyProperty, new Binding("SvgAssembly", source: this));
+            ActionButtonTextLabel.SetBinding(Label.TextProperty, new Binding("ActionButtonText", source: this));
         }
 
         void ButtonClicked(System.Object sender, System.EventArgs e)

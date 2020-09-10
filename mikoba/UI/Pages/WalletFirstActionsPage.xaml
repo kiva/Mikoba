@@ -84,7 +84,7 @@
                     LeftSvgImage="{Binding Selfie}"
                     RightSvgImage="{Binding RightCaret}"
                     MenuOptionText="Take a selfie"
-                Command="{Binding DestroyWalletCommand}"/>
+                    Command="{Binding DestroyWalletCommand}"/>
             </StackLayout>
         </RelativeLayout>
      </Grid>

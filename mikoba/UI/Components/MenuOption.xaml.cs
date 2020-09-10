@@ -56,7 +56,6 @@ namespace mikoba.UI.Components
             menuOptionTextLabel.SetBinding(Label.TextProperty, new Binding("MenuOptionText", source: this));
             leftSvgImage.SetBinding(SvgImage.SvgPathProperty, new Binding("LeftSvgImage", source: this));
             rightSvgImage.SetBinding(SvgImage.SvgPathProperty, new Binding("RightSvgImage", source: this));
-
         }
 
         void ButtonClicked(System.Object sender, System.EventArgs e)

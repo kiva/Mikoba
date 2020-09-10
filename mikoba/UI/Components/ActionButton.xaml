@@ -19,12 +19,33 @@
             HeightRequest="45"
             Padding="20,5"
             Margin="0"
-            HasShadow="False">
-            <StackLayout x:Name="ButtonGrid" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                <StackLayout.GestureRecognizers>
+            HasShadow="False"
+            >
+            <Grid>
+                <Grid.GestureRecognizers>
                     <TapGestureRecognizer Tapped="ButtonClicked"/>
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
+                </Grid.GestureRecognizers>
+                <StackLayout
+                    Orientation="Horizontal"
+                    HorizontalOptions="CenterAndExpand">
+                    <abstractions:SvgImage
+                        x:Name="actionButtonSvg"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        SvgAssembly="{Binding SvgAssembly}"
+                        />
+                    <Label
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        StyleClass="actionButtonText"
+                        x:Name="ActionButtonTextLabel"
+                        FontFamily="KivaPostGrot-Medium"
+                        FontSize="15"
+                        TextColor="#FFFFFF"
+                    />
+                </StackLayout>
+            </Grid>
         </Frame>
     </ContentView.Content>
 </ContentView>

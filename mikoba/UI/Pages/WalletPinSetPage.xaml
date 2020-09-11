@@ -26,7 +26,7 @@
             <components:BackButton
                 Command="{Binding GoBack}"/>
             <Label
-                Text="2/6"
+                Text="Step 2 of 6"
                 FontFamily="KivaPostGrot-Medium"
                 HorizontalOptions="Center"
                 VerticalOptions="Start"

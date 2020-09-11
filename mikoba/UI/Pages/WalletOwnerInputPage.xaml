@@ -27,7 +27,7 @@
             <components:BackButton
                 Command="{Binding GoBack}"/>
             <Label
-                Text="1/6"
+                Text="Step 1 of 6"
                 FontFamily="KivaPostGrot-Medium"
                 HorizontalOptions="Center"
                 VerticalOptions="Start"
@@ -48,7 +48,7 @@
             Row="1">
             <StackLayout>
                 <Label
-                    Text="Who owns this wallet?"
+                    Text="Who owns this Wallet?"
                     FontFamily="KivaPostGrot-Medium"
                     FontSize="21"
                     TextColor="#004FD4"

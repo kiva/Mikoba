@@ -60,7 +60,7 @@ namespace mikoba.ViewModels
 
         public void SetFirstName(string name)
         {
-            InstructionBlurb = $"{name}, create a pin to keep your wallet secure";
+            InstructionBlurb = $"{name}, create a pin to keep your Wallet secure";
         }
         
         public event PropertyChangedEventHandler PropertyChanged;

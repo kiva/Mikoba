@@ -26,7 +26,7 @@ namespace mikoba
         protected override void OnStart()
         {
             SentrySdk.CaptureEvent(new SentryEvent(){Message = "App Starting"});
-            MainPage = new NavigationPage(new WalletPinSetPage("Nate"));
+            MainPage = new NavigationPage(new SplashPage());
         }
 
         protected override void OnSleep()

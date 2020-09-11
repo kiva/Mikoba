@@ -19,7 +19,6 @@
     <PackageReference Include="Hyperledger.Aries.Routing.Edge" Version="1.2.15" />
     <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
     <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
-    <PackageReference Include="ZXing.Net.Mobile.Forms" Version="3.0.0-beta5" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mono.Android">

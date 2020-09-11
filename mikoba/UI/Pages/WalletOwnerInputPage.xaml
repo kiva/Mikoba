@@ -6,7 +6,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
              xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
-             mc:Ignorable="d"
+             mc:Ignorable="d" xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:controls="clr-namespace:mikoba.UI.Controls;assembly=mikoba"
+             ios:Page.UseSafeArea="true"
              x:Class="mikoba.UI.Pages.WalletOwnerInputPage"
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="#F9F9F9">
@@ -53,14 +55,16 @@
                     HeightRequest="83"
                     VerticalOptions="Start"
                     HorizontalOptions="Center" />
-                <Entry
+                <controls:BorderlessEntry
                     x:Name="OwnerEntry"
                     FontSize="21"
                     FontFamily="KivaPostGrot-Medium"
                     VerticalOptions="Start"
                     HorizontalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="Center"
                     MinimumWidthRequest="160"
                     TextColor="#000000"
+                    BackgroundColor="#F9F9F9"
                     Text="{Binding Owner}"
                     ReturnCommand="{Binding SetOwner}"
                     IsTextPredictionEnabled="false"
@@ -72,7 +76,7 @@
                             </x:Arguments>
                         </Keyboard>
                     </Entry.Keyboard>
-                </Entry>
+                </controls:BorderlessEntry>
             </StackLayout>
         </Grid>
     </Grid>

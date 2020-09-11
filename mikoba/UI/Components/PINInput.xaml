@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:mikoba.UI.Controls;assembly=mikoba"
+             x:Class="mikoba.UI.Components.PINInput"
+             Focused="OnFocused">
+    <ContentView.Content>
+        <StackLayout>
+            <Grid x:Name="InputContainer" HorizontalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <controls:BorderlessEntry
+                    x:Name="Initial"
+                    TextChanged="FocusNext"
+                    Grid.Column="0"
+                    FontSize="20"
+                    FontFamily="KivaPostGrot-Medium"
+                    VerticalOptions="Start"
+                    HorizontalOptions="CenterAndExpand"
+                    TextColor="#F76C18"
+                    Keyboard="Numeric"
+                    HorizontalTextAlignment="Center"
+                    IsPassword="True"
+                    Placeholder="_"
+                    IsTextPredictionEnabled="false" />
+                <controls:BorderlessEntry
+                    TextChanged="FocusNext"
+                    Grid.Column="1"
+                    FontSize="20"
+                    FontFamily="KivaPostGrot-Medium"
+                    VerticalOptions="Start"
+                    HorizontalOptions="CenterAndExpand"
+                    TextColor="#F76C18"
+                    Keyboard="Numeric"
+                    HorizontalTextAlignment="Center"
+                    IsPassword="True"
+                    Placeholder="_"
+                    IsTextPredictionEnabled="false" />
+                <controls:BorderlessEntry
+                    TextChanged="FocusNext"
+                    Grid.Column="2"
+                    FontSize="20"
+                    FontFamily="KivaPostGrot-Medium"
+                    VerticalOptions="Start"
+                    HorizontalOptions="CenterAndExpand"
+                    TextColor="#F76C18"
+                    Keyboard="Numeric"
+                    HorizontalTextAlignment="Center"
+                    IsPassword="True"
+                    Placeholder="_"
+                    IsTextPredictionEnabled="false" />
+                <controls:BorderlessEntry
+                    ReturnCommand="{Binding OnFinish}"
+                    Grid.Column="3"
+                    FontSize="20"
+                    FontFamily="KivaPostGrot-Medium"
+                    VerticalOptions="Start"
+                    HorizontalOptions="CenterAndExpand"
+                    TextColor="#F76C18"
+                    Keyboard="Numeric"
+                    HorizontalTextAlignment="Center"
+                    IsPassword="True"
+                    Placeholder="_"
+                    IsTextPredictionEnabled="false" />
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

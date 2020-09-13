@@ -3,21 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using mikoba.ViewModels;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace mikoba.UI.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class WalletPinSetPage : ContentPage
+    public partial class AllowCameraConfirmationPage : ContentPage
     {
-        public WalletPinSetPage(string name)
+        public AllowCameraConfirmationPage()
         {
             InitializeComponent();
-            var model = new WalletPinSetViewModel(Navigation);
-            model.SetFirstName(name);
-            BindingContext = model;
         }
     }
 }

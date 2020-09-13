@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using mikoba.Annotations;
 using mikoba.UI.Pages;
@@ -8,12 +9,15 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels
 {
-    public class WalletPinSetViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class WalletPinConfirmViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
         private string first = string.Empty;
         private string second = string.Empty;
         private string third = string.Empty;
         private string fourth = string.Empty;
+        private bool nomatch;
+        
+        public string PIN { get; set; }
 
         public string First
         {
@@ -26,7 +30,7 @@ namespace mikoba.ViewModels
                 if (first != value)
                 {
                     first = value;
-                    OnPropertyChanged(nameof(first));
+                    OnPropertyChanged(nameof(First));
                 }
             }
         }
@@ -42,7 +46,7 @@ namespace mikoba.ViewModels
                 if (second != value)
                 {
                     second = value;
-                    OnPropertyChanged(nameof(second));
+                    OnPropertyChanged(nameof(Second));
                 }
             }
         }
@@ -58,7 +62,7 @@ namespace mikoba.ViewModels
                 if (third != value)
                 {
                     third = value;
-                    OnPropertyChanged(nameof(third));
+                    OnPropertyChanged(nameof(Third));
                 }
             }
         }
@@ -74,40 +78,74 @@ namespace mikoba.ViewModels
                 if (fourth != value)
                 {
                     fourth = value;
-                    OnPropertyChanged(nameof(fourth));
+                    OnPropertyChanged(nameof(Fourth));
                 }
             }
         }
+
+        public bool NoMatch
+        {
+            get
+            {
+                return nomatch;
+            }
+            set
+            {
+                if (nomatch != value)
+                {
+                    nomatch = value;
+                    NoError = !value;
+                    OnPropertyChanged(nameof(NoMatch));
+                    OnPropertyChanged(nameof(NoError));
+                }
+            }
+        }
+        
+        public bool NoError { get; set; }
         
         public string InstructionBlurb { get; set; }
 
         public ICommand GoBack { get; set; }
         
-        public ICommand GoToPINConfirmation { get; set; }
+        public ICommand ConfirmPin { get; set; }
         
         private INavigation NavigationService { get; set; }
-
-        public WalletPinSetViewModel(INavigation navigationService)
+        
+        public WalletPinConfirmViewModel(INavigation navigationService)
         {
             NavigationService = navigationService;
+            NoError = true;
+            
             GoBack = new Command(async () =>
             {
                 await NavigationService.PopAsync(true);
             });
             
-            GoToPINConfirmation = new Command(async () =>
+            ConfirmPin = new Command(async () =>
             {
                 if (!string.IsNullOrEmpty(First) && !string.IsNullOrEmpty(Second) && !string.IsNullOrEmpty(Third) &&
                     !string.IsNullOrEmpty(Fourth))
                 {
-                    await NavigationService.PushAsync(new WalletPinConfirmationPage($"{First}{Second}{Third}{Fourth}"), true);
+                    string toConfirm = $"{First}{Second}{Third}{Fourth}";
+                    if (PIN.Equals(toConfirm))
+                    {
+                        NoMatch = false;
+                        Application.Current.Properties["WalletPIN"] = toConfirm;
+                        await NavigationService.PushAsync(new AllowCameraConfirmationPage(), true);
+                    }
+                    else
+                    {
+                        NoMatch = true;
+                        await Task.Delay(3000);
+                        NoMatch = false;
+                    }
                 }
             });
         }
 
-        public void SetFirstName(string name)
+        public void SetPIN(string pin)
         {
-            InstructionBlurb = $"{name}, create a PIN to keep your Wallet secure";
+            PIN = pin;
         }
         
         public event PropertyChangedEventHandler PropertyChanged;

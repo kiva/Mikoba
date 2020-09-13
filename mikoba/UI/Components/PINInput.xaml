@@ -3,8 +3,7 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:mikoba.UI.Controls;assembly=mikoba"
-             x:Class="mikoba.UI.Components.PINInput"
-             Focused="OnFocused">
+             x:Class="mikoba.UI.Components.PINInput">
     <ContentView.Content>
         <StackLayout>
             <Grid x:Name="InputContainer" HorizontalOptions="Center">
@@ -16,7 +15,7 @@
                 </Grid.ColumnDefinitions>
                 <controls:BorderlessEntry
                     x:Name="Initial"
-                    TextChanged="FocusNext"
+                    TextChanged="SwitchFocus"
                     Grid.Column="0"
                     FontSize="20"
                     FontFamily="KivaPostGrot-Medium"
@@ -24,12 +23,13 @@
                     HorizontalOptions="CenterAndExpand"
                     TextColor="#F76C18"
                     Keyboard="Numeric"
+                    Text="{Binding First}"
                     HorizontalTextAlignment="Center"
                     IsPassword="True"
                     Placeholder="_"
                     IsTextPredictionEnabled="false" />
                 <controls:BorderlessEntry
-                    TextChanged="FocusNext"
+                    TextChanged="SwitchFocus"
                     Grid.Column="1"
                     FontSize="20"
                     FontFamily="KivaPostGrot-Medium"
@@ -37,12 +37,13 @@
                     HorizontalOptions="CenterAndExpand"
                     TextColor="#F76C18"
                     Keyboard="Numeric"
+                    Text="{Binding Second}"
                     HorizontalTextAlignment="Center"
                     IsPassword="True"
                     Placeholder="_"
                     IsTextPredictionEnabled="false" />
                 <controls:BorderlessEntry
-                    TextChanged="FocusNext"
+                    TextChanged="SwitchFocus"
                     Grid.Column="2"
                     FontSize="20"
                     FontFamily="KivaPostGrot-Medium"
@@ -50,12 +51,13 @@
                     HorizontalOptions="CenterAndExpand"
                     TextColor="#F76C18"
                     Keyboard="Numeric"
+                    Text="{Binding Third}"
                     HorizontalTextAlignment="Center"
                     IsPassword="True"
                     Placeholder="_"
                     IsTextPredictionEnabled="false" />
                 <controls:BorderlessEntry
-                    ReturnCommand="{Binding OnFinish}"
+                    TextChanged="SubmitPIN"
                     Grid.Column="3"
                     FontSize="20"
                     FontFamily="KivaPostGrot-Medium"
@@ -63,6 +65,7 @@
                     HorizontalOptions="CenterAndExpand"
                     TextColor="#F76C18"
                     Keyboard="Numeric"
+                    Text="{Binding Fourth}"
                     HorizontalTextAlignment="Center"
                     IsPassword="True"
                     Placeholder="_"

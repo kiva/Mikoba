@@ -8,7 +8,7 @@
              mc:Ignorable="d" xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
              ios:Page.UseSafeArea="true"
-             x:Class="mikoba.UI.Pages.AllowCameraConfirmationPage"
+             x:Class="mikoba.UI.Pages.AllowPushNotificationPage"
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="#F9F9F9">
     <ContentPage.Resources>
@@ -26,18 +26,10 @@
         <Grid Row="0"
               HorizontalOptions="Fill"
               VerticalOptions="Fill">
-            <abstractions:SvgImage
-                SvgAssembly="{Binding SvgAssembly}"
-                SvgPath="{Binding CornerCircles_Left}"
-                HeightRequest="81"
-                WidthRequest="48.81"
-                BackgroundColor="Transparent"
-                HorizontalOptions="Start"
-                VerticalOptions="Start" />
             <components:BackButton
                 Command="{Binding GoBack}"/>
             <Label
-                Text="Step 5 of 6"
+                Text="Step 6 of 6"
                 FontFamily="KivaPostGrot-Medium"
                 HorizontalOptions="Center"
                 VerticalOptions="Start"
@@ -50,7 +42,7 @@
             Row="1">
             <StackLayout>
                 <Label
-                    Text="Allow Kiva to access your camera?"
+                    Text="Receive notifications about your credentials?"
                     FontFamily="KivaPostGrot-Medium"
                     FontSize="21"
                     TextColor="#004FD4"
@@ -67,7 +59,7 @@
             <StackLayout>
                 <abstractions:SvgImage
                     SvgAssembly="{Binding SvgAssembly}"
-                    SvgPath="{Binding CameraIcon}"
+                    SvgPath="{Binding BellIcon}"
                     HeightRequest="48"
                     WidthRequest="48"
                     BackgroundColor="Transparent"
@@ -87,7 +79,7 @@
                 LineBreakMode="WordWrap"
                 WidthRequest="280">
                 <Label.Text>
-                    We will only use your camera to scan QR codes. This will allow you to receive your digital identifications from places like your government agencies.
+                    Kiva will only use your camera to scan QR codes. This will allow you to receive your digital identifications from places like your government agencies.
                 </Label.Text>
             </Label>
         </Grid>
@@ -115,7 +107,7 @@
                     CornerRadius="8"
                     WidthRequest="152"
                     Padding="20"
-                    Command="{Binding CheckCameraPermissions}"
+                    Command="{Binding CheckNotificationPermissions}"
                     Margin="0,0,20,0"
                     BackgroundColor="#004FD4"
                     TextColor="White"

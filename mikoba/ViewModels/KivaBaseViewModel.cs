@@ -136,5 +136,20 @@ namespace mikoba.ViewModels
         {
             get { return "mikoba.Images.cornercircles.svg";  }
         }
+
+        public string CornerCircles_Left
+        {
+            get { return "mikoba.Images.cornercircles_left.svg"; }
+        }
+
+        public string CameraIcon
+        {
+            get { return "mikoba.Images.camera_icon.svg"; }
+        }
+
+        public string BellIcon
+        {
+            get { return "mikoba.Images.bell.svg"; }
+        }
     }
 }

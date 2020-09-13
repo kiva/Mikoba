@@ -135,9 +135,10 @@
   <ItemGroup>
     <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.1" />
     <PackageReference Include="Xam.Plugins.Forms.Svg" Version="1.0.0.27" />
+    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
     <PackageReference Include="Xamarin.TestCloud.Agent" Version="0.21.9" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
     <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
     <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
   </ItemGroup>
@@ -186,6 +187,9 @@
     <EmbeddedResource Include="Resources\leftarrow_yellow.svg" />
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\bell.svg" />
     <BundleResource Include="Resources\bsl.svg" />
+    <BundleResource Include="Resources\camera_icon.svg" />
+    <BundleResource Include="Resources\cornercircles_left.svg" />
   </ItemGroup>
 </Project>

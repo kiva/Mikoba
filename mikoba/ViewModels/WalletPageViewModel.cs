@@ -71,6 +71,16 @@ namespace mikoba.UI.ViewModels
                     await NavigationService.PushAsync(new CredentialOfferReviewPage());
                 })
             });
+            WalletActions.Add(new WalletActionModel
+            {
+                ActionLabel = "1 request",
+                RightIcon = this.RightCaretYellow,
+                LeftIcon = this.Clock,
+                ActionCommand = new Command(async () =>
+                {
+                    await NavigationService.PushAsync(new CredentialRequestPage());
+                })
+            });
         }
 
         private void LoadDefaultCredentials()
@@ -96,19 +106,19 @@ namespace mikoba.UI.ViewModels
             Credentials.Add(new CredentialModel
             {
                 Organization = "GOVERNMENT",
-                MemberId = "Third Bank",
+                MemberId = "Fourth Bank",
                 LogoName = "mikoba.Images.kiva.svg"
             });
             Credentials.Add(new CredentialModel
             {
                 Organization = "GOVERNMENT",
-                MemberId = "Third Bank",
+                MemberId = "Fifth Bank",
                 LogoName = "mikoba.Images.kiva.svg"
             });
             Credentials.Add(new CredentialModel
             {
                 Organization = "GOVERNMENT",
-                MemberId = "Third Bank",
+                MemberId = "Sixth Bank",
                 LogoName = "mikoba.Images.kiva.svg"
             });
         }

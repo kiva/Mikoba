@@ -12,12 +12,13 @@ using Xamarin.Forms.Xaml;
 
 namespace mikoba.UI.Components
 {
-    public partial class CredentialOfferCard : ContentView
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class CredentialRequestCard : ContentView
     {
-        public CredentialOfferCard()
+        public CredentialRequestCard()
         {
             InitializeComponent();
-            this.BindingContext = CredentialOfferCardViewModel.Instance;
+            this.BindingContext = CredentialRequestCardViewModel.Instance;
         }
     }
 }

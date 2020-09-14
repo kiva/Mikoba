@@ -7,10 +7,11 @@
     x:Class="mikoba.UI.Components.BackButton"
     HorizontalOptions="Start"
     VerticalOptions="Start"
+    BackgroundColor="Transparent"
     Margin="12, 12, 0, 0"
 >
     <ContentView.Content>
-        <Frame Padding="0" Margin="0" HasShadow="False">
+        <Frame Padding="0" Margin="0" HasShadow="False" BackgroundColor="Transparent">
             <StackLayout Padding="0" Margin="0">
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Tapped="ClickBack"/>
@@ -19,7 +20,7 @@
                     SvgAssembly="{Binding SvgAssembly}"
                     SvgPath="{Binding LeftArrowYellow}"
                     HeightRequest="32"
-                    BackgroundColor="#F9F9F9"
+                    BackgroundColor="Transparent"
                     WidthRequest="32"
                     Margin="0"
                     VerticalOptions="FillAndExpand"

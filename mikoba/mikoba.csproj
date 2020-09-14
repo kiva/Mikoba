@@ -12,6 +12,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Sentry" Version="2.1.5" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.1" />
+    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
     <PackageReference Include="Xam.Plugins.Forms.Svg" Version="1.0.0.27" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
@@ -97,6 +98,7 @@
     <EmbeddedResource Include="Images\qrcodescan.svg" />
     <EmbeddedResource Include="Images\rightCaret.svg" />
     <EmbeddedResource Include="Images\cornercircles.svg" />
+    <EmbeddedResource Include="Images\cornercircles_left.svg" />
     <EmbeddedResource Update="UI\Pages\SplashPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -118,6 +120,8 @@
     <EmbeddedResource Include="Images\rightcaret.svg" />
     <EmbeddedResource Include="Images\kivalogoblue.svg" />
     <EmbeddedResource Include="Images\gear.svg" />
+    <EmbeddedResource Include="Images\camera_icon.svg" />
+    <EmbeddedResource Include="Images\bell.svg" />
     <EmbeddedResource Include="Images\leftarrow_yellow.svg" />
     <EmbeddedResource Include="Resources\Fonts\KivaPostGrot-Bold.ttf" />
     <EmbeddedResource Include="Resources\Fonts\KivaPostGrot-BoldItalic.ttf" />
@@ -254,6 +258,14 @@
     </Compile>
     <Compile Update="UI\Components\CredentialOfferCard.xaml.cs">
       <DependentUpon>CredentialOfferCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Pages\CredentialRequestPage.xaml.cs">
+      <DependentUpon>CredentialRequestPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Components\CredentialRequestCard.xaml.cs">
+      <DependentUpon>CredentialRequestCard.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 </Project>

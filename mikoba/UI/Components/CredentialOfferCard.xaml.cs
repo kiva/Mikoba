@@ -12,7 +12,6 @@ using Xamarin.Forms.Xaml;
 
 namespace mikoba.UI.Components
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CredentialOfferCard : ContentView
     {
         public CredentialOfferCard()

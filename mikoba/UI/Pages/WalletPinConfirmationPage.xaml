@@ -7,7 +7,7 @@
              xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
              mc:Ignorable="d" xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true"
-             x:Class="mikoba.UI.Pages.WalletPinSetPage"
+             x:Class="mikoba.UI.Pages.WalletPinConfirmationPage"
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="#F9F9F9">
     <ContentPage.Resources>
@@ -17,15 +17,17 @@
           VerticalOptions="Fill">
         <Grid.RowDefinitions>
             <RowDefinition Height="80" />
+            <RowDefinition Height="60" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Row="0"
+              IsVisible="{Binding  NoError}"
               HorizontalOptions="Fill"
               VerticalOptions="Fill">
             <components:BackButton
                 Command="{Binding GoBack}"/>
             <Label
-                Text="Step 2 of 6"
+                Text="Step 3 of 6"
                 FontFamily="KivaPostGrot-Medium"
                 HorizontalOptions="Center"
                 VerticalOptions="Start"
@@ -33,12 +35,30 @@
                 Margin="0, 24, 0, 0"
                 TextColor="#004FD4" />
         </Grid>
+        <Grid Row="0"
+              IsVisible="{Binding NoMatch}"
+              HorizontalOptions="Fill"
+              VerticalOptions="Fill">
+            <Label
+                TextColor="#FFFFFF"
+                BackgroundColor="#DE6156"
+                FontFamily="KivaPostGrot-Medium"
+                FontSize="15"
+                LineHeight="17"
+                HeightRequest="60"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Start"
+                HorizontalTextAlignment="Center"
+                Margin="0"
+                Padding="18, 24, 17, 19"
+                Text="PIN code didn't match, please try again (+haptics)" />
+        </Grid>
         <Grid
             HorizontalOptions="Center"
-            Row="1">
+            Row="2">
             <StackLayout>
                 <Label
-                    Text="{Binding InstructionBlurb}"
+                    Text="Confirm your PIN"
                     FontFamily="KivaPostGrot-Medium"
                     FontSize="21"
                     TextColor="#004FD4"
@@ -48,7 +68,7 @@
                     HorizontalTextAlignment="Center"
                     HorizontalOptions="Center" />
                 <components:PINInput
-                    FinishCommand="{Binding GoToPINConfirmation}" />
+                    FinishCommand="{Binding ConfirmPin}" />
             </StackLayout>
         </Grid>
     </Grid>

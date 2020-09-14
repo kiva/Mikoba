@@ -88,17 +88,19 @@
                          HorizontalOptions="Center"
                          Margin="0,0,0,40">
                 <Button
+                    TextTransform="None"
                     CornerRadius="8"
                     FontAttributes="Bold"
                     Padding="20"
-                    Text="I Have a Wallet"
+                    Text="I have a Wallet"
                     Command="{Binding ClaimWalletCommand}"
-                    BackgroundColor="#FAFAFA"
+                    BackgroundColor="#FFFFFF"
                     TextColor="#000"
                     Margin="20,0,0,0"
                     FontSize="20" />
                 <Button
-                    Text="Get Started"
+                    TextTransform="None"
+                    Text="Get started"
                     FontAttributes="Bold"
                     Command="{Binding GetStartedCommand}"
                     CornerRadius="8"

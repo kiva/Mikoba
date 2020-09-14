@@ -10,13 +10,13 @@ using Xamarin.Forms.Xaml;
 namespace mikoba.UI.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class WalletPinSetPage : ContentPage
+    public partial class WalletPinConfirmationPage : ContentPage
     {
-        public WalletPinSetPage(string name)
+        public WalletPinConfirmationPage(string PIN)
         {
             InitializeComponent();
-            var model = new WalletPinSetViewModel(Navigation);
-            model.SetFirstName(name);
+            var model = new WalletPinConfirmViewModel(Navigation);
+            model.SetPIN(PIN);
             BindingContext = model;
         }
     }

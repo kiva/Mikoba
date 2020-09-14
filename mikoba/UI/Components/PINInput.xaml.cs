@@ -100,7 +100,7 @@ namespace mikoba.UI.Components
         protected override async void OnParentSet()
         {
             base.OnParentSet();
-            await Task.Delay(1000);
+            await Task.Delay(300);
             Initial.Focus();
         }
     }

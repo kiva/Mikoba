@@ -12,6 +12,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Sentry" Version="2.1.5" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.1" />
+    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
     <PackageReference Include="Xam.Plugins.Forms.Svg" Version="1.0.0.27" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
@@ -19,7 +20,6 @@
     <PackageReference Include="Hyperledger.Aries.Routing.Edge" Version="1.2.15" />
     <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
     <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
-    <PackageReference Include="ZXing.Net.Mobile.Forms" Version="3.0.0-beta5" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mono.Android">
@@ -98,6 +98,7 @@
     <EmbeddedResource Include="Images\qrcodescan.svg" />
     <EmbeddedResource Include="Images\rightCaret.svg" />
     <EmbeddedResource Include="Images\cornercircles.svg" />
+    <EmbeddedResource Include="Images\cornercircles_left.svg" />
     <EmbeddedResource Update="UI\Pages\SplashPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -119,6 +120,8 @@
     <EmbeddedResource Include="Images\rightcaret.svg" />
     <EmbeddedResource Include="Images\kivalogoblue.svg" />
     <EmbeddedResource Include="Images\gear.svg" />
+    <EmbeddedResource Include="Images\camera_icon.svg" />
+    <EmbeddedResource Include="Images\bell.svg" />
     <EmbeddedResource Include="Images\leftarrow_yellow.svg" />
     <EmbeddedResource Include="Resources\Fonts\KivaPostGrot-Bold.ttf" />
     <EmbeddedResource Include="Resources\Fonts\KivaPostGrot-BoldItalic.ttf" />

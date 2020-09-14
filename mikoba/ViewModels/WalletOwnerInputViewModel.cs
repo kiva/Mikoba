@@ -49,7 +49,7 @@ namespace mikoba.ViewModels
                 if (!Owner.Equals(string.Empty))
                 {
                     Application.Current.Properties["WalletOwner"] = Owner;
-                    await NavigationService.PushAsync(new WalletPinSetPage(), true);
+                    await NavigationService.PushAsync(new WalletPinSetPage(GetFirstName()), true);
                 }
                 else
                 {

@@ -73,11 +73,12 @@
                     Margin="0,0,0,10">
                     <StackLayout>
                         <CollectionView
+                            HeightRequest="{Binding MenuOptionsHeight}"
                             ItemsSource="{Binding WalletActions}"
                             HorizontalOptions="Start"
                             VerticalOptions="Start"
                             VerticalScrollBarVisibility="Never"
-                            HeightRequest="180">
+                            >
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <components:MenuOption

@@ -12,6 +12,7 @@ namespace mikoba.UI.ViewModels
         public ObservableCollection<CredentialModel> Credentials { get; set; }
         public ObservableCollection<WalletActionModel> WalletActions { get; set; }
 
+        public int MenuOptionsHeight { get; set; }
         public ICommand ScanCodeCommand { get; set; }
         
         public ICommand ShowCredentialOfferReviewPageCommand { get; set; }
@@ -51,6 +52,7 @@ namespace mikoba.UI.ViewModels
             WalletActions = new ObservableCollection<WalletActionModel>();
             LoadDefaultCredentials();
             LoadDefaultActions();
+            this.MenuOptionsHeight = 90 * WalletActions.Count;
         }
 
         private void LoadDefaultActions()

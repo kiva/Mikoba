@@ -63,28 +63,14 @@
                     <Label
                         StyleClass="header1"
                         FontFamily="KivaPostGrot-Light"
-                        Text="Welcome to your Kiva Wallet,&#10;here are a few ways to get started:">
+                        Text="Hello [Name here], welcome to your new Wallet.  Get started by receiving your first ID.">
                     </Label>
                 </Frame>
-                <components:MenuOption
-                    LeftSvgImage="{Binding LocationPin}"
-                    RightSvgImage="{Binding RightCaret}"
-                    MenuOptionText="Recover Wallet Instead"
-                    Command="{Binding OpenConnectionCommand}"/>
-                <components:MenuOption
-                    LeftSvgImage="{Binding QrCodeScan}"
-                    RightSvgImage="{Binding RightCaret}"
-                    MenuOptionText="Receive Credentials"
-                    Command="{Binding OpenConnectionCommand}"/>
-                <components:MenuOption
-                    LeftSvgImage="{Binding Secure}"
-                    RightSvgImage="{Binding RightCaret}"
-                    MenuOptionText="Save and secure your wallet" />
-                <components:MenuOption
-                    LeftSvgImage="{Binding Selfie}"
-                    RightSvgImage="{Binding RightCaret}"
-                    MenuOptionText="Take a selfie"
-                    Command="{Binding DestroyWalletCommand}"/>
+                <components:ActionButton
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    ActionButtonText="Scan QR Code"
+                    Command="{Binding OpenConnectionCommand}" />
             </StackLayout>
         </RelativeLayout>
      </Grid>

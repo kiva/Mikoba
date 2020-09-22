@@ -198,6 +198,8 @@
     <None Remove="Images\empty.svg" />
     <None Remove="Images\noImage.svg" />
     <EmbeddedResource Include="Images\noImage.svg" />
+    <None Remove="Images\anonymousprofilepic.svg" />
+    <EmbeddedResource Include="Images\anonymousprofilepic.svg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="UI\CredentialsListView.xaml.cs" />

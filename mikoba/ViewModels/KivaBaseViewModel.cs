@@ -151,5 +151,10 @@ namespace mikoba.ViewModels
         {
             get { return "mikoba.Images.bell.svg"; }
         }
+
+        public string Anonymous
+        {
+            get { return "mikoba.Images.anonymousprofilepic.svg";  }
+        }
     }
 }

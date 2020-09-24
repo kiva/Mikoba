@@ -77,30 +77,24 @@ namespace mikoba.UI.Pages
         private async void ScannerView_OnScanResult(Result result)
         {
             //If not invoking on the UI thread the App crashes
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                ScannerView.IsAnalyzing = false;
-                Application.Current.Properties["WalletInitialized"] = true;
-                await Application.Current.SavePropertiesAsync();
-                var page = Navigation.NavigationStack.Last();
-                await Navigation.PushAsync(new WalletPage());
-                Navigation.RemovePage(page);
-            });
+            Device.BeginInvokeOnMainThread(async () => { await DoSomething(); });
         }
-        
+
+        private async Task DoSomething()
+        {
+            ScannerView.IsAnalyzing = false;
+            Application.Current.Properties["WalletInitialized"] = true;
+            await Application.Current.SavePropertiesAsync();
+            var page = Navigation.NavigationStack.Last();
+            await Navigation.PushAsync(new CredentialOfferReviewPage());
+            Navigation.RemovePage(page);
+        }
+
 
         private void Button_OnClicked(object sender, EventArgs e)
         {
             //If not invoking on the UI thread the App crashes
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                ScannerView.IsAnalyzing = false;
-                Application.Current.Properties["WalletInitialized"] = true;
-                await Application.Current.SavePropertiesAsync();
-                var page = Navigation.NavigationStack.Last();
-                await Navigation.PushAsync(new WalletPage());
-                Navigation.RemovePage(page);
-            });
+            Device.BeginInvokeOnMainThread(async () => { await DoSomething(); });
         }
     }
 }

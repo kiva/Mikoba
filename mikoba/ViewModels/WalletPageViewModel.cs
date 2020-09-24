@@ -14,7 +14,7 @@ namespace mikoba.UI.ViewModels
 
         public int MenuOptionsHeight { get; set; }
         public ICommand ScanCodeCommand { get; set; }
-        
+
         public ICommand ShowCredentialOfferReviewPageCommand { get; set; }
 
         public Command SettingsCommand { get; private set; }
@@ -29,22 +29,15 @@ namespace mikoba.UI.ViewModels
                 {
                     m_instance = new WalletPageViewModel();
                 }
-
                 return m_instance;
             }
         }
 
         public WalletPageViewModel()
         {
-            this.SettingsCommand = new Command(async () =>
-            {
-                await NavigationService.PushAsync(new SettingsPage());
-            });
-            this.ScanCodeCommand = new Command(async () =>
-            {
-                await NavigationService.PushAsync(new QrScanPage());
-            });
-            this.ShowCredentialOfferReviewPageCommand  = new Command(async () =>
+            this.SettingsCommand = new Command(async () => { await NavigationService.PushAsync(new SettingsPage()); });
+            this.ScanCodeCommand = new Command(async () => { await NavigationService.PushAsync(new QrScanPage()); });
+            this.ShowCredentialOfferReviewPageCommand = new Command(async () =>
             {
                 await NavigationService.PushAsync(new CredentialOfferReviewPage());
             });
@@ -84,39 +77,9 @@ namespace mikoba.UI.ViewModels
                 })
             });
         }
-
+        
         private void LoadDefaultCredentials()
         {
-            Credentials.Add(new CredentialModel
-            {
-                Organization = "GOVERNMENT",
-                MemberId = "First Bank",
-                LogoName = "mikoba.Images.kiva.svg"
-            });
-            Credentials.Add(new CredentialModel
-            {
-                Organization = "GOVERNMENT",
-                MemberId = "Second Bank",
-                LogoName = "mikoba.Images.kiva.svg"
-            });
-            Credentials.Add(new CredentialModel
-            {
-                Organization = "GOVERNMENT",
-                MemberId = "Third Bank",
-                LogoName = "mikoba.Images.kiva.svg"
-            });
-            Credentials.Add(new CredentialModel
-            {
-                Organization = "GOVERNMENT",
-                MemberId = "Fourth Bank",
-                LogoName = "mikoba.Images.kiva.svg"
-            });
-            Credentials.Add(new CredentialModel
-            {
-                Organization = "GOVERNMENT",
-                MemberId = "Fifth Bank",
-                LogoName = "mikoba.Images.kiva.svg"
-            });
             Credentials.Add(new CredentialModel
             {
                 Organization = "GOVERNMENT",

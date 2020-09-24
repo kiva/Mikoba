@@ -12,6 +12,7 @@ namespace mikoba.UI.Pages
         {
             InitializeComponent();
             BindingContext = SettingsPageViewModel.Instance;
+            SettingsPageViewModel.Instance.NavigationService = this.Navigation;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using mikoba.Services;
 using mikoba.ViewModels;
 using Sentry;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace mikoba.UI.Pages
@@ -34,6 +35,8 @@ namespace mikoba.UI.Pages
             await WalletService.CreateWallet();
             SentrySdk.CaptureEvent(new SentryEvent() {Message = "Wallet Creation"});
             //TODO: Add Error Handling
+            Preferences.Set(AppConstant.LocalWalletProvisioned, true);
+            Preferences.Set(AppConstant.LocalWalletFirstView, true);
             await Application.Current.SavePropertiesAsync();
             this.lblProgress.Text = "Wallet Created";
             await Task.Delay(1000);

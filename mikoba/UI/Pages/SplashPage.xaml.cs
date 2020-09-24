@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using mikoba.ViewModels;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace mikoba.UI.Pages
@@ -17,19 +18,22 @@ namespace mikoba.UI.Pages
         protected override async void OnAppearing()
         {
             await Task.Delay(500);
-            if (Application.Current.Properties.ContainsKey("WalletInitialized"))
+            if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
             {
-                Console.WriteLine("Navigating to Wallet Page");
-                var page = Navigation.NavigationStack.Last();
-                await Navigation.PushAsync(new WalletPage());
-                Navigation.RemovePage(page);
-            }
-            else if (Application.Current.Properties.ContainsKey("WalletCreationDate"))
-            {
-                Console.WriteLine("Navigating to Wallet First Actions Sequence");
-                var page = Navigation.NavigationStack.Last();
-                await Navigation.PushAsync(new WalletFirstActionsPage());
-                Navigation.RemovePage(page);
+                if (Preferences.Get(AppConstant.LocalWalletFirstView, false))
+                {
+                    Console.WriteLine("Navigating to Wallet First Actions Sequence");
+                    var page = Navigation.NavigationStack.Last();
+                    await Navigation.PushAsync(new WalletFirstActionsPage());
+                    Navigation.RemovePage(page);
+                }
+                else
+                {
+                    Console.WriteLine("Navigating to Wallet Page");
+                    var page = Navigation.NavigationStack.Last();
+                    await Navigation.PushAsync(new WalletPage());
+                    Navigation.RemovePage(page);                    
+                }
             }
             else
             {

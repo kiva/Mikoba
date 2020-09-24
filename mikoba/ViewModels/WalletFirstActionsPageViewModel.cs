@@ -8,6 +8,7 @@ using mikoba.Annotations;
 using mikoba.UI;
 using mikoba.UI.Pages;
 using Sentry;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels
@@ -19,8 +20,10 @@ namespace mikoba.ViewModels
         public ICommand OpenConnectionCommand { get; set; }
         public ICommand ShowWalletHomePageCommand { get; set; }
         public ICommand ShowCredentialsCommand { get; set; }
+        
+        
 
-        public string WalletCreationText { get; set; }
+        public string WelcomeText { get; set; }
 
         public static WalletFirstActionsPageViewModel Instance
         {
@@ -62,9 +65,8 @@ namespace mikoba.ViewModels
             });
             
             var data = Application.Current.Properties["WalletCreationDate"];
-            var strDate = ((DateTime)data).ToString("D", CultureInfo.CurrentCulture);
-            WalletCreationText = String.Format("Wallet Created on {0}", strDate);
-            OnPropertyChanged(nameof(WalletCreationText));
+            WelcomeText = String.Format("Hello {0}, welcome to your new Wallet.  Get started by receiving your first ID.", Application.Current.Properties[AppConstant.FullName]);
+            OnPropertyChanged(nameof(WelcomeText));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

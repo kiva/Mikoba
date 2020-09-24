@@ -17,8 +17,8 @@ namespace mikoba.ViewModels
     {
         public ICommand DestroyWalletCommand { get; set; }
         public Command GoBackCommand { get; set; }
-        
-        public INavigation NavigationService { get;  set; }
+
+        public INavigation NavigationService { get; set; }
 
         public KivaBaseViewModel()
         {
@@ -36,7 +36,7 @@ namespace mikoba.ViewModels
                 }
             });
         }
-        
+
         public Assembly SvgAssembly
         {
             get { return typeof(App).GetTypeInfo().Assembly; }
@@ -51,12 +51,12 @@ namespace mikoba.ViewModels
         {
             get { return "mikoba.Images.wave.svg"; }
         }
-        
+
         public string Bsl
         {
             get { return "mikoba.Images.bsl.svg"; }
         }
-        
+
         public string Leaf
         {
             get { return "mikoba.Images.leaf.svg"; }
@@ -71,7 +71,7 @@ namespace mikoba.ViewModels
         {
             get { return "mikoba.Images.dots.svg"; }
         }
-        
+
         public string Pink
         {
             get { return "mikoba.Images.pink.svg"; }
@@ -81,22 +81,22 @@ namespace mikoba.ViewModels
         {
             get { return "mikoba.Images.locationpin.svg"; }
         }
-        
+
         public string QrCodeScan
         {
             get { return "mikoba.Images.qrcodescan.svg"; }
         }
-        
+
         public string QrCodeScan2
         {
             get { return "mikoba.Images.qrcodescan2.svg"; }
         }
-        
+
         public string RightCaret
         {
             get { return "mikoba.Images.rightcaret.svg"; }
         }
-        
+
         public string RightCaretYellow
         {
             get { return "mikoba.Images.rightcaretyellow.svg"; }
@@ -106,27 +106,27 @@ namespace mikoba.ViewModels
         {
             get { return "mikoba.Images.leftarrow_yellow.svg"; }
         }
-        
+
         public string Secure
         {
             get { return "mikoba.Images.secure.svg"; }
         }
-        
+
         public string Clock
         {
             get { return "mikoba.Images.clock.svg"; }
         }
-        
+
         public string Selfie
         {
             get { return "mikoba.Images.selfie.svg"; }
         }
-        
+
         public string KivaLogoBlue
         {
             get { return "mikoba.Images.kivalogoblue.svg"; }
         }
-        
+
         public string Gear
         {
             get { return "mikoba.Images.gear.svg"; }
@@ -134,7 +134,12 @@ namespace mikoba.ViewModels
 
         public string CornerCircles
         {
-            get { return "mikoba.Images.cornercircles.svg";  }
+            get { return "mikoba.Images.cornercircles.svg"; }
+        }
+
+        public string NoImage
+        {
+            get { return "mikoba.Images.noImage.svg"; }
         }
 
         public string CornerCircles_Left

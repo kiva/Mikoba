@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Hyperledger.Indy.AnonCredsApi;
 using mikoba.Annotations;
 using mikoba.UI.Pages;
+using mikoba.UI.ViewModels;
 
 namespace mikoba.ViewModels
 {
@@ -80,11 +81,12 @@ namespace mikoba.ViewModels
             {
                 IsAccepted = true;
                 IsOffered = false;
+                await WalletPageViewModel.Instance.NavigationService.PopAsync();
             });
-            this.OnClickDeclineCommand = new Command(() =>
+            this.OnClickDeclineCommand = new Command(async () =>
             {
-                IsDeclined = true;
-                IsOffered = false;
+                //TODO: Create Message Service
+                //await DisplayAlert ("Alert", "You have been alerted", "OK");
             });
             
             IsOffered = true;

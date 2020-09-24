@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Microsoft.Extensions.DependencyInjection;
 using SVG.Forms.Plugin.iOS;
 using UIKit;
 
@@ -14,6 +15,7 @@ namespace mikoba.iOS
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
+        private App _application;
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -26,11 +28,17 @@ namespace mikoba.iOS
 #if ENABLE_TEST_CLOUD
             Xamarin.Calabash.Start();
 #endif
-            Xamarin.Forms.Forms.SetFlags("Shapes_Experimental");
             global::Xamarin.Forms.Forms.Init();
             ZXing.Net.Mobile.Forms.iOS.Platform.Init();
+            
             SvgImageRenderer.Init();
+            
+            var host = HostBuilder
+                .BuildHost(typeof(KernelModule).Assembly)
+                .Build();
+            _application = host.Services.GetRequiredService<App>();
             LoadApplication(new App());
+            
             return base.FinishedLaunching(app, options);
         }
     }

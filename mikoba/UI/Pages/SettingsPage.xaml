@@ -10,24 +10,35 @@
     xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
     NavigationPage.HasNavigationBar="False"
     x:Class="mikoba.UI.Pages.SettingsPage"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true"
     BackgroundColor="#F2F2F2">
     <ContentPage.Resources>
         <StyleSheet Source="../../Styles/WalletHomePage.css"></StyleSheet>
         <StyleSheet Source="../../Styles/Global.css"></StyleSheet>
     </ContentPage.Resources>
     <Grid HorizontalOptions="Fill"
+          Margin="20"
           VerticalOptions="Fill">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="120"/>
             <RowDefinition />
         </Grid.RowDefinitions>
         <Button Grid.Row="0"
                 Text="Back"
                 FontAttributes="Bold"
+                VerticalOptions="Center"
+                HorizontalOptions="Start"
                 TextColor="#004FD4"
-                Command="{Binding GoBack}" />
+                Command="{Binding GoBackCommand}" />
+        <Label
+            VerticalOptions="Center"
+            HorizontalOptions="Start"
+            FontSize="21"
+            Grid.Row="1">Settings</Label>
         <CollectionView
-            Grid.Row="1"
+            Grid.Row="2"
             ItemsSource="{Binding SettingsActions}"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
@@ -36,7 +47,7 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <components:MenuOption
-                        Margin="0,10,0,0"
+                        LeftSvgImage="{Binding NoImage}"
                         RightSvgImage="{Binding RightIcon}"
                         MenuOptionText="{Binding ActionLabel}"
                         Command="{Binding ActionCommand}" />

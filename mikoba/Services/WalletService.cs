@@ -32,32 +32,3 @@ namespace mikoba.Services
         }
     }
 }
-
-/*
- *             await WalletUtils.CreateWalletAsync(firstWalletConfig, firstWalletCredentials);
-            using (var firstWallet = await Wallet.OpenWalletAsync(firstWalletConfig, firstWalletCredentials))
-            {
-                var myDid = await Did.CreateAndStoreMyDidAsync(firstWallet, "{}");
-
-                var path = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
-                var exportConfig = JsonConvert.SerializeObject(new
-                {
-                    path = path,
-                    key = Guid.NewGuid().ToString()
-                });
-
-                await firstWallet.ExportAsync(exportConfig);
-                
-                await Wallet.ImportAsync(secondWalletConfig, secondWalletCredentials, exportConfig);
-                
-                using (var secondWallet = await Wallet.OpenWalletAsync(secondWalletConfig, secondWalletCredentials))
-                {
-                    var myKey = await Did.KeyForLocalDidAsync(secondWallet, myDid.Did);
-                    Debug.Assert(myKey == myDid.VerKey);
-                    await secondWallet.CloseAsync();
-                }
-                await firstWallet.CloseAsync();
-                File.Delete(path);
-                Console.WriteLine("Wallet Creation OK", Color.Green);
-            }
- */

@@ -5,8 +5,10 @@
              xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
              xmlns:local="clr-namespace:mikoba.UI"
              xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              x:Class="mikoba.UI.Pages.WalletFirstActionsPage"
              NavigationPage.HasNavigationBar="False"
+             ios:Page.UseSafeArea="true"
              BackgroundColor="#F2F2F2">
     <ContentPage.Resources>
         <StyleSheet Source="../../Styles/WalletHomePage.css"></StyleSheet>
@@ -65,14 +67,15 @@
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
                         StyleClass="header1"
                         FontFamily="KivaPostGrot-Medium"
-                        Text="Hello [Name here], welcome to your new Wallet.  Get started by receiving your first ID.">
-                    </Label>
+                        Text="{Binding WelcomeText}" />
                 </RelativeLayout>
             </StackLayout>
             <Frame
                 Padding="0"
                 BackgroundColor="Transparent"
                 HasShadow="False"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.6}"
                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.2}"
                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.25}">
@@ -88,7 +91,6 @@
                         HorizontalOptions="CenterAndExpand"
                         Text="Recover ID Instead"></Label>
                 </StackLayout>
-                
             </Frame>
         </RelativeLayout>
      </Grid>

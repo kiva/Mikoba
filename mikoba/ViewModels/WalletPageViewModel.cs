@@ -1,8 +1,11 @@
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using mikoba.ViewModels;
 using Xamarin.Forms;
 using System.Windows.Input;
+using Hyperledger.Aries.Features.DidExchange;
 using mikoba.UI.Pages;
 using mikoba.UI.Pages.Connections;
 using mikoba.UI.Pages.Settings;
@@ -11,6 +14,8 @@ namespace mikoba.UI.ViewModels
 {
     public class WalletPageViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
+        private readonly IConnectionService _connectionService;
+        
         public ObservableCollection<CredentialModel> Credentials { get; set; }
         public ObservableCollection<WalletActionModel> WalletActions { get; set; }
 
@@ -18,8 +23,6 @@ namespace mikoba.UI.ViewModels
         public ICommand ScanCodeCommand { get; set; }
 
         public ICommand ShowCredentialOfferReviewPageCommand { get; set; }
-
-        public Command SettingsCommand { get; private set; }
 
         private static WalletPageViewModel m_instance;
 
@@ -37,7 +40,6 @@ namespace mikoba.UI.ViewModels
 
         public WalletPageViewModel()
         {
-            this.SettingsCommand = new Command(async () => { await NavigationService.PushAsync(new SettingsPage()); });
             this.ScanCodeCommand = new Command(async () => { await NavigationService.PushAsync(new QrScanPage()); });
             this.ShowCredentialOfferReviewPageCommand = new Command(async () =>
             {
@@ -58,38 +60,44 @@ namespace mikoba.UI.ViewModels
                 RightIcon = this.RightCaret,
                 LeftIcon = this.Secure,
             });
-            WalletActions.Add(new WalletActionModel
-            {
-                ActionLabel = "1 offer",
-                RightIcon = this.RightCaretYellow,
-                LeftIcon = this.Clock,
-                ActionCommand = new Command(async () =>
-                {
-                    await NavigationService.PushAsync(new CredentialOfferReviewPage());
-                })
-            });
-            WalletActions.Add(new WalletActionModel
-            {
-                ActionLabel = "1 request",
-                RightIcon = this.RightCaretYellow,
-                LeftIcon = this.Clock,
-                ActionCommand = new Command(async () =>
-                {
-                    await NavigationService.PushAsync(new CredentialRequestPage());
-                })
-            });
+            // WalletActions.Add(new WalletActionModel
+            // {
+            //     ActionLabel = "1 offer",
+            //     RightIcon = this.RightCaretYellow,
+            //     LeftIcon = this.Clock,
+            //     ActionCommand = new Command(async () =>
+            //     {
+            //         await NavigationService.PushAsync(new CredentialOfferReviewPage());
+            //     })
+            // });
+            // WalletActions.Add(new WalletActionModel
+            // {
+            //     ActionLabel = "1 request",
+            //     RightIcon = this.RightCaretYellow,
+            //     LeftIcon = this.Clock,
+            //     ActionCommand = new Command(async () =>
+            //     {
+            //         await NavigationService.PushAsync(new CredentialRequestPage());
+            //     })
+            // });
         }
         
         private void LoadDefaultCredentials()
         {
-            Credentials.Add(new CredentialModel
-            {
-                Organization = "GOVERNMENT",
-                MemberId = "Sixth Bank",
-                LogoName = "mikoba.Images.kiva.svg"
-            });
+            // Credentials.Add(new CredentialModel
+            // {
+            //     Organization = "GOVERNMENT",
+            //     MemberId = "Sixth Bank",
+            //     LogoName = "mikoba.Images.kiva.svg"
+            // });
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public override Task InitializeAsync(object navigationDat)
+        {
+            Console.WriteLine("Custom Code!");
+            return Task.FromResult(0);
+        }
     }
 }

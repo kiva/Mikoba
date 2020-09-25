@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.5" />
     <PackageReference Include="Sentry" Version="2.1.5" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.1" />
     <PackageReference Include="West.Extensions.Hosting.XamarinForms" Version="2.2.1" />
@@ -252,6 +253,10 @@
     </Compile>
     <Compile Update="UI\Pages\Onboarding\WalletPinSetPage.xaml.cs">
       <DependentUpon>WalletPinSetPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Components\AuthorityCard.xaml.cs">
+      <DependentUpon>AuthorityCard.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

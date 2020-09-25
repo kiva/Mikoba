@@ -15,9 +15,9 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels
 {
-    public sealed class WalletFirstActionsPageViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public sealed class FirstActionsPageViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
-        private static WalletFirstActionsPageViewModel m_instance;
+        private static FirstActionsPageViewModel m_instance;
         public INavigation NavigationService { get; set; }
         public ICommand OpenConnectionCommand { get; set; }
         public ICommand ShowWalletHomePageCommand { get; set; }
@@ -25,20 +25,20 @@ namespace mikoba.ViewModels
         
         public string WelcomeText { get; set; }
 
-        public static WalletFirstActionsPageViewModel Instance
+        public static FirstActionsPageViewModel Instance
         {
             get
             {
                 if (m_instance == null)
                 {
-                    m_instance = new WalletFirstActionsPageViewModel();
+                    m_instance = new FirstActionsPageViewModel();
                 }
 
                 return m_instance;
             }
         }
 
-        public WalletFirstActionsPageViewModel()
+        public FirstActionsPageViewModel()
         {
             this.OpenConnectionCommand = new Command(async () =>
             {

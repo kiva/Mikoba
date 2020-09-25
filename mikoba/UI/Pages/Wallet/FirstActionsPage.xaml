@@ -43,54 +43,58 @@
             VerticalOptions="End" />
         <RelativeLayout StyleClass="content">
             <StackLayout
-                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                    Orientation="Vertical">
-                    <StackLayout StyleClass="topLogos" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                        <Frame Padding="0" CornerRadius="5" IsClippedToBounds="True" HasShadow="False">
-                            <abstractions:SvgImage
-                                SvgAssembly="{Binding SvgAssembly}"
-                                SvgPath="{Binding KivaLogoBlue}"
-                                HeightRequest="35"
-                                WidthRequest="35"
-                                HorizontalOptions="Start" />
-                        </Frame>
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                Orientation="Vertical">
+                <StackLayout StyleClass="topLogos" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Frame Padding="0" CornerRadius="5" IsClippedToBounds="True" HasShadow="False">
                         <abstractions:SvgImage
                             SvgAssembly="{Binding SvgAssembly}"
-                            SvgPath="{Binding Gear}"
+                            SvgPath="{Binding KivaLogoBlue}"
                             HeightRequest="35"
                             WidthRequest="35"
-                            HorizontalOptions="EndAndExpand" />
-                    </StackLayout>
-                    <RelativeLayout>
-                        <Label
-                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Type=Constant, Constant=30}"
-                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
-                            StyleClass="header1"
-                            FontFamily="KivaPostGrot-Medium"
-                            Text="{Binding WelcomeText}" />
-                    </RelativeLayout>
+                            HorizontalOptions="Start" />
+                    </Frame>
+                    <abstractions:SvgImage
+                        SvgAssembly="{Binding SvgAssembly}"
+                        SvgPath="{Binding Gear}"
+                        HeightRequest="35"
+                        WidthRequest="35"
+                        HorizontalOptions="EndAndExpand">
+                        <abstractions:SvgImage.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped" />
+                        </abstractions:SvgImage.GestureRecognizers>
+                    </abstractions:SvgImage>
                 </StackLayout>
-                <Frame
-                    Padding="0"
-                    BackgroundColor="Transparent"
-                    HasShadow="False"
-                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.6}"
-                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.2}"
-                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.25}">
-                    <StackLayout HorizontalOptions="Center"
-                                 VerticalOptions="Center">
-                        <components:ActionButton
-                            Margin="15"
-                            ActionButtonText="Scan QR Code"
-                            ActionButtonSvg="mikoba.Images.qrcodescan2.svg"
-                            Command="{Binding OpenConnectionCommand}" />
-                        <Label
-                            TextColor="#004ED4"
-                            FontFamily="KivaPostGrot-Medium"
-                            HorizontalOptions="CenterAndExpand"
-                            Text="Recover ID Instead" />
-                    </StackLayout>
-                </Frame>
+                <RelativeLayout>
+                    <Label
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Type=Constant, Constant=30}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
+                        StyleClass="header1"
+                        FontFamily="KivaPostGrot-Medium"
+                        Text="{Binding WelcomeText}" />
+                </RelativeLayout>
+            </StackLayout>
+            <Frame
+                Padding="0"
+                BackgroundColor="Transparent"
+                HasShadow="False"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.6}"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.2}"
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.25}">
+                <StackLayout HorizontalOptions="Center"
+                             VerticalOptions="Center">
+                    <components:ActionButton
+                        Margin="15"
+                        ActionButtonText="Scan QR Code"
+                        ActionButtonSvg="mikoba.Images.qrcodescan2.svg"
+                        Command="{Binding OpenConnectionCommand}" />
+                    <Label
+                        TextColor="#004ED4"
+                        FontFamily="KivaPostGrot-Medium"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Recover ID Instead" />
+                </StackLayout>
+            </Frame>
         </RelativeLayout>
     </Grid>
 </ContentPage>

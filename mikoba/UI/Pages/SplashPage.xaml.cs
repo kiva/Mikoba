@@ -21,7 +21,8 @@ namespace mikoba.UI.Pages
             await Task.Delay(500);
             if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
             {
-                if (Preferences.Get(AppConstant.LocalWalletFirstView, false))
+                if (Preferences.Get(AppConstant.EnableFirstActionsView, true) &&
+                    Preferences.Get(AppConstant.LocalWalletFirstView, false))
                 {
                     Console.WriteLine("Navigating to Wallet First Actions Sequence");
                     var page = Navigation.NavigationStack.Last();

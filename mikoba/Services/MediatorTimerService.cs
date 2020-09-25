@@ -9,7 +9,9 @@ using Xamarin.Forms;
 
 namespace mikoba.Services
 {
-    public class MediatorTimerService
+    
+    
+    public class MediatorTimerService : IMediatorTimerService
     {
         private readonly Timer timer;
 

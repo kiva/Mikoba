@@ -4,24 +4,36 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using mikoba.Annotations;
 using mikoba.UI;
 using mikoba.UI.Pages;
+using mikoba.UI.Pages.Settings;
 using Sentry;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels
 {
-    public class KivaBaseViewModel
+    public class KivaBaseViewModel : IBaseViewModel
     {
         public ICommand DestroyWalletCommand { get; set; }
         public Command GoBackCommand { get; set; }
+        public Command GoToSettingsCommand { get; set; }
 
+        
         public INavigation NavigationService { get; set; }
 
         public KivaBaseViewModel()
         {
+            this.GoToSettingsCommand = new Command(async () =>
+            {
+                if (this.NavigationService == null)
+                {
+                    return;
+                }
+                await NavigationService.PushAsync(new SettingsPage());
+            });
             this.DestroyWalletCommand = new Command(async () =>
             {
                 Application.Current.Properties.Clear();
@@ -160,6 +172,15 @@ namespace mikoba.ViewModels
         public string Anonymous
         {
             get { return "mikoba.Images.anonymousprofilepic.svg";  }
+        }
+
+        public string Name { get; set; }
+        public string Title { get; set; }
+        public bool IsBusy { get; set; }
+        
+        public virtual Task InitializeAsync(object navigationData)
+        {
+            return Task.FromResult(0);
         }
     }
 }

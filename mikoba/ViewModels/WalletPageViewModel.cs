@@ -4,6 +4,8 @@ using mikoba.ViewModels;
 using Xamarin.Forms;
 using System.Windows.Input;
 using mikoba.UI.Pages;
+using mikoba.UI.Pages.Connections;
+using mikoba.UI.Pages.Settings;
 
 namespace mikoba.UI.ViewModels
 {

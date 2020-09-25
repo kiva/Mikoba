@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
+             mc:Ignorable="d" xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
+             ios:Page.UseSafeArea="true"
+             x:Class="mikoba.UI.Pages.Onboarding.AllowCameraConfirmationPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#F9F9F9">
+    <ContentPage.Resources>
+        <StyleSheet Source="../../../Styles/Global.css"></StyleSheet>
+    </ContentPage.Resources>
+    <Grid HorizontalOptions="Fill"
+          VerticalOptions="Fill">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="150" />
+            <RowDefinition Height="128" />
+            <RowDefinition Height="205" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Row="0"
+              HorizontalOptions="Fill"
+              VerticalOptions="Fill">
+            <abstractions:SvgImage
+                SvgAssembly="{Binding SvgAssembly}"
+                SvgPath="{Binding CornerCircles_Left}"
+                HeightRequest="81"
+                WidthRequest="48.81"
+                BackgroundColor="Transparent"
+                HorizontalOptions="Start"
+                VerticalOptions="Start" />
+            <components:BackButton
+                Command="{Binding GoBack}"/>
+            <Label
+                Text="Step 5 of 6"
+                FontFamily="KivaPostGrot-Medium"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                FontSize="15"
+                Margin="0, 24, 0, 0"
+                TextColor="#004FD4" />
+        </Grid>
+        <Grid
+            HorizontalOptions="Center"
+            Row="1">
+            <StackLayout>
+                <Label
+                    Text="Allow Kiva to access your camera?"
+                    FontFamily="KivaPostGrot-Medium"
+                    FontSize="21"
+                    TextColor="#004FD4"
+                    Margin="75, 0, 75, 100"
+                    VerticalOptions="Start"
+                    WidthRequest="280"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="Center" />
+            </StackLayout>
+        </Grid>
+        <Grid
+            HorizontalOptions="Center"
+            Row="2">
+            <StackLayout>
+                <abstractions:SvgImage
+                    SvgAssembly="{Binding SvgAssembly}"
+                    SvgPath="{Binding CameraIcon}"
+                    HeightRequest="48"
+                    WidthRequest="48"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start" />
+            </StackLayout>
+        </Grid>
+        <Grid
+            HorizontalOptions="Center"
+            Row="3">
+            <Label
+                FontSize="15"
+                LineHeight="1.4"
+                FontFamily="KivaPostGrot-Medium"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="Center"
+                LineBreakMode="WordWrap"
+                WidthRequest="280">
+                <Label.Text>
+                    We will only use your camera to scan QR codes. This will allow you to receive your digital identifications from places like your government agencies.
+                </Label.Text>
+            </Label>
+        </Grid>
+        <Grid
+            HorizontalOptions="Center"
+            Row="4">
+            <StackLayout VerticalOptions="Start"
+                         Orientation="Horizontal"
+                         HorizontalOptions="Center">
+                <Button
+                    CornerRadius="8"
+                    FontFamily="KivaPostGrot-Bold"
+                    Padding="20"
+                    Text="Maybe later"
+                    BackgroundColor="#FFFFFF"
+                    TextColor="#000"
+                    Command="{Binding SkipStep}"
+                    WidthRequest="152"
+                    TextTransform="None"
+                    Margin="24,0,8,0"
+                    FontSize="13" />
+                <Button
+                    Text="OK"
+                    FontFamily="KivaPostGrot-Bold"
+                    CornerRadius="8"
+                    WidthRequest="152"
+                    Padding="20"
+                    Command="{Binding CheckCameraPermissions}"
+                    Margin="0,0,20,0"
+                    BackgroundColor="#004FD4"
+                    TextColor="White"
+                    FontSize="13" />
+            </StackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

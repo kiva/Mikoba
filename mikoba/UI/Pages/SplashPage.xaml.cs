@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using mikoba.UI.Pages.Wallet;
 using mikoba.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -24,7 +25,7 @@ namespace mikoba.UI.Pages
                 {
                     Console.WriteLine("Navigating to Wallet First Actions Sequence");
                     var page = Navigation.NavigationStack.Last();
-                    await Navigation.PushAsync(new WalletFirstActionsPage());
+                    await Navigation.PushAsync(new FirstActionsPage());
                     Navigation.RemovePage(page);
                 }
                 else

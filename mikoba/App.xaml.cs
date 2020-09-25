@@ -1,22 +1,9 @@
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Timers;
 using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using Hyperledger.Aries.Agents;
-using Hyperledger.Aries.Routing;
-using Hyperledger.Aries.Storage;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Sentry;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using mikoba.Services;
 using mikoba.UI.Pages;
-using West.Extensions.Xamarin;
 
 namespace mikoba
 {
@@ -33,7 +20,6 @@ namespace mikoba
         {
             InitializeComponent();
             this.StartServices();
-            Preferences.Clear();
         }
 
         private void StartServices()

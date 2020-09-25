@@ -1,27 +1,17 @@
+using System;
+using mikoba.UI.Pages;
+using Xamarin.Forms;
+
 namespace mikoba.Services
 {
-    public class NavigationService
+    public static class NavigationService
     {
-        
-        // View models and pages mappings
-        // var _navigationService = Container.Resolve<INavigationService>();
-        // _navigationService.AddPageViewModelBinding<MainViewModel, MainPage>();
-        // _navigationService.AddPageViewModelBinding<ConnectionsViewModel, ConnectionsPage>();
-        // _navigationService.AddPageViewModelBinding<ConnectionViewModel, ConnectionPage>();
-        // _navigationService.AddPageViewModelBinding<RegisterViewModel, RegisterPage>();
-        // _navigationService.AddPageViewModelBinding<AcceptInviteViewModel, AcceptInvitePage>();
-        // _navigationService.AddPageViewModelBinding<CredentialsViewModel, CredentialsPage>();
-        // _navigationService.AddPageViewModelBinding<CredentialViewModel, CredentialPage>();
-        // _navigationService.AddPageViewModelBinding<AccountViewModel, AccountPage>();
-        // _navigationService.AddPageViewModelBinding<CreateInvitationViewModel, CreateInvitationPage>();
+        private static NavigationPage _navigationPage;
 
-        // if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
-        // {
-        //     await _navigationService.NavigateToAsync<MainViewModel>();
-        // }
-        // else
-        // {
-        //     await _navigationService.NavigateToAsync<RegisterViewModel>();
-        // }
+        public static NavigationPage CreateMainPage(Func<Page> initialPageBuilder)
+        {
+           _navigationPage = new NavigationPage(initialPageBuilder());
+           return _navigationPage;
+        }
     }
 }

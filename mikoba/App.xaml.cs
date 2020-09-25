@@ -16,15 +16,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using mikoba.Services;
 using mikoba.UI.Pages;
+using West.Extensions.Xamarin;
 
-[assembly: ExportFont("KivaPostGrot-Bold.ttf")]
-[assembly: ExportFont("KivaPostGrot-BoldItalic.ttf")]
-[assembly: ExportFont("KivaPostGrot-Book.ttf")]
-[assembly: ExportFont("KivaPostGrot-BookItalic.ttf")]
-[assembly: ExportFont("KivaPostGrot-Light.ttf")]
-[assembly: ExportFont("KivaPostGrot-LightItalic.ttf")]
-[assembly: ExportFont("KivaPostGrot-Medium.ttf")]
-[assembly: ExportFont("KivaPostGrot-MediumItalic.ttf")]
 namespace mikoba
 {
     public partial class App : Application
@@ -35,7 +28,6 @@ namespace mikoba
         public App(IHost host) : this() => Host = host;
 
         private MediatorTimerService _mediatorTimerService;
-        private MediatorTimerService _navigationService;
 
         public App()
         {
@@ -47,13 +39,12 @@ namespace mikoba
         private void StartServices()
         {
             _mediatorTimerService = new MediatorTimerService();
-            _navigationService = new MediatorTimerService();
         }
 
         protected override async void OnStart()
         {
             await Host.StartAsync();
-            MainPage = new NavigationPage(new SplashPage());
+            MainPage = NavigationService.CreateMainPage(() => new SplashPage());
             _mediatorTimerService.Start();
         }
         

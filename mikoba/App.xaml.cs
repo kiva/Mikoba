@@ -25,6 +25,8 @@ namespace mikoba
 
         protected override void OnStart()
         {
+            Application.Current.Properties.Remove("WalletInitialized");
+            Application.Current.Properties.Remove("WalletCreationDate");
             SentrySdk.CaptureEvent(new SentryEvent(){Message = "App Starting"});
             MainPage = new NavigationPage(new SplashPage());
         }

@@ -17,19 +17,17 @@ namespace mikoba.UI.Pages
         protected override async void OnAppearing()
         {
             await Task.Delay(500);
-            if (Application.Current.Properties.ContainsKey("WalletInitialized"))
+            if (Application.Current.Properties.ContainsKey("WalletInitialized") ||
+                Application.Current.Properties.ContainsKey("WalletCreationDate"))
             {
-                Console.WriteLine("Navigating to Wallet Page");
-                var page = Navigation.NavigationStack.Last();
-                await Navigation.PushAsync(new WalletPage());
-                Navigation.RemovePage(page);
-            }
-            else if (Application.Current.Properties.ContainsKey("WalletCreationDate"))
-            {
-                Console.WriteLine("Navigating to Wallet First Actions Sequence");
-                var page = Navigation.NavigationStack.Last();
-                await Navigation.PushAsync(new WalletFirstActionsPage());
-                Navigation.RemovePage(page);
+                if (Application.Current.Properties.ContainsKey("UseFingerprintAuth"))
+                {
+                    Navigation.PushAsync(new FingerprintLoginPage());
+                }
+                else
+                {
+                    Navigation.PushAsync(new PINLoginPage());
+                }
             }
             else
             {

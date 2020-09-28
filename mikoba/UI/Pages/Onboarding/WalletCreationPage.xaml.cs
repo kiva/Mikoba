@@ -33,7 +33,7 @@ namespace mikoba.UI.Pages.Onboarding
             await Task.Delay(100);
             this.lblProgress.Text = "Creating Wallet";
             await this.progressBar.ProgressTo(1, 500, Easing.Linear);
-            await WalletService.CreateWallet();
+            await WalletService.ProvisionWallet();
             SentrySdk.CaptureEvent(new SentryEvent() {Message = "Wallet Creation"});
             //TODO: Add Error Handling
             Preferences.Set(AppConstant.LocalWalletProvisioned, true);

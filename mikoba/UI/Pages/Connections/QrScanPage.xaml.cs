@@ -16,7 +16,6 @@ namespace mikoba.UI.Pages.Connections
         public QrScanPage()
         {
             InitializeComponent();
-            this.BindingContext = new KivaBaseViewModel();
         }
 
         protected override void OnAppearing()

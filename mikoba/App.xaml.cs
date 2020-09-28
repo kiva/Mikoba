@@ -5,6 +5,11 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using mikoba.Services;
 using mikoba.UI.Pages;
+using mikoba.UI.Pages.Connections;
+using mikoba.UI.Pages.Wallet;
+using mikoba.UI.ViewModels;
+using mikoba.ViewModels;
+using mikoba.ViewModels.Pages;
 
 namespace mikoba
 {
@@ -15,35 +20,44 @@ namespace mikoba
         private static IHost Host { get; set; }
         public App(IHost host) : this() => Host = host;
 
-        private MediatorTimerService _mediatorTimerService;
+        private IMediatorTimerService _mediatorTimerService;
+
+        private INavigationService _navigationService;
 
         public App()
         {
             InitializeComponent();
+            Preferences.Set(AppConstant.EnableFirstActionsView, false);
             this.StartServices();
         }
 
         private void StartServices()
         {
-            _mediatorTimerService = new MediatorTimerService();
+            _navigationService = Container.Resolve<INavigationService>();
+            _mediatorTimerService = Container.Resolve<IMediatorTimerService>();
         }
 
         protected override async void OnStart()
         {
-            try
+            await Host.StartAsync();
+
+            _navigationService.AddPageViewModelBinding<WalletPageViewModel, WalletPage>();
+            _navigationService.AddPageViewModelBinding<AcceptConnectionInviteViewModel, AcceptConnectionInvitePage>();
+            _navigationService.AddPageViewModelBinding<SplashPageViewModel, SplashPage>();
+            
+            
+            if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
             {
-                Console.WriteLine(Host);
-                await Host.StartAsync();
-                MainPage = NavigationService.CreateMainPage(() => new SplashPage());
-                _mediatorTimerService.Start();
+                await _navigationService.NavigateToAsync<WalletPageViewModel>();
             }
-            catch (Exception e)
+            else
             {
-                Console.WriteLine("Aloha");
-                Console.WriteLine(e);
+                await _navigationService.NavigateToAsync<SplashPageViewModel>();    
             }
+            
+            _mediatorTimerService.Start();
         }
-        
+
         protected override void OnSleep()
         {
             _mediatorTimerService.Pause();
@@ -53,6 +67,5 @@ namespace mikoba
         {
             _mediatorTimerService.Resume();
         }
-
     }
 }

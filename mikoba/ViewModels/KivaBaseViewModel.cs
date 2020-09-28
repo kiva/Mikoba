@@ -4,162 +4,129 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using mikoba.Annotations;
+using mikoba.Services;
 using mikoba.UI;
 using mikoba.UI.Pages;
+using mikoba.UI.Pages.Settings;
+using ReactiveUI;
 using Sentry;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels
 {
-    public class KivaBaseViewModel
+    public abstract class KivaBaseViewModel : ReactiveObject, IBaseViewModel
     {
-        public ICommand DestroyWalletCommand { get; set; }
-        public Command GoBackCommand { get; set; }
-
-        public INavigation NavigationService { get; set; }
-
-        public KivaBaseViewModel()
+        public KivaBaseViewModel(string title, INavigationService navigationService)
         {
-            this.DestroyWalletCommand = new Command(async () =>
+            this.NavigationService = navigationService;
+        }
+
+        protected KivaBaseViewModel()
+        {
+            throw new NotImplementedException();
+        }
+        
+        #region Services
+        protected readonly INavigationService NavigationService;
+        #endregion
+        
+        #region Commands
+        public ICommand DestroyWalletCommand
+        {
+            get => new Command(async ()=>
             {
                 Application.Current.Properties.Clear();
                 await Application.Current.SavePropertiesAsync();
                 System.Diagnostics.Process.GetCurrentProcess().Kill();
             });
-            GoBackCommand = new Command(async () =>
+        }
+
+        public Command GoBackCommand
+        {
+            get => new Command(async () =>
             {
                 if (this.NavigationService != null)
                 {
-                    this.NavigationService.PopAsync();
+                    // this.NavigationService.PopAsync();
                 }
             });
         }
 
-        public Assembly SvgAssembly
-        {
-            get { return typeof(App).GetTypeInfo().Assembly; }
+        public Command GoToSettingsCommand { 
+            get => new Command(async () =>
+            {
+                if (this.NavigationService == null)
+                {
+                    return;
+                }
+                // await Services.NavigationService.PushAsync(new SettingsPage());
+            });
         }
+        #endregion
 
-        public string KivaLogo
-        {
-            get { return "mikoba.Images.kiva.svg"; }
-        }
+        #region Image Helpers
+        public Assembly SvgAssembly { get; } = typeof(App).GetTypeInfo().Assembly;
 
-        public string Wave
-        {
-            get { return "mikoba.Images.wave.svg"; }
-        }
+        public string KivaLogo { get; } = "mikoba.Images.kiva.svg";
 
-        public string Bsl
-        {
-            get { return "mikoba.Images.bsl.svg"; }
-        }
+        public string Wave { get; } = "mikoba.Images.wave.svg";
 
-        public string Leaf
-        {
-            get { return "mikoba.Images.leaf.svg"; }
-        }
+        public string Bsl { get; } = "mikoba.Images.bsl.svg";
 
-        public string Orange
-        {
-            get { return "mikoba.Images.orange.svg"; }
-        }
+        public string Leaf { get; } = "mikoba.Images.leaf.svg";
 
-        public string Dots
-        {
-            get { return "mikoba.Images.dots.svg"; }
-        }
+        public string Orange { get; } = "mikoba.Images.orange.svg";
 
-        public string Pink
-        {
-            get { return "mikoba.Images.pink.svg"; }
-        }
+        public string Dots { get; } = "mikoba.Images.dots.svg";
 
-        public string LocationPin
-        {
-            get { return "mikoba.Images.locationpin.svg"; }
-        }
+        public string Pink { get; } = "mikoba.Images.pink.svg";
 
-        public string QrCodeScan
-        {
-            get { return "mikoba.Images.qrcodescan.svg"; }
-        }
+        public string LocationPin { get; } = "mikoba.Images.locationpin.svg";
 
-        public string QrCodeScan2
-        {
-            get { return "mikoba.Images.qrcodescan2.svg"; }
-        }
+        public string QrCodeScan { get; } = "mikoba.Images.qrcodescan.svg";
 
-        public string RightCaret
-        {
-            get { return "mikoba.Images.rightcaret.svg"; }
-        }
+        public string QrCodeScan2 { get; } = "mikoba.Images.qrcodescan2.svg";
+        public string RightCaret { get; } = "mikoba.Images.rightcaret.svg";
 
-        public string RightCaretYellow
-        {
-            get { return "mikoba.Images.rightcaretyellow.svg"; }
-        }
+        public string RightCaretYellow { get; } = "mikoba.Images.rightcaretyellow.svg";
 
-        public string LeftArrowYellow
-        {
-            get { return "mikoba.Images.leftarrow_yellow.svg"; }
-        }
+        public string LeftArrowYellow { get; } = "mikoba.Images.leftarrow_yellow.svg";
+        public string Secure { get; } = "mikoba.Images.secure.svg";
 
-        public string Secure
-        {
-            get { return "mikoba.Images.secure.svg"; }
-        }
+        public string Clock { get; } = "mikoba.Images.clock.svg";
 
-        public string Clock
-        {
-            get { return "mikoba.Images.clock.svg"; }
-        }
+        public string Selfie { get; } = "mikoba.Images.selfie.svg";
 
-        public string Selfie
-        {
-            get { return "mikoba.Images.selfie.svg"; }
-        }
+        public string KivaLogoBlue { get; } = "mikoba.Images.kivalogoblue.svg";
 
-        public string KivaLogoBlue
-        {
-            get { return "mikoba.Images.kivalogoblue.svg"; }
-        }
+        public string Gear { get; } = "mikoba.Images.gear.svg";
 
-        public string Gear
-        {
-            get { return "mikoba.Images.gear.svg"; }
-        }
+        public string CornerCircles { get; } = "mikoba.Images.cornercircles.svg";
 
-        public string CornerCircles
-        {
-            get { return "mikoba.Images.cornercircles.svg"; }
-        }
+        public string NoImage { get; } = "mikoba.Images.noImage.svg";
 
-        public string NoImage
-        {
-            get { return "mikoba.Images.noImage.svg"; }
-        }
+        public string CornerCircles_Left { get; } = "mikoba.Images.cornercircles_left.svg";
 
-        public string CornerCircles_Left
-        {
-            get { return "mikoba.Images.cornercircles_left.svg"; }
-        }
+        public string CameraIcon { get; } = "mikoba.Images.camera_icon.svg";
 
-        public string CameraIcon
-        {
-            get { return "mikoba.Images.camera_icon.svg"; }
-        }
+        public string BellIcon { get; } = "mikoba.Images.bell.svg";
 
-        public string BellIcon
-        {
-            get { return "mikoba.Images.bell.svg"; }
-        }
+        public string Anonymous { get; } = "mikoba.Images.anonymousprofilepic.svg";
+        
+        #endregion
 
-        public string Anonymous
+        #region UI Properties
+        public string Name { get; set; }
+        public string Title { get; set; }
+        public bool IsBusy { get; set; }
+        #endregion
+        
+        public virtual Task InitializeAsync(object navigationData)
         {
-            get { return "mikoba.Images.anonymousprofilepic.svg";  }
+            return Task.FromResult(false);
         }
     }
 }

@@ -4,8 +4,11 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using mikoba.Services;
 using mikoba.UI.Pages;
+using mikoba.UI.Pages.Connections;
 using mikoba.UI.Pages.Wallet;
 using mikoba.UI.ViewModels;
+using mikoba.ViewModels;
+using mikoba.ViewModels.Pages;
 
 namespace mikoba
 {
@@ -38,18 +41,18 @@ namespace mikoba
             await Host.StartAsync();
 
             _navigationService.AddPageViewModelBinding<WalletPageViewModel, WalletPage>();
-            // _navigationService.AddPageViewModelBinding<ConnectionsViewModel, ConnectionsPage>();
-            // _navigationService.AddPageViewModelBinding<ConnectionViewModel, ConnectionPage>();
-            // _navigationService.AddPageViewModelBinding<RegisterViewModel, RegisterPage>();
-            // _navigationService.AddPageViewModelBinding<AcceptInviteViewModel, AcceptInvitePage>();
-            // _navigationService.AddPageViewModelBinding<CredentialsViewModel, CredentialsPage>();
-            // _navigationService.AddPageViewModelBinding<CredentialViewModel, CredentialPage>();
-            // _navigationService.AddPageViewModelBinding<AccountViewModel, AccountPage>();
-            // _navigationService.AddPageViewModelBinding<CreateInvitationViewModel, CreateInvitationPage>();
-
-            // MainPage = NavigationService.CreateMainPage(() => new SplashPage());
+            _navigationService.AddPageViewModelBinding<AcceptConnectionInviteViewModel, AcceptConnectionInvitePage>();
+            _navigationService.AddPageViewModelBinding<SplashPageViewModel, SplashPage>();
             
-            await _navigationService.NavigateToAsync<WalletPageViewModel>();
+            
+            if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
+            {
+                await _navigationService.NavigateToAsync<WalletPageViewModel>();
+            }
+            else
+            {
+                await _navigationService.NavigateToAsync<SplashPageViewModel>();    
+            }
             
             _mediatorTimerService.Start();
         }

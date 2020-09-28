@@ -8,6 +8,7 @@ namespace mikoba.Services
 {
     public interface INavigationService
     {
+        void RegisterContainerPage();
         Task PopModalAsync();
 
         Task NavigateToAsync(Page page, NavigationType type = NavigationType.Normal);

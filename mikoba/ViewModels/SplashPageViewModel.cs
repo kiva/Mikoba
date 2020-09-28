@@ -2,43 +2,57 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using mikoba.Annotations;
+using mikoba.Services;
 using mikoba.UI;
 using mikoba.UI.Pages;
 using mikoba.UI.Pages.Onboarding;
+using mikoba.ViewModels.Pages;
 using Sentry;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels
 {
-    public class SplashPageViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class SplashPageViewModel : KivaBaseViewModel
     {
-        public INavigation NavigationService { get; private set; }
-        public ICommand GetStartedCommand { get; set; }
-        public ICommand ClaimWalletCommand { get; set; }
-
-        public SplashPageViewModel(INavigation navigationService)
+        public SplashPageViewModel(
+            INavigationService navigationService)
+        : base("Splash", navigationService)
         {
-            NavigationService = navigationService;
-            GetStartedCommand = new Command(async () =>
+            
+        }
+        
+      
+        
+        public override async Task InitializeAsync(object navigationData)
+        {
+            // if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
+            // {
+            //     await NavigationService.NavigateToAsync<WalletPageViewModel>();
+            // }
+            await base.InitializeAsync(navigationData);
+        }
+        
+        #region Commands
+        public ICommand GetStartedCommand 
+        { 
+            get => new Command(async () =>
             {
-                await NavigationService.PushAsync(new WalletOwnerInputPage(), true);
+                await WalletService.ProvisionWallet();
+                Preferences.Set(AppConstant.LocalWalletProvisioned, true);
+                await NavigationService.NavigateToAsync<WalletPageViewModel>();
             });
-            this.ClaimWalletCommand = new Command(async () =>
+        }
+    
+        public ICommand ClaimWalletCommand {
+            get => new Command(async () =>
             {
                 //TODO
             });
         }
-        
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        #endregion
     }
 }

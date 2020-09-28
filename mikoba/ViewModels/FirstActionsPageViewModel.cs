@@ -54,14 +54,7 @@ namespace mikoba.ViewModels
             {
                 await NavigationService.PushAsync(new WalletPage());
             });
-            
-            this.DestroyWalletCommand = new Command(async () =>
-            {
-                Application.Current.Properties.Clear();
-                await Application.Current.SavePropertiesAsync();
-                System.Diagnostics.Process.GetCurrentProcess().Kill();
-            });
-            
+
             var data = Application.Current.Properties["WalletCreationDate"];
             WelcomeText = String.Format("Hello {0}, welcome to your new Wallet.  Get started by receiving your first ID.", Application.Current.Properties[AppConstant.FullName]);
             OnPropertyChanged(nameof(WelcomeText));

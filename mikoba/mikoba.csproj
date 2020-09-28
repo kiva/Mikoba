@@ -10,7 +10,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="ReactiveUI" Version="11.5.35" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.5" />
     <PackageReference Include="Sentry" Version="2.1.5" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.1" />
@@ -19,6 +21,8 @@
     <PackageReference Include="West.Extensions.XamarinHosting" Version="3.0.0-preview1" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
     <PackageReference Include="Xam.Plugins.Forms.Svg" Version="1.0.0.27" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
     <PackageReference Include="Hyperledger.Aries" Version="1.2.15" />
@@ -165,6 +169,10 @@
     <EmbeddedResource Include="Images\noImage.svg" />
     <None Remove="Images\anonymousprofilepic.svg" />
     <EmbeddedResource Include="Images\anonymousprofilepic.svg" />
+    <None Remove="Images\bank.svg" />
+    <EmbeddedResource Include="Images\bank.svg" />
+    <None Remove="Images\gov.svg" />
+    <EmbeddedResource Include="Images\gov.svg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="UI\CredentialsListView.xaml.cs" />
@@ -227,7 +235,7 @@
       <DependentUpon>AllowCameraConfirmationPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\Pages\Connections\CredentialOfferReviewPage.xaml.cs">
+    <Compile Update="UI\Pages\Connections\AcceptInvitePage2.xaml.cs">
       <DependentUpon>CredentialOfferReviewPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -261,6 +269,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Services\SSI" />
     <Folder Include="UI\Pages\Credentials" />
   </ItemGroup>
 </Project>

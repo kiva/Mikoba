@@ -7,6 +7,7 @@ using mikoba.Annotations;
 using mikoba.UI.Pages;
 using mikoba.UI.Pages.Onboarding;
 using Sentry;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels
@@ -49,7 +50,7 @@ namespace mikoba.ViewModels
             {
                 if (!Owner.Equals(string.Empty))
                 {
-                    Application.Current.Properties[AppConstant.FullName] = Owner;
+                    Preferences.Set(AppConstant.FullName, Owner);
                     await NavigationService.PushAsync(new WalletPinSetPage(GetFirstName()), true);
                 }
                 else

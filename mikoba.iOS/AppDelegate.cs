@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+using System.Diagnostics;
+using Autofac;
+using FFImageLoading.Forms.Platform;
 using Foundation;
 using Microsoft.Extensions.DependencyInjection;
 using SVG.Forms.Plugin.iOS;
@@ -31,6 +31,8 @@ namespace mikoba.iOS
             global::Xamarin.Forms.Forms.Init();
             ZXing.Net.Mobile.Forms.iOS.Platform.Init();
             
+            //Image Plugin Support
+            CachedImageRenderer.Init();
             SvgImageRenderer.Init();
             
             var host = HostBuilder

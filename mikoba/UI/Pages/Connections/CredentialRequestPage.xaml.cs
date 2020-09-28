@@ -12,8 +12,6 @@ namespace mikoba.UI.Pages.Connections
         public CredentialRequestPage()
         {
             InitializeComponent();
-            BindingContext = CredentialRequestViewModel.Instance;
-            CredentialRequestViewModel.Instance.NavigationService = this.Navigation;
         }
         
     }

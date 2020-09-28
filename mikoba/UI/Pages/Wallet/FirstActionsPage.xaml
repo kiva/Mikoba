@@ -66,12 +66,7 @@
                     </abstractions:SvgImage>
                 </StackLayout>
                 <RelativeLayout>
-                    <Label
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Type=Constant, Constant=30}"
-                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
-                        StyleClass="header1"
-                        FontFamily="KivaPostGrot-Medium"
-                        Text="{Binding WelcomeText}" />
+                    
                 </RelativeLayout>
             </StackLayout>
             <Frame

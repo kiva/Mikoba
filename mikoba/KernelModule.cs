@@ -10,11 +10,6 @@ namespace mikoba
         {
             base.Load(builder);
             
-            // builder
-            //     .Register(x => UserDialogs.Instance)
-            //     .As<IUserDialogs>()
-            //     .SingleInstance();
-
             builder
                 .RegisterType<NavigationService>()
                 .AsImplementedInterfaces()

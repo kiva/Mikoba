@@ -23,6 +23,12 @@ namespace mikoba.Services
            return _navigationPage;
         }
         
+        public void RegisterContainerPage()
+        {
+           // _navigationPage = new NavigationPage(new SplashPage());
+           CurrentApplication.MainPage = new NavigationPage();
+        }
+        
         private readonly ILifetimeScope _scope;
         protected readonly IList<Tuple<Type, Type, bool>> Mappings;
 

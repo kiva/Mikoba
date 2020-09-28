@@ -9,8 +9,7 @@
     xmlns:ui="clr-namespace:mikoba.UI;assembly=mikoba"
     mc:Ignorable="d"
     x:Class="mikoba.UI.Pages.Connections.CredentialOfferReviewPage"
-    BackgroundColor="#F9F9F9"
->
+    BackgroundColor="#F9F9F9">
     <ContentPage.Resources>
         <StyleSheet Source="../../../Styles/Global.css"></StyleSheet>
         <StyleSheet Source="../../../Styles/Credentials.css"></StyleSheet>

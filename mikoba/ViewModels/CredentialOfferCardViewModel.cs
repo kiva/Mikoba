@@ -81,7 +81,7 @@ namespace mikoba.ViewModels
             {
                 IsAccepted = true;
                 IsOffered = false;
-                await WalletPageViewModel.Instance.NavigationService.PopAsync();
+                // await WalletPageViewModel.Instance.NavigationService.PopAsync();
             });
             this.OnClickDeclineCommand = new Command(async () =>
             {

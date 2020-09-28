@@ -9,13 +9,13 @@ namespace mikoba.ViewModels
 {
     public class FingerprintLoginViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
+        private INavigation NavigationService { get; set; }
+        
         public FingerprintLoginViewModel(INavigation navigationService)
         {
             NavigationService = navigationService;
         }
-        
-        
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

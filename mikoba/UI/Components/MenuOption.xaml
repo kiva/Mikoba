@@ -9,7 +9,7 @@
         <Frame StyleClass="displayFrame" HasShadow="False">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="10" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="10" />
                 </Grid.ColumnDefinitions>

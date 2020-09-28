@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using mikoba.UI.Pages.Wallet;
 using mikoba.ViewModels;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace mikoba.UI.Pages
@@ -17,8 +19,7 @@ namespace mikoba.UI.Pages
         protected override async void OnAppearing()
         {
             await Task.Delay(500);
-            if (Application.Current.Properties.ContainsKey("WalletInitialized") ||
-                Application.Current.Properties.ContainsKey("WalletCreationDate"))
+            if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
             {
                 if (Application.Current.Properties.ContainsKey("UseFingerprintAuth"))
                 {

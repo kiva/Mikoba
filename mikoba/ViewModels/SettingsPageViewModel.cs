@@ -27,6 +27,7 @@ namespace mikoba.UI.ViewModels
         
         public SettingsPageViewModel()
         {
+            SettingsActions = new ObservableCollection<WalletActionModel>();
             SettingsActions.Add(new WalletActionModel
             {
                 ActionLabel = "General Settings",

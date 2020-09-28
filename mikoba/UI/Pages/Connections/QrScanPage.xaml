@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
+             x:Class="mikoba.UI.Pages.Connections.QrScanPage"
+             BackgroundColor="White"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <forms:ZXingScannerView
+                Grid.RowSpan="3"
+                x:Name="ScannerView"
+                WidthRequest="200"
+                HeightRequest="200"
+                
+                OnScanResult="ScannerView_OnScanResult" />
+
+            <Grid x:Name="Skin"
+                  Grid.RowSpan="3"
+                  HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand" />
+
+            <Label
+                Grid.Row="2"
+                x:Name="MyLabel"
+                TextColor="White"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center">
+            </Label>
+            
+            
+            <Grid 
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="FillAndExpand" 
+                Padding="0,50,0,0">
+                <Label
+                    TextColor="White"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center">
+                    Position the QR code in the middle
+                </Label>
+                <Button Text="X"
+                        Margin="20"
+                        Grid.Row="0"
+                        Clicked="Button_OnClicked"
+                        TextColor="White"
+                        HorizontalOptions="End"
+                        FontSize="20"
+                        VerticalOptions="Start" />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:mikoba.UI"
+    xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
+    NavigationPage.HasNavigationBar="False"
+    x:Class="mikoba.UI.Pages.Wallet.WalletPage"
+    ios:Page.UseSafeArea="true"
+    BackgroundColor="#F2F2F2">
+    <ContentPage.Resources>
+        <StyleSheet Source="../../../Styles/WalletHomePage.css" />
+        <StyleSheet Source="../../../Styles/Global.css" />
+    </ContentPage.Resources>
+    <Grid HorizontalOptions="Fill"
+          VerticalOptions="Fill">
+        <abstractions:SvgImage
+            SvgAssembly="{Binding SvgAssembly}"
+            SvgPath="{Binding Wave}"
+            StyleClass="waveBackground"
+            HeightRequest="360"
+            WidthRequest="640"
+            BackgroundColor="#F2F2F2"
+            HorizontalOptions="End"
+            VerticalOptions="Start" />
+        <abstractions:SvgImage
+            SvgAssembly="{Binding SvgAssembly}"
+            SvgPath="{Binding Orange}"
+            HeightRequest="200"
+            WidthRequest="214"
+            BackgroundColor="#F2F2F2"
+            HorizontalOptions="Start"
+            VerticalOptions="End" />
+        <abstractions:SvgImage
+            SvgAssembly="{Binding SvgAssembly}"
+            SvgPath="{Binding Dots}"
+            HeightRequest="83"
+            WidthRequest="97"
+            BackgroundColor="#F2F2F2"
+            HorizontalOptions="End"
+            VerticalOptions="End" />
+        <StackLayout StyleClass="content"
+                     Orientation="Vertical"
+                     HorizontalOptions="Center">
+            <StackLayout StyleClass="topLogos" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Frame Padding="0" CornerRadius="5" IsClippedToBounds="True" HasShadow="False">
+                    <abstractions:SvgImage
+                        SvgAssembly="{Binding SvgAssembly}"
+                        SvgPath="{Binding KivaLogoBlue}"
+                        HeightRequest="35"
+                        WidthRequest="35"
+                        HorizontalOptions="Start" />
+                </Frame>
+                <abstractions:SvgImage
+                    SvgAssembly="{Binding SvgAssembly}"
+                    SvgPath="{Binding Gear}"
+                    HeightRequest="35"
+                    WidthRequest="35"
+                    HorizontalOptions="EndAndExpand">
+                    <abstractions:SvgImage.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped" />
+                    </abstractions:SvgImage.GestureRecognizers>
+                </abstractions:SvgImage>
+            </StackLayout>
+            <Grid>
+                <ScrollView
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    Margin="0,0,0,0">
+                    <StackLayout>
+                        <CollectionView
+                            HeightRequest="{Binding MenuOptionsHeight}"
+                            ItemsSource="{Binding WalletActions}"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            VerticalScrollBarVisibility="Never"
+                            >
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <components:MenuOption
+                                        Margin="0,10,0,0"
+                                        LeftSvgImage="{Binding LeftIcon}"
+                                        RightSvgImage="{Binding RightIcon}"
+                                        MenuOptionText="{Binding ActionLabel}"
+                                        Command="{Binding ActionCommand}" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <CollectionView ItemsSource="{Binding Credentials}"
+                                        VerticalScrollBarVisibility="Never"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Start">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <components:CredentialCard
+                                        OrganizationText="{Binding Organization}"
+                                        MemberIdText="{Binding MemberId}"
+                                        Logo="{Binding LogoName}" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </ScrollView>
+                <components:ActionButton
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    ActionButtonSvg="mikoba.Images.qrcodescan2.svg"
+                    ActionButtonText="Scan QR Code"
+                    Command="{Binding ScanCodeCommand}" />
+            </Grid>
+        </StackLayout>
+    </Grid>
+</ContentPage>

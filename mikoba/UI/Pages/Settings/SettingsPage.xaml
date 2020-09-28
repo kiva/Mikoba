@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:mikoba.UI"
+    xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
+    xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
+    NavigationPage.HasNavigationBar="False"
+    x:Class="mikoba.UI.Pages.Settings.SettingsPage"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true"
+    BackgroundColor="#F2F2F2">
+    <ContentPage.Resources>
+        <StyleSheet Source="../../../Styles/WalletHomePage.css"></StyleSheet>
+        <StyleSheet Source="../../../Styles/Global.css"></StyleSheet>
+    </ContentPage.Resources>
+    <Grid HorizontalOptions="Fill"
+          Margin="20"
+          VerticalOptions="Fill">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0"
+                Text="Back"
+                FontAttributes="Bold"
+                VerticalOptions="Center"
+                HorizontalOptions="Start"
+                TextColor="#004FD4"
+                Command="{Binding GoBackCommand}" />
+        <Label
+            VerticalOptions="Center"
+            HorizontalOptions="Start"
+            FontSize="21"
+            Grid.Row="1">Settings</Label>
+        <CollectionView
+            Grid.Row="2"
+            ItemsSource="{Binding SettingsActions}"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            VerticalScrollBarVisibility="Never"
+            HeightRequest="180">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <components:MenuOption
+                        LeftSvgImage="{Binding NoImage}"
+                        RightSvgImage="{Binding RightIcon}"
+                        MenuOptionText="{Binding ActionLabel}"
+                        Command="{Binding ActionCommand}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+     </Grid>
+</ContentPage>

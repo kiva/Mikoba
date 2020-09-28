@@ -9,10 +9,14 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Plugin.Fingerprint" Version="2.1.1" />
     <PackageReference Include="Sentry" Version="2.1.5" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.1" />
+    <PackageReference Include="West.Extensions.Hosting.XamarinForms" Version="2.2.1" />
+    <PackageReference Include="West.Extensions.Xamarin.Abstractions" Version="1.0.5" />
+    <PackageReference Include="West.Extensions.XamarinHosting" Version="3.0.0-preview1" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
     <PackageReference Include="Xam.Plugins.Forms.Svg" Version="1.0.0.27" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
@@ -104,18 +108,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="UI\Pages\WalletCreationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="UI\Pages\WalletFirstActionsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="UI\Pages\QrScanPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator></Generator>
-    </EmbeddedResource>
     <None Remove="Images\leaf.svg" />
     <EmbeddedResource Include="Images\leaf.svg" />
     <EmbeddedResource Include="Images\rightcaret.svg" />
@@ -148,10 +140,6 @@
     </EmbeddedResource>
     <None Remove="Images\background2.svg" />
     <EmbeddedResource Include="Images\background2.svg" />
-    <EmbeddedResource Update="UI\Pages\WalletPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator></Generator>
-    </EmbeddedResource>
     <None Remove="Images\bsl.svg" />
     <EmbeddedResource Include="Images\bsl.svg" />
     <EmbeddedResource Update="UI\Components\ActionButton.xaml">
@@ -164,35 +152,11 @@
     <EmbeddedResource Include="Images\clock.svg" />
     <None Remove="Images\rightcaretyellow.svg" />
     <EmbeddedResource Include="Images\rightcaretyellow.svg" />
-    <EmbeddedResource Update="UI\Pages\CreateConnectionPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="UI\Pages\ConnectionsListPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="UI\Pages\ConnectionDetailsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="UI\Pages\CredentialOfferReviewPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator></Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="UI\Components\AddNewButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="UI\Pages\SettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator></Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="UI\Components\CredentialOfferCard.xaml">
-      <SubType>Designer</SubType>
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="UI\Pages\WalletOwnerInputPage.xaml">
       <SubType>Designer</SubType>
       <Generator></Generator>
     </EmbeddedResource>
@@ -208,17 +172,6 @@
       <DependentUpon>SplashPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\Pages\WalletCreationPage.xaml.cs">
-      <DependentUpon>WalletCreationPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="UI\Pages\WalletFirstActionsPage.xaml.cs">
-      <DependentUpon>WalletHomePage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="UI\Pages\QrScanPage.xaml.cs">
-      <DependentUpon>QrScanPage.xaml</DependentUpon>
-    </Compile>
     <Compile Update="UI\Components\MenuOption.xaml.cs">
       <DependentUpon>MenuOption.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -227,48 +180,83 @@
       <DependentUpon>CredentialCard.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\Pages\WalletPage.xaml.cs">
-      <DependentUpon>CredentialListView.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="UI\Components\ActionButton.xaml.cs">
       <DependentUpon>ActionButton.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="UI\Pages\CreateConnectionPage.xaml.cs">
-      <DependentUpon>CreateConnectionPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="UI\Pages\ConnectionsListPage.xaml.cs">
-      <DependentUpon>ConnectionsListPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="UI\Pages\ConnectionDetailsPage.xaml.cs">
-      <DependentUpon>ConnectionDetailsPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="UI\Pages\CredentialOfferReviewPage.xaml.cs">
-      <DependentUpon>CredentialOfferReviewPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\Components\AddNewButton.xaml.cs">
       <DependentUpon>AddNewButton.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\Pages\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="UI\Components\CredentialOfferCard.xaml.cs">
       <DependentUpon>CredentialOfferCard.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Pages\CredentialRequestPage.xaml.cs">
-      <DependentUpon>CredentialRequestPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\Components\CredentialRequestCard.xaml.cs">
       <DependentUpon>CredentialRequestCard.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\Pages\Connections\QrScanPage.xaml.cs">
+      <DependentUpon>QrScanPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\Wallet\FirstActionsPage.xaml.cs">
+      <DependentUpon>FirstActionsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\Onboarding\WalletOwnerInputPage.xaml.cs">
+      <DependentUpon>WalletOwnerInputPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\Onboarding\WalletPinConfirmationPage.xaml.cs">
+      <DependentUpon>WalletPinConfirmationPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\Connections\CreateConnectionPage.xaml.cs">
+      <DependentUpon>CreateConnectionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\Onboarding\AllowPushNotificationPage.xaml.cs">
+      <DependentUpon>AllowPushNotificationPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\Wallet\WalletPage.xaml.cs">
+      <DependentUpon>WalletPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\Onboarding\AllowCameraConfirmationPage.xaml.cs">
+      <DependentUpon>AllowCameraConfirmationPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\Connections\CredentialOfferReviewPage.xaml.cs">
+      <DependentUpon>CredentialOfferReviewPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\Connections\CredentialRequestPage.xaml.cs">
+      <DependentUpon>CredentialRequestPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\Connections\ConnectionDetailsPage.xaml.cs">
+      <DependentUpon>ConnectionDetailsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\Connections\ConnectionsListPage.xaml.cs">
+      <DependentUpon>ConnectionsListPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\Onboarding\WalletCreationPage.xaml.cs">
+      <DependentUpon>WalletCreationPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\Settings\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\Onboarding\WalletPinSetPage.xaml.cs">
+      <DependentUpon>WalletPinSetPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UI\Pages\Credentials" />
   </ItemGroup>
 </Project>

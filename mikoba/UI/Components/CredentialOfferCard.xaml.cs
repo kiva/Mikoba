@@ -18,6 +18,7 @@ namespace mikoba.UI.Components
         {
             InitializeComponent();
             this.BindingContext = CredentialOfferCardViewModel.Instance;
+            
         }
     }
 }

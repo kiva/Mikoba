@@ -1,44 +1,58 @@
 using System;
-using mikoba.UI.Pages;
-using Sentry;
+using Autofac;
+using Microsoft.Extensions.Hosting;
+using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-[assembly: ExportFont("KivaPostGrot-Bold.ttf")]
-[assembly: ExportFont("KivaPostGrot-BoldItalic.ttf")]
-[assembly: ExportFont("KivaPostGrot-Book.ttf")]
-[assembly: ExportFont("KivaPostGrot-BookItalic.ttf")]
-[assembly: ExportFont("KivaPostGrot-Light.ttf")]
-[assembly: ExportFont("KivaPostGrot-LightItalic.ttf")]
-[assembly: ExportFont("KivaPostGrot-Medium.ttf")]
-[assembly: ExportFont("KivaPostGrot-MediumItalic.ttf")]
+using mikoba.Services;
+using mikoba.UI.Pages;
 
 namespace mikoba
 {
     public partial class App : Application
     {
-        private IDisposable sentry;
+        public new static App Current => Application.Current as App;
+        public static IContainer Container { get; set; }
+        private static IHost Host { get; set; }
+        public App(IHost host) : this() => Host = host;
+
+        private MediatorTimerService _mediatorTimerService;
+
         public App()
         {
             InitializeComponent();
-            sentry = SentrySdk.Init("https://62def4f857964cc88353443f784b5e70@o7540.ingest.sentry.io/5382430");
+            this.StartServices();
         }
 
-        protected override void OnStart()
+        private void StartServices()
         {
-            Application.Current.Properties.Remove("WalletInitialized");
-            Application.Current.Properties.Remove("WalletCreationDate");
-            SentrySdk.CaptureEvent(new SentryEvent(){Message = "App Starting"});
-            MainPage = new NavigationPage(new SplashPage());
+            _mediatorTimerService = new MediatorTimerService();
         }
 
+        protected override async void OnStart()
+        {
+            try
+            {
+                Console.WriteLine(Host);
+                await Host.StartAsync();
+                MainPage = NavigationService.CreateMainPage(() => new SplashPage());
+                _mediatorTimerService.Start();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Aloha");
+                Console.WriteLine(e);
+            }
+        }
+        
         protected override void OnSleep()
         {
-            SentrySdk.CaptureEvent(new SentryEvent(){Message = "App Sleeping"});
+            _mediatorTimerService.Pause();
         }
 
         protected override void OnResume()
         {
-            SentrySdk.CaptureEvent(new SentryEvent(){Message = "App Resuming"});
+            _mediatorTimerService.Resume();
         }
+
     }
 }

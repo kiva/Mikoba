@@ -10,7 +10,6 @@ namespace mikoba.UI.Pages.Onboarding
         public AllowCameraConfirmationPage()
         {
             InitializeComponent();
-            BindingContext = new AllowCameraConfirmationViewModel(Navigation);
         }
     }
 }

@@ -2,29 +2,46 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Autofac;
+using Hyperledger.Aries.Agents.Edge;
+using Hyperledger.Aries.Configuration;
 using mikoba.Annotations;
+using mikoba.Services;
 using mikoba.UI;
+using mikoba.ViewModels.Pages;
 using Sentry;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels
 {
-    public sealed class WalletCreationViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public sealed class WalletCreationViewModel : KivaBaseViewModel
     {
-        public INavigation NavigationService { get; private set; }
 
-        public WalletCreationViewModel(INavigation navigationService)
+        public WalletCreationViewModel(
+            INavigationService navigationService,
+            IEdgeProvisioningService edgeProvisioningService
+        )
+        : base("Wallet Creation", navigationService)
         {
-            this.NavigationService = navigationService;
+            _edgeProvisioningService = edgeProvisioningService;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private IEdgeProvisioningService _edgeProvisioningService;
+        
+        #region Lifecyle
+        
+        public override async Task InitializeAsync(object navigationData)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            await _edgeProvisioningService.ProvisionAsync();
+            Preferences.Set(AppConstant.LocalWalletProvisioned, true);
+            await Task.Delay(2000);
+            await NavigationService.NavigateToAsync<WalletPageViewModel>();
         }
+        
+        #endregion
+
     }
 }

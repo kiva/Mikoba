@@ -57,6 +57,7 @@ namespace mikoba.ViewModels.Pages
         public ICommand AcceptCommand => new Command(async () =>
         {
             var context = await _contextProvider.GetContextAsync();
+            
             try
             {
                 var identifier = await _credentialsService.ProcessOfferAsync(context, _offerMessage, new ConnectionRecord());

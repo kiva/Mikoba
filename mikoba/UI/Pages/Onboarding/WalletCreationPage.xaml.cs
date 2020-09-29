@@ -14,12 +14,11 @@ namespace mikoba.UI.Pages.Onboarding
         public WalletCreationPage()
         {
             InitializeComponent();
-            this.BindingContext = new WalletCreationViewModel(this.Navigation);
         }
 
         protected override async void OnAppearing()
         {
-            await CreateWalletFlow();
+         
         }
 
         async Task CreateWalletFlow()
@@ -34,17 +33,13 @@ namespace mikoba.UI.Pages.Onboarding
             this.lblProgress.Text = "Creating Wallet";
             await this.progressBar.ProgressTo(1, 500, Easing.Linear);
             await WalletService.ProvisionWallet();
-            SentrySdk.CaptureEvent(new SentryEvent() {Message = "Wallet Creation"});
-            //TODO: Add Error Handling
+
+
             Preferences.Set(AppConstant.LocalWalletProvisioned, true);
-            Preferences.Set(AppConstant.LocalWalletFirstView, true);
+            Preferences.Set(AppConstant.LocalWalletFirstView, false);
             await Application.Current.SavePropertiesAsync();
             this.lblProgress.Text = "Wallet Created";
             await Task.Delay(1000);
-            
-            var page = Navigation.NavigationStack.Last();
-            await Navigation.PushAsync(new FirstActionsPage());
-            Navigation.RemovePage(page);
         }
     }
 }

@@ -11,7 +11,6 @@ namespace mikoba.UI.Pages.Onboarding
         public WalletOwnerInputPage()
         {
             InitializeComponent();
-            BindingContext = new WalletOwnerInputViewModel(Navigation);
         }
 
         protected override async void OnAppearing()

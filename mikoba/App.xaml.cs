@@ -1,4 +1,5 @@
 using Autofac;
+using Hyperledger.Aries.Agents.Edge;
 using Hyperledger.Aries.Routing;
 using Microsoft.Extensions.Hosting;
 using Xamarin.Essentials;
@@ -7,6 +8,7 @@ using mikoba.Services;
 using mikoba.UI.Pages;
 using mikoba.UI.Pages.Connections;
 using mikoba.UI.Pages.Credentials;
+using mikoba.UI.Pages.Onboarding;
 using mikoba.UI.Pages.Wallet;
 using mikoba.UI.ViewModels;
 using mikoba.ViewModels;
@@ -41,15 +43,24 @@ namespace mikoba
         protected override async void OnStart()
         {
             await Host.StartAsync();
-
+            //Wallet
             _navigationService.AddPageViewModelBinding<WalletPageViewModel, WalletPage>();
             _navigationService.AddPageViewModelBinding<AcceptConnectionInviteViewModel, AcceptConnectionInvitePage>();
             _navigationService.AddPageViewModelBinding<CredentialOfferPageViewModel, CredentialOfferPage>();
             _navigationService.AddPageViewModelBinding<CredentialRequestPageViewModel, CredentialRequestPage>();
             _navigationService.AddPageViewModelBinding<EntryHubPageViewModel, EntryHubPage>();
             _navigationService.AddPageViewModelBinding<SplashPageViewModel, SplashPage>();
+            //Onboarding
+            _navigationService.AddPageViewModelBinding<WalletOwnerInputViewModel, WalletOwnerInputPage>();
+            _navigationService.AddPageViewModelBinding<WalletPinSetViewModel, WalletPinSetPage>();
+            _navigationService.AddPageViewModelBinding<WalletPinConfirmViewModel, WalletPinConfirmationPage>();
+            _navigationService.AddPageViewModelBinding<WalletCreationViewModel, WalletCreationPage>();
+            //Permissions
+            _navigationService.AddPageViewModelBinding<AllowCameraConfirmationViewModel, AllowCameraConfirmationPage>();
+            _navigationService.AddPageViewModelBinding<AllowPushNotificationViewModel, AllowPushNotificationPage>();
+            
 
-            if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
+            if (false && Preferences.Get(AppConstant.LocalWalletProvisioned, false))
             {
                 await _navigationService.NavigateToAsync<WalletPageViewModel>();
             }

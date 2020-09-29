@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using mikoba.Annotations;
+using mikoba.Services;
 using mikoba.UI.Pages;
 using mikoba.UI.Pages.Onboarding;
 using Xamarin.Essentials;
@@ -12,21 +13,12 @@ namespace mikoba.ViewModels
 {
     public class AllowPushNotificationViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
-        public ICommand GoBack { get; set; }
-        
-        public ICommand CheckNotificationPermissions { get; set; }
-        
-        public ICommand SkipStep { get; set; }
-        
-        private INavigation NavigationService { get; set; }
-
-        public AllowPushNotificationViewModel(INavigation navigationService)
+        public AllowPushNotificationViewModel(INavigationService navigationService)
+        : base("Allow Push Notifications", navigationService)
         {
-            NavigationService = navigationService;
-            
             GoBack = new Command(async () =>
             {
-                NavigationService.PopAsync(true);
+                await NavigationService.NavigateBackAsync();
             });
             
             CheckNotificationPermissions = new Command(async () =>
@@ -34,7 +26,7 @@ namespace mikoba.ViewModels
                 // var status = await Permissions.RequestAsync<Permissions.Reminders>();
                 // if (status == PermissionStatus.Granted)
                 // {
-                    AdvancePage();
+                AdvancePage();
                 // }
             });
             
@@ -44,9 +36,19 @@ namespace mikoba.ViewModels
             });
         }
         
-        public void AdvancePage()
+        
+        #region Commands
+        public ICommand GoBack { get; set; }
+        
+        public ICommand CheckNotificationPermissions { get; set; }
+        
+        public ICommand SkipStep { get; set; }
+
+        #endregion
+
+        public async void AdvancePage()
         {
-            NavigationService.PushAsync(new WalletCreationPage(), true);
+            await NavigationService.NavigateToAsync<WalletCreationViewModel>();
         }
         
         public event PropertyChangedEventHandler PropertyChanged;

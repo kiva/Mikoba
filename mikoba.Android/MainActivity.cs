@@ -69,8 +69,6 @@ namespace mikoba.Droid
             SvgImageRenderer.Init();
         }
 
-
-
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions,
             Permission[] grantResults)
         {

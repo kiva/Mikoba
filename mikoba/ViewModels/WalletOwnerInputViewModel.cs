@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using mikoba.Annotations;
+using mikoba.Services;
 using mikoba.UI.Pages;
 using mikoba.UI.Pages.Onboarding;
 using Sentry;
@@ -14,6 +15,29 @@ namespace mikoba.ViewModels
 {
     public class WalletOwnerInputViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
+        public WalletOwnerInputViewModel(INavigationService navigationService)
+            : base("Owner Input", navigationService)
+        {
+            GoBack = new Command(async () =>
+            {
+                await NavigationService.NavigateBackAsync();
+            });
+            
+            SetOwner = new Command(async () =>
+            {
+                if (!Owner.Equals(string.Empty))
+                {
+                    Preferences.Set(AppConstant.FullName, Owner);
+                    
+                    await NavigationService.NavigateToAsync<WalletPinSetViewModel>(GetFirstName());
+                }
+                else
+                {
+                    Console.WriteLine("Unable to set the wallet owner");
+                }
+            });
+        }
+        
         private string owner = string.Empty;
 
         public string Owner
@@ -32,33 +56,12 @@ namespace mikoba.ViewModels
             }
         }
 
+        #region Commands
         public ICommand GoBack { get; set; }
         
         public ICommand SetOwner { get; set; }
         
-        private INavigation NavigationService { get; set; }
-
-        public WalletOwnerInputViewModel(INavigation navigationService)
-        {
-            NavigationService = navigationService;
-            GoBack = new Command(async () =>
-            {
-                await NavigationService.PopAsync(true);
-            });
-            
-            SetOwner = new Command(async () =>
-            {
-                if (!Owner.Equals(string.Empty))
-                {
-                    Preferences.Set(AppConstant.FullName, Owner);
-                    await NavigationService.PushAsync(new WalletPinSetPage(GetFirstName()), true);
-                }
-                else
-                {
-                    Console.WriteLine("Unable to set the wallet owner");
-                }
-            });
-        }
+        #endregion
 
         private string GetFirstName()
         {

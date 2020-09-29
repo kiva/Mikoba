@@ -67,7 +67,7 @@ public static class MessageDecoder
                 case MessageTypes.PresentProofNames.RequestPresentation:
                     return unpackedMessage.GetMessage<RequestPresentationMessage>();
                 //MessageTypes.IssueCredentialNames
-                case MessageTypes.IssueCredentialNames.OfferCredential:
+                case MessageTypes.IssueCredentialNames.ProposeCredential:
                     return unpackedMessage.GetMessage<CredentialOfferMessage>();
                 
             }

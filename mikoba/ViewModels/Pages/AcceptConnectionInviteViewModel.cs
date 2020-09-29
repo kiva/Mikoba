@@ -25,14 +25,14 @@ namespace mikoba.ViewModels.Pages
 {
     public class AcceptConnectionInviteViewModel : KivaBaseViewModel
     {
-        
-        public AcceptConnectionInviteViewModel(INavigationService navigationService,
-                                     IConnectionService connectionService,
-                                     IMessageService messageService,
-                                     IAgentProvider contextProvider,
-                                     IEventAggregator eventAggregator,
-                                     ILifetimeScope scope)
-                                     : base("Accept Invitation", navigationService)
+        public AcceptConnectionInviteViewModel(
+            INavigationService navigationService,
+            IConnectionService connectionService,
+            IMessageService messageService,
+            IAgentProvider contextProvider,
+            IEventAggregator eventAggregator,
+            ILifetimeScope scope)
+            : base("Accept Invitation", navigationService)
         {
             _connectionService = connectionService;
             _contextProvider = contextProvider;
@@ -41,18 +41,21 @@ namespace mikoba.ViewModels.Pages
             _eventAggregator = eventAggregator;
             _scope = scope;
         }
-        
+
         private ConnectionInvitationMessage _invite;
 
         #region Services
+
         private readonly IConnectionService _connectionService;
         private readonly IMessageService _messageService;
         private readonly IAgentProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
         private readonly ILifetimeScope _scope;
+
         #endregion
-        
+
         #region Commands
+
         public ICommand AcceptInviteCommand => new Command(async () =>
         {
             var context = await _contextProvider.GetContextAsync();
@@ -64,11 +67,11 @@ namespace mikoba.ViewModels.Pages
                 var entry = _scope.Resolve<EntryViewModel>();
                 entry.Connection = _scope.Resolve<SSIConnectionViewModel>(new NamedParameter("record", record));
                 entry.Setup();
-                this.NavigationService.NavigateBackAsync();
+                await this.NavigationService.NavigateBackAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                this.NavigationService.NavigateBackAsync();
+                await this.NavigationService.NavigateBackAsync();
             }
         });
 
@@ -77,14 +80,18 @@ namespace mikoba.ViewModels.Pages
         #endregion
 
         #region UI Properties
+
         private string _inviteTitle;
+
         public string InviteTitle
         {
             get => _inviteTitle;
             set => this.RaiseAndSetIfChanged(ref _inviteTitle, value);
         }
 
-        private string _inviteContents = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+        private string _inviteContents =
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+
         public string InviteContents
         {
             get => _inviteContents;
@@ -92,26 +99,32 @@ namespace mikoba.ViewModels.Pages
         }
 
         private string _inviterUrl;
+
         public string InviterUrl
         {
             get => _inviterUrl;
             set => this.RaiseAndSetIfChanged(ref _inviterUrl, value);
         }
+
         #endregion
-        
+
         #region Work
+
         public override Task InitializeAsync(object navigationData)
         {
-            //if navigationData's type is === ConnectionInvitationMessage then (evaluates to true, cast the valuye to invite)
             if (navigationData is ConnectionInvitationMessage invite)
             {
+                //invite.Label = "Sierra Leone Authority";
                 InviteTitle = $"Trust {invite.Label}?";
-                InviterUrl = invite.ImageUrl;               
-                InviteContents = $"{invite.Label} would like to establish a pairwise DID connection with you. This will allow secure communication between you and {invite.Label}.";
+                InviterUrl = invite.ImageUrl;
+                InviteContents =
+                    $"{invite.Label} would like to establish a pairwise DID connection with you. This will allow secure communication between you and {invite.Label}.";
                 _invite = invite;
             }
+
             return base.InitializeAsync(navigationData);
         }
+
         #endregion
     }
 }

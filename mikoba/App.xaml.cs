@@ -60,7 +60,7 @@ namespace mikoba
             _navigationService.AddPageViewModelBinding<AllowPushNotificationViewModel, AllowPushNotificationPage>();
             
 
-            if (false && Preferences.Get(AppConstant.LocalWalletProvisioned, false))
+            if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
             {
                 await _navigationService.NavigateToAsync<WalletPageViewModel>();
             }

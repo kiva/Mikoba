@@ -58,8 +58,6 @@ namespace mikoba.ViewModels.Pages
 
         public ObservableCollection<WalletActionModel> WalletActions { get; set; }
 
-        public int MenuOptionsHeight { get; set; }
-        
         private string _welcomeText;
 
         public string WelcomeText

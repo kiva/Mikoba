@@ -9,6 +9,8 @@ using Android.OS;
 using Android;
 using System.Collections.Generic;
 using System.Linq;
+using FFImageLoading.Forms.Platform;
+using SVG.Forms.Plugin.Droid;
 
 namespace mikoba.Droid
 {
@@ -61,6 +63,10 @@ namespace mikoba.Droid
             
             Xamarin.Essentials.Platform.Init(Application);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
+            
+            //Image Plugin Support
+            CachedImageRenderer.Init(false);
+            SvgImageRenderer.Init();
         }
 
 

@@ -69,6 +69,8 @@ public static class MessageDecoder
                 //MessageTypes.IssueCredentialNames
                 case MessageTypes.IssueCredentialNames.ProposeCredential:
                     return unpackedMessage.GetMessage<CredentialOfferMessage>();
+                case MessageTypes.IssueCredentialNames.OfferCredential:
+                    return unpackedMessage.GetMessage<CredentialOfferMessage>();
                 
             }
             return null;

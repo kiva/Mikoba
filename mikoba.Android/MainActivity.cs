@@ -10,6 +10,8 @@ using Android;
 using System.Collections.Generic;
 using System.Linq;
 using FFImageLoading.Forms.Platform;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using SVG.Forms.Plugin.Droid;
 
 namespace mikoba.Droid
@@ -49,24 +51,29 @@ namespace mikoba.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
-
-            Xamarin.Forms.Forms.SetFlags("Shapes_Experimental");
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-
-            JavaSystem.LoadLibrary("c++_shared");
-            JavaSystem.LoadLibrary("indy");
-
-            LoadApplication(new App());
-
-            CheckAndRequestRequiredPermissions();
-            
-            Xamarin.Essentials.Platform.Init(Application);
-            ZXing.Net.Mobile.Forms.Android.Platform.Init();
             
             //Image Plugin Support
             CachedImageRenderer.Init(false);
             SvgImageRenderer.Init();
+
+            Xamarin.Essentials.Platform.Init(Application);
+            ZXing.Net.Mobile.Forms.Android.Platform.Init();
+            
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            
+            // Initializing User Dialogs
+            // Android requires that we set content root.
+            var host = HostBuilder
+                .BuildHost(typeof(KernelModule).Assembly)
+                .UseContentRoot(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal)).Build();
+            
+            JavaSystem.LoadLibrary("c++_shared");
+            JavaSystem.LoadLibrary("indy");
+
+            LoadApplication(host.Services.GetRequiredService<App>());
+
+            CheckAndRequestRequiredPermissions();
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions,

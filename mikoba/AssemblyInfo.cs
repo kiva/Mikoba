@@ -9,4 +9,6 @@ using Xamarin.Forms.Xaml;
 [assembly: ExportFont("KivaPostGrot-LightItalic.ttf")]
 [assembly: ExportFont("KivaPostGrot-Medium.ttf")]
 [assembly: ExportFont("KivaPostGrot-MediumItalic.ttf")]
+[assembly: ResolutionGroupName("mikoba.Effects")]
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+

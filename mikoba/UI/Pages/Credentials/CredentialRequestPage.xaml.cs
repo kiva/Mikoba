@@ -2,7 +2,7 @@
 using mikoba.ViewModels;
 using Xamarin.Forms;
 
-namespace mikoba.UI.Pages.Connections
+namespace mikoba.UI.Pages.Credentials
 {
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer

@@ -15,6 +15,7 @@ using Hyperledger.Aries.Features.IssueCredential;
 using mikoba.Extensions;
 using mikoba.Services;
 using mikoba.UI.ViewModels;
+using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
 using Xamarin.Essentials;
@@ -26,47 +27,48 @@ namespace mikoba.ViewModels.Pages
     {
         
         public AcceptConnectionInviteViewModel(INavigationService navigationService,
-                                     IProvisioningService provisioningService,
                                      IConnectionService connectionService,
                                      IMessageService messageService,
                                      IAgentProvider contextProvider,
-                                     IEventAggregator eventAggregator)
+                                     IEventAggregator eventAggregator,
+                                     ILifetimeScope scope)
                                      : base("Accept Invitation", navigationService)
         {
-            _provisioningService = provisioningService;
             _connectionService = connectionService;
             _contextProvider = contextProvider;
             _messageService = messageService;
             _contextProvider = contextProvider;
             _eventAggregator = eventAggregator;
+            _scope = scope;
         }
         
         private ConnectionInvitationMessage _invite;
 
-        #region Services 
-        private readonly IProvisioningService _provisioningService;
+        #region Services
         private readonly IConnectionService _connectionService;
         private readonly IMessageService _messageService;
         private readonly IAgentProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
+        private readonly ILifetimeScope _scope;
         #endregion
         
         #region Commands
         public ICommand AcceptInviteCommand => new Command(async () =>
         {
-            // var loadingDialog = DialogService.Loading("Processing");
             var context = await _contextProvider.GetContextAsync();
-
             try
             {
-                var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
-                await _messageService.SendAsync(context.Wallet, msg, rec);
-                _eventAggregator.Publish(new CoreDispatchedEvent() { Type = DispatchType.ConnectionsUpdated });
+                var (msg, record) = await _connectionService.CreateRequestAsync(context, _invite);
+                await _messageService.SendAsync(context.Wallet, msg, record);
+                _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
+                var entry = _scope.Resolve<EntryViewModel>();
+                entry.Connection = _scope.Resolve<SSIConnectionViewModel>(new NamedParameter("record", record));
+                entry.Setup();
+                this.NavigationService.NavigateBackAsync();
             }
-            finally
+            catch(Exception ex)
             {
-                // loadingDialog.Hide();
-                await NavigationService.PopModalAsync();
+                this.NavigationService.NavigateBackAsync();
             }
         });
 

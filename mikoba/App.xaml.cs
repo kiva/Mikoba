@@ -1,10 +1,12 @@
 using Autofac;
+using Hyperledger.Aries.Routing;
 using Microsoft.Extensions.Hosting;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using mikoba.Services;
 using mikoba.UI.Pages;
 using mikoba.UI.Pages.Connections;
+using mikoba.UI.Pages.Credentials;
 using mikoba.UI.Pages.Wallet;
 using mikoba.UI.ViewModels;
 using mikoba.ViewModels;
@@ -42,9 +44,11 @@ namespace mikoba
 
             _navigationService.AddPageViewModelBinding<WalletPageViewModel, WalletPage>();
             _navigationService.AddPageViewModelBinding<AcceptConnectionInviteViewModel, AcceptConnectionInvitePage>();
+            _navigationService.AddPageViewModelBinding<CredentialOfferPageViewModel, CredentialOfferPage>();
+            _navigationService.AddPageViewModelBinding<CredentialRequestPageViewModel, CredentialRequestPage>();
+            _navigationService.AddPageViewModelBinding<EntryHubPageViewModel, EntryHubPage>();
             _navigationService.AddPageViewModelBinding<SplashPageViewModel, SplashPage>();
-            
-            
+
             if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
             {
                 await _navigationService.NavigateToAsync<WalletPageViewModel>();

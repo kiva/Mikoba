@@ -25,8 +25,6 @@ namespace mikoba.ViewModels
             
         }
         
-      
-        
         public override async Task InitializeAsync(object navigationData)
         {
             // if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))

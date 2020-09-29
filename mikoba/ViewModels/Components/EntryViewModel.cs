@@ -21,29 +21,24 @@ namespace mikoba.ViewModels.Components
         {
             if (this.Credential != null)
             {
-                DisplayName = Credential.CredentialName;
-                DisplayName = Credential.CredentialImageUrl;
+                DisplayName = "Civil Registry Office -" + this.Credential._credential.CreatedAtUtc.ToString();
+                this.OrganizationType = "Government";
             }
             else if (Connection != null)
             {
+                DisplayName = "Verifier Office";
                 DisplayName = Connection.ConnectionName;
                 ImageUrl = Connection.ConnectionImageUrl;
+                this.OrganizationType = "Bank";
             }
-            else
-            {
-                DisplayName = "Unknown";
-                ImageUrl = "http://placekitten.com/g/300/300";
-            }
-
             this.IconIdentifier = "mikoba.Images.gov.svg";
-            this.OrganizationType = "Government";
         }
 
         #region Commands
 
-        public Command OpenHub
+        public Command OpenCommand
         {
-            get => new Command(async () => { await NavigationService.NavigateToAsync<HubActionViewModel>(this); });
+            get => new Command(async () => { await NavigationService.NavigateToAsync<EntryHubPageViewModel>(this); });
         }
 
         #endregion

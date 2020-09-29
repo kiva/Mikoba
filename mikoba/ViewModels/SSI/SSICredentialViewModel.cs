@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Hyperledger.Aries.Features.IssueCredential;
+using mikoba.Extensions;
 using mikoba.Services;
 using ReactiveUI;
+using Xamarin.Forms.Xaml;
 
 namespace mikoba.ViewModels.SSI
 {
@@ -16,19 +18,27 @@ namespace mikoba.ViewModels.SSI
         )
         {
             _credential = credential;
-            _attributes = new List<SSICredentialAttribute>();
+            Attributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
+            foreach (var cred in _credential.CredentialAttributesValues)
+            {
+                Attributes.Add(new SSICredentialAttribute()
+                {
+                    Name = cred.Name,
+                    Value = cred.Value,
+                });
+            }
             
 #if DEBUG
             _credentialName = "Credential Name";
-            _credentialImageUrl = "http://placekitten.com/g/200/200";
+            
             _credentialSubtitle = "10/22/2017";
             _credentialType = "Bank Statement";
-            _qRImageUrl = "http://placekitten.com/g/100/100";
+            
 #endif
-            _credentialName = _credential.TypeName;
+            _credentialName = "Civil Registry Office";
         }
         
-        private readonly CredentialRecord _credential;
+        public readonly CredentialRecord _credential;
         
         #region UI Properties
         private string _credentialName;
@@ -73,8 +83,8 @@ namespace mikoba.ViewModels.SSI
             set => this.RaiseAndSetIfChanged(ref _qRImageUrl, value);
         }
 
-        private IEnumerable<SSICredentialAttribute> _attributes;
-        public IEnumerable<SSICredentialAttribute> Attributes
+        private RangeEnabledObservableCollection<SSICredentialAttribute> _attributes;
+        public RangeEnabledObservableCollection<SSICredentialAttribute> Attributes
         {
             get => _attributes;
             set => this.RaiseAndSetIfChanged(ref _attributes, value);

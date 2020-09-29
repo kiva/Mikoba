@@ -239,10 +239,6 @@
       <DependentUpon>CredentialOfferReviewPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\Pages\Connections\CredentialRequestPage.xaml.cs">
-      <DependentUpon>CredentialRequestPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="UI\Pages\Connections\ConnectionDetailsPage.xaml.cs">
       <DependentUpon>ConnectionDetailsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -267,9 +263,21 @@
       <DependentUpon>AuthorityCard.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\Pages\Credentials\CredentialRequestPage.xaml.cs">
+      <DependentUpon>CredentialRequestPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Components\EntryCard.xaml.cs">
+      <DependentUpon>EntryCard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Pages\Wallet\EntryHubPage.xaml.cs">
+      <DependentUpon>EntryHubPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\SSI" />
-    <Folder Include="UI\Pages\Credentials" />
+    <Folder Include="ViewModels\Pages\Credentials" />
   </ItemGroup>
 </Project>

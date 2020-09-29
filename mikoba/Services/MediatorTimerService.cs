@@ -35,7 +35,11 @@ namespace mikoba.Services
                     try
                     {
                         var context = await App.Container.Resolve<IAgentProvider>().GetContextAsync();
-                        await App.Container.Resolve<IEdgeClientService>().FetchInboxAsync(context);
+                        var results = await App.Container.Resolve<IEdgeClientService>().FetchInboxAsync(context);
+                        foreach(var item in results.unprocessedItems)
+                        {
+                            Console.WriteLine(item.Type);
+                        }
                     }
                     catch (Exception ex)
                     {

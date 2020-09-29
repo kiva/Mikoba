@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Extensions;
 using Hyperledger.Aries.Features.DidExchange;
+using Hyperledger.Aries.Features.IssueCredential;
+using Hyperledger.Aries.Features.PresentProof;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace mikoba.Extensions
@@ -54,14 +56,20 @@ public static class MessageDecoder
 
             switch (unpackedMessage.GetMessageType())
             {
+                //MessageTypes.ConnectionInvitation
                 case MessageTypes.ConnectionInvitation:
                     return unpackedMessage.GetMessage<ConnectionInvitationMessage>();
-                //case MessageTypes.EphemeralChallenge:
-                //    return unpackedMessage.GetMessage<EphemeralChallengeMessage>();
-                //case MessageTypes.PresentProofNames.RequestPresentation:
-                //    return unpackedMessage.GetMessage<RequestPresentationMessage>();
-                //case MessageTypes.IssueCredentialNames.OfferCredential:
-                //    return unpackedMessage.GetMessage<CredentialOfferMessage>();
+                //MessageTypes.PresentProofNames
+                case MessageTypes.PresentProofNames.ProposePresentation:
+                    return unpackedMessage.GetMessage<RequestPresentationMessage>();
+                case MessageTypes.PresentProofNames.PresentationPreview:
+                    return unpackedMessage.GetMessage<RequestPresentationMessage>();
+                case MessageTypes.PresentProofNames.RequestPresentation:
+                    return unpackedMessage.GetMessage<RequestPresentationMessage>();
+                //MessageTypes.IssueCredentialNames
+                case MessageTypes.IssueCredentialNames.OfferCredential:
+                    return unpackedMessage.GetMessage<CredentialOfferMessage>();
+                
             }
             return null;
         }

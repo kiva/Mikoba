@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:mikoba.UI"
+    xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
+    xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:extensions="clr-namespace:mikoba.Extensions;assembly=mikoba"
+    xmlns:effects="clr-namespace:mikoba.Effects;assembly=mikoba"
+    NavigationPage.HasNavigationBar="False"
+    x:Class="mikoba.UI.Pages.Wallet.EntryHubPage"
+    ios:Page.UseSafeArea="true"
+    BackgroundColor="#F2F2F2">
+    <ContentPage.Resources>
+        <StyleSheet Source="../../../Styles/WalletHomePage.css" />
+        <StyleSheet Source="../../../Styles/Global.css" />
+        <ResourceDictionary>
+            <extensions:InverseBooleanConverter x:Key="BooleanInverse" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid HorizontalOptions="Fill"
+          VerticalOptions="Fill">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Row="0"
+              HorizontalOptions="Fill"
+              VerticalOptions="Fill">
+            <components:BackButton
+                Command="{Binding GoBackCommand}" />
+        </Grid>
+        <ScrollView Grid.Row="1">
+            <StackLayout StyleClass="content"
+                         Orientation="Vertical"
+                         HorizontalOptions="FillAndExpand">
+                <components:EntryCard BindingContext="{Binding Entry}" />
+                <Frame
+                    IsVisible="{Binding HasCredential}"
+                    BorderColor="#DFDFDF"
+                    HasShadow="False"
+                    StyleClass="displayFrame">
+                    <StackLayout>
+                        <Label FontFamily="KivaPostGrot-Bold">Picture</Label>
+                        <Image Source="{Binding PhotoAttach}"
+                               BackgroundColor="Transparent"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Start" />
+                    </StackLayout>
+                </Frame>
+                <ScrollView HorizontalOptions="FillAndExpand">
+                    <StackLayout
+                        IsVisible="{Binding HasCredential}"
+                        BindableLayout.ItemsSource="{Binding Attributes}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Frame
+                                        BorderColor="#DFDFDF"
+                                        HasShadow="False"
+                                        StyleClass="displayFrame">
+                                        <StackLayout>
+                                            <Label FontFamily="KivaPostGrot-Bold" Text="{Binding Name}" />
+                                            <Label FontFamily="KivaPostGrot-Light" Text="{Binding Value}" />
+                                        </StackLayout>
+                                    </Frame>
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </ScrollView>
+                <components:ActionButton
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    ActionButtonText="Close Connection"
+                    Command="{Binding RemoveConnectionCommand}" />
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

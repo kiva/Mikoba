@@ -23,8 +23,6 @@ namespace mikoba
         private static IHost Host { get; set; }
         public App(IHost host) : this() => Host = host;
 
-        private IMediatorTimerService _mediatorTimerService;
-
         private INavigationService _navigationService;
 
         public App()
@@ -37,7 +35,6 @@ namespace mikoba
         private void StartServices()
         {
             _navigationService = Container.Resolve<INavigationService>();
-            _mediatorTimerService = Container.Resolve<IMediatorTimerService>();
         }
 
         protected override async void OnStart()
@@ -69,17 +66,16 @@ namespace mikoba
                 await _navigationService.NavigateToAsync<SplashPageViewModel>();    
             }
             
-            _mediatorTimerService.Start();
         }
 
         protected override void OnSleep()
         {
-            _mediatorTimerService.Pause();
+         
         }
 
         protected override void OnResume()
         {
-            _mediatorTimerService.Resume();
+         
         }
     }
 }

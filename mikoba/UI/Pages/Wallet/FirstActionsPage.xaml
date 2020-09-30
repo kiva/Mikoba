@@ -87,7 +87,7 @@
                         TextColor="#004ED4"
                         FontFamily="KivaPostGrot-Medium"
                         HorizontalOptions="CenterAndExpand"
-                        Text="Recover ID Instead" />
+                        Text="Recover Wallet Instead" />
                 </StackLayout>
             </Frame>
         </RelativeLayout>

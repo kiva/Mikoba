@@ -113,6 +113,12 @@ namespace mikoba.ViewModels.Pages
 
         public override Task InitializeAsync(object navigationData)
         {
+#if DEBUG
+            InviteTitle = $"This is a test!!!";
+            return base.InitializeAsync(navigationData);     
+#endif
+            
+            
             if (navigationData is ConnectionInvitationMessage invite)
             {
                 InviteTitle = $"Trust {invite.Label}?";

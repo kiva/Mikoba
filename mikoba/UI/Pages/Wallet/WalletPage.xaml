@@ -7,7 +7,6 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:mikoba.UI"
-    xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
     xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
@@ -34,17 +33,15 @@
             BackgroundColor="#F2F2F2"
             HorizontalOptions="End"
             VerticalOptions="Start" />
-        <abstractions:SvgImage
-            SvgAssembly="{Binding SvgAssembly}"
-            SvgPath="{Binding Orange}"
+        <components:KivaSvgImage
+            ImageKey="orange"
             HeightRequest="200"
             WidthRequest="214"
             BackgroundColor="#F2F2F2"
             HorizontalOptions="Start"
             VerticalOptions="End" />
-        <abstractions:SvgImage
-            SvgAssembly="{Binding SvgAssembly}"
-            SvgPath="{Binding Dots}"
+        <components:KivaSvgImage
+            ImageKey="dots"
             HeightRequest="83"
             WidthRequest="97"
             BackgroundColor="#F2F2F2"
@@ -64,16 +61,14 @@
                     StyleClass="topLogos"
                     Orientation="Horizontal"
                     HorizontalOptions="FillAndExpand">
-                    <abstractions:SvgImage
+                    <components:KivaSvgImage
                         effects:RoundCornersEffect.CornerRadius="10"
-                        SvgAssembly="{Binding SvgAssembly}"
-                        SvgPath="{Binding KivaLogoBlue}"
+                        ImageKey="kivalogoblue"
                         HeightRequest="35"
                         WidthRequest="35"
                         HorizontalOptions="Start" />
-                    <abstractions:SvgImage
-                        SvgAssembly="{Binding SvgAssembly}"
-                        SvgPath="{Binding Gear}"
+                    <components:KivaSvgImage
+                        ImageKey="gear"
                         HeightRequest="35"
                         WidthRequest="35"
                         HorizontalOptions="EndAndExpand" />

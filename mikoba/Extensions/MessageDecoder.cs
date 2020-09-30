@@ -60,15 +60,9 @@ public static class MessageDecoder
                 case MessageTypes.ConnectionInvitation:
                     return unpackedMessage.GetMessage<ConnectionInvitationMessage>();
                 //MessageTypes.PresentProofNames
-                case MessageTypes.PresentProofNames.ProposePresentation:
-                    return unpackedMessage.GetMessage<RequestPresentationMessage>();
-                case MessageTypes.PresentProofNames.PresentationPreview:
-                    return unpackedMessage.GetMessage<RequestPresentationMessage>();
                 case MessageTypes.PresentProofNames.RequestPresentation:
                     return unpackedMessage.GetMessage<RequestPresentationMessage>();
                 //MessageTypes.IssueCredentialNames
-                case MessageTypes.IssueCredentialNames.ProposeCredential:
-                    return unpackedMessage.GetMessage<CredentialOfferMessage>();
                 case MessageTypes.IssueCredentialNames.OfferCredential:
                     return unpackedMessage.GetMessage<CredentialOfferMessage>();
                 

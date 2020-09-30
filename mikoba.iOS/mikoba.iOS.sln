@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mikoba.iOS", "mikoba.iOS.csproj", "{DDF25F85-3DB2-4BB8-AFFA-8C4FEC08D80C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+		Release|iPhone = Release|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDF25F85-3DB2-4BB8-AFFA-8C4FEC08D80C}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{DDF25F85-3DB2-4BB8-AFFA-8C4FEC08D80C}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{DDF25F85-3DB2-4BB8-AFFA-8C4FEC08D80C}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{DDF25F85-3DB2-4BB8-AFFA-8C4FEC08D80C}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{DDF25F85-3DB2-4BB8-AFFA-8C4FEC08D80C}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{DDF25F85-3DB2-4BB8-AFFA-8C4FEC08D80C}.Debug|iPhone.Build.0 = Debug|iPhone
+		{DDF25F85-3DB2-4BB8-AFFA-8C4FEC08D80C}.Release|iPhone.ActiveCfg = Release|iPhone
+		{DDF25F85-3DB2-4BB8-AFFA-8C4FEC08D80C}.Release|iPhone.Build.0 = Release|iPhone
+	EndGlobalSection
+EndGlobal

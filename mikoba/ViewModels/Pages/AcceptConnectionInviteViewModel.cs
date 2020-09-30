@@ -118,7 +118,7 @@ namespace mikoba.ViewModels.Pages
                 InviteTitle = $"Trust {invite.Label}?";
                 InviterUrl = invite.ImageUrl;
                 InviteContents =
-                    $"{invite.Label} would like to establish a pairwise DID connection with you. This will allow secure communication between you and {invite.Label}.";
+                    $"{invite.Label} wants to send you a secure request.";
                 _invite = invite;
             }
 

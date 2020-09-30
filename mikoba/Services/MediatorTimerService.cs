@@ -10,56 +10,28 @@ using Xamarin.Forms;
 
 namespace mikoba.Services
 {
-    
-    
     public class MediatorTimerService : IMediatorTimerService
     {
         private readonly Timer timer;
+        private Action Action;
 
-        public MediatorTimerService()
-        {
-            timer = new Timer
-            {
-                Enabled = false,
-                AutoReset = true,
-                Interval = TimeSpan.FromSeconds(10).TotalMilliseconds
-            };
-            timer.Elapsed += Timer_Elapsed;
-        }
-        
         public MediatorTimerService(Action action)
         {
             timer = new Timer
             {
                 Enabled = false,
                 AutoReset = true,
-                Interval = TimeSpan.FromSeconds(10).TotalMilliseconds
+                Interval = TimeSpan.FromSeconds(5).TotalMilliseconds
             };
+            this.Action = action;
+            timer.Elapsed += Timer_Elapsed;
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
+            if (this.Action != null)
             {
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-                    try
-                    {
-                        var context = await App.Container.Resolve<IAgentProvider>().GetContextAsync();
-                        var results = await App.Container.Resolve<IEdgeClientService>().FetchInboxAsync(context);
-                        if (results.unprocessedItems.Count() > 0)
-                        {
-                            foreach(var item in results.unprocessedItems)
-                            {
-                                Console.WriteLine(item.Type);
-                            }    
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex);
-                    }
-                });
+                this.Action();
             }
         }
 

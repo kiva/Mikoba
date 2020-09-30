@@ -51,17 +51,17 @@
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
                 <Button
-                    Style="{DynamicResource RedButtonStyle}"
+                    StyleClass="SecondaryButton"
                     IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverse}}"
                     Command="{Binding RejectInviteCommand}"
                     HorizontalOptions="FillAndExpand"
-                    Text="Cancel"/>
+                    Text="Maybe later"/>
                 <Button
+                    StyleClass="PrimaryButton"
                     HorizontalOptions="FillAndExpand"
-                    Style="{DynamicResource BlueButtonStyle}"
                     IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverse}}"
                     Command="{Binding AcceptInviteCommand}"
-                    Text="Connect"/>
+                    Text="Trust"/>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

@@ -26,9 +26,8 @@
     </ContentPage.Resources>
     <Grid HorizontalOptions="Fill"
           VerticalOptions="Fill">
-        <abstractions:SvgImage
-            SvgAssembly="{Binding SvgAssembly}"
-            SvgPath="{Binding Wave}"
+        <components:KivaSvgImage
+            ImageKey="wave"
             StyleClass="waveBackground"
             HeightRequest="360"
             WidthRequest="640"

@@ -6,6 +6,7 @@
              xmlns:extensions="clr-namespace:mikoba.Extensions;assembly=mikoba"
              x:Class="mikoba.UI.Pages.Connections.AcceptConnectionInvitePage">
     <ContentPage.Resources>
+        <StyleSheet Source="../../../Styles/Global.css" />
         <ResourceDictionary>
             <extensions:InverseBooleanConverter x:Key="BooleanInverse" />
         </ResourceDictionary>

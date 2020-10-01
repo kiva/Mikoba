@@ -4,6 +4,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:extensions="clr-namespace:mikoba.Extensions;assembly=mikoba"
+             xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
+             xmlns:iOsSpecific="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             iOsSpecific:Page.UseSafeArea="true"
              x:Class="mikoba.UI.Pages.Connections.AcceptConnectionInvitePage">
     <ContentPage.Resources>
         <StyleSheet Source="../../../Styles/Global.css" />
@@ -41,6 +44,13 @@
                     FontSize="26"
                     HorizontalTextAlignment="Center"
                     Text="{Binding InviteTitle}"/>
+                <components:KivaSvgImage
+                    Grid.RowSpan="3"
+                    ImageKey="cornercircles_left"
+                    HeightRequest="100"
+                    WidthRequest="100"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start" />
                 <Label
                     HorizontalTextAlignment="Center"
                     Text="{Binding InviteContents}"/>
@@ -52,6 +62,7 @@
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
                 <Button
+                    FontAttributes="Bold"
                     StyleClass="SecondaryButton"
                     IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverse}}"
                     Command="{Binding RejectInviteCommand}"
@@ -59,6 +70,7 @@
                     Text="Maybe later"/>
                 <Button
                     StyleClass="PrimaryButton"
+                    FontAttributes="Bold"
                     HorizontalOptions="FillAndExpand"
                     IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverse}}"
                     Command="{Binding AcceptInviteCommand}"

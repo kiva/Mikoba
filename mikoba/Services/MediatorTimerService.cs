@@ -21,7 +21,7 @@ namespace mikoba.Services
             {
                 Enabled = false,
                 AutoReset = true,
-                Interval = TimeSpan.FromSeconds(5).TotalMilliseconds
+                Interval = TimeSpan.FromSeconds(10).TotalMilliseconds
             };
             this.Action = action;
             timer.Elapsed += Timer_Elapsed;

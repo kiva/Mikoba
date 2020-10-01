@@ -21,27 +21,24 @@ namespace mikoba.Services
         
         public async Task DispatchMessage(AgentMessage message)
         {
-            if (message is ConnectionInvitationMessage)
+            if (message is ConnectionInvitationMessage inviteMessage)
             {
-                ConnectionInvitationMessage inviteMessage = (ConnectionInvitationMessage) message;
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await _navigationService.NavigateToAsync<AcceptConnectionInviteViewModel>(
                         inviteMessage, NavigationType.Modal);
                 });
             }
-            else if (message is CredentialOfferMessage)
-            {
-                CredentialOfferMessage credentialOffer = (CredentialOfferMessage) message;
+            else if (message is CredentialOfferMessage credentialOffer)
+            { 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await _navigationService.NavigateToAsync<CredentialOfferPageViewModel>(
                         credentialOffer, NavigationType.Modal);
                 });
             }
-            else if (message is RequestPresentationMessage)
+            else if (message is RequestPresentationMessage credentialRequest)
             {
-                RequestPresentationMessage credentialRequest = (RequestPresentationMessage) message;
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await _navigationService.NavigateToAsync<CredentialRequestPageViewModel>(

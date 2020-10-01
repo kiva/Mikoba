@@ -8,15 +8,19 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Autofac;
 using DynamicData;
+using Hyperledger.Aries;
 using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Configuration;
 using Hyperledger.Aries.Contracts;
+using Hyperledger.Aries.Extensions;
 using Hyperledger.Aries.Features.DidExchange;
 using Hyperledger.Aries.Features.IssueCredential;
 using Hyperledger.Aries.Features.PresentProof;
 using Hyperledger.Aries.Routing;
+using Hyperledger.Indy.WalletApi;
 using mikoba.Extensions;
 using mikoba.Services;
+using mikoba.UI;
 using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
@@ -27,11 +31,14 @@ namespace mikoba.ViewModels.Pages
 {
     public class EntryHubPageViewModel : KivaBaseViewModel
     {
-        public EntryHubPageViewModel(INavigationService navigationService,
+        public EntryHubPageViewModel(
+            INavigationService navigationService,
             IConnectionService connectionService,
             IMessageService messageService,
+            ICredentialService credentialService,
             IAgentProvider contextProvider,
             IActionDispatcher actionDispatcher,
+            IEdgeClientService edgeClientService,
             IEventAggregator eventAggregator)
             : base("Hub Page", navigationService)
         {
@@ -39,14 +46,18 @@ namespace mikoba.ViewModels.Pages
             _contextProvider = contextProvider;
             _messageService = messageService;
             _contextProvider = contextProvider;
+            _credentialService = credentialService;
             _eventAggregator = eventAggregator;
             _actionDispatcher = actionDispatcher;
+            _edgeClientService = edgeClientService;
         }
 
         #region Services
 
         private MediatorTimerService _mediatorTimer;
         private readonly IConnectionService _connectionService;
+        private readonly ICredentialService _credentialService;
+        private readonly IEdgeClientService _edgeClientService;
         private readonly IMessageService _messageService;
         private readonly IAgentProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
@@ -69,6 +80,14 @@ namespace mikoba.ViewModels.Pages
             {
                 await NavigationService.NavigateBackAsync();
             }
+        });
+
+        public ICommand RemoveCredentialCommand => new Command(async () =>
+        {
+            var context = await _contextProvider.GetContextAsync();
+            await _credentialService.DeleteCredentialAsync(context, _credential._credential.CredentialId);
+            _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
+            await NavigationService.NavigateBackAsync();
         });
 
         public ICommand GoBackCommand => new Command(async () => { await NavigationService.NavigateBackAsync(); });
@@ -110,6 +129,16 @@ namespace mikoba.ViewModels.Pages
             set => this.RaiseAndSetIfChanged(ref _attributes, value);
         }
 
+
+        private RangeEnabledObservableCollection<string> _logs =
+            new RangeEnabledObservableCollection<string>();
+
+        public RangeEnabledObservableCollection<string> Logs
+        {
+            get => _logs;
+            set => this.RaiseAndSetIfChanged(ref _logs, value);
+        }
+
         private bool _hasCredential = false;
 
         public bool HasCredential
@@ -126,12 +155,16 @@ namespace mikoba.ViewModels.Pages
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-                var context = await App.Container.Resolve<IAgentProvider>().GetContextAsync();
-                var results = await App.Container.Resolve<IEdgeClientService>().FetchInboxAsync(context);
+                var context = await _contextProvider.GetContextAsync();
+                var results = await _edgeClientService.FetchInboxAsync(context);
                 foreach (var item in results.unprocessedItems)
                 {
-                    var message = await MessageDecoder.ParseMessageAsync(item.Data);
-                    _actionDispatcher.DispatchMessage(message);
+                    Console.WriteLine(item.Data);
+                    var message = await MessageDecoder.ProcessPackedMessage(context.Wallet, item, null);
+                    if (message != null)
+                    {
+                        _actionDispatcher.DispatchMessage(message);
+                    }
                 }
             });
         }

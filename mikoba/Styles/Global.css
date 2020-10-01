@@ -27,3 +27,15 @@
     margin-bottom: 20;
     margin-top: 20;
 }
+
+.SecondaryButton {
+    background-color: #fff;
+    text-color: #000;
+    border-radius: 8;
+}
+
+.PrimaryButton {
+    background-color: #004FD4;
+    text-color: #fff;
+    border-radius: 8;
+}

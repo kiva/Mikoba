@@ -28,8 +28,9 @@
         <components:KivaSvgImage
             ImageKey="wave"
             StyleClass="waveBackground"
-            HeightRequest="360"
-            WidthRequest="640"
+            HeightRequest="300"
+            WidthRequest="400"
+            Margin="0,-200,0,0"
             BackgroundColor="#F2F2F2"
             HorizontalOptions="End"
             VerticalOptions="Start" />
@@ -84,28 +85,41 @@
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
                 </ScrollView>
+                <Label
+                    Grid.Row="1"
+                    IsVisible="{Binding HasContent, Converter={StaticResource BooleanInverse}}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Type=Constant, Constant=30}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
+                    StyleClass="header1"
+                    HorizontalOptions="Start"
+                    WidthRequest="300"
+                    LineHeight="1.5"
+                    VerticalOptions="Start"
+                    Margin="0,0,0,0"
+                    HorizontalTextAlignment="Start"
+                    VerticalTextAlignment="Start"
+                    FontFamily="KivaPostGrot-Medium"
+                    Text="{Binding WelcomeText}" />
                 <StackLayout
                     WidthRequest="250"
                     IsVisible="{Binding HasContent, Converter={StaticResource BooleanInverse}}"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
                     Grid.Row="1">
-                    <Label
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Type=Constant, Constant=30}"
-                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
-                        StyleClass="header1"
-                        HorizontalTextAlignment="Start"
-                        VerticalTextAlignment="Center"
-                        FontFamily="KivaPostGrot-Medium"
-                        Text="{Binding WelcomeText}" />
                     <components:ActionButton
                         Grid.Row="1"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        Margin="0,0,0,50"
+                        Margin="0,0,0,10"
                         ActionButtonSvg="mikoba.Images.qrcodescan2.svg"
                         ActionButtonText="Scan QR Code"
                         Command="{Binding ScanCodeCommand}" />
+                    <Label
+                        TextColor="#004ED4"
+                        FontFamily="KivaPostGrot-Medium"
+                        FontSize="15"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Recover Wallet Instead" />
                 </StackLayout>
                 <StackLayout
                     IsVisible="{Binding HasContent}"

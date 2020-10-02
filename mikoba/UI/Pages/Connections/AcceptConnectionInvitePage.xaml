@@ -5,8 +5,9 @@
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:extensions="clr-namespace:mikoba.Extensions;assembly=mikoba"
              xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
+             NavigationPage.HasNavigationBar="False"
+             Padding="0"
              xmlns:iOsSpecific="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             iOsSpecific:Page.UseSafeArea="true"
              x:Class="mikoba.UI.Pages.Connections.AcceptConnectionInvitePage">
     <ContentPage.Resources>
         <StyleSheet Source="../../../Styles/Global.css" />
@@ -14,68 +15,92 @@
             <extensions:InverseBooleanConverter x:Key="BooleanInverse" />
         </ResourceDictionary>
     </ContentPage.Resources>
-        <ContentPage.Content>
+    <ContentPage.Content>
         <Grid
-            Padding="15"
+            HorizontalOptions="FillAndExpand"
+            Padding="0"
+            Margin="0"
             RowSpacing="0">
+            
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*" />
-                <RowDefinition Height="1.8*" />
-                <RowDefinition Height="0.5*" />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
-            <StackLayout
+
+
+            <components:KivaSvgImage
                 Grid.Row="0"
-                Padding="10"
-                VerticalOptions="FillAndExpand">
-                <forms:CachedImage
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="CenterAndExpand"
-                    FadeAnimationEnabled="true"
-                    DownsampleUseDipUnits="true"
-                    Source="{Binding InviterUrl}"
-                    Aspect="AspectFit"/>
-                </StackLayout>
-            <StackLayout
+                Grid.RowSpan="4"
+                Margin="-50,0,0,0"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                ImageKey="cornercircles_left"
+                HeightRequest="200"
+                WidthRequest="200" />
+            
+            <Label
                 Grid.Row="1"
-                VerticalOptions="StartAndExpand"
-                Spacing="10"
-                Padding="10">
-                <Label
-                    FontSize="26"
-                    HorizontalTextAlignment="Center"
-                    Text="{Binding InviteTitle}"/>
-                <components:KivaSvgImage
-                    Grid.RowSpan="3"
-                    ImageKey="cornercircles_left"
-                    HeightRequest="100"
-                    WidthRequest="100"
-                    HorizontalOptions="Start"
-                    VerticalOptions="Start" />
-                <Label
-                    HorizontalTextAlignment="Center"
-                    Text="{Binding InviteContents}"/>
-            </StackLayout>
-            <StackLayout
+                TextColor="#004FD4"
+                FontSize="26"
+                FontFamily="KivaPostGrot-Bold"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Text="{Binding InviteTitle}" />
+
+            <forms:CachedImage
                 Grid.Row="2"
+                HeightRequest="100"
+                WidthRequest="100"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                FadeAnimationEnabled="true"
+                DownsampleUseDipUnits="true"
+                Source="{Binding InviterUrl}"
+                Aspect="AspectFit" />
+
+
+            <Label
+                Grid.Row="3"
+                Margin="20"
+                FontSize="17"
+                TextColor="DimGray"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                FontFamily="KivaPostGrot-Light"
+                Text="{Binding InviteContents}" />
+
+            <Grid
+                Grid.Row="4"
                 Padding="10"
-                Orientation="Horizontal"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
                 <Button
+                    Grid.Column="0"
+                    BackgroundColor="Transparent"
+                    TextColor="Black"
                     FontAttributes="Bold"
-                    StyleClass="SecondaryButton"
-                    IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverse}}"
                     Command="{Binding RejectInviteCommand}"
                     HorizontalOptions="FillAndExpand"
-                    Text="Maybe later"/>
-                <Button
-                    StyleClass="PrimaryButton"
-                    FontAttributes="Bold"
+                    VerticalOptions="Center"
+                    Margin="5"
+                    Text="Maybe later" />
+                <components:ActionButton
+                    Grid.Column="1"
+                    VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
-                    IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverse}}"
-                    Command="{Binding AcceptInviteCommand}"
-                    Text="Trust"/>
-            </StackLayout>
+                    Margin="5"
+                    ActionButtonText="Trust"
+                    Command="{Binding AcceptInviteCommand}" />
+                </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
+

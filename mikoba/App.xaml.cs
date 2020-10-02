@@ -19,7 +19,6 @@ using mikoba.ViewModels.Pages.Login;
 using mikoba.ViewModels.Pages.Onboarding;
 using Plugin.Fingerprint;
 using Plugin.Fingerprint.Abstractions;
-using FingerprintLoginViewModel = mikoba.ViewModels.Pages.Login.FingerprintLoginViewModel;
 
 namespace mikoba
 {
@@ -66,7 +65,7 @@ namespace mikoba
             //Login
             _navigationService.AddPageViewModelBinding<FingerprintLoginViewModel, FingerprintLoginPage>();
             _navigationService.AddPageViewModelBinding<PINLoginViewModel, PINLoginPage>();
-            Preferences.Set(AppConstant.LocalWalletProvisioned, false);
+            
             if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
             {
                 var fpAuthStatus = await CrossFingerprint.Current.GetAvailabilityAsync();
@@ -96,10 +95,5 @@ namespace mikoba
         {
          
         }
-
-        // protected override void OnCreate()
-        // {
-        //     CrossCurrentActivity.Current.Init(this, bundle);
-        // }
     }
 }

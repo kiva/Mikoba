@@ -1,12 +1,5 @@
 using System;
-using System.Diagnostics;
-using System.Linq;
 using System.Timers;
-using Autofac;
-using Hyperledger.Aries.Agents;
-using Hyperledger.Aries.Routing;
-using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace mikoba.Services
 {

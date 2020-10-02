@@ -1,10 +1,6 @@
-﻿using System;
-using Java.Lang;
+﻿using Java.Lang;
 using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 using Android;
 using System.Collections.Generic;

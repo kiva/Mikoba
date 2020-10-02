@@ -1,8 +1,6 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Autofac.Features.GeneratedFactories;
-using Hyperledger.Aries;
 using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Extensions;
 using Hyperledger.Aries.Features.DidExchange;

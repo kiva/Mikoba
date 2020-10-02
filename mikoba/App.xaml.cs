@@ -1,6 +1,4 @@
 using Autofac;
-using Hyperledger.Aries.Agents.Edge;
-using Hyperledger.Aries.Routing;
 using Microsoft.Extensions.Hosting;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -10,7 +8,6 @@ using mikoba.UI.Pages.Connections;
 using mikoba.UI.Pages.Credentials;
 using mikoba.UI.Pages.Onboarding;
 using mikoba.UI.Pages.Wallet;
-using mikoba.UI.ViewModels;
 using mikoba.ViewModels;
 using mikoba.ViewModels.Pages;
 

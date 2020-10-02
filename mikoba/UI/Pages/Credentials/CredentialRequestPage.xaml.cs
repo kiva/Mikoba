@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using mikoba.ViewModels;
 using Xamarin.Forms;
 
 namespace mikoba.UI.Pages.Credentials

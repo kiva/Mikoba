@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using Hyperledger.Aries.Features.IssueCredential;
 using mikoba.Extensions;
 using mikoba.Services;
 using ReactiveUI;
-using Xamarin.Forms.Xaml;
 
 namespace mikoba.ViewModels.SSI
 {

@@ -1,29 +1,21 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Autofac;
 using DynamicData;
-using Hyperledger.Aries;
 using Hyperledger.Aries.Agents;
-using Hyperledger.Aries.Configuration;
 using Hyperledger.Aries.Contracts;
-using Hyperledger.Aries.Extensions;
 using Hyperledger.Aries.Features.DidExchange;
 using Hyperledger.Aries.Features.IssueCredential;
-using Hyperledger.Aries.Features.PresentProof;
 using Hyperledger.Aries.Routing;
-using Hyperledger.Indy.WalletApi;
 using mikoba.Extensions;
 using mikoba.Services;
-using mikoba.UI;
 using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using CredentialPreviewAttribute = mikoba.ViewModels.Components.CredentialPreviewAttribute;
 
@@ -73,11 +65,13 @@ namespace mikoba.ViewModels.Pages
             var result = await _connectionService.DeleteAsync(context, Entry.Connection.Record.Id);
             if (result)
             {
+                _mediatorTimer.Pause();
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
                 await NavigationService.NavigateBackAsync();
             }
             else
             {
+                _mediatorTimer.Pause();
                 await NavigationService.NavigateBackAsync();
             }
         });
@@ -85,7 +79,7 @@ namespace mikoba.ViewModels.Pages
         public ICommand RemoveCredentialCommand => new Command(async () =>
         {
             var context = await _contextProvider.GetContextAsync();
-            await _credentialService.DeleteCredentialAsync(context, _credential._credential.CredentialId);
+            await _credentialService.DeleteCredentialAsync(context, _credential._credential.Id);
             _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
             await NavigationService.NavigateBackAsync();
         });
@@ -147,26 +141,50 @@ namespace mikoba.ViewModels.Pages
             set => this.RaiseAndSetIfChanged(ref _hasCredential, value);
         }
 
+        private bool _hasConnection = false;
+
+        public bool HasConnection
+        {
+            get => _hasConnection;
+            set => this.RaiseAndSetIfChanged(ref _hasConnection, value);
+        }
+
         #endregion
 
         #region Work
 
         private async void CheckMediator()
         {
-            Device.BeginInvokeOnMainThread(async () =>
+            _mediatorTimer.Pause();
+            var context = await _contextProvider.GetContextAsync();
+            var results = await _edgeClientService.FetchInboxAsync(context);
+            var itemsToDelete = new List<string>();
+            foreach (var item in results.unprocessedItems)
             {
-                var context = await _contextProvider.GetContextAsync();
-                var results = await _edgeClientService.FetchInboxAsync(context);
-                foreach (var item in results.unprocessedItems)
-                {
-                    Console.WriteLine(item.Data);
+                Console.WriteLine(item.Data);
+                if(!Preferences.ContainsKey(item.Id)) {
                     var message = await MessageDecoder.ProcessPackedMessage(context.Wallet, item, null);
                     if (message != null)
                     {
-                        _actionDispatcher.DispatchMessage(message);
+                        Device.BeginInvokeOnMainThread(
+                            async () => { await _actionDispatcher.DispatchMessage(message); });
+                    }
+                    else
+                    {
+                        Preferences.Set(item.Id, false);
                     }
                 }
-            });
+            }
+            //
+            // if (itemsToDelete.Any())
+            // {
+            // var deleteMessage = new DeleteInboxItemsMessage() {InboxItemIds = itemsToDelete};
+            // var response =
+            //     await _messageService.SendReceiveAsync(context.Wallet, deleteMessage, this.Entry.Connection.Record);
+            // //     Console.WriteLine(response.Payload);
+            // // }
+
+            _mediatorTimer.Start();
         }
 
         public override Task InitializeAsync(object navigationData)
@@ -201,7 +219,7 @@ namespace mikoba.ViewModels.Pages
                 }
                 else
                 {
-                    HasCredential = false;
+                    HasConnection = true;
                     _mediatorTimer = new MediatorTimerService(this.CheckMediator);
                     _mediatorTimer.Start();
                 }

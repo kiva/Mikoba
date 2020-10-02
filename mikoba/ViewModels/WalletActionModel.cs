@@ -1,5 +1,4 @@
 using mikoba.ViewModels;
-using Xamarin.Forms;
 using System.Windows.Input;
 
 namespace mikoba.UI.ViewModels

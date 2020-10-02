@@ -77,6 +77,14 @@
                     </StackLayout>
                 </ScrollView>
                 <components:ActionButton
+                    IsVisible="{Binding HasCredential}"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    ActionButtonText="Remove Credential"
+                    Command="{Binding RemoveCredentialCommand}" />
+                <components:ActionButton
+                    IsVisible="{Binding HasConnection}"
                     Grid.Column="0"
                     HorizontalOptions="Center"
                     VerticalOptions="End"

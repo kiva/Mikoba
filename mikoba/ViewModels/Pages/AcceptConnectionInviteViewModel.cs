@@ -1,24 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Autofac;
 using Hyperledger.Aries.Agents;
-using Hyperledger.Aries.Agents.Edge;
-using Hyperledger.Aries.Configuration;
 using Hyperledger.Aries.Contracts;
 using Hyperledger.Aries.Features.DidExchange;
-using Hyperledger.Aries.Features.IssueCredential;
 using mikoba.Extensions;
 using mikoba.Services;
-using mikoba.UI.ViewModels;
 using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages

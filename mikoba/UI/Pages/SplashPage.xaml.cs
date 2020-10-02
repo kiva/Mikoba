@@ -1,10 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using mikoba.Services;
-using mikoba.UI.Pages.Wallet;
-using mikoba.ViewModels;
-using Xamarin.Essentials;
+﻿using mikoba.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

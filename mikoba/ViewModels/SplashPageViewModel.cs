@@ -1,17 +1,6 @@
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using mikoba.Annotations;
 using mikoba.Services;
-using mikoba.UI;
-using mikoba.UI.Pages;
-using mikoba.UI.Pages.Onboarding;
-using mikoba.ViewModels.Pages;
-using Sentry;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels

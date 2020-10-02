@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Input;
-using Xamarin.Forms;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using mikoba.ViewModels;
-using Xamarin.Forms;
-using System.Windows.Input;
-using mikoba.UI.Pages;
+﻿using System.ComponentModel;
 
 namespace mikoba.ViewModels
 {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using DynamicData;
@@ -11,7 +12,9 @@ using Hyperledger.Aries.Features.DidExchange;
 using Hyperledger.Aries.Features.IssueCredential;
 using mikoba.Extensions;
 using mikoba.Services;
+using mikoba.ViewModels.SSI;
 using ReactiveUI;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages
@@ -43,8 +46,9 @@ namespace mikoba.ViewModels.Pages
         private readonly IMessageService _messageService;
         private readonly IAgentProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
+        private SSICredentialViewModel _ssiCredentialViewModel;
         #endregion
-        
+
         #region Commands
         public ICommand AcceptCommand => new Command(async () =>
         {
@@ -52,8 +56,10 @@ namespace mikoba.ViewModels.Pages
             
             try
             {
-                var identifier = await _credentialsService.ProcessOfferAsync(context, _offerMessage, new ConnectionRecord());
+                _ssiCredentialViewModel.IsAccepted = true;
+                // var identifier = await _credentialsService.ProcessOfferAsync(context, _offerMessage, new ConnectionRecord());
                 _eventAggregator.Publish(new CoreDispatchedEvent() { Type = DispatchType.ConnectionsUpdated });
+                await NavigationService.PopModalAsync();
             }
             finally
             {
@@ -108,6 +114,31 @@ namespace mikoba.ViewModels.Pages
                 PreviewAttributes = new RangeEnabledObservableCollection<CredentialPreviewAttribute>();
                 PreviewAttributes.AddRange(previewAttributes);
                 _offerMessage = offer;
+            }
+            else if (navigationData is SSICredentialViewModel credential)
+            {
+                var previewAttributes = new List<CredentialPreviewAttribute>();
+                foreach (var attribute in credential.Attributes)
+                {
+                    var allowedFiels = new String[] {"nationalId", "photo~attach", "dateOfBirth", "birthDate","firstName", "lastName"};
+                    if (!allowedFiels.Contains(attribute.Name)) continue;
+                    if (attribute.Name.Contains("~") && PhotoAttach == null)
+                    {
+                        PhotoAttach = Xamarin.Forms.ImageSource.FromStream(
+                            () => new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));    
+                    }
+                    else
+                    {
+                        previewAttributes.Add(new CredentialPreviewAttribute()
+                        {
+                            Name = attribute.Name,
+                            Value = attribute.Value,
+                        });
+                    }
+                }
+                PreviewAttributes = new RangeEnabledObservableCollection<CredentialPreviewAttribute>();
+                PreviewAttributes.AddRange(previewAttributes);
+                _ssiCredentialViewModel = credential;
             }
             return base.InitializeAsync(navigationData);
         }

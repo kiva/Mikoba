@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Autofac;
 using DynamicData;
 using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Contracts;
@@ -31,7 +32,8 @@ namespace mikoba.ViewModels.Pages
             IAgentProvider contextProvider,
             IActionDispatcher actionDispatcher,
             IEdgeClientService edgeClientService,
-            IEventAggregator eventAggregator)
+            IEventAggregator eventAggregator,
+            ILifetimeScope scope)
             : base("Hub Page", navigationService)
         {
             _connectionService = connectionService;
@@ -42,6 +44,7 @@ namespace mikoba.ViewModels.Pages
             _eventAggregator = eventAggregator;
             _actionDispatcher = actionDispatcher;
             _edgeClientService = edgeClientService;
+            _scope = _scope;
         }
 
         #region Services
@@ -54,6 +57,7 @@ namespace mikoba.ViewModels.Pages
         private readonly IAgentProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
         private readonly IActionDispatcher _actionDispatcher;
+        private readonly ILifetimeScope _scope;
 
         #endregion
 
@@ -153,6 +157,38 @@ namespace mikoba.ViewModels.Pages
 
         #region Work
 
+        private async void checkForWalletChanges()
+        {
+            Device.BeginInvokeOnMainThread(
+                async () =>
+                {
+                    _mediatorTimer.Pause();
+                    var context = await _contextProvider.GetContextAsync();
+                    var results = await _edgeClientService.FetchInboxAsync(context);
+                    var credentialsRecords = await _credentialService.ListAsync(context);
+                    SSICredentialViewModel lastCredential = null;
+                    foreach (var credentialRecord in credentialsRecords)
+                    {
+                        var credential = new SSICredentialViewModel(credentialRecord);
+                        if (!credential.IsAccepted)
+                        {
+                            lastCredential = credential;
+                            break;
+                        }
+                    }
+
+                    if (lastCredential != null)
+                    {
+                        await NavigationService.NavigateToAsync<CredentialOfferPageViewModel>(lastCredential, NavigationType.Modal);
+                        _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
+                    }
+                    else
+                    {
+                        _mediatorTimer.Start();
+                    }
+                });
+        }
+
         private async void CheckMediator()
         {
             _mediatorTimer.Pause();
@@ -162,7 +198,8 @@ namespace mikoba.ViewModels.Pages
             foreach (var item in results.unprocessedItems)
             {
                 Console.WriteLine(item.Data);
-                if(!Preferences.ContainsKey(item.Id)) {
+                if (!Preferences.ContainsKey(item.Id))
+                {
                     var message = await MessageDecoder.ProcessPackedMessage(context.Wallet, item, null);
                     if (message != null)
                     {
@@ -175,7 +212,9 @@ namespace mikoba.ViewModels.Pages
                     }
                 }
             }
-            //
+
+            //TODO: Not supported by Mediator it seems.
+            //Asked question in community and StackOverflow
             // if (itemsToDelete.Any())
             // {
             // var deleteMessage = new DeleteInboxItemsMessage() {InboxItemIds = itemsToDelete};
@@ -199,7 +238,10 @@ namespace mikoba.ViewModels.Pages
                     var attributes = new List<CredentialPreviewAttribute>();
                     foreach (var attribute in Credential.Attributes)
                     {
-                        if (attribute.Name.Contains("~") && PhotoAttach == null)
+                        var allowedFiels = new String[]
+                            {"nationalId", "photo~attach", "dateOfBirth", "firstName", "lastName"};
+                        if (!allowedFiels.Contains(attribute.Name)) continue;
+                        if (attribute.Name.Contains("photo~") && PhotoAttach == null)
                         {
                             PhotoAttach = Xamarin.Forms.ImageSource.FromStream(
                                 () => new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));
@@ -220,7 +262,7 @@ namespace mikoba.ViewModels.Pages
                 else
                 {
                     HasConnection = true;
-                    _mediatorTimer = new MediatorTimerService(this.CheckMediator);
+                    _mediatorTimer = new MediatorTimerService(this.checkForWalletChanges);
                     _mediatorTimer.Start();
                 }
             }

@@ -17,7 +17,7 @@ namespace mikoba.ViewModels
 
         protected KivaBaseViewModel()
         {
-            throw new NotImplementedException();
+            
         }
         
         #region Services

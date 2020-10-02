@@ -31,16 +31,14 @@ namespace mikoba.ViewModels.Pages
             ICredentialService credentialService,
             IAgentProvider agentContextProvider,
             IEventAggregator eventAggregator,
-            ILifetimeScope scope) : base("Wallet Page", navigationService)
+            ILifetimeScope scope) : 
+            base("Wallet Page", navigationService)
         {
             _credentialService = credentialService;
             _agentContextProvider = agentContextProvider;
             _connectionService = connectionService;
             _eventAggregator = eventAggregator;
             _scope = scope;
-            // this.WhenAnyValue(x => x.SearchTerm)
-            //     .Throttle(TimeSpan.FromMilliseconds(200))
-            //     .InvokeCommand(RefreshCommand);
         }
 
         #region Services

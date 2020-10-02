@@ -2,11 +2,39 @@ using Hyperledger.Aries.Features.IssueCredential;
 using mikoba.Extensions;
 using mikoba.Services;
 using ReactiveUI;
+using Xamarin.Essentials;
 
 namespace mikoba.ViewModels.SSI
 {
     public class SSICredentialViewModel : KivaBaseViewModel
     {
+        
+        public bool IsAccepted
+        {
+            get
+            {
+                return Preferences.Get(_credential.Id + "-Accepted", false);
+            }
+            set
+            {
+                Preferences.Set(_credential.Id + "-Accepted", value);
+            }
+        }
+        
+        
+        public SSICredentialViewModel(CredentialRecord credential)
+        {
+            _credential = credential;
+            Attributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
+            foreach (var cred in _credential.CredentialAttributesValues)
+            {
+                Attributes.Add(new SSICredentialAttribute()
+                {
+                    Name = cred.Name,
+                    Value = cred.Value,
+                });
+            }
+        }
         public SSICredentialViewModel(
             INavigationService navigationService,
             CredentialRecord credential
@@ -25,14 +53,6 @@ namespace mikoba.ViewModels.SSI
                     Value = cred.Value,
                 });
             }
-            
-#if DEBUG
-            _credentialName = "Credential Name";
-            _credentialSubtitle = "10/22/2017";
-            _credentialType = "Bank Statement";
-            _credentialName = "Civil Registry Office";
-#endif
-            
         }
         
         public readonly CredentialRecord _credential;

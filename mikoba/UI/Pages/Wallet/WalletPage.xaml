@@ -12,8 +12,8 @@
     xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:extensions="clr-namespace:mikoba.Extensions;assembly=mikoba"
     xmlns:effects="clr-namespace:mikoba.Effects;assembly=mikoba"
-    NavigationPage.HasNavigationBar="False"
     x:Class="mikoba.UI.Pages.Wallet.WalletPage"
+    NavigationPage.HasNavigationBar="False"
     ios:Page.UseSafeArea="true"
     BackgroundColor="#F2F2F2">
     <ContentPage.Resources>

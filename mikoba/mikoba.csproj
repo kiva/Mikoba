@@ -279,7 +279,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\SSI" />
     <Folder Include="ViewModels\Pages\Credentials" />
   </ItemGroup>
 </Project>

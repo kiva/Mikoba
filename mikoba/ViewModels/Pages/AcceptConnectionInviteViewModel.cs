@@ -67,11 +67,12 @@ namespace mikoba.ViewModels.Pages
                 var entry = _scope.Resolve<EntryViewModel>();
                 entry.Connection = _scope.Resolve<SSIConnectionViewModel>(new NamedParameter("record", record));
                 entry.Setup();
-                await this.NavigationService.NavigateBackAsync();
+                await this.NavigationService.PopModalAsync();
+                await this.NavigationService.NavigateToAsync<EntryHubPageViewModel>(entry);
             }
             catch (Exception ex)
             {
-                await this.NavigationService.NavigateBackAsync();
+                await this.NavigationService.PopModalAsync();
             }
         });
 
@@ -112,9 +113,14 @@ namespace mikoba.ViewModels.Pages
 
         public override Task InitializeAsync(object navigationData)
         {
+#if DEBUG
+            InviteTitle = $"This is a test!!!";
+            return base.InitializeAsync(navigationData);     
+#endif
+            
+            
             if (navigationData is ConnectionInvitationMessage invite)
             {
-                //invite.Label = "Sierra Leone Authority";
                 InviteTitle = $"Trust {invite.Label}?";
                 InviterUrl = invite.ImageUrl;
                 InviteContents =

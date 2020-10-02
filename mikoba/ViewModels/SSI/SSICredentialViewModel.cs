@@ -30,12 +30,11 @@ namespace mikoba.ViewModels.SSI
             
 #if DEBUG
             _credentialName = "Credential Name";
-            
             _credentialSubtitle = "10/22/2017";
             _credentialType = "Bank Statement";
-            
-#endif
             _credentialName = "Civil Registry Office";
+#endif
+            
         }
         
         public readonly CredentialRecord _credential;

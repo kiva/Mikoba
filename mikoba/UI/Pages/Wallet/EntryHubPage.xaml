@@ -54,9 +54,10 @@
                                VerticalOptions="Start" />
                     </StackLayout>
                 </Frame>
-                <ScrollView HorizontalOptions="FillAndExpand">
+                <ScrollView
+                    HorizontalOptions="FillAndExpand" 
+                    IsVisible="{Binding HasCredential}">
                     <StackLayout
-                        IsVisible="{Binding HasCredential}"
                         BindableLayout.ItemsSource="{Binding Attributes}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>

@@ -1,3 +1,4 @@
+using System;
 using Autofac;
 using Microsoft.Extensions.Logging;
 using mikoba.Services;
@@ -12,6 +13,11 @@ namespace mikoba
             
             builder
                 .RegisterType<NavigationService>()
+                .AsImplementedInterfaces()
+                .SingleInstance();            
+            
+            builder
+                .RegisterType<ActionDispatcher>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
 

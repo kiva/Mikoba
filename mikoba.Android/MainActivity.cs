@@ -12,6 +12,8 @@ using System.Linq;
 using FFImageLoading.Forms.Platform;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Plugin.CurrentActivity;
+using Plugin.Fingerprint;
 using SVG.Forms.Plugin.Droid;
 
 namespace mikoba.Droid
@@ -74,6 +76,8 @@ namespace mikoba.Droid
             LoadApplication(host.Services.GetRequiredService<App>());
 
             CheckAndRequestRequiredPermissions();
+            
+            CrossFingerprint.SetCurrentActivityResolver(() => CrossCurrentActivity.Current.Activity);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions,

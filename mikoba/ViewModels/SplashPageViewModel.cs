@@ -10,6 +10,7 @@ using mikoba.UI;
 using mikoba.UI.Pages;
 using mikoba.UI.Pages.Onboarding;
 using mikoba.ViewModels.Pages;
+using mikoba.ViewModels.Pages.Onboarding;
 using Sentry;
 using Xamarin.Essentials;
 using Xamarin.Forms;

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using mikoba.Annotations;
+using mikoba.Services;
 using mikoba.UI.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -31,11 +32,21 @@ namespace mikoba.UI.Components
             get { return GetValue(FinishCommandParameterProperty); }
             set { SetValue(FinishCommandParameterProperty, value); }
         }
+        
+        public static readonly BindableProperty FocusDelayProperty = 
+            BindableProperty.Create("FocusDelay", typeof(object), typeof(PINInput), null);
 
+        public object FocusDelay
+        {
+            get { return GetValue(FocusDelayProperty); }
+            set { SetValue(FocusDelayProperty, value); }
+        }
+        
         public void SwitchFocus(object sender, TextChangedEventArgs e)
         {
             var entry = sender as BorderlessEntry;
             var newText = e.NewTextValue;
+            var oldText = e.OldTextValue;
             var entries = InputContainer.Children;
             if (IsDelete(newText))
             {
@@ -100,7 +111,15 @@ namespace mikoba.UI.Components
         protected override async void OnParentSet()
         {
             base.OnParentSet();
-            await Task.Delay(300);
+
+            int delay = 300;
+            if (FocusDelay != null)
+            {
+                string delayValue = FocusDelay.ToString();
+                delay = int.Parse(delayValue);
+            }
+            
+            await Task.Delay(delay);
             Initial.Focus();
         }
     }

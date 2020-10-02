@@ -1,4 +1,6 @@
+using System;
 using mikoba.ViewModels;
+using mikoba.ViewModels.Pages.Onboarding;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

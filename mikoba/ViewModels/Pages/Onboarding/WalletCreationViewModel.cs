@@ -16,7 +16,7 @@ using Sentry;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace mikoba.ViewModels
+namespace mikoba.ViewModels.Pages.Onboarding
 {
     public sealed class WalletCreationViewModel : KivaBaseViewModel
     {

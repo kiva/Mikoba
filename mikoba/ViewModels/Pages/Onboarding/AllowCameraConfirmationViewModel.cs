@@ -1,33 +1,41 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using mikoba.Annotations;
 using mikoba.Services;
 using mikoba.UI.Pages;
 using mikoba.UI.Pages.Onboarding;
+using Polly;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace mikoba.ViewModels
+namespace mikoba.ViewModels.Pages.Onboarding
 {
-    public class AllowPushNotificationViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class AllowCameraConfirmationViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
-        public AllowPushNotificationViewModel(INavigationService navigationService)
-        : base("Allow Push Notifications", navigationService)
+        public ICommand GoBack { get; set; }
+
+        public ICommand CheckCameraPermissions { get; set; }
+        
+        public ICommand SkipStep { get; set; }
+        
+        public AllowCameraConfirmationViewModel(INavigationService navigationService)
+            : base("Allow Camera", navigationService)
         {
             GoBack = new Command(async () =>
             {
                 await NavigationService.NavigateBackAsync();
             });
             
-            CheckNotificationPermissions = new Command(async () =>
+            CheckCameraPermissions = new Command(async () =>
             {
-                // var status = await Permissions.RequestAsync<Permissions.Reminders>();
-                // if (status == PermissionStatus.Granted)
-                // {
-                AdvancePage();
-                // }
+                var status = await Permissions.RequestAsync<Permissions.Camera>();
+                if (status == PermissionStatus.Granted)
+                {
+                    AdvancePage();
+                }
             });
             
             SkipStep = new Command(async () =>
@@ -35,22 +43,12 @@ namespace mikoba.ViewModels
                 AdvancePage();
             });
         }
-        
-        
-        #region Commands
-        public ICommand GoBack { get; set; }
-        
-        public ICommand CheckNotificationPermissions { get; set; }
-        
-        public ICommand SkipStep { get; set; }
-
-        #endregion
 
         public async void AdvancePage()
         {
-            await NavigationService.NavigateToAsync<WalletCreationViewModel>();
+            await NavigationService.NavigateToAsync<AllowPushNotificationViewModel>();
         }
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
         
         [NotifyPropertyChangedInvocator]

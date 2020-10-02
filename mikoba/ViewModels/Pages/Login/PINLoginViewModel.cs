@@ -3,46 +3,38 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Autofac;
+using Hyperledger.Aries.Contracts;
 using mikoba.Annotations;
 using mikoba.Services;
-using mikoba.UI.Pages;
-using mikoba.UI.Pages.Onboarding;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace mikoba.ViewModels
+namespace mikoba.ViewModels.Pages.Login
 {
-    public class WalletPinConfirmViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class PINLoginViewModel : KivaBaseViewModel
     {
-        public WalletPinConfirmViewModel(INavigationService navigationService)
-            : base ("Confirm Pin", navigationService)
+        public PINLoginViewModel(
+            INavigationService navigationService) : base("PIN Login", navigationService)
         {
             NoError = true;
-            GoBack = new Command(async () =>
+            
+            Login = new Command(async () =>
             {
-                await NavigationService.NavigateBackAsync();
-            });
-            ConfirmPin = new Command(async () =>
-            {
-                if (!string.IsNullOrEmpty(First) && !string.IsNullOrEmpty(Second) && !string.IsNullOrEmpty(Third) &&
-                    !string.IsNullOrEmpty(Fourth))
+                string entered = $"{First}{Second}{Third}{Fourth}";
+                if (Preferences.Get(AppConstant.PIN, "xxxxx") == entered)
                 {
-                    string toConfirm = $"{First}{Second}{Third}{Fourth}";
-                    if (PIN.Equals(toConfirm))
-                    {
-                        NoMatch = false;
-                        Application.Current.Properties["WalletPIN"] = toConfirm;
-                        await NavigationService.NavigateToAsync<AllowCameraConfirmationViewModel>();
-                    }
-                    else
-                    {
-                        NoMatch = true;
-                        await Task.Delay(3000);
-                        NoMatch = false;
-                    }
+                    NoMatch = false;
+                    await NavigationService.NavigateToAsync<WalletPageViewModel>();
+                }
+                else
+                {
+                    NoMatch = true;
+                    await Task.Delay(3000);
+                    NoMatch = false;
                 }
             });
         }
-        
         
         #region UI Properties
         private string first = string.Empty;
@@ -140,10 +132,9 @@ namespace mikoba.ViewModels
         #endregion
 
         #region Commands
-        public ICommand GoBack { get; set; }
         
-        public ICommand ConfirmPin { get; set; }
-        
+        public ICommand Login { get; set; }
+
         #endregion
 
         #region Lifecyle

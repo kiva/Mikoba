@@ -191,11 +191,13 @@
     <EmbeddedResource Include="Resources\wave.svg" />
     <EmbeddedResource Include="Resources\cornercircles.svg" />
     <EmbeddedResource Include="Resources\leftarrow_yellow.svg" />
+    <EmbeddedResource Include="Resources\fingerprint_icon.svg" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\bell.svg" />
     <BundleResource Include="Resources\bsl.svg" />
     <BundleResource Include="Resources\camera_icon.svg" />
     <BundleResource Include="Resources\cornercircles_left.svg" />
+    <BundleResource Include="Resources\fingerprint_icon.svg" />
   </ItemGroup>
 </Project>

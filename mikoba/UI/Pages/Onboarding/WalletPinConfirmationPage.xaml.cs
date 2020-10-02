@@ -7,12 +7,9 @@ namespace mikoba.UI.Pages.Onboarding
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class WalletPinConfirmationPage : ContentPage
     {
-        public WalletPinConfirmationPage(string PIN)
+        public WalletPinConfirmationPage()
         {
             InitializeComponent();
-            var model = new WalletPinConfirmViewModel(Navigation);
-            model.SetPIN(PIN);
-            BindingContext = model;
         }
     }
 }

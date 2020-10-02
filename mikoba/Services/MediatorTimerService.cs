@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Timers;
 using Autofac;
 using Hyperledger.Aries.Agents;
@@ -25,6 +26,16 @@ namespace mikoba.Services
             };
             timer.Elapsed += Timer_Elapsed;
         }
+        
+        public MediatorTimerService(Action action)
+        {
+            timer = new Timer
+            {
+                Enabled = false,
+                AutoReset = true,
+                Interval = TimeSpan.FromSeconds(10).TotalMilliseconds
+            };
+        }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -35,7 +46,14 @@ namespace mikoba.Services
                     try
                     {
                         var context = await App.Container.Resolve<IAgentProvider>().GetContextAsync();
-                        await App.Container.Resolve<IEdgeClientService>().FetchInboxAsync(context);
+                        var results = await App.Container.Resolve<IEdgeClientService>().FetchInboxAsync(context);
+                        if (results.unprocessedItems.Count() > 0)
+                        {
+                            foreach(var item in results.unprocessedItems)
+                            {
+                                Console.WriteLine(item.Type);
+                            }    
+                        }
                     }
                     catch (Exception ex)
                     {

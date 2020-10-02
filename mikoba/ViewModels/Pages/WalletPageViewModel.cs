@@ -12,6 +12,7 @@ using Hyperledger.Aries.Agents.Edge;
 using Hyperledger.Aries.Contracts;
 using Hyperledger.Aries.Features.DidExchange;
 using Hyperledger.Aries.Features.IssueCredential;
+using Hyperledger.Aries.Features.PresentProof;
 using mikoba.Extensions;
 using mikoba.Services;
 using mikoba.UI.ViewModels;
@@ -36,6 +37,7 @@ namespace mikoba.ViewModels.Pages
             _credentialService = credentialService;
             _agentContextProvider = agentContextProvider;
             _connectionService = connectionService;
+            _eventAggregator = eventAggregator;
             _scope = scope;
             // this.WhenAnyValue(x => x.SearchTerm)
             //     .Throttle(TimeSpan.FromMilliseconds(200))
@@ -56,8 +58,6 @@ namespace mikoba.ViewModels.Pages
 
         public ObservableCollection<WalletActionModel> WalletActions { get; set; }
 
-        public int MenuOptionsHeight { get; set; }
-        
         private string _welcomeText;
 
         public string WelcomeText
@@ -126,7 +126,7 @@ namespace mikoba.ViewModels.Pages
             IsRefreshing = false;
             _eventAggregator?.GetEventByType<CoreDispatchedEvent>()
                 .Where(_ => _.Type == DispatchType.ConnectionsUpdated)
-                .Subscribe(async _ => await RefreshConnections());
+                .Subscribe(async _ => await RefreshData());
             await base.InitializeAsync(navigationData);
         }
 
@@ -173,10 +173,6 @@ namespace mikoba.ViewModels.Pages
                     _scope.Resolve<SSICredentialViewModel>(new NamedParameter("credential", credentialRecord));
                 credentialsVms.Add(credential);
             }
-
-            // var filteredCredentialVms = FilterCredentials(SearchTerm, credentialsVms);
-            // var groupedVms = GroupCredentials(filteredCredentialVms);
-            // CredentialsGrouped = groupedVms;
 
             Credentials.Clear();
             Credentials.InsertRange(credentialsVms);
@@ -240,24 +236,41 @@ namespace mikoba.ViewModels.Pages
             var result = await scanner.Scan(opts);
             if (result == null) return;
 
-            ConnectionInvitationMessage invitation;
-
             try
             {
-                invitation = await MessageDecoder.ParseMessageAsync(result.Text) as ConnectionInvitationMessage
-                             ?? throw new Exception("Unknown message type");
+                var message = await MessageDecoder.ParseMessageAsync(result.Text);
+                if (message is ConnectionInvitationMessage)
+                {
+                    ConnectionInvitationMessage inviteMessage = (ConnectionInvitationMessage)message;
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await NavigationService.NavigateToAsync<AcceptConnectionInviteViewModel>(inviteMessage, NavigationType.Modal);
+                    });
+                }
+                else if (message is CredentialOfferMessage)
+                {
+                    CredentialOfferMessage credentialOffer = (CredentialOfferMessage)message;
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await NavigationService.NavigateToAsync<CredentialOfferPageViewModel>(credentialOffer, NavigationType.Modal);
+                    });
+                }
+                else if (message is RequestPresentationMessage)
+                {
+                    RequestPresentationMessage credentialRequest = (RequestPresentationMessage)message;
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await NavigationService.NavigateToAsync<CredentialRequestPageViewModel>(credentialRequest, NavigationType.Modal);
+                    });
+                }
+                
             }
             catch (Exception)
             {
-                // DialogService.Alert("Invalid invitation!");
-                return;
+                
             }
 
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                await NavigationService.NavigateToAsync<AcceptConnectionInviteViewModel>(invitation,
-                    NavigationType.Modal);
-            });
+           
         }
 
         #endregion

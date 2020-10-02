@@ -4,30 +4,29 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using mikoba.Annotations;
+using mikoba.Services;
 using mikoba.UI.Pages;
 using mikoba.UI.Pages.Onboarding;
 using Polly;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace mikoba.ViewModels
+namespace mikoba.ViewModels.Pages.Onboarding
 {
     public class AllowCameraConfirmationViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
         public ICommand GoBack { get; set; }
-        
-        private INavigation NavigationService { get; set; }
-        
+
         public ICommand CheckCameraPermissions { get; set; }
         
         public ICommand SkipStep { get; set; }
         
-        public AllowCameraConfirmationViewModel(INavigation navigationService)
+        public AllowCameraConfirmationViewModel(INavigationService navigationService)
+            : base("Allow Camera", navigationService)
         {
-            NavigationService = navigationService;
             GoBack = new Command(async () =>
             {
-                await NavigationService.PopAsync(true);
+                await NavigationService.NavigateBackAsync();
             });
             
             CheckCameraPermissions = new Command(async () =>
@@ -45,9 +44,9 @@ namespace mikoba.ViewModels
             });
         }
 
-        public void AdvancePage()
+        public async void AdvancePage()
         {
-            NavigationService.PushAsync(new AllowPushNotificationPage(), true);
+            await NavigationService.NavigateToAsync<AllowPushNotificationViewModel>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

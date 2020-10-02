@@ -10,7 +10,6 @@ namespace mikoba.UI.Pages.Onboarding
         public AllowPushNotificationPage()
         {
             InitializeComponent();
-            BindingContext = new AllowPushNotificationViewModel(Navigation);
         }
     }
 }

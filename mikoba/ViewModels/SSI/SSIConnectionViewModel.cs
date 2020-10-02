@@ -33,15 +33,15 @@ namespace mikoba.ViewModels.SSI
             _connectionService = connectionService;
             _eventAggregator = eventAggregator;
 
-            _record = record;
-            MyDid = _record.MyDid;
-            TheirDid = _record.TheirDid;
-            ConnectionName = _record.Alias?.Name;
-            ConnectionSubtitle = $"{_record.State:G}";
-            ConnectionImageUrl = _record.Alias?.ImageUrl;
+            Record = record;
+            MyDid = Record.MyDid;
+            TheirDid = Record.TheirDid;
+            ConnectionName = Record.Alias?.Name;
+            ConnectionSubtitle = $"{Record.State:G}";
+            ConnectionImageUrl = Record.Alias?.ImageUrl;
         }
         
-        private readonly ConnectionRecord _record;
+        public ConnectionRecord Record { get; private set; }
         
         #region Services
         private readonly IAgentProvider _agentContextProvider;
@@ -68,7 +68,7 @@ namespace mikoba.ViewModels.SSI
 
             try
             {
-                var response = await _messageService.SendReceiveAsync(context.Wallet, message, _record) as UnpackedMessageContext;
+                var response = await _messageService.SendReceiveAsync(context.Wallet, message, Record) as UnpackedMessageContext;
                 protocols = response.GetMessage<DiscoveryDiscloseMessage>();
             }
             catch (Exception)
@@ -126,7 +126,7 @@ namespace mikoba.ViewModels.SSI
             bool success = false;
             try
             {
-                var response = await _messageService.SendReceiveAsync(context.Wallet, message, _record) as UnpackedMessageContext;
+                var response = await _messageService.SendReceiveAsync(context.Wallet, message, Record) as UnpackedMessageContext;
                 var trustPingResponse = response.GetMessage<TrustPingResponseMessage>();
                 success = true;
             }
@@ -160,7 +160,7 @@ namespace mikoba.ViewModels.SSI
             // var dialog = DialogService.Loading("Deleting");
             
             var context = await _agentContextProvider.GetContextAsync();
-            await _connectionService.DeleteAsync(context, _record.Id);
+            await _connectionService.DeleteAsync(context, Record.Id);
             
             _eventAggregator.Publish(new CoreDispatchedEvent() { Type = DispatchType.ConnectionsUpdated });
             

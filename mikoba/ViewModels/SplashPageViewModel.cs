@@ -10,6 +10,7 @@ using mikoba.UI;
 using mikoba.UI.Pages;
 using mikoba.UI.Pages.Onboarding;
 using mikoba.ViewModels.Pages;
+using mikoba.ViewModels.Pages.Onboarding;
 using Sentry;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -25,8 +26,6 @@ namespace mikoba.ViewModels
             
         }
         
-      
-        
         public override async Task InitializeAsync(object navigationData)
         {
             // if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
@@ -41,9 +40,12 @@ namespace mikoba.ViewModels
         { 
             get => new Command(async () =>
             {
-                await WalletService.ProvisionWallet();
-                Preferences.Set(AppConstant.LocalWalletProvisioned, true);
-                await NavigationService.NavigateToAsync<WalletPageViewModel>();
+                //If you are in a hurry
+                //#if Debug
+                // await WalletService.ProvisionWallet();
+                // Preferences.Set(AppConstant.LocalWalletProvisioned, true);
+                //#endif
+                await NavigationService.NavigateToAsync<WalletOwnerInputViewModel>();
             });
         }
     

@@ -15,6 +15,7 @@ using Hyperledger.Aries.Features.IssueCredential;
 using mikoba.Extensions;
 using mikoba.Services;
 using mikoba.UI.ViewModels;
+using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
 using Xamarin.Essentials;
@@ -24,49 +25,53 @@ namespace mikoba.ViewModels.Pages
 {
     public class AcceptConnectionInviteViewModel : KivaBaseViewModel
     {
-        
-        public AcceptConnectionInviteViewModel(INavigationService navigationService,
-                                     IProvisioningService provisioningService,
-                                     IConnectionService connectionService,
-                                     IMessageService messageService,
-                                     IAgentProvider contextProvider,
-                                     IEventAggregator eventAggregator)
-                                     : base("Accept Invitation", navigationService)
+        public AcceptConnectionInviteViewModel(
+            INavigationService navigationService,
+            IConnectionService connectionService,
+            IMessageService messageService,
+            IAgentProvider contextProvider,
+            IEventAggregator eventAggregator,
+            ILifetimeScope scope)
+            : base("Accept Invitation", navigationService)
         {
-            _provisioningService = provisioningService;
             _connectionService = connectionService;
             _contextProvider = contextProvider;
             _messageService = messageService;
             _contextProvider = contextProvider;
             _eventAggregator = eventAggregator;
+            _scope = scope;
         }
-        
+
         private ConnectionInvitationMessage _invite;
 
-        #region Services 
-        private readonly IProvisioningService _provisioningService;
+        #region Services
+
         private readonly IConnectionService _connectionService;
         private readonly IMessageService _messageService;
         private readonly IAgentProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
+        private readonly ILifetimeScope _scope;
+
         #endregion
-        
+
         #region Commands
+
         public ICommand AcceptInviteCommand => new Command(async () =>
         {
-            // var loadingDialog = DialogService.Loading("Processing");
             var context = await _contextProvider.GetContextAsync();
-
             try
             {
-                var (msg, rec) = await _connectionService.CreateRequestAsync(context, _invite);
-                await _messageService.SendAsync(context.Wallet, msg, rec);
-                _eventAggregator.Publish(new CoreDispatchedEvent() { Type = DispatchType.ConnectionsUpdated });
+                var (msg, record) = await _connectionService.CreateRequestAsync(context, _invite);
+                await _messageService.SendAsync(context.Wallet, msg, record);
+                _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
+                var entry = _scope.Resolve<EntryViewModel>();
+                entry.Connection = _scope.Resolve<SSIConnectionViewModel>(new NamedParameter("record", record));
+                entry.Setup();
+                await this.NavigationService.NavigateBackAsync();
             }
-            finally
+            catch (Exception ex)
             {
-                // loadingDialog.Hide();
-                await NavigationService.PopModalAsync();
+                await this.NavigationService.NavigateBackAsync();
             }
         });
 
@@ -75,14 +80,18 @@ namespace mikoba.ViewModels.Pages
         #endregion
 
         #region UI Properties
+
         private string _inviteTitle;
+
         public string InviteTitle
         {
             get => _inviteTitle;
             set => this.RaiseAndSetIfChanged(ref _inviteTitle, value);
         }
 
-        private string _inviteContents = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+        private string _inviteContents =
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+
         public string InviteContents
         {
             get => _inviteContents;
@@ -90,26 +99,32 @@ namespace mikoba.ViewModels.Pages
         }
 
         private string _inviterUrl;
+
         public string InviterUrl
         {
             get => _inviterUrl;
             set => this.RaiseAndSetIfChanged(ref _inviterUrl, value);
         }
+
         #endregion
-        
+
         #region Work
+
         public override Task InitializeAsync(object navigationData)
         {
-            //if navigationData's type is === ConnectionInvitationMessage then (evaluates to true, cast the valuye to invite)
             if (navigationData is ConnectionInvitationMessage invite)
             {
+                //invite.Label = "Sierra Leone Authority";
                 InviteTitle = $"Trust {invite.Label}?";
-                InviterUrl = invite.ImageUrl;               
-                InviteContents = $"{invite.Label} would like to establish a pairwise DID connection with you. This will allow secure communication between you and {invite.Label}.";
+                InviterUrl = invite.ImageUrl;
+                InviteContents =
+                    $"{invite.Label} wants to send you a secure request.";
                 _invite = invite;
             }
+
             return base.InitializeAsync(navigationData);
         }
+
         #endregion
     }
 }

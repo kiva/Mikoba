@@ -12,6 +12,7 @@
     xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
     xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:extensions="clr-namespace:mikoba.Extensions;assembly=mikoba"
+    xmlns:effects="clr-namespace:mikoba.Effects;assembly=mikoba"
     NavigationPage.HasNavigationBar="False"
     x:Class="mikoba.UI.Pages.Wallet.WalletPage"
     ios:Page.UseSafeArea="true"
@@ -65,6 +66,7 @@
                     Orientation="Horizontal"
                     HorizontalOptions="FillAndExpand">
                     <abstractions:SvgImage
+                        effects:RoundCornersEffect.CornerRadius="10"
                         SvgAssembly="{Binding SvgAssembly}"
                         SvgPath="{Binding KivaLogoBlue}"
                         HeightRequest="35"
@@ -83,68 +85,7 @@
                     <StackLayout BindableLayout.ItemsSource="{Binding Entries}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <ContentView Margin="0" Padding="0">
-                                    <Grid HeightRequest="200"
-                                          Padding="0"
-                                          HorizontalOptions="FillAndExpand">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="100" />
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="25" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="100" />
-                                        </Grid.ColumnDefinitions>
-
-                                        <Frame
-                                            Grid.ColumnSpan="3"
-                                            Grid.RowSpan="3"
-                                            Padding="0"
-                                            Margin="0"
-                                            CornerRadius="10"  
-                                            HasShadow="False"
-                                            OutlineColor="#F0F0F0"
-                                            BackgroundColor="#FEFEFE" />
-
-                                        <forms:CachedImage
-                                            Grid.Column="2"
-                                            Grid.Row="0"
-                                            HeightRequest="100"
-                                            WidthRequest="100"
-                                            HorizontalOptions="FillAndExpand"
-                                            VerticalOptions="FillAndExpand"
-                                            FadeAnimationEnabled="true"
-                                            DownsampleUseDipUnits="true"
-                                            Source="{Binding ImageUrl}"
-                                            Aspect="AspectFit" />
-                                        <abstractions:SvgImage
-                                            Grid.Column="0"
-                                            Grid.Row="1"
-                                            Grid.RowSpan="1"
-                                            SvgAssembly="{Binding SvgAssembly}"
-                                            SvgPath="{Binding IconIdentifier}"
-                                            HeightRequest="25"
-                                            WidthRequest="25"
-                                            BackgroundColor="#FEFEFE"
-                                            HorizontalOptions="End"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Row="1"
-                                            Grid.Column="1"
-                                            VerticalOptions="Center"
-                                            Grid.ColumnSpan="2"
-                                            Text="{Binding OrganizationType}" />
-                                        <Label
-                                            Grid.Row="2"
-                                            Grid.Column="0"
-                                            VerticalOptions="Center"
-                                            Grid.ColumnSpan="3"
-                                            FontSize="25"
-                                            Text="{Binding DisplayName}" />
-                                    </Grid>
-                                </ContentView>
+                                <components:EntryCard />
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </StackLayout>

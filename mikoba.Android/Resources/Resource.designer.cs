@@ -15461,67 +15461,70 @@ namespace mikoba.Droid
 			public const int fingerprint_dialog_fp_to_error = 2131230945;
 			
 			// aapt resource value: 0x7F0800E2
-			public const int ic_mtrl_chip_checked_black = 2131230946;
+			public const int fingerprint_icon = 2131230946;
 			
 			// aapt resource value: 0x7F0800E3
-			public const int ic_mtrl_chip_checked_circle = 2131230947;
+			public const int ic_mtrl_chip_checked_black = 2131230947;
 			
 			// aapt resource value: 0x7F0800E4
-			public const int ic_mtrl_chip_close_circle = 2131230948;
+			public const int ic_mtrl_chip_checked_circle = 2131230948;
 			
 			// aapt resource value: 0x7F0800E5
-			public const int leftarrow_yellow = 2131230949;
+			public const int ic_mtrl_chip_close_circle = 2131230949;
 			
 			// aapt resource value: 0x7F0800E6
-			public const int mtrl_snackbar_background = 2131230950;
+			public const int leftarrow_yellow = 2131230950;
 			
 			// aapt resource value: 0x7F0800E7
-			public const int mtrl_tabs_default_indicator = 2131230951;
+			public const int mtrl_snackbar_background = 2131230951;
 			
 			// aapt resource value: 0x7F0800E8
-			public const int navigation_empty_icon = 2131230952;
+			public const int mtrl_tabs_default_indicator = 2131230952;
 			
 			// aapt resource value: 0x7F0800E9
-			public const int notification_action_background = 2131230953;
+			public const int navigation_empty_icon = 2131230953;
 			
 			// aapt resource value: 0x7F0800EA
-			public const int notification_bg = 2131230954;
+			public const int notification_action_background = 2131230954;
 			
 			// aapt resource value: 0x7F0800EB
-			public const int notification_bg_low = 2131230955;
+			public const int notification_bg = 2131230955;
 			
 			// aapt resource value: 0x7F0800EC
-			public const int notification_bg_low_normal = 2131230956;
+			public const int notification_bg_low = 2131230956;
 			
 			// aapt resource value: 0x7F0800ED
-			public const int notification_bg_low_pressed = 2131230957;
+			public const int notification_bg_low_normal = 2131230957;
 			
 			// aapt resource value: 0x7F0800EE
-			public const int notification_bg_normal = 2131230958;
+			public const int notification_bg_low_pressed = 2131230958;
 			
 			// aapt resource value: 0x7F0800EF
-			public const int notification_bg_normal_pressed = 2131230959;
+			public const int notification_bg_normal = 2131230959;
 			
 			// aapt resource value: 0x7F0800F0
-			public const int notification_icon_background = 2131230960;
+			public const int notification_bg_normal_pressed = 2131230960;
 			
 			// aapt resource value: 0x7F0800F1
-			public const int notification_template_icon_bg = 2131230961;
+			public const int notification_icon_background = 2131230961;
 			
 			// aapt resource value: 0x7F0800F2
-			public const int notification_template_icon_low_bg = 2131230962;
+			public const int notification_template_icon_bg = 2131230962;
 			
 			// aapt resource value: 0x7F0800F3
-			public const int notification_tile_bg = 2131230963;
+			public const int notification_template_icon_low_bg = 2131230963;
 			
 			// aapt resource value: 0x7F0800F4
-			public const int notify_panel_notification_icon_bg = 2131230964;
+			public const int notification_tile_bg = 2131230964;
 			
 			// aapt resource value: 0x7F0800F5
-			public const int tooltip_frame_dark = 2131230965;
+			public const int notify_panel_notification_icon_bg = 2131230965;
 			
 			// aapt resource value: 0x7F0800F6
-			public const int tooltip_frame_light = 2131230966;
+			public const int tooltip_frame_dark = 2131230966;
+			
+			// aapt resource value: 0x7F0800F7
+			public const int tooltip_frame_light = 2131230967;
 			
 			static Drawable()
 			{

@@ -63,6 +63,7 @@
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Plugin.CurrentActivity" Version="2.1.0.4" />
     <PackageReference Include="Plugin.Fingerprint" Version="2.1.1" />
     <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
     <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
@@ -73,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
+    <Compile Include="MainApplication.cs" />
     <Compile Include="Renderers\BorderlessEntryRenderer.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,7 +94,9 @@
     <AndroidResource Include="Resources\drawable\camera_icon.svg" />
     <AndroidResource Include="Resources\drawable\cornercircles.svg" />
     <AndroidResource Include="Resources\drawable\cornercircles_left.svg" />
+    <AndroidResource Include="Resources\drawable\fingerprint_icon.svg" />
     <AndroidResource Include="Resources\drawable\leftarrow_yellow.svg" />
+    <AndroidResource Include="Resources\drawable\fingerprint_icon.svg" />
     <AndroidResource Include="Resources\layout\Tabbar.xml" />
     <AndroidResource Include="Resources\layout\Toolbar.xml" />
     <AndroidResource Include="Resources\values\styles.xml" />

@@ -3,15 +3,40 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Autofac;
+using Hyperledger.Aries.Contracts;
 using mikoba.Annotations;
-using mikoba.UI.Pages;
-using mikoba.UI.Pages.Onboarding;
+using mikoba.Services;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace mikoba.ViewModels
+namespace mikoba.ViewModels.Pages.Login
 {
-    public class WalletPinConfirmViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class PINLoginViewModel : KivaBaseViewModel
     {
+        public PINLoginViewModel(
+            INavigationService navigationService) : base("PIN Login", navigationService)
+        {
+            NoError = true;
+            
+            Login = new Command(async () =>
+            {
+                string entered = $"{First}{Second}{Third}{Fourth}";
+                if (Preferences.Get(AppConstant.PIN, "xxxxx") == entered)
+                {
+                    NoMatch = false;
+                    await NavigationService.NavigateToAsync<WalletPageViewModel>();
+                }
+                else
+                {
+                    NoMatch = true;
+                    await Task.Delay(3000);
+                    NoMatch = false;
+                }
+            });
+        }
+        
+        #region UI Properties
         private string first = string.Empty;
         private string second = string.Empty;
         private string third = string.Empty;
@@ -103,51 +128,27 @@ namespace mikoba.ViewModels
         }
         
         public bool NoError { get; set; }
-        
-        public string InstructionBlurb { get; set; }
 
-        public ICommand GoBack { get; set; }
-        
-        public ICommand ConfirmPin { get; set; }
-        
-        private INavigation NavigationService { get; set; }
-        
-        public WalletPinConfirmViewModel(INavigation navigationService)
-        {
-            NavigationService = navigationService;
-            NoError = true;
-            
-            GoBack = new Command(async () =>
-            {
-                await NavigationService.PopAsync(true);
-            });
-            
-            ConfirmPin = new Command(async () =>
-            {
-                if (!string.IsNullOrEmpty(First) && !string.IsNullOrEmpty(Second) && !string.IsNullOrEmpty(Third) &&
-                    !string.IsNullOrEmpty(Fourth))
-                {
-                    string toConfirm = $"{First}{Second}{Third}{Fourth}";
-                    if (PIN.Equals(toConfirm))
-                    {
-                        NoMatch = false;
-                        Application.Current.Properties["WalletPIN"] = toConfirm;
-                        await NavigationService.PushAsync(new AllowCameraConfirmationPage(), true);
-                    }
-                    else
-                    {
-                        NoMatch = true;
-                        await Task.Delay(3000);
-                        NoMatch = false;
-                    }
-                }
-            });
-        }
+        #endregion
 
-        public void SetPIN(string pin)
+        #region Commands
+        
+        public ICommand Login { get; set; }
+
+        #endregion
+
+        #region Lifecyle
+        
+        public override Task InitializeAsync(object navigationData)
         {
-            PIN = pin;
+            if (navigationData is string pin)
+            {
+                PIN = pin;
+            }
+            return base.InitializeAsync(navigationData);
         }
+        
+        #endregion
         
         public event PropertyChangedEventHandler PropertyChanged;
         

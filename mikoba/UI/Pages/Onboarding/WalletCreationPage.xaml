@@ -16,7 +16,7 @@
             Margin="0,0,0,200">
             <ProgressBar
                 x:Name="progressBar"
-                Progress="0"
+                Progress="{Binding Progress}"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
                 WidthRequest="200" 
@@ -31,7 +31,7 @@
                 TextColor="#004FD4"
                 FontSize="27"
                 FontAttributes="Bold"
-                Text="Checking Permissions.." />
+                Text="{Binding ProgressInfo}" />
         </StackLayout>
     </Grid>
 </ContentPage>

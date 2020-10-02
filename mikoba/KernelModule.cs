@@ -1,4 +1,5 @@
 using Autofac;
+using Hyperledger.Aries.Agents;
 using Microsoft.Extensions.Logging;
 using mikoba.Services;
 
@@ -13,7 +14,11 @@ namespace mikoba
             builder
                 .RegisterType<NavigationService>()
                 .AsImplementedInterfaces()
-                .SingleInstance();            
+                .SingleInstance();
+
+            builder.RegisterType<MikobaCredentialHandler>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
             
             builder
                 .RegisterType<ActionDispatcher>()

@@ -21,7 +21,7 @@ namespace mikoba
                         {
                             options.EndpointUri = AppConstant.EndpointUri;
                             options.AutoRespondCredentialOffer = false;
-                            options.AutoRespondCredentialRequest = false;    
+                            options.AutoRespondCredentialRequest = true;    
                             options.WalletConfiguration.StorageConfiguration =
                                 new WalletConfiguration.WalletStorageConfiguration
                                 {

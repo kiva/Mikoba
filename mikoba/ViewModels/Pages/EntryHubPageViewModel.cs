@@ -30,6 +30,7 @@ namespace mikoba.ViewModels.Pages
             IMessageService messageService,
             ICredentialService credentialService,
             IAgentProvider contextProvider,
+            IMessageHandler messageHandler,
             IActionDispatcher actionDispatcher,
             IEdgeClientService edgeClientService,
             IEventAggregator eventAggregator,
@@ -51,6 +52,7 @@ namespace mikoba.ViewModels.Pages
 
         private MediatorTimerService _mediatorTimer;
         private readonly IConnectionService _connectionService;
+        private readonly IMessageHandler _messageHandler;
         private readonly ICredentialService _credentialService;
         private readonly IEdgeClientService _edgeClientService;
         private readonly IMessageService _messageService;
@@ -262,11 +264,14 @@ namespace mikoba.ViewModels.Pages
                 else
                 {
                     HasConnection = true;
-                    _mediatorTimer = new MediatorTimerService(this.checkForWalletChanges);
+                    _mediatorTimer = new MediatorTimerService(this.CheckMediator);
                     _mediatorTimer.Start();
                 }
             }
-
+            foreach(var item in _messageHandler.SupportedMessageTypes)
+            {
+                Console.WriteLine(item);
+            }
             return base.InitializeAsync(navigationData);
         }
 

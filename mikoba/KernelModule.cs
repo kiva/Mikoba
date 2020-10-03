@@ -16,10 +16,6 @@ namespace mikoba
                 .AsImplementedInterfaces()
                 .SingleInstance();
 
-            builder.RegisterType<MikobaCredentialHandler>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            
             builder
                 .RegisterType<ActionDispatcher>()
                 .AsImplementedInterfaces()
@@ -54,6 +50,11 @@ namespace mikoba
                 .RegisterAssemblyTypes(ThisAssembly)
                 .Where(x => x.Namespace.Contains("mikoba.UI"))
                 .InstancePerDependency();
+            //
+            // builder
+            //     .RegisterAssemblyTypes(ThisAssembly)
+            //     .Where(x => x.Namespace.Contains("mikoba.CoreImplementations"))
+            //     .InstancePerDependency();
         }
     }
 }

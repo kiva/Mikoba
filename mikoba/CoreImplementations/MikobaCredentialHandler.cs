@@ -12,9 +12,9 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace mikoba.Services
+namespace mikoba.CoreImplementations
 {
-     internal class MikobaCredentialHandler : IMessageHandler
+    public class MikobaCredentialHandler : IMessageHandler
     {
         private readonly AgentOptions _agentOptions;
         private readonly ICredentialService _credentialService;
@@ -68,66 +68,66 @@ namespace mikoba.Services
                 // v1
                 case MessageTypesHttps.IssueCredentialNames.OfferCredential:
                 case MessageTypes.IssueCredentialNames.OfferCredential:
+                {
+                    var offer = messageContext.GetMessage<CredentialOfferMessage>();
+                    var recordId = await _credentialService.ProcessOfferAsync(
+                        agentContext, offer, messageContext.Connection);
+
+                    messageContext.ContextRecord = await _credentialService.GetAsync(agentContext, recordId);
+
+                    // Auto request credential if set in the agent option
+                    if (_agentOptions.AutoRespondCredentialOffer == true)
                     {
-                        var offer = messageContext.GetMessage<CredentialOfferMessage>();
-                        var recordId = await _credentialService.ProcessOfferAsync(
-                            agentContext, offer, messageContext.Connection);
-
-                        messageContext.ContextRecord = await _credentialService.GetAsync(agentContext, recordId);
-
-                        // Auto request credential if set in the agent option
-                        if (_agentOptions.AutoRespondCredentialOffer == true)
-                        {
-                            var (message, record) = await _credentialService.CreateRequestAsync(agentContext, recordId);
-                            messageContext.ContextRecord = record;
-                            return message;
-                        }
-
-                        return null;
+                        var (message, record) = await _credentialService.CreateRequestAsync(agentContext, recordId);
+                        messageContext.ContextRecord = record;
+                        return message;
                     }
+
+                    return null;
+                }
 
                 case MessageTypesHttps.IssueCredentialNames.RequestCredential:
                 case MessageTypes.IssueCredentialNames.RequestCredential:
+                {
+                    var request = messageContext.GetMessage<CredentialRequestMessage>();
+                    var recordId = await _credentialService.ProcessCredentialRequestAsync(
+                        agentContext: agentContext,
+                        credentialRequest: request,
+                        connection: messageContext.Connection);
+                    if (request.ReturnRoutingRequested() && messageContext.Connection == null)
                     {
-                        var request = messageContext.GetMessage<CredentialRequestMessage>();
-                        var recordId = await _credentialService.ProcessCredentialRequestAsync(
-                                agentContext: agentContext,
-                                credentialRequest: request,
-                                connection: messageContext.Connection);
-                        if (request.ReturnRoutingRequested() && messageContext.Connection == null)
+                        var (message, record) = await _credentialService.CreateCredentialAsync(agentContext, recordId);
+                        messageContext.ContextRecord = record;
+                        return message;
+                    }
+                    else
+                    {
+                        // Auto create credential if set in the agent option
+                        if (_agentOptions.AutoRespondCredentialRequest == true)
                         {
                             var (message, record) = await _credentialService.CreateCredentialAsync(agentContext, recordId);
                             messageContext.ContextRecord = record;
                             return message;
                         }
-                        else
-                        {
-                            // Auto create credential if set in the agent option
-                            if (_agentOptions.AutoRespondCredentialRequest == true)
-                            {
-                                var (message, record) = await _credentialService.CreateCredentialAsync(agentContext, recordId);
-                                messageContext.ContextRecord = record;
-                                return message;
-                            }
-                            messageContext.ContextRecord = await _credentialService.GetAsync(agentContext, recordId);
-                            return null;
-                        }
+                        messageContext.ContextRecord = await _credentialService.GetAsync(agentContext, recordId);
+                        return null;
                     }
+                }
 
                 case MessageTypesHttps.IssueCredentialNames.IssueCredential:
                 case MessageTypes.IssueCredentialNames.IssueCredential:
-                    {
-                        var credential = messageContext.GetMessage<CredentialIssueMessage>();
-                        var recordId = await _credentialService.ProcessCredentialAsync(
-                            agentContext, credential, messageContext.Connection);
+                {
+                    var credential = messageContext.GetMessage<CredentialIssueMessage>();
+                    var recordId = await _credentialService.ProcessCredentialAsync(
+                        agentContext, credential, messageContext.Connection);
 
-                        messageContext.ContextRecord = await UpdateValuesAsync(
-                            credentialId: recordId,
-                            credentialIssue: messageContext.GetMessage<CredentialIssueMessage>(),
-                            agentContext: agentContext);
+                    messageContext.ContextRecord = await UpdateValuesAsync(
+                        credentialId: recordId,
+                        credentialIssue: messageContext.GetMessage<CredentialIssueMessage>(),
+                        agentContext: agentContext);
 
-                        return null;
-                    }
+                    return null;
+                }
                 default:
                     throw new AriesFrameworkException(ErrorCode.InvalidMessage,
                         $"Unsupported message type {messageContext.GetMessageType()}");
@@ -137,7 +137,7 @@ namespace mikoba.Services
         private async Task<CredentialRecord> UpdateValuesAsync(string credentialId, CredentialIssueMessage credentialIssue, IAgentContext agentContext)
         {
             var credentialAttachment = credentialIssue.Credentials.FirstOrDefault(x => x.Id == "libindy-cred-0")
-                ?? throw new ArgumentException("Credential attachment not found");
+                                       ?? throw new ArgumentException("Credential attachment not found");
 
             var credentialJson = credentialAttachment.Data.Base64.GetBytesFromBase64().GetUTF8String();
 

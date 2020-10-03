@@ -212,10 +212,6 @@ namespace mikoba.ViewModels.Pages
                 entry.Setup();
                 entries.Add(entry);
             }
-            
-            #if DEBUG
-            
-            #endif
 
             Entries.Clear();
             Entries.AddRange(entries);

@@ -10,7 +10,9 @@ using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Contracts;
 using Hyperledger.Aries.Features.DidExchange;
 using Hyperledger.Aries.Features.IssueCredential;
+using Hyperledger.Aries.Features.PresentProof;
 using Hyperledger.Aries.Routing;
+using mikoba.CoreImplementations;
 using mikoba.Extensions;
 using mikoba.Services;
 using mikoba.ViewModels.Components;
@@ -26,40 +28,29 @@ namespace mikoba.ViewModels.Pages
     {
         public EntryHubPageViewModel(
             INavigationService navigationService,
-            IConnectionService connectionService,
-            IMessageService messageService,
+            // IConnectionService connectionService,
             ICredentialService credentialService,
-            IAgentProvider contextProvider,
-            IMessageHandler messageHandler,
-            IActionDispatcher actionDispatcher,
-            IEdgeClientService edgeClientService,
-            IEventAggregator eventAggregator,
-            ILifetimeScope scope)
+            // IAgentProvider contextProvider,
+            // IActionDispatcher actionDispatcher,
+            IEventAggregator eventAggregator)
             : base("Hub Page", navigationService)
         {
-            _connectionService = connectionService;
-            _contextProvider = contextProvider;
-            _messageService = messageService;
-            _contextProvider = contextProvider;
-            _credentialService = credentialService;
+            // _connectionService = connectionService;
+            // _contextProvider = contextProvider;
+            // _contextProvider = contextProvider;
+            // _credentialService = credentialService;
+            // _actionDispatcher = actionDispatcher;
             _eventAggregator = eventAggregator;
-            _actionDispatcher = actionDispatcher;
-            _edgeClientService = edgeClientService;
-            _scope = _scope;
         }
 
         #region Services
 
         private MediatorTimerService _mediatorTimer;
         private readonly IConnectionService _connectionService;
-        private readonly IMessageHandler _messageHandler;
         private readonly ICredentialService _credentialService;
-        private readonly IEdgeClientService _edgeClientService;
-        private readonly IMessageService _messageService;
         private readonly IAgentProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
         private readonly IActionDispatcher _actionDispatcher;
-        private readonly ILifetimeScope _scope;
 
         #endregion
 
@@ -161,59 +152,60 @@ namespace mikoba.ViewModels.Pages
 
         private async void checkForWalletChanges()
         {
-            Device.BeginInvokeOnMainThread(
-                async () =>
-                {
-                    _mediatorTimer.Pause();
-                    var context = await _contextProvider.GetContextAsync();
-                    var results = await _edgeClientService.FetchInboxAsync(context);
-                    var credentialsRecords = await _credentialService.ListAsync(context);
-                    SSICredentialViewModel lastCredential = null;
-                    foreach (var credentialRecord in credentialsRecords)
-                    {
-                        var credential = new SSICredentialViewModel(credentialRecord);
-                        if (!credential.IsAccepted)
-                        {
-                            lastCredential = credential;
-                            break;
-                        }
-                    }
-
-                    if (lastCredential != null)
-                    {
-                        await NavigationService.NavigateToAsync<CredentialOfferPageViewModel>(lastCredential, NavigationType.Modal);
-                        _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
-                    }
-                    else
-                    {
-                        _mediatorTimer.Start();
-                    }
-                });
+            // Device.BeginInvokeOnMainThread(
+            //     async () =>
+            //     {
+            //         _mediatorTimer.Pause();
+            //         var context = await _contextProvider.GetContextAsync();
+            //         var results = await _edgeClientService.FetchInboxAsync(context);
+            //         var credentialsRecords = await _credentialService.ListAsync(context);
+            //         SSICredentialViewModel lastCredential = null;
+            //         foreach (var credentialRecord in credentialsRecords)
+            //         {
+            //             var credential = new SSICredentialViewModel(credentialRecord);
+            //             if (!credential.IsAccepted)
+            //             {
+            //                 lastCredential = credential;
+            //                 break;
+            //             }
+            //         }
+            //
+            //         if (lastCredential != null)
+            //         {
+            //             await NavigationService.NavigateToAsync<CredentialOfferPageViewModel>(lastCredential,
+            //                 NavigationType.Modal);
+            //             _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
+            //         }
+            //         else
+            //         {
+            //             _mediatorTimer.Start();
+            //         }
+            //     });
         }
 
         private async void CheckMediator()
         {
-            _mediatorTimer.Pause();
-            var context = await _contextProvider.GetContextAsync();
-            var results = await _edgeClientService.FetchInboxAsync(context);
-            var itemsToDelete = new List<string>();
-            foreach (var item in results.unprocessedItems)
-            {
-                Console.WriteLine(item.Data);
-                if (!Preferences.ContainsKey(item.Id))
-                {
-                    var message = await MessageDecoder.ProcessPackedMessage(context.Wallet, item, null);
-                    if (message != null)
-                    {
-                        Device.BeginInvokeOnMainThread(
-                            async () => { await _actionDispatcher.DispatchMessage(message); });
-                    }
-                    else
-                    {
-                        Preferences.Set(item.Id, false);
-                    }
-                }
-            }
+            // _mediatorTimer.Pause();
+            // var context = await _contextProvider.GetContextAsync();
+            // var results = await _edgeClientService.FetchInboxAsync(context);
+            // var itemsToDelete = new List<string>();
+            // foreach (var item in results.unprocessedItems)
+            // {
+            //     Console.WriteLine(item.Data);
+            //     if (!Preferences.ContainsKey(item.Id))
+            //     {
+            //         var message = await MessageDecoder.ProcessPackedMessage(context.Wallet, item, null);
+            //         if (message != null)
+            //         {
+            //             Device.BeginInvokeOnMainThread(
+            //                 async () => { await _actionDispatcher.DispatchMessage(message); });
+            //         }
+            //         else
+            //         {
+            //             Preferences.Set(item.Id, false);
+            //         }
+            //     }
+            // }
 
             //TODO: Not supported by Mediator it seems.
             //Asked question in community and StackOverflow
@@ -222,56 +214,56 @@ namespace mikoba.ViewModels.Pages
             // var deleteMessage = new DeleteInboxItemsMessage() {InboxItemIds = itemsToDelete};
             // var response =
             //     await _messageService.SendReceiveAsync(context.Wallet, deleteMessage, this.Entry.Connection.Record);
-            // //     Console.WriteLine(response.Payload);
+            // //     Console.WriteLine(response.Payload);  
             // // }
 
-            _mediatorTimer.Start();
+            // _mediatorTimer.Start();
         }
 
         public override Task InitializeAsync(object navigationData)
         {
-            if (navigationData is EntryViewModel entry)
-            {
-                Entry = entry;
-                Credential = entry.Credential;
-                if (Credential != null)
-                {
-                    HasCredential = true;
-                    var attributes = new List<CredentialPreviewAttribute>();
-                    foreach (var attribute in Credential.Attributes)
-                    {
-                        var allowedFiels = new String[]
-                            {"nationalId", "photo~attach", "dateOfBirth", "firstName", "lastName"};
-                        if (!allowedFiels.Contains(attribute.Name)) continue;
-                        if (attribute.Name.Contains("photo~") && PhotoAttach == null)
-                        {
-                            PhotoAttach = Xamarin.Forms.ImageSource.FromStream(
-                                () => new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));
-                        }
-                        else
-                        {
-                            attributes.Add(new CredentialPreviewAttribute()
-                            {
-                                Name = attribute.Name,
-                                Value = attribute.Value.ToString(),
-                            });
-                        }
-                    }
+            // var agent = await _contextProvider.GetAgentAsync();
+            // agent.Handlers.Add(new MikobaProofHandler(this._proofService));
 
-                    Attributes = new RangeEnabledObservableCollection<CredentialPreviewAttribute>();
-                    Attributes.AddRange(attributes);
-                }
-                else
-                {
-                    HasConnection = true;
-                    _mediatorTimer = new MediatorTimerService(this.CheckMediator);
-                    _mediatorTimer.Start();
-                }
-            }
-            foreach(var item in _messageHandler.SupportedMessageTypes)
-            {
-                Console.WriteLine(item);
-            }
+            // if (navigationData is EntryViewModel entry)
+            // {
+            //     Entry = entry;
+            //     Credential = entry.Credential;
+            //     if (Credential != null)
+            //     {
+            //         HasCredential = true;
+            //         var attributes = new List<CredentialPreviewAttribute>();
+            //         foreach (var attribute in Credential.Attributes)
+            //         {
+            //             var allowedFiels = new String[]
+            //                 {"nationalId", "photo~attach", "dateOfBirth", "firstName", "lastName"};
+            //             if (!allowedFiels.Contains(attribute.Name)) continue;
+            //             if (attribute.Name.Contains("photo~") && PhotoAttach == null)
+            //             {
+            //                 PhotoAttach = Xamarin.Forms.ImageSource.FromStream(
+            //                     () => new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));
+            //             }
+            //             else
+            //             {
+            //                 attributes.Add(new CredentialPreviewAttribute()
+            //                 {
+            //                     Name = attribute.Name,
+            //                     Value = attribute.Value.ToString(),
+            //                 });
+            //             }
+            //         }
+            //
+            //         Attributes = new RangeEnabledObservableCollection<CredentialPreviewAttribute>();
+            //         Attributes.AddRange(attributes);
+            //     }
+            //     else
+            //     {
+            //         HasConnection = true;
+            //         _mediatorTimer = new MediatorTimerService(this.CheckMediator);
+            //         _mediatorTimer.Start();
+            //     }
+            // }
+
             return base.InitializeAsync(navigationData);
         }
 

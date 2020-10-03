@@ -1,4 +1,5 @@
 using Autofac;
+using Hyperledger.Aries.Agents;
 using Microsoft.Extensions.Hosting;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -37,6 +38,7 @@ namespace mikoba
         protected override async void OnStart()
         {
             await Host.StartAsync();
+            
             //Wallet
             _navigationService.AddPageViewModelBinding<WalletPageViewModel, WalletPage>();
             _navigationService.AddPageViewModelBinding<AcceptConnectionInviteViewModel, AcceptConnectionInvitePage>();
@@ -44,16 +46,17 @@ namespace mikoba
             _navigationService.AddPageViewModelBinding<CredentialRequestPageViewModel, CredentialRequestPage>();
             _navigationService.AddPageViewModelBinding<EntryHubPageViewModel, EntryHubPage>();
             _navigationService.AddPageViewModelBinding<SplashPageViewModel, SplashPage>();
+           
             //Onboarding
             _navigationService.AddPageViewModelBinding<WalletOwnerInputViewModel, WalletOwnerInputPage>();
             _navigationService.AddPageViewModelBinding<WalletPinSetViewModel, WalletPinSetPage>();
             _navigationService.AddPageViewModelBinding<WalletPinConfirmViewModel, WalletPinConfirmationPage>();
             _navigationService.AddPageViewModelBinding<WalletCreationViewModel, WalletCreationPage>();
+            
             //Permissions
             _navigationService.AddPageViewModelBinding<AllowCameraConfirmationViewModel, AllowCameraConfirmationPage>();
             _navigationService.AddPageViewModelBinding<AllowPushNotificationViewModel, AllowPushNotificationPage>();
             
-
             if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
             {
                 await _navigationService.NavigateToAsync<WalletPageViewModel>();

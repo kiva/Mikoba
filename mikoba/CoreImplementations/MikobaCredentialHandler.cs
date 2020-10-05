@@ -19,31 +19,18 @@ namespace mikoba.CoreImplementations
         private readonly AgentOptions _agentOptions;
         private readonly ICredentialService _credentialService;
         private readonly IWalletRecordService _recordService;
-        private readonly IMessageService _messageService;
 
-        /// <summary>Initializes a new instance of the <see cref="DefaultCredentialHandler"/> class.</summary>
-        /// <param name="agentOptions">The agent options.</param>
-        /// <param name="credentialService">The credential service.</param>
-        /// <param name="recordService">The wallet record service.</param>
-        /// <param name="messageService">The message service.</param>
+        private static MikobaCredentialHandler Instance { get; set; }
+
+
         public MikobaCredentialHandler(
-            IOptions<AgentOptions> agentOptions,
-            ICredentialService credentialService,
-            IWalletRecordService recordService,
-            IMessageService messageService)
+            // ICredentialService credentialService,
+            // IWalletRecordService recordService
+            )
         {
-            _agentOptions = agentOptions.Value;
-            _credentialService = credentialService;
-            _recordService = recordService;
-            _messageService = messageService;
+            
         }
 
-        /// <summary>
-        /// Gets the supported message types.
-        /// </summary>
-        /// <value>
-        /// The supported message types.
-        /// </value>
         public IEnumerable<MessageType> SupportedMessageTypes => new MessageType[]
         {
             MessageTypes.IssueCredentialNames.OfferCredential,
@@ -54,13 +41,7 @@ namespace mikoba.CoreImplementations
             MessageTypesHttps.IssueCredentialNames.IssueCredential
         };
 
-        /// <summary>
-        /// Processes the agent message
-        /// </summary>
-        /// <param name="agentContext"></param>
-        /// <param name="messageContext">The agent message.</param>
-        /// <returns></returns>
-        /// <exception cref="AriesFrameworkException">Unsupported message type {messageType}</exception>
+
         public async Task<AgentMessage> ProcessAsync(IAgentContext agentContext, UnpackedMessageContext messageContext)
         {
             switch (messageContext.GetMessageType())
@@ -76,7 +57,7 @@ namespace mikoba.CoreImplementations
                     messageContext.ContextRecord = await _credentialService.GetAsync(agentContext, recordId);
 
                     // Auto request credential if set in the agent option
-                    if (_agentOptions.AutoRespondCredentialOffer == true)
+                    if (_agentOptions.AutoRespondCredentialOffer)
                     {
                         var (message, record) = await _credentialService.CreateRequestAsync(agentContext, recordId);
                         messageContext.ContextRecord = record;
@@ -85,7 +66,6 @@ namespace mikoba.CoreImplementations
 
                     return null;
                 }
-
                 case MessageTypesHttps.IssueCredentialNames.RequestCredential:
                 case MessageTypes.IssueCredentialNames.RequestCredential:
                 {
@@ -103,17 +83,18 @@ namespace mikoba.CoreImplementations
                     else
                     {
                         // Auto create credential if set in the agent option
-                        if (_agentOptions.AutoRespondCredentialRequest == true)
+                        if (_agentOptions.AutoRespondCredentialRequest)
                         {
-                            var (message, record) = await _credentialService.CreateCredentialAsync(agentContext, recordId);
+                            var (message, record) =
+                                await _credentialService.CreateCredentialAsync(agentContext, recordId);
                             messageContext.ContextRecord = record;
                             return message;
                         }
+
                         messageContext.ContextRecord = await _credentialService.GetAsync(agentContext, recordId);
                         return null;
                     }
                 }
-
                 case MessageTypesHttps.IssueCredentialNames.IssueCredential:
                 case MessageTypes.IssueCredentialNames.IssueCredential:
                 {
@@ -134,7 +115,8 @@ namespace mikoba.CoreImplementations
             }
         }
 
-        private async Task<CredentialRecord> UpdateValuesAsync(string credentialId, CredentialIssueMessage credentialIssue, IAgentContext agentContext)
+        private async Task<CredentialRecord> UpdateValuesAsync(string credentialId,
+            CredentialIssueMessage credentialIssue, IAgentContext agentContext)
         {
             var credentialAttachment = credentialIssue.Credentials.FirstOrDefault(x => x.Id == "libindy-cred-0")
                                        ?? throw new ArgumentException("Credential attachment not found");
@@ -145,7 +127,8 @@ namespace mikoba.CoreImplementations
             var values = jcred["values"].ToObject<Dictionary<string, AttributeValue>>();
 
             var credential = await _credentialService.GetAsync(agentContext, credentialId);
-            credential.CredentialAttributesValues = values.Select(x => new CredentialPreviewAttribute { Name = x.Key, Value = x.Value.Raw, MimeType = CredentialMimeTypes.TextMimeType }).ToList();
+            credential.CredentialAttributesValues = values.Select(x => new CredentialPreviewAttribute
+                {Name = x.Key, Value = x.Value.Raw, MimeType = CredentialMimeTypes.TextMimeType}).ToList();
             await _recordService.UpdateAsync(agentContext.Wallet, credential);
 
             return credential;
@@ -153,11 +136,9 @@ namespace mikoba.CoreImplementations
 
         private class AttributeValue
         {
-            [JsonProperty("raw")]
-            public string Raw { get; set; }
+            [JsonProperty("raw")] public string Raw { get; set; }
 
-            [JsonProperty("encoded")]
-            public string Encoded { get; set; }
+            [JsonProperty("encoded")] public string Encoded { get; set; }
         }
     }
 }

@@ -1,14 +1,24 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows.Input;
+using Autofac;
+using DynamicData;
 using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Configuration;
 using Hyperledger.Aries.Contracts;
+using Hyperledger.Aries.Extensions;
 using Hyperledger.Aries.Features.DidExchange;
 using Hyperledger.Aries.Features.IssueCredential;
 using Hyperledger.Aries.Features.PresentProof;
+using Hyperledger.Indy.AnonCredsApi;
 using mikoba.Extensions;
 using mikoba.Services;
+using Newtonsoft.Json;
 using ReactiveUI;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages
@@ -17,29 +27,22 @@ namespace mikoba.ViewModels.Pages
     {
         public CredentialRequestPageViewModel(
             INavigationService navigationService,
-            IConnectionService connectionService,
-            IMessageService messageService,
             IAgentProvider contextProvider,
-            ICredentialService credentialsService,
             IEventAggregator eventAggregator)
             : base("Credential Request", navigationService)
         {
-            _connectionService = connectionService;
-            _contextProvider = contextProvider;
-            _messageService = messageService;
             _contextProvider = contextProvider;
             _eventAggregator = eventAggregator;
-            _credentialsService = credentialsService;
         }
 
+        private Transport _transport;
         private RequestPresentationMessage _requestMessage;
+        private ProofRequest _proofRequest;
+        private MessageContext _requestMessageContext;
+        private List<Credential> _potentialCredentials;
 
         #region Services
 
-        private readonly ICredentialService _credentialsService;
-        private readonly IProvisioningService _provisioningService;
-        private readonly IConnectionService _connectionService;
-        private readonly IMessageService _messageService;
         private readonly IAgentProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
 
@@ -47,14 +50,58 @@ namespace mikoba.ViewModels.Pages
 
         #region Commands
 
-        public ICommand SubmitCommand => new Command(async () =>
+        public async Task<RequestedCredentials> buildCredentials()
+        {
+            var _proofService = App.Container.Resolve<IProofService>() as DefaultProofService;
+            var _credentialService = App.Container.Resolve<ICredentialService>();
+            var requestedCredentials = new RequestedCredentials();
+            var context = await _contextProvider.GetContextAsync();
+
+            foreach (var requestedAttribute in _transport.holderProofRequest.RequestedAttributes)
+            {
+                var credentials =
+                    await _proofService.ListCredentialsForProofRequestAsync(context, _transport.holderProofRequest,
+                        requestedAttribute.Key);
+                
+                string credentialId = "";
+                if (credentials.Any())
+                {
+                    credentialId = credentials.First().CredentialInfo.Referent;
+                }
+                else
+                {
+                    credentialId = Preferences.Get("credential-id", null);
+                }
+                
+                if (credentialId != null)
+                {
+                    requestedCredentials.RequestedAttributes.Add(requestedAttribute.Key,
+                        new RequestedAttribute
+                        {
+                            CredentialId = credentialId,
+                            Revealed = true
+                        });
+                }
+            }
+            return requestedCredentials;
+        }
+
+        public ICommand ShareCommand => new Command(async () =>
         {
             var context = await _contextProvider.GetContextAsync();
+            var _messageService = App.Container.Resolve<IMessageService>();
+            var _proofService = App.Container.Resolve<IProofService>();
             try
             {
-                var identifier =
-                    await _credentialsService.ProcessCredentialRequestAsync(context, null, new ConnectionRecord());
+                var requestedCredentials = await buildCredentials();
+                (var proofMessage, var _) = await _proofService.CreatePresentationAsync(context,
+                    _requestMessageContext.ContextRecord.Id, requestedCredentials);
+                await _messageService.SendAsync(null, proofMessage, _requestMessageContext.Connection);
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
             }
             finally
             {
@@ -62,7 +109,20 @@ namespace mikoba.ViewModels.Pages
             }
         });
 
-        public ICommand CancelCommand => new Command(async () => await NavigationService.PopModalAsync());
+        public ICommand DeclineCommand => new Command(async () =>
+        {
+            try
+            {
+                var context = await _contextProvider.GetContextAsync();
+                var _proofService = App.Container.Resolve<IProofService>() as DefaultProofService;
+                await _proofService.RejectProofRequestAsync(context, _requestMessage.Requests[0].Id);
+                await NavigationService.PopModalAsync();
+            }
+            finally
+            {
+                await NavigationService.PopModalAsync();
+            }
+        });
 
         #endregion
 
@@ -76,27 +136,43 @@ namespace mikoba.ViewModels.Pages
             set => this.RaiseAndSetIfChanged(ref _photoAttach, value);
         }
 
-        private RangeEnabledObservableCollection<CredentialPreviewAttribute> _previewAttributes =
+        private RangeEnabledObservableCollection<CredentialPreviewAttribute> _requestedAttributes =
             new RangeEnabledObservableCollection<CredentialPreviewAttribute>();
 
-        public RangeEnabledObservableCollection<CredentialPreviewAttribute> PreviewAttributes
+        public RangeEnabledObservableCollection<CredentialPreviewAttribute> RequestedAttributes
         {
-            get => _previewAttributes;
-            set => this.RaiseAndSetIfChanged(ref _previewAttributes, value);
+            get => _requestedAttributes;
+            set => this.RaiseAndSetIfChanged(ref _requestedAttributes, value);
         }
 
         #endregion
 
         #region Work
 
-        public override Task InitializeAsync(object navigationData)
+        public override async Task InitializeAsync(object navigationData)
         {
-            if (navigationData is RequestPresentationMessage request)
+            if (navigationData is Transport transport)
             {
-                _requestMessage = request;
+                _transport = transport;
+                _requestMessage = transport.presentationMessage;
+                _requestMessageContext = transport.messageContext;
+
+                var requestedAttributes = new RangeEnabledObservableCollection<CredentialPreviewAttribute>();
+                foreach (var req in _requestMessage.Requests)
+                {
+                    foreach (var attributes in _transport.holderProofRequest.RequestedAttributes)
+                    {
+                        var attributeName = attributes.Value.Name;
+                        // if (attributeName.Contains("photo~attach")) continue;
+                        requestedAttributes.Add(new CredentialPreviewAttribute(attributeName, ""));
+                    }
+                }
+
+                RequestedAttributes.Clear();
+                RequestedAttributes.AddRange(requestedAttributes);
             }
 
-            return base.InitializeAsync(navigationData);
+            await base.InitializeAsync(navigationData);
         }
 
         #endregion

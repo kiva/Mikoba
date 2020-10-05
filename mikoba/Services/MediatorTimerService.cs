@@ -24,6 +24,7 @@ namespace mikoba.Services
         {
             if (this.Action != null)
             {
+                Console.WriteLine("Mediator Timer Tick!");
                 this.Action();
             }
         }

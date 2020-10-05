@@ -1,26 +1,24 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Autofac;
 using Hyperledger.Aries;
 using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Features.PresentProof;
+using mikoba.Services;
+using mikoba.ViewModels.Pages;
+using Newtonsoft.Json;
 
 namespace mikoba.CoreImplementations
 {
     public class MikobaProofHandler : IMessageHandler
     {
-        private readonly IProofService _proofService;
-
-        public MikobaProofHandler(IProofService proofService)
+        public MikobaProofHandler()
         {
-            _proofService = proofService;
+            
         }
 
-        /// <summary>
-        /// Gets the supported message types.
-        /// </summary>
-        /// <value>
-        /// The supported message types.
-        /// </value>
+
         public IEnumerable<MessageType> SupportedMessageTypes => new MessageType[]
         {
             MessageTypes.PresentProofNames.ProposePresentation,
@@ -31,13 +29,6 @@ namespace mikoba.CoreImplementations
             MessageTypesHttps.PresentProofNames.RequestPresentation
         };
 
-        /// <summary>
-        /// Processes the agent message
-        /// </summary>
-        /// <param name="agentContext"></param>
-        /// <param name="messageContext">The agent message agentContext.</param>
-        /// <returns></returns>
-        /// <exception cref="AriesFrameworkException">Unsupported message type {messageType}</exception>
         public async Task<AgentMessage> ProcessAsync(IAgentContext agentContext, UnpackedMessageContext messageContext)
         {
             switch (messageContext.GetMessageType())
@@ -46,27 +37,40 @@ namespace mikoba.CoreImplementations
                 case MessageTypesHttps.PresentProofNames.ProposePresentation:
                 case MessageTypes.PresentProofNames.ProposePresentation:
                 {
+                    var _proofService = App.Container.Resolve<IProofService>();
                     var message = messageContext.GetMessage<ProposePresentationMessage>();
                     var record = await _proofService.ProcessProposalAsync(agentContext, message, messageContext.Connection);
-
                     messageContext.ContextRecord = record;
                     break;
                 }
                 case MessageTypes.PresentProofNames.RequestPresentation:
                 case MessageTypesHttps.PresentProofNames.RequestPresentation:
                 {
+                    var _proofService = App.Container.Resolve<IProofService>();
+                    
+                    var navigation = App.Container.Resolve<INavigationService>();
                     var message = messageContext.GetMessage<RequestPresentationMessage>();
-                    var record = await _proofService.ProcessRequestAsync(agentContext, message, messageContext.Connection);
-
-                    messageContext.ContextRecord = record;
+                    
+                    var holderProofRequestId = await _proofService.ProcessRequestAsync(agentContext, message, messageContext.Connection);
+                    var holderProofRecord = await _proofService.GetAsync(agentContext, holderProofRequestId.Id);
+                    
+                    messageContext.ContextRecord = holderProofRequestId;
+                    
+                    var transport = new Transport();
+                    transport.presentationMessage = message;
+                    transport.messageContext = messageContext;
+                    transport.holderProofRecord = holderProofRecord;
+                    transport.holderProofRequest = JsonConvert.DeserializeObject<ProofRequest>(holderProofRecord.RequestJson);
+                    
+                    await navigation.NavigateToAsync<CredentialRequestPageViewModel>(transport,NavigationType.Modal);
                     break;
                 }
                 case MessageTypes.PresentProofNames.Presentation:
                 case MessageTypesHttps.PresentProofNames.Presentation:
                 {
+                    var _proofService = App.Container.Resolve<IProofService>();
                     var message = messageContext.GetMessage<PresentationMessage>();
                     var record = await _proofService.ProcessPresentationAsync(agentContext, message);
-
                     messageContext.ContextRecord = record;
                     break;
                 }

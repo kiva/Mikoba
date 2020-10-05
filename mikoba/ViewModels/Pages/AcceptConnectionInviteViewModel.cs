@@ -83,8 +83,7 @@ namespace mikoba.ViewModels.Pages
             set => this.RaiseAndSetIfChanged(ref _inviteTitle, value);
         }
 
-        private string _inviteContents =
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+        private string _inviteContents = "";
 
         public string InviteContents
         {

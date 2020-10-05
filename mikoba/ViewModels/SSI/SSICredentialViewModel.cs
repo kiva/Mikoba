@@ -1,3 +1,4 @@
+using System;
 using Hyperledger.Aries.Features.IssueCredential;
 using mikoba.Extensions;
 using mikoba.Services;
@@ -28,6 +29,7 @@ namespace mikoba.ViewModels.SSI
             Attributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
             foreach (var cred in _credential.CredentialAttributesValues)
             {
+                Console.WriteLine("credential-name: " + cred.Name);
                 Attributes.Add(new SSICredentialAttribute()
                 {
                     Name = cred.Name,
@@ -44,6 +46,8 @@ namespace mikoba.ViewModels.SSI
         )
         {
             _credential = credential;
+            Console.WriteLine("credential-id" + credential.Id);
+            Preferences.Set("credential-id", credential.Id);
             Attributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
             foreach (var cred in _credential.CredentialAttributesValues)
             {

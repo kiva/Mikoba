@@ -26,12 +26,9 @@ namespace mikoba.ViewModels.Components
             }
             else if (Connection != null)
             {
-                DisplayName = "Verifier Office";
                 DisplayName = Connection.ConnectionName;
                 ImageUrl = Connection.ConnectionImageUrl;
-                this.OrganizationType = "Bank";
             }
-            this.IconIdentifier = "mikoba.Images.gov.svg";
         }
 
         #region Commands

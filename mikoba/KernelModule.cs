@@ -1,6 +1,9 @@
 using Autofac;
 using Hyperledger.Aries.Agents;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+using Microsoft.Extensions.Options;
+using mikoba.CoreImplementations;
 using mikoba.Services;
 
 namespace mikoba
@@ -10,9 +13,19 @@ namespace mikoba
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            
+
             builder
                 .RegisterType<NavigationService>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
+            builder
+                .RegisterType<MikobaCredentialHandler>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
+            builder
+                .RegisterType<MikobaProofHandler>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
 
@@ -25,14 +38,16 @@ namespace mikoba
                 .RegisterType<KeyValueStoreService>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-            
+
             builder
                 .RegisterType<MediatorTimerService>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
 
+            var loggerFactory = LoggerFactory.Create(logBuilder => { logBuilder.AddConsole().AddDebug(); }
+            );
             builder
-                .Register(_ => new LoggerFactory())
+                .RegisterInstance(loggerFactory)
                 .As<ILoggerFactory>()
                 .SingleInstance();
 
@@ -50,11 +65,10 @@ namespace mikoba
                 .RegisterAssemblyTypes(ThisAssembly)
                 .Where(x => x.Namespace.Contains("mikoba.UI"))
                 .InstancePerDependency();
-            //
-            // builder
-            //     .RegisterAssemblyTypes(ThisAssembly)
-            //     .Where(x => x.Namespace.Contains("mikoba.CoreImplementations"))
-            //     .InstancePerDependency();
+
+            builder
+                .RegisterAssemblyTypes(ThisAssembly)
+                .Where(x => x.Namespace.Contains("mikoba.CoreImplementations")).SingleInstance();
         }
     }
 }

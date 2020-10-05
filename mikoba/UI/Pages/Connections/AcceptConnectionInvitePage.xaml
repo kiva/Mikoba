@@ -92,12 +92,14 @@
                     VerticalOptions="Center"
                     Margin="5"
                     Text="Maybe later" />
-                <components:ActionButton
+                <Button
                     Grid.Column="1"
+                    BackgroundColor="#004FD4"
+                    TextColor="White"
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
                     Margin="5"
-                    ActionButtonText="Trust"
+                    Text="Trust"
                     Command="{Binding AcceptInviteCommand}" />
                 </Grid>
         </Grid>

@@ -6,6 +6,14 @@ namespace mikoba.ViewModels.SSI
 
         public string Name { get; set; }
 
+        public string DisplayName
+        {
+            get
+            {
+                return SSICredentialViewModel.FormatCredentialName(this.Name);
+            }
+        }
+
         public object Value { get; set; }
 
         public string FileExt { get; set; }

@@ -21,7 +21,8 @@ namespace mikoba.ViewModels.Components
         {
             if (this.Credential != null)
             {
-                DisplayName = "Civil Registry Office -" + this.Credential._credential.CreatedAtUtc.ToString();
+                DisplayName = "Civil Registry Office";
+                Tag = "Issue Date: " + this.Credential._credential.CreatedAtUtc?.ToString("MM/dd/yy");
                 this.OrganizationType = "Government";
             }
             else if (Connection != null)
@@ -72,6 +73,14 @@ namespace mikoba.ViewModels.Components
         {
             get => _iconIdentifier;
             set => this.RaiseAndSetIfChanged(ref _iconIdentifier, value);
+        }
+        
+        private string _tag;
+
+        public string Tag
+        {
+            get => _tag;
+            set => this.RaiseAndSetIfChanged(ref _tag, value);
         }
 
         #endregion

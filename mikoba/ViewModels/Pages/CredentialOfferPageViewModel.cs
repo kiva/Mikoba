@@ -21,6 +21,8 @@ namespace mikoba.ViewModels.Pages
 {
     public class CredentialOfferPageViewModel : KivaBaseViewModel
     {
+        private static readonly string[] AllowedFields = {"nationalId", "photo~attach", "dateOfBirth", "birthDate","firstName", "lastName"};
+
         public CredentialOfferPageViewModel(INavigationService navigationService,
                                      IConnectionService connectionService,
                                      IMessageService messageService,
@@ -53,13 +55,16 @@ namespace mikoba.ViewModels.Pages
         public ICommand AcceptCommand => new Command(async () =>
         {
             var context = await _contextProvider.GetContextAsync();
-            
             try
             {
                 _ssiCredentialViewModel.IsAccepted = true;
                 // var identifier = await _credentialsService.ProcessOfferAsync(context, _offerMessage, new ConnectionRecord());
-                _eventAggregator.Publish(new CoreDispatchedEvent() { Type = DispatchType.ConnectionsUpdated });
+                _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
                 await NavigationService.PopModalAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
             finally
             {
@@ -67,7 +72,7 @@ namespace mikoba.ViewModels.Pages
             }
         });
 
-        public ICommand RejectCommand => new Command(async () => await NavigationService.PopModalAsync());
+        public ICommand DeclineCommand => new Command(async () => await NavigationService.PopModalAsync());
 
         #endregion
 
@@ -78,10 +83,10 @@ namespace mikoba.ViewModels.Pages
             get => _photoAttach;
             set => this.RaiseAndSetIfChanged(ref _photoAttach, value);
         }
-        private RangeEnabledObservableCollection<CredentialPreviewAttribute> _previewAttributes =
-            new RangeEnabledObservableCollection<CredentialPreviewAttribute>();
+        private RangeEnabledObservableCollection<SSICredentialAttribute> _previewAttributes =
+            new RangeEnabledObservableCollection<SSICredentialAttribute>();
 
-        public RangeEnabledObservableCollection<CredentialPreviewAttribute> PreviewAttributes
+        public RangeEnabledObservableCollection<SSICredentialAttribute> PreviewAttributes
         {
             get => _previewAttributes;
             set => this.RaiseAndSetIfChanged(ref _previewAttributes, value);
@@ -93,50 +98,46 @@ namespace mikoba.ViewModels.Pages
         {
             if (navigationData is CredentialOfferMessage offer)
             {
-                var previewAttributes = new List<CredentialPreviewAttribute>();
+                var previewAttributes = new List<SSICredentialAttribute>();
                 foreach (var attribute in offer.CredentialPreview.Attributes)
                 {
                     if (attribute.Name.Contains("~") && PhotoAttach == null)
                     {
-                        PhotoAttach = Xamarin.Forms.ImageSource.FromStream(
-                            () => new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));    
+                        PhotoAttach = ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));    
                     }
                     else
                     {
-                        previewAttributes.Add(new CredentialPreviewAttribute()
+                        previewAttributes.Add(new SSICredentialAttribute()
                         {
                             Name = attribute.Name,
                             Value = attribute.Value,
-                            MimeType = attribute.MimeType,
                         });
                     }
                 }
-                PreviewAttributes = new RangeEnabledObservableCollection<CredentialPreviewAttribute>();
+                PreviewAttributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
                 PreviewAttributes.AddRange(previewAttributes);
                 _offerMessage = offer;
             }
             else if (navigationData is SSICredentialViewModel credential)
             {
-                var previewAttributes = new List<CredentialPreviewAttribute>();
+                var previewAttributes = new List<SSICredentialAttribute>();
                 foreach (var attribute in credential.Attributes)
                 {
-                    var allowedFiels = new String[] {"nationalId", "photo~attach", "dateOfBirth", "birthDate","firstName", "lastName"};
-                    if (!allowedFiels.Contains(attribute.Name)) continue;
+                    if (!AllowedFields.Contains(attribute.Name)) continue;
                     if (attribute.Name.Contains("~") && PhotoAttach == null)
                     {
-                        PhotoAttach = Xamarin.Forms.ImageSource.FromStream(
-                            () => new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));    
+                        PhotoAttach = ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));    
                     }
                     else
                     {
-                        previewAttributes.Add(new CredentialPreviewAttribute()
+                        previewAttributes.Add(new SSICredentialAttribute()
                         {
                             Name = attribute.Name,
                             Value = attribute.Value,
                         });
                     }
                 }
-                PreviewAttributes = new RangeEnabledObservableCollection<CredentialPreviewAttribute>();
+                PreviewAttributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
                 PreviewAttributes.AddRange(previewAttributes);
                 _ssiCredentialViewModel = credential;
             }

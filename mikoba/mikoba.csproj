@@ -277,5 +277,9 @@
       <DependentUpon>EntryHubPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\Components\BlueCard.xaml.cs">
+      <DependentUpon>BlueCard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

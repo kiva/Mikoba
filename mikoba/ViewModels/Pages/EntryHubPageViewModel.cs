@@ -117,10 +117,10 @@ namespace mikoba.ViewModels.Pages
             set => this.RaiseAndSetIfChanged(ref _photoAttach, value);
         }
 
-        private RangeEnabledObservableCollection<CredentialPreviewAttribute> _attributes =
-            new RangeEnabledObservableCollection<CredentialPreviewAttribute>();
+        private RangeEnabledObservableCollection<SSICredentialAttribute> _attributes =
+            new RangeEnabledObservableCollection<SSICredentialAttribute>();
 
-        public RangeEnabledObservableCollection<CredentialPreviewAttribute> Attributes
+        public RangeEnabledObservableCollection<SSICredentialAttribute> Attributes
         {
             get => _attributes;
             set => this.RaiseAndSetIfChanged(ref _attributes, value);
@@ -175,7 +175,6 @@ namespace mikoba.ViewModels.Pages
                             break;
                         }
                     }
-
                     if (lastCredential != null)
                     {
                         await NavigationService.NavigateToAsync<CredentialOfferPageViewModel>(lastCredential,
@@ -239,11 +238,12 @@ namespace mikoba.ViewModels.Pages
                 if (Credential != null)
                 {
                     HasCredential = true;
-                    var attributes = new List<CredentialPreviewAttribute>();
+                    HasConnection = false;
+                    var attributes = new List<SSICredentialAttribute>();
                     foreach (var attribute in Credential.Attributes)
                     {
                         var allowedFiels = new String[]
-                            {"nationalId", "photo~attach", "dateOfBirth", "firstName", "lastName"};
+                            {"nationalId", "photo~attach", "dateOfBirth", "birthDate", "firstName", "lastName"};
                         if (!allowedFiels.Contains(attribute.Name)) continue;
                         if (attribute.Name.Contains("photo~") && PhotoAttach == null)
                         {
@@ -252,7 +252,7 @@ namespace mikoba.ViewModels.Pages
                         }
                         else
                         {
-                            attributes.Add(new CredentialPreviewAttribute()
+                            attributes.Add(new SSICredentialAttribute()
                             {
                                 Name = attribute.Name,
                                 Value = attribute.Value.ToString(),
@@ -260,13 +260,14 @@ namespace mikoba.ViewModels.Pages
                         }
                     }
 
-                    Attributes = new RangeEnabledObservableCollection<CredentialPreviewAttribute>();
+                    Attributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
                     Attributes.AddRange(attributes);
                 }
                 else
                 {
+                    HasCredential = false;
                     HasConnection = true;
-                    _mediatorTimer = new MediatorTimerService(this.CheckMediator);
+                    _mediatorTimer = new MediatorTimerService(this.checkForWalletChanges);
                     _mediatorTimer.Start();
                 }
             }

@@ -9,20 +9,10 @@ namespace mikoba.ViewModels.SSI
 {
     public class SSICredentialViewModel : KivaBaseViewModel
     {
-        
-        public bool IsAccepted
+        public SSICredentialViewModel()
         {
-            get
-            {
-                return Preferences.Get(_credential.Id + "-Accepted", false);
-            }
-            set
-            {
-                Preferences.Set(_credential.Id + "-Accepted", value);
-            }
+            Attributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
         }
-        
-        
         public SSICredentialViewModel(CredentialRecord credential)
         {
             _credential = credential;
@@ -37,16 +27,35 @@ namespace mikoba.ViewModels.SSI
                 });
             }
         }
+
+        public static string FormatCredentialName(string source)
+        {
+            switch (source)
+            {
+                case "nationalId": 
+                    return "National Id";
+                case "firstName": 
+                    return "First Name";
+                case "lastName": 
+                    return "Last Name";
+                case "dateOfBirth": 
+                    return "Birth Date";
+                case "birthDate": 
+                    return "BirthDate";
+                default: 
+                    return source;
+            }
+        }
+        
         public SSICredentialViewModel(
             INavigationService navigationService,
             CredentialRecord credential
         ) : base(
             nameof(SSICredentialViewModel),
             navigationService
-        )
-        {
+        ) {
             _credential = credential;
-            Console.WriteLine("credential-id" + credential.Id);
+            Console.WriteLine("credential-id:"  + credential.Id);
             Preferences.Set("credential-id", credential.Id);
             Attributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
             foreach (var cred in _credential.CredentialAttributesValues)
@@ -56,6 +65,18 @@ namespace mikoba.ViewModels.SSI
                     Name = cred.Name,
                     Value = cred.Value,
                 });
+            }
+        }
+        
+        public bool IsAccepted
+        {
+            get
+            {
+                return Preferences.Get(_credential.Id + "-Accepted", false);
+            }
+            set
+            {
+                Preferences.Set(_credential.Id + "-Accepted", value);
             }
         }
         

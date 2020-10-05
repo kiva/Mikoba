@@ -51,14 +51,14 @@
                 HorizontalTextAlignment="Center"
                 Margin="0"
                 Padding="18, 24, 17, 19"
-                Text="PIN code didn't match, please try again (+haptics)" />
+                Text="Your passcode didn't work. Please try again." />
         </Grid>
         <Grid
             HorizontalOptions="Center"
             Row="2">
             <StackLayout>
                 <Label
-                    Text="Confirm your PIN"
+                    Text="Confirm your passcode."
                     FontFamily="KivaPostGrot-Medium"
                     FontSize="21"
                     TextColor="#004FD4"

@@ -17,7 +17,7 @@ namespace mikoba.ViewModels.Pages.Onboarding
         public WalletPinSetViewModel(INavigationService navigationService)
          : base("Pin Set", navigationService)
         {
-            InstructionBlurb = $"{GetFirstName()}, create a pin to keep your wallet secure";
+            InstructionBlurb = $"{GetFirstName()}, create a passcode to keep your Wallet secure.";
             
             GoBack = new Command(async () =>
             {

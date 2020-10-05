@@ -50,7 +50,7 @@
             Row="1">
             <StackLayout>
                 <Label
-                    Text="Allow Kiva to access your camera?"
+                    Text="Allow Wallet to access your camera?"
                     FontFamily="KivaPostGrot-Medium"
                     FontSize="21"
                     TextColor="#004FD4"
@@ -87,7 +87,7 @@
                 LineBreakMode="WordWrap"
                 WidthRequest="280">
                 <Label.Text>
-                    We will only use your camera to scan QR codes. This will allow you to receive your digital identifications from places like your government agencies.
+                    We will only use your camera to scan QR codes. This will help you get your Identity Cards quicker.
                 </Label.Text>
             </Label>
         </Grid>

@@ -42,7 +42,7 @@
             Row="1">
             <StackLayout>
                 <Label
-                    Text="Receive notifications about your credentials?"
+                    Text="Receive notifications about your Wallet?"
                     FontFamily="KivaPostGrot-Medium"
                     FontSize="21"
                     TextColor="#004FD4"

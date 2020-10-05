@@ -79,7 +79,7 @@
                     TextColor="#004FD4"
                     FontSize="27"
                     FontAttributes="Bold">
-                    Kiva Wallet
+                    Kiva Wallet.
                 </Label>
             </StackLayout>
             <StackLayout VerticalOptions="End"

@@ -42,7 +42,7 @@
             Row="1">
             <StackLayout>
                 <Label
-                    Text="Would you like to enable fingerprint login?"
+                    Text="Would you like to turn on Fingerprint Login?"
                     FontFamily="KivaPostGrot-Medium"
                     FontSize="21"
                     TextColor="#004FD4"

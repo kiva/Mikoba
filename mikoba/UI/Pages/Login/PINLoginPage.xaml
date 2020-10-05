@@ -39,14 +39,24 @@
                 HorizontalTextAlignment="Center"
                 Margin="0"
                 Padding="18, 24, 17, 19"
-                Text="PIN incorrect, please try again" />
+                Text="Passcode incorrect, please try again" />
         </Grid>
         <Grid
             HorizontalOptions="Center"
             Row="2">
             <StackLayout>
                 <Label
-                    Text="Enter your PIN"
+                    Text="Welcome back!"
+                    FontFamily="KivaPostGrot-Medium"
+                    FontSize="21"
+                    TextColor="#004FD4"
+                    Margin="40, 0, 40, 10"
+                    VerticalOptions="Start"
+                    WidthRequest="280"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="Center" />
+                <Label
+                    Text="Enter your passcode"
                     FontFamily="KivaPostGrot-Medium"
                     FontSize="21"
                     TextColor="#004FD4"

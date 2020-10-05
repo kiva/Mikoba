@@ -17,7 +17,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome back"
+            <Label Text="Welcome back!"
                    FontSize="20"
                    LineHeight="24"
                    TextColor="#004FD4"

@@ -24,11 +24,15 @@ namespace mikoba.ViewModels.Components
                 DisplayName = "Civil Registry Office";
                 Tag = "Issue Date: " + this.Credential._credential.CreatedAtUtc?.ToString("MM/dd/yy");
                 this.OrganizationType = "Government";
+                HasConnection = false;
+                HasCredential = true;
             }
             else if (Connection != null)
             {
                 DisplayName = Connection.ConnectionName;
                 ImageUrl = Connection.ConnectionImageUrl;
+                HasConnection = true;
+                HasCredential = false;
             }
         }
 
@@ -81,6 +85,22 @@ namespace mikoba.ViewModels.Components
         {
             get => _tag;
             set => this.RaiseAndSetIfChanged(ref _tag, value);
+        }
+        
+        private bool _hasConnection;
+
+        public bool HasConnection
+        {
+            get => _hasConnection;
+            set => this.RaiseAndSetIfChanged(ref _hasConnection, value);
+        }
+        
+        private bool _hasCredential;
+
+        public bool HasCredential
+        {
+            get => _hasCredential;
+            set => this.RaiseAndSetIfChanged(ref _hasCredential, value);
         }
 
         #endregion

@@ -33,7 +33,7 @@ namespace mikoba.ViewModels.SSI
             switch (source)
             {
                 case "nationalId": 
-                    return "National Id";
+                    return "National ID";
                 case "firstName": 
                     return "First Name";
                 case "lastName": 

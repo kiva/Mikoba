@@ -52,6 +52,12 @@ namespace mikoba.ViewModels.Pages
         #endregion
 
         #region Commands
+
+        public ICommand CloseReceiptCommand => new Command(async () =>
+        {
+            await NavigationService.PopModalAsync();
+        });
+        
         public ICommand AcceptCommand => new Command(async () =>
         {
             var context = await _contextProvider.GetContextAsync();
@@ -60,7 +66,6 @@ namespace mikoba.ViewModels.Pages
                 _ssiCredentialViewModel.IsAccepted = true;
                 // var identifier = await _credentialsService.ProcessOfferAsync(context, _offerMessage, new ConnectionRecord());
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
-                await NavigationService.PopModalAsync();
             }
             catch (Exception ex)
             {
@@ -68,15 +73,28 @@ namespace mikoba.ViewModels.Pages
             }
             finally
             {
-                await NavigationService.PopModalAsync();
+                ShowReceipt = true;
             }
         });
 
-        public ICommand DeclineCommand => new Command(async () => await NavigationService.PopModalAsync());
+        public ICommand DeclineCommand => new Command(async () =>
+        {
+            await NavigationService.PopModalAsync();
+        });
 
         #endregion
 
         #region UI Properties
+        
+        private bool _showReceipt;
+
+        public bool ShowReceipt
+        {
+            get => _showReceipt;
+            set => this.RaiseAndSetIfChanged(ref _showReceipt, value);
+        }
+        
+        
         private ImageSource _photoAttach;
         public ImageSource PhotoAttach
         {

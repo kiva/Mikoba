@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -16,6 +17,7 @@ using Hyperledger.Aries.Features.PresentProof;
 using Hyperledger.Indy.AnonCredsApi;
 using mikoba.Extensions;
 using mikoba.Services;
+using mikoba.ViewModels.SSI;
 using Newtonsoft.Json;
 using ReactiveUI;
 using Xamarin.Essentials;
@@ -25,6 +27,8 @@ namespace mikoba.ViewModels.Pages
 {
     public class CredentialRequestPageViewModel : KivaBaseViewModel
     {
+        private static readonly string[] AllowedFields = {"nationalId", "photo~attach", "dateOfBirth", "birthDate","firstName", "lastName"};
+        
         public CredentialRequestPageViewModel(
             INavigationService navigationService,
             IAgentProvider contextProvider,
@@ -62,7 +66,7 @@ namespace mikoba.ViewModels.Pages
                 var credentials =
                     await _proofService.ListCredentialsForProofRequestAsync(context, _transport.holderProofRequest,
                         requestedAttribute.Key);
-                
+
                 string credentialId = "";
                 if (credentials.Any())
                 {
@@ -72,7 +76,7 @@ namespace mikoba.ViewModels.Pages
                 {
                     credentialId = Preferences.Get("credential-id", null);
                 }
-                
+
                 if (credentialId != null)
                 {
                     requestedCredentials.RequestedAttributes.Add(requestedAttribute.Key,
@@ -83,6 +87,7 @@ namespace mikoba.ViewModels.Pages
                         });
                 }
             }
+
             return requestedCredentials;
         }
 
@@ -105,8 +110,13 @@ namespace mikoba.ViewModels.Pages
             }
             finally
             {
-                await NavigationService.PopModalAsync();
+                this.ShowReceipt = true;
             }
+        });
+        
+        public ICommand CloseReceiptCommand => new Command(async () =>
+        {
+            await NavigationService.PopModalAsync();
         });
 
         public ICommand DeclineCommand => new Command(async () =>
@@ -116,7 +126,6 @@ namespace mikoba.ViewModels.Pages
                 var context = await _contextProvider.GetContextAsync();
                 var _proofService = App.Container.Resolve<IProofService>() as DefaultProofService;
                 await _proofService.RejectProofRequestAsync(context, _requestMessage.Requests[0].Id);
-                await NavigationService.PopModalAsync();
             }
             finally
             {
@@ -128,6 +137,15 @@ namespace mikoba.ViewModels.Pages
 
         #region UI Properties
 
+        
+        private bool _showReceipt;
+
+        public bool ShowReceipt
+        {
+            get => _showReceipt;
+            set => this.RaiseAndSetIfChanged(ref _showReceipt, value);
+        }
+        
         private ImageSource _photoAttach;
 
         public ImageSource PhotoAttach
@@ -136,10 +154,10 @@ namespace mikoba.ViewModels.Pages
             set => this.RaiseAndSetIfChanged(ref _photoAttach, value);
         }
 
-        private RangeEnabledObservableCollection<CredentialPreviewAttribute> _requestedAttributes =
-            new RangeEnabledObservableCollection<CredentialPreviewAttribute>();
+        private RangeEnabledObservableCollection<SSICredentialAttribute> _requestedAttributes =
+            new RangeEnabledObservableCollection<SSICredentialAttribute>();
 
-        public RangeEnabledObservableCollection<CredentialPreviewAttribute> RequestedAttributes
+        public RangeEnabledObservableCollection<SSICredentialAttribute> RequestedAttributes
         {
             get => _requestedAttributes;
             set => this.RaiseAndSetIfChanged(ref _requestedAttributes, value);
@@ -151,27 +169,73 @@ namespace mikoba.ViewModels.Pages
 
         public override async Task InitializeAsync(object navigationData)
         {
+            var context = await _contextProvider.GetContextAsync();
             if (navigationData is Transport transport)
             {
                 _transport = transport;
                 _requestMessage = transport.presentationMessage;
                 _requestMessageContext = transport.messageContext;
 
-                var requestedAttributes = new RangeEnabledObservableCollection<CredentialPreviewAttribute>();
-                foreach (var req in _requestMessage.Requests)
+                var requestedAttributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
+                var _credentialService = App.Container.Resolve<ICredentialService>();
+                var _scope = App.Container.Resolve<ILifetimeScope>();
+                
+                var credentialsRecords = await _credentialService.ListAsync(context);
+                var credential = credentialsRecords.First();
+                var credentialViewModel = _scope.Resolve<SSICredentialViewModel>(new NamedParameter("credential", credential));
+                foreach (var attribute in credentialViewModel.Attributes)
                 {
-                    foreach (var attributes in _transport.holderProofRequest.RequestedAttributes)
+                    if (!AllowedFields.Contains(attribute.Name)) continue;
+                    if (attribute.Name.Contains("~") && PhotoAttach == null)
                     {
-                        var attributeName = attributes.Value.Name;
-                        // if (attributeName.Contains("photo~attach")) continue;
-                        requestedAttributes.Add(new CredentialPreviewAttribute(attributeName, ""));
+                        PhotoAttach = ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));    
+                    }
+                    else
+                    {
+                        requestedAttributes.Add(new SSICredentialAttribute()
+                        {
+                            Name = attribute.Name,
+                            Value = attribute.Value,
+                        });
                     }
                 }
-
+                // foreach (var req in _requestMessage.Requests)
+                // {
+                //     foreach (var attributes in _transport.holderProofRequest.RequestedAttributes)
+                //     {
+                //         var attributeName = attributes.Value.Name;
+                //         //if (attributeName.Contains("photo~attach")) continue;
+                //         requestedAttributes.Add(new SSICredentialAttribute()
+                //         {
+                //             Name = attributeName
+                //         });
+                //     }
+                // }
                 RequestedAttributes.Clear();
                 RequestedAttributes.AddRange(requestedAttributes);
             }
-
+            else if (navigationData is SSICredentialViewModel credential)
+            {
+                var requestedAttributes = new List<SSICredentialAttribute>();
+                foreach (var attribute in credential.Attributes)
+                {
+                    if (!AllowedFields.Contains(attribute.Name)) continue;
+                    if (attribute.Name.Contains("~") && PhotoAttach == null)
+                    {
+                        PhotoAttach = ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));    
+                    }
+                    else
+                    {
+                        requestedAttributes.Add(new SSICredentialAttribute()
+                        {
+                            Name = attribute.Name,
+                            Value = attribute.Value,
+                        });
+                    }
+                }
+                RequestedAttributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
+                RequestedAttributes.AddRange(requestedAttributes);
+            }
             await base.InitializeAsync(navigationData);
         }
 

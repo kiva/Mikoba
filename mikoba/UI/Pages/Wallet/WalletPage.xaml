@@ -80,7 +80,14 @@
                     <StackLayout BindableLayout.ItemsSource="{Binding Entries}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <components:EntryCard />
+                                <StackLayout>
+                                    <Grid IsVisible="{Binding HasConnection}">
+                                        <components:EntryCard />
+                                    </Grid>
+                                    <Grid IsVisible="{Binding HasCredential}">
+                                        <components:BlueCard />
+                                    </Grid>
+                                </StackLayout>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </StackLayout>

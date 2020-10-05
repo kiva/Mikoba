@@ -23,9 +23,9 @@
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>mikoba</string>
+	<string>Kiva Protocol Wallet</string>
 	<key>CFBundleIdentifier</key>
-	<string>global.kiva.protocol.mikoba</string>
+	<string>global.kiva.protocol</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>

@@ -21,7 +21,6 @@
             Padding="0"
             Margin="0"
             RowSpacing="0">
-            
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -29,8 +28,6 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-
-
             <components:KivaSvgImage
                 Grid.Row="0"
                 Grid.RowSpan="4"
@@ -40,7 +37,6 @@
                 ImageKey="cornercircles_left"
                 HeightRequest="200"
                 WidthRequest="200" />
-            
             <Label
                 Grid.Row="1"
                 TextColor="#004FD4"
@@ -84,22 +80,30 @@
                 </Grid.ColumnDefinitions>
                 <Button
                     Grid.Column="0"
-                    BackgroundColor="Transparent"
-                    TextColor="Black"
-                    FontAttributes="Bold"
                     Command="{Binding RejectInviteCommand}"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="Center"
+                    Padding="20"
+                    CornerRadius="8"
+                    FontAttributes="Bold"
+                    BackgroundColor="#FFFFFF"
+                    TextColor="#000"
+                    WidthRequest="150"
+                    BorderColor="Gray"
+                    Text="Maybe later"
                     Margin="5"
-                    Text="Maybe later" />
+                    FontSize="15" />
                 <Button
                     Grid.Column="1"
-                    BackgroundColor="#004FD4"
-                    TextColor="White"
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
                     Margin="5"
                     Text="Trust"
+                    FontAttributes="Bold"
+                    CornerRadius="8"
+                    Padding="20"
+                    WidthRequest="150"
+                    BackgroundColor="#004FD4"
+                    TextColor="White"
+                    FontSize="15"
                     Command="{Binding AcceptInviteCommand}" />
                 </Grid>
         </Grid>

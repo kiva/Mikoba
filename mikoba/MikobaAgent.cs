@@ -18,14 +18,14 @@ namespace mikoba
         {
             try
             {
-                // this.Handlers.Add(new MikobaCredentialHandler());
+                this.Handlers.Add(new MikobaCredentialHandler());
                 this.Handlers.Add(new MikobaProofHandler());
                 base.AddConnectionHandler();
                 base.AddDiscoveryHandler();
                 base.AddBasicMessageHandler();
                 base.AddForwardHandler();
                 base.AddTrustPingHandler();
-                base.AddCredentialHandler();
+                
             }
             catch (Exception ex)
             {

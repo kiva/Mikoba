@@ -44,6 +44,7 @@ namespace mikoba.ViewModels.Pages
         private ProofRequest _proofRequest;
         private MessageContext _requestMessageContext;
         private List<Credential> _potentialCredentials;
+        private CredentialRecord _credential; 
 
         #region Services
 
@@ -60,6 +61,8 @@ namespace mikoba.ViewModels.Pages
             var _credentialService = App.Container.Resolve<ICredentialService>();
             var requestedCredentials = new RequestedCredentials();
             var context = await _contextProvider.GetContextAsync();
+            
+            
 
             foreach (var requestedAttribute in _transport.holderProofRequest.RequestedAttributes)
             {
@@ -74,7 +77,7 @@ namespace mikoba.ViewModels.Pages
                 }
                 else
                 {
-                    credentialId = Preferences.Get("credential-id", null);
+                    credentialId = _credential.Id;
                 }
 
                 if (credentialId != null)
@@ -181,8 +184,8 @@ namespace mikoba.ViewModels.Pages
                 var _scope = App.Container.Resolve<ILifetimeScope>();
                 
                 var credentialsRecords = await _credentialService.ListAsync(context);
-                var credential = credentialsRecords.First();
-                var credentialViewModel = _scope.Resolve<SSICredentialViewModel>(new NamedParameter("credential", credential));
+                _credential = credentialsRecords.First();
+                var credentialViewModel = _scope.Resolve<SSICredentialViewModel>(new NamedParameter("credential", _credential));
                 foreach (var attribute in credentialViewModel.Attributes)
                 {
                     if (!AllowedFields.Contains(attribute.Name)) continue;
@@ -199,6 +202,8 @@ namespace mikoba.ViewModels.Pages
                         });
                     }
                 }
+                
+                
                 // foreach (var req in _requestMessage.Requests)
                 // {
                 //     foreach (var attributes in _transport.holderProofRequest.RequestedAttributes)
@@ -211,6 +216,8 @@ namespace mikoba.ViewModels.Pages
                 //         });
                 //     }
                 // }
+                
+                
                 RequestedAttributes.Clear();
                 RequestedAttributes.AddRange(requestedAttributes);
             }

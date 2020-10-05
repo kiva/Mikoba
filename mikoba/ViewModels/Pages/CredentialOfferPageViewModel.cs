@@ -63,6 +63,12 @@ namespace mikoba.ViewModels.Pages
             var context = await _contextProvider.GetContextAsync();
             try
             {
+                // var (message, record) = await _credentialService.CreateRequestAsync(agentContext, recordId);
+                // messageContext.ContextRecord = record;
+                // return message;
+                
+                
+                
                 _ssiCredentialViewModel.IsAccepted = true;
                 // var identifier = await _credentialsService.ProcessOfferAsync(context, _offerMessage, new ConnectionRecord());
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});

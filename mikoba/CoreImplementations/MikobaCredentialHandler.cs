@@ -2,13 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
 using Hyperledger.Aries;
 using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Configuration;
 using Hyperledger.Aries.Extensions;
 using Hyperledger.Aries.Features.IssueCredential;
+using Hyperledger.Aries.Features.PresentProof;
 using Hyperledger.Aries.Storage;
 using Microsoft.Extensions.Options;
+using mikoba.Services;
+using mikoba.ViewModels.Pages;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -50,6 +54,9 @@ namespace mikoba.CoreImplementations
                 case MessageTypesHttps.IssueCredentialNames.OfferCredential:
                 case MessageTypes.IssueCredentialNames.OfferCredential:
                 {
+                    var _proofService = App.Container.Resolve<IProofService>();
+                    var navigation = App.Container.Resolve<INavigationService>();
+                    
                     var offer = messageContext.GetMessage<CredentialOfferMessage>();
                     var recordId = await _credentialService.ProcessOfferAsync(
                         agentContext, offer, messageContext.Connection);
@@ -59,10 +66,10 @@ namespace mikoba.CoreImplementations
                     // Auto request credential if set in the agent option
                     if (_agentOptions.AutoRespondCredentialOffer)
                     {
-                        var (message, record) = await _credentialService.CreateRequestAsync(agentContext, recordId);
-                        messageContext.ContextRecord = record;
-                        return message;
+                        
                     }
+                    
+                    await navigation.NavigateToAsync<CredentialRequestPageViewModel>(message,NavigationType.Modal);
 
                     return null;
                 }

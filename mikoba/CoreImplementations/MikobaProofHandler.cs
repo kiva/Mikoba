@@ -47,8 +47,8 @@ namespace mikoba.CoreImplementations
                 case MessageTypesHttps.PresentProofNames.RequestPresentation:
                 {
                     var _proofService = App.Container.Resolve<IProofService>();
-                    
                     var navigation = App.Container.Resolve<INavigationService>();
+                    
                     var message = messageContext.GetMessage<RequestPresentationMessage>();
                     
                     var holderProofRequestId = await _proofService.ProcessRequestAsync(agentContext, message, messageContext.Connection);

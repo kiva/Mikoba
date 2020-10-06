@@ -73,7 +73,6 @@ namespace mikoba.CoreImplementations
                 case MessageTypesHttps.IssueCredentialNames.OfferCredential:
                 case MessageTypes.IssueCredentialNames.OfferCredential:
                 {
-
                     try
                     {
                         var navigation = App.Container.Resolve<INavigationService>();
@@ -100,7 +99,6 @@ namespace mikoba.CoreImplementations
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
-                        return null;
                     }
                     return null;
                 }

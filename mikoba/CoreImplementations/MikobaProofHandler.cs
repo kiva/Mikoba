@@ -46,23 +46,31 @@ namespace mikoba.CoreImplementations
                 case MessageTypes.PresentProofNames.RequestPresentation:
                 case MessageTypesHttps.PresentProofNames.RequestPresentation:
                 {
-                    var _proofService = App.Container.Resolve<IProofService>();
-                    var navigation = App.Container.Resolve<INavigationService>();
-                    
-                    var message = messageContext.GetMessage<RequestPresentationMessage>();
-                    
-                    var holderProofRequestId = await _proofService.ProcessRequestAsync(agentContext, message, messageContext.Connection);
-                    var holderProofRecord = await _proofService.GetAsync(agentContext, holderProofRequestId.Id);
-                    
-                    messageContext.ContextRecord = holderProofRequestId;
-                    
-                    var transport = new ProofRequestTransport();
-                    transport.Message = message;
-                    transport.MessageContext = messageContext;
-                    transport.HolderProofRecord = holderProofRecord;
-                    transport.ProofRequest = JsonConvert.DeserializeObject<ProofRequest>(holderProofRecord.RequestJson);
-                    
-                    await navigation.NavigateToAsync<ProofRequestViewModel>(transport,NavigationType.Modal);
+                    try
+                    {
+                        var _proofService = App.Container.Resolve<IProofService>();
+                        var navigation = App.Container.Resolve<INavigationService>();
+
+                        var presentation = messageContext.GetMessage<RequestPresentationMessage>();
+
+                        var holderProofRequest =
+                            await _proofService.ProcessRequestAsync(agentContext, presentation, messageContext.Connection);
+
+                        messageContext.ContextRecord = await _proofService.GetAsync(agentContext, holderProofRequest.Id);
+
+                        var transport = new ProofRequestTransport()
+                        {
+                            Message = presentation,
+                            MessageContext = messageContext,
+                            Record = messageContext.ContextRecord as ProofRecord
+                        };
+                        
+                        await navigation.NavigateToAsync<ProofRequestViewModel>(transport, NavigationType.Modal);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                     break;
                 }
                 case MessageTypes.PresentProofNames.Presentation:

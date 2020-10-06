@@ -5,9 +5,8 @@ namespace mikoba.ViewModels.Pages
 {
     public class ProofRequestTransport
     {
-        public ProofRecord HolderProofRecord { get; set; }
+        public ProofRecord Record { get; set; }
         public RequestPresentationMessage Message { get; set; }
         public MessageContext MessageContext { get; set; }
-        public ProofRequest ProofRequest { get; set; }
     }
 }

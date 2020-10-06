@@ -27,11 +27,11 @@
 	<key>CFBundleIdentifier</key>
 	<string>global.kiva.protocol</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.2</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
-	<string>mikoba</string>
+	<string>global.kiva.protocol</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSCameraUsageDescription</key>

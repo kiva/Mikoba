@@ -12,5 +12,6 @@ namespace mikoba
         internal const string FullName = "mikoba.fullName";
         
         internal const string EndpointUri = "https://ec2.protocol-dev.kiva.org/";
+        public static string DefaultMasterSecret = "TheMikobaMasterSecret";
     }
 }

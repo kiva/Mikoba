@@ -2,6 +2,37 @@ namespace mikoba
 {
     public class TempCode
     {
+        // foreach (var item in results.unprocessedItems)
+        // {
+            // Console.WriteLine(item.Data);
+            // if (!Preferences.ContainsKey(item.Id))
+            // {
+            //     var message = await MessageDecoder.ProcessPackedMessage(context.Wallet, item, null);
+            //     if (message != null)
+            //     {
+            //         Device.BeginInvokeOnMainThread(
+            //             async () => { await _actionDispatcher.DispatchMessage(message); });
+            //     }
+            //     else
+            //     {
+            //         Preferences.Set(item.Id, false);
+            //     }
+            // }
+        // }
+
+
+        //TODO: Not supported by Mediator it seems.
+        //Asked question in community and StackOverflow
+        // if (itemsToDelete.Any())
+        // {
+        // var deleteMessage = new DeleteInboxItemsMessage() {InboxItemIds = itemsToDelete};
+        // var response =
+        //     await _messageService.SendReceiveAsync(context.Wallet, deleteMessage, this.Entry.Connection.Record);
+        // //     Console.WriteLine(response.Payload);  
+        // // }
+        
+        
+        
         // if (Preferences.Get(AppConstant.EnableFirstActionsView, true) &&
         //     Preferences.Get(AppConstant.LocalWalletFirstView, false))
         // {

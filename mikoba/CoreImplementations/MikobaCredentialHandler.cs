@@ -45,6 +45,25 @@ namespace mikoba.CoreImplementations
             MessageTypesHttps.IssueCredentialNames.IssueCredential
         };
 
+        /*
+         
+         [Issuer: Creates offer for Holder.]
+         [Issuer: Sends offer for Holder.]
+         
+         Holder: Receives credential offer.
+         Holder: Process the credential offer by storing it.
+         
+         (Holder: Creates master secret if not already.)
+         
+         Holder: Sends a credential request using the stored offer id.
+         
+         [Issuer: Retrieved credential request]
+         [Issuer: Receives the credential request and sends a credential issue message]
+         
+         Holder: Receives the credential issue message.
+         Holder: Process the message and store its.
+         */
+        
 
         public async Task<AgentMessage> ProcessAsync(IAgentContext agentContext, UnpackedMessageContext messageContext)
         {
@@ -54,23 +73,35 @@ namespace mikoba.CoreImplementations
                 case MessageTypesHttps.IssueCredentialNames.OfferCredential:
                 case MessageTypes.IssueCredentialNames.OfferCredential:
                 {
-                    var _proofService = App.Container.Resolve<IProofService>();
-                    var navigation = App.Container.Resolve<INavigationService>();
-                    
-                    var offer = messageContext.GetMessage<CredentialOfferMessage>();
-                    var recordId = await _credentialService.ProcessOfferAsync(
-                        agentContext, offer, messageContext.Connection);
 
-                    messageContext.ContextRecord = await _credentialService.GetAsync(agentContext, recordId);
-
-                    // Auto request credential if set in the agent option
-                    if (_agentOptions.AutoRespondCredentialOffer)
+                    try
                     {
-                        
-                    }
-                    
-                    await navigation.NavigateToAsync<CredentialRequestPageViewModel>(message,NavigationType.Modal);
+                        var navigation = App.Container.Resolve<INavigationService>();
+                        var _credentialService = App.Container.Resolve<ICredentialService>();
 
+                        var offer = messageContext.GetMessage<CredentialOfferMessage>();
+
+                        Console.WriteLine("New Credential Offering: {0}", offer.Id);
+
+                        var recordId = await _credentialService.ProcessOfferAsync(
+                            agentContext, offer, messageContext.Connection);
+
+                        messageContext.ContextRecord = await _credentialService.GetAsync(agentContext, recordId);
+
+                        var transport = new CredentialOfferTransport()
+                        {
+                            Record = messageContext.ContextRecord as CredentialRecord,
+                            Message = offer,
+                            MessageContext = messageContext
+                        };
+
+                        await navigation.NavigateToAsync<CredentialOfferPageViewModel>(transport, NavigationType.Modal);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        return null;
+                    }
                     return null;
                 }
                 case MessageTypesHttps.IssueCredentialNames.RequestCredential:
@@ -97,7 +128,6 @@ namespace mikoba.CoreImplementations
                             messageContext.ContextRecord = record;
                             return message;
                         }
-
                         messageContext.ContextRecord = await _credentialService.GetAsync(agentContext, recordId);
                         return null;
                     }

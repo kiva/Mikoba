@@ -19,6 +19,7 @@ namespace mikoba
                     services.AddAriesFramework(builder => builder.RegisterEdgeAgent<MikobaAgent> (
                         options: options =>
                         {
+                            options.GenesisFilename = "pool_genesis.txn";
                             options.EndpointUri = AppConstant.EndpointUri;
                             options.WalletConfiguration.StorageConfiguration =
                                 new WalletConfiguration.WalletStorageConfiguration

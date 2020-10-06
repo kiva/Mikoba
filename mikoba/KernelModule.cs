@@ -44,8 +44,7 @@ namespace mikoba
                 .AsImplementedInterfaces()
                 .SingleInstance();
 
-            var loggerFactory = LoggerFactory.Create(logBuilder => { logBuilder.AddConsole().AddDebug(); }
-            );
+            var loggerFactory = LoggerFactory.Create(logBuilder => { logBuilder.AddConsole().AddDebug(); });
             builder
                 .RegisterInstance(loggerFactory)
                 .As<ILoggerFactory>()

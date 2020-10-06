@@ -12,6 +12,7 @@ using Hyperledger.Aries.Contracts;
 using Hyperledger.Aries.Features.DidExchange;
 using Hyperledger.Aries.Features.IssueCredential;
 using Hyperledger.Aries.Features.PresentProof;
+using Hyperledger.Aries.Routing;
 using mikoba.Extensions;
 using mikoba.Services;
 using mikoba.UI.ViewModels;
@@ -29,6 +30,7 @@ namespace mikoba.ViewModels.Pages
             INavigationService navigationService,
             IConnectionService connectionService,
             ICredentialService credentialService,
+            IEdgeClientService edgeClientService,
             IAgentProvider agentContextProvider,
             IEventAggregator eventAggregator,
             ILifetimeScope scope) : 
@@ -38,12 +40,30 @@ namespace mikoba.ViewModels.Pages
             _agentContextProvider = agentContextProvider;
             _connectionService = connectionService;
             _eventAggregator = eventAggregator;
+            _edgeClientService = edgeClientService;
             _scope = scope;
+            _mediatorTimer = new MediatorTimerService(this.CheckMediator);
         }
+        
+        
+        private async void CheckMediator()
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                _mediatorTimer.Pause();
+                var context = await _agentContextProvider.GetContextAsync();
+                await _edgeClientService.FetchInboxAsync(context);
+                _mediatorTimer.Start();
+            });
+        }
+        
+        private MediatorTimerService _mediatorTimer;
+
 
         #region Services
 
         private readonly IEventAggregator _eventAggregator;
+        private readonly IEdgeClientService _edgeClientService;
         private readonly ICredentialService _credentialService;
         private readonly IConnectionService _connectionService;
         private readonly IAgentProvider _agentContextProvider;
@@ -124,6 +144,7 @@ namespace mikoba.ViewModels.Pages
             _eventAggregator?.GetEventByType<CoreDispatchedEvent>()
                 .Where(_ => _.Type == DispatchType.ConnectionsUpdated)
                 .Subscribe(async _ => await RefreshData());
+            _mediatorTimer.Start();
             await base.InitializeAsync(navigationData);
         }
 
@@ -166,6 +187,9 @@ namespace mikoba.ViewModels.Pages
             IList<SSICredentialViewModel> credentialsVms = new List<SSICredentialViewModel>();
             foreach (var credentialRecord in credentialsRecords)
             {
+                //Only show credentials that have been store in the wallet, the ones with a CredentialId.
+                //If the record has an ID that only means that it was process as part of a request.
+                if (credentialRecord.CredentialId == null) continue; 
                 SSICredentialViewModel credential =
                     _scope.Resolve<SSICredentialViewModel>(new NamedParameter("credential", credentialRecord));
                 credentialsVms.Add(credential);
@@ -253,7 +277,7 @@ namespace mikoba.ViewModels.Pages
                     RequestPresentationMessage credentialRequest = (RequestPresentationMessage)message;
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        await NavigationService.NavigateToAsync<CredentialRequestPageViewModel>(credentialRequest, NavigationType.Modal);
+                        await NavigationService.NavigateToAsync<ProofRequestViewModel>(credentialRequest, NavigationType.Modal);
                     });
                 }
                 

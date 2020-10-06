@@ -44,7 +44,7 @@ namespace mikoba
             _navigationService.AddPageViewModelBinding<WalletPageViewModel, WalletPage>();
             _navigationService.AddPageViewModelBinding<AcceptConnectionInviteViewModel, AcceptConnectionInvitePage>();
             _navigationService.AddPageViewModelBinding<CredentialOfferPageViewModel, CredentialOfferPage>();
-            _navigationService.AddPageViewModelBinding<CredentialRequestPageViewModel, CredentialRequestPage>();
+            _navigationService.AddPageViewModelBinding<ProofRequestViewModel, ProofRequestPage>();
             _navigationService.AddPageViewModelBinding<EntryHubPageViewModel, EntryHubPage>();
             _navigationService.AddPageViewModelBinding<SplashPageViewModel, SplashPage>();
            
@@ -57,6 +57,7 @@ namespace mikoba
             //Permissions
             _navigationService.AddPageViewModelBinding<AllowCameraConfirmationViewModel, AllowCameraConfirmationPage>();
             _navigationService.AddPageViewModelBinding<AllowPushNotificationViewModel, AllowPushNotificationPage>();
+            
 
             if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
             {

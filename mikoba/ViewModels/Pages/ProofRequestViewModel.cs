@@ -25,21 +25,21 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages
 {
-    public class CredentialRequestPageViewModel : KivaBaseViewModel
+    public class ProofRequestViewModel : KivaBaseViewModel
     {
         private static readonly string[] AllowedFields = {"nationalId", "photo~attach", "dateOfBirth", "birthDate","firstName", "lastName"};
         
-        public CredentialRequestPageViewModel(
+        public ProofRequestViewModel(
             INavigationService navigationService,
             IAgentProvider contextProvider,
             IEventAggregator eventAggregator)
-            : base("Credential Request", navigationService)
+            : base("Proof Request", navigationService)
         {
             _contextProvider = contextProvider;
             _eventAggregator = eventAggregator;
         }
 
-        private Transport _transport;
+        private ProofRequestTransport _proofRequestTransport;
         private RequestPresentationMessage _requestMessage;
         private ProofRequest _proofRequest;
         private MessageContext _requestMessageContext;
@@ -64,10 +64,10 @@ namespace mikoba.ViewModels.Pages
             
             
 
-            foreach (var requestedAttribute in _transport.holderProofRequest.RequestedAttributes)
+            foreach (var requestedAttribute in _proofRequestTransport.holderProofRequest.RequestedAttributes)
             {
                 var credentials =
-                    await _proofService.ListCredentialsForProofRequestAsync(context, _transport.holderProofRequest,
+                    await _proofService.ListCredentialsForProofRequestAsync(context, _proofRequestTransport.holderProofRequest,
                         requestedAttribute.Key);
 
                 string credentialId = "";
@@ -173,9 +173,9 @@ namespace mikoba.ViewModels.Pages
         public override async Task InitializeAsync(object navigationData)
         {
             var context = await _contextProvider.GetContextAsync();
-            if (navigationData is Transport transport)
+            if (navigationData is ProofRequestTransport transport)
             {
-                _transport = transport;
+                _proofRequestTransport = transport;
                 _requestMessage = transport.presentationMessage;
                 _requestMessageContext = transport.messageContext;
 

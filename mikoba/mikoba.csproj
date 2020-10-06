@@ -265,7 +265,7 @@
       <DependentUpon>AuthorityCard.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\Pages\Credentials\CredentialRequestPage.xaml.cs">
+    <Compile Update="UI\Pages\Credentials\ProofRequestPage.xaml.cs">
       <DependentUpon>CredentialRequestPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

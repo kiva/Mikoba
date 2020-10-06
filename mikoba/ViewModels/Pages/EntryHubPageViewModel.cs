@@ -34,7 +34,6 @@ namespace mikoba.ViewModels.Pages
             ICredentialService credentialService,
             IEdgeClientService edgeClientService,
             IAgentProvider contextProvider,
-            IActionDispatcher actionDispatcher,
             IEventAggregator eventAggregator
         )
             : base("Hub Page", navigationService)
@@ -43,19 +42,16 @@ namespace mikoba.ViewModels.Pages
             _contextProvider = contextProvider;
             _contextProvider = contextProvider;
             _credentialService = credentialService;
-            _actionDispatcher = actionDispatcher;
             _eventAggregator = eventAggregator;
             _edgeClientService = edgeClientService;
         }
 
         #region Services
-
-        private MediatorTimerService _mediatorTimer;
+        
         private readonly IConnectionService _connectionService;
         private readonly ICredentialService _credentialService;
         private readonly IAgentProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
-        private readonly IActionDispatcher _actionDispatcher;
         private readonly IEdgeClientService _edgeClientService;
 
         #endregion
@@ -68,13 +64,11 @@ namespace mikoba.ViewModels.Pages
             var result = await _connectionService.DeleteAsync(context, Entry.Connection.Record.Id);
             if (result)
             {
-                _mediatorTimer.Pause();
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
                 await NavigationService.NavigateBackAsync();
             }
             else
             {
-                _mediatorTimer.Pause();
                 await NavigationService.NavigateBackAsync();
             }
         });
@@ -156,78 +150,37 @@ namespace mikoba.ViewModels.Pages
 
         #region Work
 
-        private async void checkForWalletChanges()
-        {
-            Device.BeginInvokeOnMainThread(
-                async () =>
-                {
-                    _mediatorTimer.Pause();
-                    var context = await _contextProvider.GetContextAsync();
-                    var results = await _edgeClientService.FetchInboxAsync(context);
-                    var credentialsRecords = await _credentialService.ListAsync(context);
-                    SSICredentialViewModel lastCredential = null;
-                    foreach (var credentialRecord in credentialsRecords)
-                    {
-                        var credential = new SSICredentialViewModel(credentialRecord);
-                        if (!credential.IsAccepted)
-                        {
-                            lastCredential = credential;
-                            break;
-                        }
-                    }
-                    if (lastCredential != null)
-                    {
-                        await NavigationService.NavigateToAsync<CredentialOfferPageViewModel>(lastCredential,
-                            NavigationType.Modal);
-                        _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
-                    }
-                    else
-                    {
-                        _mediatorTimer.Start();
-                    }
-                });
-        }
-
-        private async void CheckMediator()
-        {
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                _mediatorTimer.Pause();
-                var context = await _contextProvider.GetContextAsync();
-                var results = await _edgeClientService.FetchInboxAsync(context);
-                // var itemsToDelete = new List<string>();
-                foreach (var item in results.unprocessedItems)
-                {
-                    // Console.WriteLine(item.Data);
-                    // if (!Preferences.ContainsKey(item.Id))
-                    // {
-                    //     var message = await MessageDecoder.ProcessPackedMessage(context.Wallet, item, null);
-                    //     if (message != null)
-                    //     {
-                    //         Device.BeginInvokeOnMainThread(
-                    //             async () => { await _actionDispatcher.DispatchMessage(message); });
-                    //     }
-                    //     else
-                    //     {
-                    //         Preferences.Set(item.Id, false);
-                    //     }
-                    // }
-                }
-
-
-                //TODO: Not supported by Mediator it seems.
-                //Asked question in community and StackOverflow
-                // if (itemsToDelete.Any())
-                // {
-                // var deleteMessage = new DeleteInboxItemsMessage() {InboxItemIds = itemsToDelete};
-                // var response =
-                //     await _messageService.SendReceiveAsync(context.Wallet, deleteMessage, this.Entry.Connection.Record);
-                // //     Console.WriteLine(response.Payload);  
-                // // }
-
-                _mediatorTimer.Start();
-            });
-        }
+        // private async void checkForWalletChanges()
+        // {
+        //     Device.BeginInvokeOnMainThread(
+        //         async () =>
+        //         {
+        //             _mediatorTimer.Pause();
+        //             var context = await _contextProvider.GetContextAsync();
+        //             var results = await _edgeClientService.FetchInboxAsync(context);
+        //             var credentialsRecords = await _credentialService.ListAsync(context);
+        //             SSICredentialViewModel lastCredential = null;
+        //             foreach (var credentialRecord in credentialsRecords)
+        //             {
+        //                 var credential = new SSICredentialViewModel(credentialRecord);
+        //                 if (!credential.IsAccepted)
+        //                 {
+        //                     lastCredential = credential;
+        //                     break;
+        //                 }
+        //             }
+        //             if (lastCredential != null)
+        //             {
+        //                 await NavigationService.NavigateToAsync<CredentialOfferPageViewModel>(lastCredential,
+        //                     NavigationType.Modal);
+        //                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
+        //             }
+        //             else
+        //             {
+        //                 _mediatorTimer.Start();
+        //             }
+        //         });
+        // }
 
         public override Task InitializeAsync(object navigationData)
         {
@@ -267,8 +220,6 @@ namespace mikoba.ViewModels.Pages
                 {
                     HasCredential = false;
                     HasConnection = true;
-                    _mediatorTimer = new MediatorTimerService(this.checkForWalletChanges);
-                    _mediatorTimer.Start();
                 }
             }
 

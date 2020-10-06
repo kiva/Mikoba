@@ -41,7 +41,7 @@ namespace mikoba.Services
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await _navigationService.NavigateToAsync<CredentialRequestPageViewModel>(
+                    await _navigationService.NavigateToAsync<ProofRequestViewModel>(
                         credentialRequest, NavigationType.Modal);
                 });
             }

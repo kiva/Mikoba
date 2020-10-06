@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
+using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Agents.Edge;
+using Hyperledger.Indy.AnonCredsApi;
 using mikoba.Services;
 using mikoba.ViewModels.Pages;
 using ReactiveUI;
@@ -12,14 +14,17 @@ namespace mikoba.ViewModels
 
         public WalletCreationViewModel(
             INavigationService navigationService,
+            IAgentContext agentContextProvider,
             IEdgeProvisioningService edgeProvisioningService
         )
         : base("Wallet Creation", navigationService)
         {
             _edgeProvisioningService = edgeProvisioningService;
+            _agentContextProvider = agentContextProvider;
         }
 
         private IEdgeProvisioningService _edgeProvisioningService;
+        private IAgentContext _agentContextProvider;
         
         #region UI Properties
         
@@ -44,6 +49,7 @@ namespace mikoba.ViewModels
         public override async Task InitializeAsync(object navigationData)
         {
             await _edgeProvisioningService.ProvisionAsync();
+            await AnonCreds.ProverCreateMasterSecretAsync(_agentContextProvider.Wallet, AppConstant.DefaultMasterSecret);
             await Task.Delay(100);
             ProgressInfo = "Checking Permissions";
             Progress = 0.30;

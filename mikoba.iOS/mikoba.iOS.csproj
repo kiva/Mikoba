@@ -147,6 +147,7 @@
     <EmbeddedResource Include="Resources\locationpin.svg" />
     <EmbeddedResource Include="Resources\orange.svg" />
     <EmbeddedResource Include="Resources\pink.svg" />
+    <BundleResource Include="Resources\pool_genesis.txn" />
     <EmbeddedResource Include="Resources\qrcodescan.svg" />
     <EmbeddedResource Include="Resources\rightcaret.svg" />
     <EmbeddedResource Include="Resources\secure.svg" />

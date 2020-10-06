@@ -3,7 +3,7 @@ using Hyperledger.Aries.Features.PresentProof;
 
 namespace mikoba.ViewModels.Pages
 {
-    public class Transport
+    public class ProofRequestTransport
     {
         public ProofRecord holderProofRecord { get; set; }
         public RequestPresentationMessage presentationMessage { get; set; }

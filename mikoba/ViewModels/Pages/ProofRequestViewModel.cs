@@ -64,10 +64,10 @@ namespace mikoba.ViewModels.Pages
             
             
 
-            foreach (var requestedAttribute in _proofRequestTransport.holderProofRequest.RequestedAttributes)
+            foreach (var requestedAttribute in _proofRequestTransport.ProofRequest.RequestedAttributes)
             {
                 var credentials =
-                    await _proofService.ListCredentialsForProofRequestAsync(context, _proofRequestTransport.holderProofRequest,
+                    await _proofService.ListCredentialsForProofRequestAsync(context, _proofRequestTransport.ProofRequest,
                         requestedAttribute.Key);
 
                 string credentialId = "";
@@ -104,7 +104,7 @@ namespace mikoba.ViewModels.Pages
                 var requestedCredentials = await buildCredentials();
                 (var proofMessage, var _) = await _proofService.CreatePresentationAsync(context,
                     _requestMessageContext.ContextRecord.Id, requestedCredentials);
-                await _messageService.SendAsync(null, proofMessage, _requestMessageContext.Connection);
+                var messageContext = await _messageService.SendReceiveAsync(context.Wallet, proofMessage, _requestMessageContext.Connection);
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
             }
             catch (Exception ex)
@@ -176,8 +176,8 @@ namespace mikoba.ViewModels.Pages
             if (navigationData is ProofRequestTransport transport)
             {
                 _proofRequestTransport = transport;
-                _requestMessage = transport.presentationMessage;
-                _requestMessageContext = transport.messageContext;
+                _requestMessage = transport.Message;
+                _requestMessageContext = transport.MessageContext;
 
                 var requestedAttributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
                 var _credentialService = App.Container.Resolve<ICredentialService>();

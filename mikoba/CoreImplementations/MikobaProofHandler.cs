@@ -57,10 +57,10 @@ namespace mikoba.CoreImplementations
                     messageContext.ContextRecord = holderProofRequestId;
                     
                     var transport = new ProofRequestTransport();
-                    transport.presentationMessage = message;
-                    transport.messageContext = messageContext;
-                    transport.holderProofRecord = holderProofRecord;
-                    transport.holderProofRequest = JsonConvert.DeserializeObject<ProofRequest>(holderProofRecord.RequestJson);
+                    transport.Message = message;
+                    transport.MessageContext = messageContext;
+                    transport.HolderProofRecord = holderProofRecord;
+                    transport.ProofRequest = JsonConvert.DeserializeObject<ProofRequest>(holderProofRecord.RequestJson);
                     
                     await navigation.NavigateToAsync<ProofRequestViewModel>(transport,NavigationType.Modal);
                     break;

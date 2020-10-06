@@ -135,14 +135,24 @@ namespace mikoba.CoreImplementations
                 case MessageTypesHttps.IssueCredentialNames.IssueCredential:
                 case MessageTypes.IssueCredentialNames.IssueCredential:
                 {
-                    var credential = messageContext.GetMessage<CredentialIssueMessage>();
-                    var recordId = await _credentialService.ProcessCredentialAsync(
-                        agentContext, credential, messageContext.Connection);
+                    try
+                    {
+                        var navigation = App.Container.Resolve<INavigationService>();
+                        var _credentialService = App.Container.Resolve<ICredentialService>();
 
-                    messageContext.ContextRecord = await UpdateValuesAsync(
-                        credentialId: recordId,
-                        credentialIssue: messageContext.GetMessage<CredentialIssueMessage>(),
-                        agentContext: agentContext);
+                        var credential = messageContext.GetMessage<CredentialIssueMessage>();
+                        var recordId = await _credentialService.ProcessCredentialAsync(
+                            agentContext, credential, messageContext.Connection);
+
+                        messageContext.ContextRecord = await UpdateValuesAsync(
+                            credentialId: recordId,
+                            credentialIssue: messageContext.GetMessage<CredentialIssueMessage>(),
+                            agentContext: agentContext);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
 
                     return null;
                 }

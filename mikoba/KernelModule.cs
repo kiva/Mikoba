@@ -22,6 +22,11 @@ namespace mikoba
             builder
                 .RegisterType<MikobaCredentialHandler>()
                 .AsImplementedInterfaces()
+                .SingleInstance();            
+            
+            builder
+                .RegisterType<PoolConfigurator>()
+                .AsImplementedInterfaces()
                 .SingleInstance();
 
             builder

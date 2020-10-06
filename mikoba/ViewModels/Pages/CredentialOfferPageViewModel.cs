@@ -66,12 +66,12 @@ namespace mikoba.ViewModels.Pages
             try
             {
                 var (request, _) = await _credentialService.CreateRequestAsync(context, _transport.Record.Id);
-                var messageContext = await _messageService.SendReceiveAsync(context.Wallet, request, _transport.MessageContext.Connection);
-                if (messageContext.ContextRecord is CredentialRecord newCredentialRecord)
-                {
-                    _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
-                    ShowReceipt = true;
-                } 
+                await _messageService.SendAsync(context.Wallet, request, _transport.MessageContext.Connection);
+                // if (messageContext.ContextRecord is CredentialRecord newCredentialRecord)
+                // {
+                //     _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
+                //     ShowReceipt = true;
+                // } 
             }
             catch (Exception ex)
             {

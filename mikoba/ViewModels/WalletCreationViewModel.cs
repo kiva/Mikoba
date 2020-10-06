@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Autofac;
 using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Agents.Edge;
 using Hyperledger.Indy.AnonCredsApi;
@@ -14,18 +15,15 @@ namespace mikoba.ViewModels
 
         public WalletCreationViewModel(
             INavigationService navigationService,
-            IAgentContext agentContextProvider,
             IEdgeProvisioningService edgeProvisioningService
         )
         : base("Wallet Creation", navigationService)
         {
             _edgeProvisioningService = edgeProvisioningService;
-            _agentContextProvider = agentContextProvider;
         }
 
         private IEdgeProvisioningService _edgeProvisioningService;
-        private IAgentContext _agentContextProvider;
-        
+
         #region UI Properties
         
         private string _progressInfo;
@@ -48,8 +46,11 @@ namespace mikoba.ViewModels
         
         public override async Task InitializeAsync(object navigationData)
         {
+            var _poolConfigurator = App.Container.Resolve<IPoolConfigurator>();
+
+            await _poolConfigurator.ConfigurePoolsAsync();
             await _edgeProvisioningService.ProvisionAsync();
-            await AnonCreds.ProverCreateMasterSecretAsync(_agentContextProvider.Wallet, AppConstant.DefaultMasterSecret);
+            
             await Task.Delay(100);
             ProgressInfo = "Checking Permissions";
             Progress = 0.30;

@@ -16661,19 +16661,15 @@ namespace mikoba.Droid
 		
 		public partial class Mipmap
 		{
-			
 			// aapt resource value: 0x7F0D0000
 			public const int icon = 2131558400;
 			
-<<<<<<< HEAD
-=======
 			// aapt resource value: 0x7F0D0001
 			public const int icon_round = 2131558401;
 			
 			// aapt resource value: 0x7F0D0002
 			public const int launcher_foreground = 2131558402;
 			
->>>>>>> master
 			static Mipmap()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

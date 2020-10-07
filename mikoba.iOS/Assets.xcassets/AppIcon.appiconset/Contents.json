@@ -15,6 +15,17 @@
       "idiom": "ipad",
       "size": "40x40",
       "scale": "2x"
+    },{
+      "filename": "mikoba-01.png",
+      "size": "60x60",
+      "scale": "2x",
+      "idiom": "iphone"
+    },
+    {
+      "filename": "Icon180.png",
+      "size": "60x60",
+      "scale": "3x",
+      "idiom": "iphone"
     },
     {
       "idiom": "iphone",

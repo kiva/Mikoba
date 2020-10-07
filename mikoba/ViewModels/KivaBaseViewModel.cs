@@ -106,6 +106,8 @@ namespace mikoba.ViewModels
         public string BellIcon { get; } = "mikoba.Images.bell.svg";
 
         public string Anonymous { get; } = "mikoba.Images.anonymousprofilepic.svg";
+
+        public string FingerprintIcon { get; } = "mikoba.Images.fingerprint_icon.svg";
         
         #endregion
 

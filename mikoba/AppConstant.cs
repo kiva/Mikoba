@@ -10,6 +10,8 @@ namespace mikoba
         internal const string LocalWalletFirstView = "aries.settings.walletfirstview";
         internal const string EnableFirstActionsView = "mikoba.EnableFirstActionsView";
         internal const string FullName = "mikoba.fullName";
+        internal const string PIN = "mikoba.PIN";
+        internal const string AllowFingerprint = "mikoba.AllowFingerprint";
         
         internal const string EndpointUri = "https://ec2.protocol-dev.kiva.org/";
         public static string DefaultMasterSecret = "TheMikobaMasterSecret";

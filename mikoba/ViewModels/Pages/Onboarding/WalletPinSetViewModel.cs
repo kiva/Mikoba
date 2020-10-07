@@ -4,15 +4,20 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using mikoba.Annotations;
 using mikoba.Services;
+using mikoba.UI.Pages;
+using mikoba.UI.Pages.Onboarding;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace mikoba.ViewModels
+namespace mikoba.ViewModels.Pages.Onboarding
 {
     public class WalletPinSetViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
         public WalletPinSetViewModel(INavigationService navigationService)
          : base("Pin Set", navigationService)
         {
+            InstructionBlurb = $"{GetFirstName()}, create a passcode to keep your Wallet secure.";
+            
             GoBack = new Command(async () =>
             {
                 await NavigationService.NavigateBackAsync();
@@ -27,6 +32,19 @@ namespace mikoba.ViewModels
                 }
             });
         }
+        
+        private string GetFirstName()
+        {
+            string name = Preferences.Get(AppConstant.FullName, "Outis");
+            string firstName = name.Split(' ')[0];
+            
+            if (!string.IsNullOrEmpty(firstName))
+            {
+                name = firstName;
+            }
+
+            return name;
+        }
 
         #region UI Properties
         private string first = string.Empty;
@@ -35,7 +53,7 @@ namespace mikoba.ViewModels
         private string fourth = string.Empty;
 
         public string InstructionBlurb { get; set; }
-        
+
         public string First
         {
             get
@@ -102,7 +120,6 @@ namespace mikoba.ViewModels
         
         #endregion
         
-
         #region Commands
         public ICommand GoBack { get; set; }
         
@@ -110,20 +127,6 @@ namespace mikoba.ViewModels
         
         #endregion
 
-        #region Lifecyle
-        
-        public override Task InitializeAsync(object navigationData)
-        {
-            if (navigationData is string name)
-            {
-                InstructionBlurb = $"{name}, create a PIN to keep your Wallet secure";    
-            }
-            return base.InitializeAsync(navigationData);
-        }
-        
-        #endregion
-        
-        
         public event PropertyChangedEventHandler PropertyChanged;
         
         [NotifyPropertyChangedInvocator]

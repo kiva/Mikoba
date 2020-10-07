@@ -6,13 +6,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
              mc:Ignorable="d" xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
              ios:Page.UseSafeArea="true"
-             x:Class="mikoba.UI.Pages.Onboarding.WalletPinConfirmationPage"
+             x:Class="mikoba.UI.Pages.Login.PINLoginPage"
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="#F9F9F9">
+    
     <ContentPage.Resources>
         <StyleSheet Source="../../../Styles/Global.css"></StyleSheet>
     </ContentPage.Resources>
+    
     <Grid HorizontalOptions="Fill"
           VerticalOptions="Fill">
         <Grid.RowDefinitions>
@@ -20,21 +23,6 @@
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Row="0"
-              IsVisible="{Binding  NoError}"
-              HorizontalOptions="Fill"
-              VerticalOptions="Fill">
-            <components:BackButton
-                Command="{Binding GoBack}"/>
-            <Label
-                Text="Step 3 of 6"
-                FontFamily="KivaPostGrot-Medium"
-                HorizontalOptions="Center"
-                VerticalOptions="Start"
-                FontSize="15"
-                Margin="0, 24, 0, 0"
-                TextColor="#004FD4" />
-        </Grid>
         <Grid Row="0"
               IsVisible="{Binding NoMatch}"
               HorizontalOptions="Fill"
@@ -51,14 +39,24 @@
                 HorizontalTextAlignment="Center"
                 Margin="0"
                 Padding="18, 24, 17, 19"
-                Text="Your passcode didn't work. Please try again." />
+                Text="Passcode incorrect, please try again" />
         </Grid>
         <Grid
             HorizontalOptions="Center"
             Row="2">
             <StackLayout>
                 <Label
-                    Text="Confirm your passcode."
+                    Text="Welcome back!"
+                    FontFamily="KivaPostGrot-Medium"
+                    FontSize="21"
+                    TextColor="#004FD4"
+                    Margin="40, 0, 40, 10"
+                    VerticalOptions="Start"
+                    WidthRequest="280"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="Center" />
+                <Label
+                    Text="Enter your passcode"
                     FontFamily="KivaPostGrot-Medium"
                     FontSize="21"
                     TextColor="#004FD4"
@@ -68,7 +66,8 @@
                     HorizontalTextAlignment="Center"
                     HorizontalOptions="Center" />
                 <components:PINInput
-                    FinishCommand="{Binding ConfirmPin}" />
+                    FocusDelay="1000"
+                    FinishCommand="{Binding Login}" />
             </StackLayout>
         </Grid>
     </Grid>

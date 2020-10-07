@@ -5,7 +5,7 @@ using mikoba.Annotations;
 using mikoba.Services;
 using Xamarin.Forms;
 
-namespace mikoba.ViewModels
+namespace mikoba.ViewModels.Pages.Onboarding
 {
     public class AllowPushNotificationViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {

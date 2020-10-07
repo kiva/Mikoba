@@ -8,7 +8,7 @@ using mikoba.ViewModels.Pages;
 using ReactiveUI;
 using Xamarin.Essentials;
 
-namespace mikoba.ViewModels
+namespace mikoba.ViewModels.Pages.Onboarding
 {
     public sealed class WalletCreationViewModel : KivaBaseViewModel
     {

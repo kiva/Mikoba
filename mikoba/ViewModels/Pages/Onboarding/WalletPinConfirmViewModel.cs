@@ -4,9 +4,10 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using mikoba.Annotations;
 using mikoba.Services;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace mikoba.ViewModels
+namespace mikoba.ViewModels.Pages.Onboarding
 {
     public class WalletPinConfirmViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
@@ -27,8 +28,8 @@ namespace mikoba.ViewModels
                     if (PIN.Equals(toConfirm))
                     {
                         NoMatch = false;
-                        Application.Current.Properties["WalletPIN"] = toConfirm;
-                        await NavigationService.NavigateToAsync<AllowCameraConfirmationViewModel>();
+                        Preferences.Set(AppConstant.PIN, toConfirm);
+                        await NavigationService.NavigateToAsync<AllowFingerprintViewModel>();
                     }
                     else
                     {
@@ -49,6 +50,8 @@ namespace mikoba.ViewModels
         private bool nomatch;
         
         public string PIN { get; set; }
+
+        public int FocusDelay => 300;
 
         public string First
         {

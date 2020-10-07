@@ -3,34 +3,33 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using mikoba.Annotations;
 using mikoba.Services;
+using mikoba.ViewModels.Pages.Login;
+using Plugin.Fingerprint;
+using Plugin.Fingerprint.Abstractions;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace mikoba.ViewModels
+namespace mikoba.ViewModels.Pages.Onboarding
 {
-    public class AllowCameraConfirmationViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class AllowFingerprintViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
         public ICommand GoBack { get; set; }
-
-        public ICommand CheckCameraPermissions { get; set; }
         
         public ICommand SkipStep { get; set; }
         
-        public AllowCameraConfirmationViewModel(INavigationService navigationService)
-            : base("Allow Camera", navigationService)
+        public ICommand AllowFingerprints { get; set; }
+        
+        public AllowFingerprintViewModel(INavigationService navigationService) : base("Fingerprint Permission", navigationService)
         {
             GoBack = new Command(async () =>
             {
                 await NavigationService.NavigateBackAsync();
             });
             
-            CheckCameraPermissions = new Command(async () =>
+            AllowFingerprints = new Command(async () =>
             {
-                var status = await Permissions.RequestAsync<Permissions.Camera>();
-                if (status == PermissionStatus.Granted)
-                {
-                    AdvancePage();
-                }
+                Preferences.Set(AppConstant.AllowFingerprint, true);
+                AdvancePage();
             });
             
             SkipStep = new Command(async () =>
@@ -38,10 +37,10 @@ namespace mikoba.ViewModels
                 AdvancePage();
             });
         }
-
+        
         public async void AdvancePage()
         {
-            await NavigationService.NavigateToAsync<AllowPushNotificationViewModel>();
+            await NavigationService.NavigateToAsync<AllowCameraConfirmationViewModel>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -7,7 +7,7 @@ using mikoba.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace mikoba.ViewModels
+namespace mikoba.ViewModels.Pages.Onboarding
 {
     public class WalletOwnerInputViewModel : KivaBaseViewModel, INotifyPropertyChanged
     {
@@ -24,8 +24,7 @@ namespace mikoba.ViewModels
                 if (!Owner.Equals(string.Empty))
                 {
                     Preferences.Set(AppConstant.FullName, Owner);
-                    
-                    await NavigationService.NavigateToAsync<WalletPinSetViewModel>(GetFirstName());
+                    await NavigationService.NavigateToAsync<WalletPinSetViewModel>();
                 }
                 else
                 {
@@ -58,18 +57,6 @@ namespace mikoba.ViewModels
         public ICommand SetOwner { get; set; }
         
         #endregion
-
-        private string GetFirstName()
-        {
-            string firstName = Owner.Split(' ')[0];
-            
-            if (!string.IsNullOrEmpty(firstName))
-            {
-                return firstName;
-            }
-            
-            return "Outis";
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         

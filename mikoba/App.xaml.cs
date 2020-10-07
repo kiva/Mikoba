@@ -1,3 +1,4 @@
+using System;
 using Autofac;
 using Hyperledger.Aries.Agents;
 using Microsoft.Extensions.Hosting;
@@ -7,11 +8,19 @@ using mikoba.Services;
 using mikoba.UI.Pages;
 using mikoba.UI.Pages.Connections;
 using mikoba.UI.Pages.Credentials;
+using mikoba.UI.Pages.Login;
 using mikoba.UI.Pages.Onboarding;
 using mikoba.UI.Pages.Wallet;
 using mikoba.ViewModels;
 using mikoba.ViewModels.Pages;
+<<<<<<< HEAD
 using mikoba.ViewModels.SSI;
+=======
+using mikoba.ViewModels.Pages.Login;
+using mikoba.ViewModels.Pages.Onboarding;
+using Plugin.Fingerprint;
+using Plugin.Fingerprint.Abstractions;
+>>>>>>> master
 
 namespace mikoba
 {
@@ -57,11 +66,23 @@ namespace mikoba
             //Permissions
             _navigationService.AddPageViewModelBinding<AllowCameraConfirmationViewModel, AllowCameraConfirmationPage>();
             _navigationService.AddPageViewModelBinding<AllowPushNotificationViewModel, AllowPushNotificationPage>();
+            _navigationService.AddPageViewModelBinding<AllowFingerprintViewModel, AllowFingerprintPage>();
+            //Login
+            _navigationService.AddPageViewModelBinding<FingerprintLoginViewModel, FingerprintLoginPage>();
+            _navigationService.AddPageViewModelBinding<PINLoginViewModel, PINLoginPage>();
             
-
             if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
             {
-                await _navigationService.NavigateToAsync<WalletPageViewModel>();
+                var fpAuthStatus = await CrossFingerprint.Current.GetAvailabilityAsync();
+                if (fpAuthStatus == FingerprintAvailability.Available &&
+                    Preferences.Get(AppConstant.AllowFingerprint, false))
+                {
+                    await _navigationService.NavigateToAsync<FingerprintLoginViewModel>();
+                }
+                else
+                {
+                    await _navigationService.NavigateToAsync<PINLoginViewModel>();
+                }
             }
             else
             {

@@ -1,11 +1,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-<<<<<<< HEAD
-=======
 using mikoba.Annotations;
 using mikoba.Services;
->>>>>>> master
 using mikoba.UI.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

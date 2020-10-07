@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-=======
-using System;
-using mikoba.ViewModels;
-using mikoba.ViewModels.Pages.Onboarding;
->>>>>>> master
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

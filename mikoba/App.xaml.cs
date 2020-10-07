@@ -13,14 +13,11 @@ using mikoba.UI.Pages.Onboarding;
 using mikoba.UI.Pages.Wallet;
 using mikoba.ViewModels;
 using mikoba.ViewModels.Pages;
-<<<<<<< HEAD
 using mikoba.ViewModels.SSI;
-=======
 using mikoba.ViewModels.Pages.Login;
 using mikoba.ViewModels.Pages.Onboarding;
 using Plugin.Fingerprint;
 using Plugin.Fingerprint.Abstractions;
->>>>>>> master
 
 namespace mikoba
 {

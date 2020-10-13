@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using mikoba.Annotations;
-using mikoba.UI;
-using mikoba.UI.Pages;
 using mikoba.UI.Pages.Connections;
 using mikoba.UI.Pages.Wallet;
-using Sentry;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels

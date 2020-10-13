@@ -2,9 +2,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 using System.Runtime.CompilerServices;
-using Hyperledger.Indy.AnonCredsApi;
 using mikoba.Annotations;
-using mikoba.UI.Pages;
 
 namespace mikoba.ViewModels
 {

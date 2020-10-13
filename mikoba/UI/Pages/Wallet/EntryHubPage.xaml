@@ -40,14 +40,25 @@
             <StackLayout StyleClass="content"
                          Orientation="Vertical"
                          HorizontalOptions="FillAndExpand">
-                <components:EntryCard BindingContext="{Binding Entry}" />
+                
+                <Grid IsVisible="{Binding HasCredential}">
+                <components:BlueCard 
+                    BindingContext="{Binding Entry}" />
+                </Grid>
+                
+                <Grid IsVisible="{Binding HasConnection}">
+                <components:EntryCard 
+                    IsVisible="{Binding HasConnection}"
+                    BindingContext="{Binding Entry}" />
+                </Grid>
+                
                 <Frame
                     IsVisible="{Binding HasCredential}"
                     BorderColor="#DFDFDF"
                     HasShadow="False"
                     StyleClass="displayFrame">
                     <StackLayout>
-                        <Label FontFamily="KivaPostGrot-Bold">Picture</Label>
+                        <Label FontFamily="KivaPostGrot-Bold">Photo</Label>
                         <Image Source="{Binding PhotoAttach}"
                                BackgroundColor="Transparent"
                                HorizontalOptions="Center"
@@ -67,7 +78,7 @@
                                         HasShadow="False"
                                         StyleClass="displayFrame">
                                         <StackLayout>
-                                            <Label FontFamily="KivaPostGrot-Bold" Text="{Binding Name}" />
+                                            <Label FontFamily="KivaPostGrot-Bold" Text="{Binding DisplayName}" />
                                             <Label FontFamily="KivaPostGrot-Light" Text="{Binding Value}" />
                                         </StackLayout>
                                     </Frame>
@@ -77,6 +88,14 @@
                     </StackLayout>
                 </ScrollView>
                 <components:ActionButton
+                    IsVisible="{Binding HasCredential}"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    ActionButtonText="Remove Credential"
+                    Command="{Binding RemoveCredentialCommand}" />
+                <components:ActionButton
+                    IsVisible="{Binding HasConnection}"
                     Grid.Column="0"
                     HorizontalOptions="Center"
                     VerticalOptions="End"

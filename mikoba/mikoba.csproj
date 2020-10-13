@@ -11,12 +11,14 @@
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.8" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Plugin.Fingerprint" Version="2.1.1" />
     <PackageReference Include="ReactiveUI" Version="11.5.35" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.5" />
-    <PackageReference Include="Sentry" Version="2.1.5" />
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.1" />
+    <PackageReference Include="Sentry" Version="2.1.6" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />
     <PackageReference Include="West.Extensions.Hosting.XamarinForms" Version="2.2.1" />
     <PackageReference Include="West.Extensions.Xamarin.Abstractions" Version="1.0.5" />
     <PackageReference Include="West.Extensions.XamarinHosting" Version="3.0.0-preview1" />
@@ -26,8 +28,8 @@
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
-    <PackageReference Include="Hyperledger.Aries" Version="1.2.15" />
-    <PackageReference Include="Hyperledger.Aries.Routing.Edge" Version="1.2.15" />
+    <PackageReference Include="Hyperledger.Aries" Version="1.3.4" />
+    <PackageReference Include="Hyperledger.Aries.Routing.Edge" Version="1.3.4" />
     <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
     <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
   </ItemGroup>
@@ -265,7 +267,7 @@
       <DependentUpon>AuthorityCard.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\Pages\Credentials\CredentialRequestPage.xaml.cs">
+    <Compile Update="UI\Pages\Credentials\ProofRequestPage.xaml.cs">
       <DependentUpon>CredentialRequestPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -277,8 +279,9 @@
       <DependentUpon>EntryHubPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Pages\Credentials" />
+    <Compile Update="UI\Components\BlueCard.xaml.cs">
+      <DependentUpon>BlueCard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

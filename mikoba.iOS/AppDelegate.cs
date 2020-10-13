@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using Autofac;
-using FFImageLoading.Forms.Platform;
+﻿using FFImageLoading.Forms.Platform;
 using Foundation;
 using Microsoft.Extensions.DependencyInjection;
 using SVG.Forms.Plugin.iOS;

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Autofac;
@@ -15,11 +13,14 @@ using Hyperledger.Aries.Features.DidExchange;
 using Hyperledger.Aries.Features.IssueCredential;
 using Hyperledger.Aries.Features.PresentProof;
 using Hyperledger.Aries.Routing;
+using Hyperledger.Aries.Storage;
+using mikoba.CoreImplementations;
 using mikoba.Extensions;
 using mikoba.Services;
 using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using CredentialPreviewAttribute = mikoba.ViewModels.Components.CredentialPreviewAttribute;
 
@@ -27,30 +28,31 @@ namespace mikoba.ViewModels.Pages
 {
     public class EntryHubPageViewModel : KivaBaseViewModel
     {
-        public EntryHubPageViewModel(INavigationService navigationService,
+        public EntryHubPageViewModel(
+            INavigationService navigationService,
             IConnectionService connectionService,
-            IMessageService messageService,
+            ICredentialService credentialService,
+            IEdgeClientService edgeClientService,
             IAgentProvider contextProvider,
-            IActionDispatcher actionDispatcher,
-            IEventAggregator eventAggregator)
+            IEventAggregator eventAggregator
+        )
             : base("Hub Page", navigationService)
         {
             _connectionService = connectionService;
             _contextProvider = contextProvider;
-            _messageService = messageService;
             _contextProvider = contextProvider;
+            _credentialService = credentialService;
             _eventAggregator = eventAggregator;
-            _actionDispatcher = actionDispatcher;
+            _edgeClientService = edgeClientService;
         }
 
         #region Services
-
-        private MediatorTimerService _mediatorTimer;
+        
         private readonly IConnectionService _connectionService;
-        private readonly IMessageService _messageService;
+        private readonly ICredentialService _credentialService;
         private readonly IAgentProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
-        private readonly IActionDispatcher _actionDispatcher;
+        private readonly IEdgeClientService _edgeClientService;
 
         #endregion
 
@@ -69,6 +71,14 @@ namespace mikoba.ViewModels.Pages
             {
                 await NavigationService.NavigateBackAsync();
             }
+        });
+
+        public ICommand RemoveCredentialCommand => new Command(async () =>
+        {
+            var context = await _contextProvider.GetContextAsync();
+            await _credentialService.DeleteCredentialAsync(context, _credential._credential.Id);
+            _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
+            await NavigationService.NavigateBackAsync();
         });
 
         public ICommand GoBackCommand => new Command(async () => { await NavigationService.NavigateBackAsync(); });
@@ -101,13 +111,23 @@ namespace mikoba.ViewModels.Pages
             set => this.RaiseAndSetIfChanged(ref _photoAttach, value);
         }
 
-        private RangeEnabledObservableCollection<CredentialPreviewAttribute> _attributes =
-            new RangeEnabledObservableCollection<CredentialPreviewAttribute>();
+        private RangeEnabledObservableCollection<SSICredentialAttribute> _attributes =
+            new RangeEnabledObservableCollection<SSICredentialAttribute>();
 
-        public RangeEnabledObservableCollection<CredentialPreviewAttribute> Attributes
+        public RangeEnabledObservableCollection<SSICredentialAttribute> Attributes
         {
             get => _attributes;
             set => this.RaiseAndSetIfChanged(ref _attributes, value);
+        }
+
+
+        private RangeEnabledObservableCollection<string> _logs =
+            new RangeEnabledObservableCollection<string>();
+
+        public RangeEnabledObservableCollection<string> Logs
+        {
+            get => _logs;
+            set => this.RaiseAndSetIfChanged(ref _logs, value);
         }
 
         private bool _hasCredential = false;
@@ -118,23 +138,49 @@ namespace mikoba.ViewModels.Pages
             set => this.RaiseAndSetIfChanged(ref _hasCredential, value);
         }
 
+        private bool _hasConnection = false;
+
+        public bool HasConnection
+        {
+            get => _hasConnection;
+            set => this.RaiseAndSetIfChanged(ref _hasConnection, value);
+        }
+
         #endregion
 
         #region Work
 
-        private async void CheckMediator()
-        {
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                var context = await App.Container.Resolve<IAgentProvider>().GetContextAsync();
-                var results = await App.Container.Resolve<IEdgeClientService>().FetchInboxAsync(context);
-                foreach (var item in results.unprocessedItems)
-                {
-                    var message = await MessageDecoder.ParseMessageAsync(item.Data);
-                    _actionDispatcher.DispatchMessage(message);
-                }
-            });
-        }
+        // private async void checkForWalletChanges()
+        // {
+        //     Device.BeginInvokeOnMainThread(
+        //         async () =>
+        //         {
+        //             _mediatorTimer.Pause();
+        //             var context = await _contextProvider.GetContextAsync();
+        //             var results = await _edgeClientService.FetchInboxAsync(context);
+        //             var credentialsRecords = await _credentialService.ListAsync(context);
+        //             SSICredentialViewModel lastCredential = null;
+        //             foreach (var credentialRecord in credentialsRecords)
+        //             {
+        //                 var credential = new SSICredentialViewModel(credentialRecord);
+        //                 if (!credential.IsAccepted)
+        //                 {
+        //                     lastCredential = credential;
+        //                     break;
+        //                 }
+        //             }
+        //             if (lastCredential != null)
+        //             {
+        //                 await NavigationService.NavigateToAsync<CredentialOfferPageViewModel>(lastCredential,
+        //                     NavigationType.Modal);
+        //                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
+        //             }
+        //             else
+        //             {
+        //                 _mediatorTimer.Start();
+        //             }
+        //         });
+        // }
 
         public override Task InitializeAsync(object navigationData)
         {
@@ -145,17 +191,21 @@ namespace mikoba.ViewModels.Pages
                 if (Credential != null)
                 {
                     HasCredential = true;
-                    var attributes = new List<CredentialPreviewAttribute>();
+                    HasConnection = false;
+                    var attributes = new List<SSICredentialAttribute>();
                     foreach (var attribute in Credential.Attributes)
                     {
-                        if (attribute.Name.Contains("~") && PhotoAttach == null)
+                        var allowedFiels = new String[]
+                            {"nationalId", "photo~attach", "dateOfBirth", "birthDate", "firstName", "lastName"};
+                        if (!allowedFiels.Contains(attribute.Name)) continue;
+                        if (attribute.Name.Contains("photo~") && PhotoAttach == null)
                         {
                             PhotoAttach = Xamarin.Forms.ImageSource.FromStream(
                                 () => new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));
                         }
                         else
                         {
-                            attributes.Add(new CredentialPreviewAttribute()
+                            attributes.Add(new SSICredentialAttribute()
                             {
                                 Name = attribute.Name,
                                 Value = attribute.Value.ToString(),
@@ -163,14 +213,13 @@ namespace mikoba.ViewModels.Pages
                         }
                     }
 
-                    Attributes = new RangeEnabledObservableCollection<CredentialPreviewAttribute>();
+                    Attributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
                     Attributes.AddRange(attributes);
                 }
                 else
                 {
                     HasCredential = false;
-                    _mediatorTimer = new MediatorTimerService(this.CheckMediator);
-                    _mediatorTimer.Start();
+                    HasConnection = true;
                 }
             }
 

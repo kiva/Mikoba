@@ -1,20 +1,12 @@
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Autofac;
+using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Agents.Edge;
-using Hyperledger.Aries.Configuration;
-using mikoba.Annotations;
+using Hyperledger.Indy.AnonCredsApi;
 using mikoba.Services;
-using mikoba.UI;
 using mikoba.ViewModels.Pages;
 using ReactiveUI;
-using Sentry;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages.Onboarding
 {
@@ -31,7 +23,7 @@ namespace mikoba.ViewModels.Pages.Onboarding
         }
 
         private IEdgeProvisioningService _edgeProvisioningService;
-        
+
         #region UI Properties
         
         private string _progressInfo;
@@ -54,7 +46,11 @@ namespace mikoba.ViewModels.Pages.Onboarding
         
         public override async Task InitializeAsync(object navigationData)
         {
+            var _poolConfigurator = App.Container.Resolve<IPoolConfigurator>();
+
+            await _poolConfigurator.ConfigurePoolsAsync();
             await _edgeProvisioningService.ProvisionAsync();
+            
             await Task.Delay(100);
             ProgressInfo = "Checking Permissions";
             Progress = 0.30;

@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using mikoba.ViewModels;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;

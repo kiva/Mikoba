@@ -1,12 +1,8 @@
-using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using mikoba.Annotations;
 using mikoba.Services;
-using mikoba.UI.Pages;
-using mikoba.UI.Pages.Onboarding;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages.Onboarding

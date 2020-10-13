@@ -1,23 +1,62 @@
-using System.Collections.Generic;
+using System;
 using Hyperledger.Aries.Features.IssueCredential;
 using mikoba.Extensions;
 using mikoba.Services;
 using ReactiveUI;
-using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 namespace mikoba.ViewModels.SSI
 {
     public class SSICredentialViewModel : KivaBaseViewModel
     {
+        public SSICredentialViewModel()
+        {
+            Attributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
+        }
+        public SSICredentialViewModel(CredentialRecord credential)
+        {
+            _credential = credential;
+            Attributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
+            foreach (var cred in _credential.CredentialAttributesValues)
+            {
+                Console.WriteLine("credential-name: " + cred.Name);
+                Attributes.Add(new SSICredentialAttribute()
+                {
+                    Name = cred.Name,
+                    Value = cred.Value,
+                });
+            }
+        }
+
+        public static string FormatCredentialName(string source)
+        {
+            switch (source)
+            {
+                case "nationalId": 
+                    return "National ID";
+                case "firstName": 
+                    return "First Name";
+                case "lastName": 
+                    return "Last Name";
+                case "dateOfBirth": 
+                    return "Birth Date";
+                case "birthDate": 
+                    return "BirthDate";
+                default: 
+                    return source;
+            }
+        }
+        
         public SSICredentialViewModel(
             INavigationService navigationService,
             CredentialRecord credential
         ) : base(
             nameof(SSICredentialViewModel),
             navigationService
-        )
-        {
+        ) {
             _credential = credential;
+            Console.WriteLine("credential-id:"  + credential.Id);
+            Preferences.Set("credential-id", credential.Id);
             Attributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
             foreach (var cred in _credential.CredentialAttributesValues)
             {
@@ -27,14 +66,18 @@ namespace mikoba.ViewModels.SSI
                     Value = cred.Value,
                 });
             }
-            
-#if DEBUG
-            _credentialName = "Credential Name";
-            _credentialSubtitle = "10/22/2017";
-            _credentialType = "Bank Statement";
-            _credentialName = "Civil Registry Office";
-#endif
-            
+        }
+        
+        public bool IsAccepted
+        {
+            get
+            {
+                return Preferences.Get(_credential.Id + "-Accepted", false);
+            }
+            set
+            {
+                Preferences.Set(_credential.Id + "-Accepted", value);
+            }
         }
         
         public readonly CredentialRecord _credential;

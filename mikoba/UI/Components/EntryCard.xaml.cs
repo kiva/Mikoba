@@ -1,5 +1,4 @@
 using Xamarin.Forms;
-using SVG.Forms.Plugin.Abstractions;
 
 namespace mikoba.UI.Components
 {

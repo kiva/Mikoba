@@ -16661,7 +16661,6 @@ namespace mikoba.Droid
 		
 		public partial class Mipmap
 		{
-			
 			// aapt resource value: 0x7F0D0000
 			public const int icon = 2131558400;
 			

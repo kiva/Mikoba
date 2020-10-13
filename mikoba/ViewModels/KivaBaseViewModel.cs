@@ -1,18 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using mikoba.Annotations;
 using mikoba.Services;
-using mikoba.UI;
-using mikoba.UI.Pages;
-using mikoba.UI.Pages.Settings;
 using ReactiveUI;
-using Sentry;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels
@@ -26,7 +17,7 @@ namespace mikoba.ViewModels
 
         protected KivaBaseViewModel()
         {
-            throw new NotImplementedException();
+            
         }
         
         #region Services

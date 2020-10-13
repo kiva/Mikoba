@@ -1,24 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Autofac;
 using Hyperledger.Aries.Agents;
-using Hyperledger.Aries.Agents.Edge;
-using Hyperledger.Aries.Configuration;
 using Hyperledger.Aries.Contracts;
 using Hyperledger.Aries.Features.DidExchange;
-using Hyperledger.Aries.Features.IssueCredential;
 using mikoba.Extensions;
 using mikoba.Services;
-using mikoba.UI.ViewModels;
 using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages
@@ -62,6 +53,8 @@ namespace mikoba.ViewModels.Pages
             try
             {
                 var (msg, record) = await _connectionService.CreateRequestAsync(context, _invite);
+                msg.Label = _invite.Label;
+                msg.ImageUrl = _invite.ImageUrl;
                 await _messageService.SendAsync(context.Wallet, msg, record);
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
                 var entry = _scope.Resolve<EntryViewModel>();
@@ -90,8 +83,7 @@ namespace mikoba.ViewModels.Pages
             set => this.RaiseAndSetIfChanged(ref _inviteTitle, value);
         }
 
-        private string _inviteContents =
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+        private string _inviteContents = "";
 
         public string InviteContents
         {
@@ -113,12 +105,6 @@ namespace mikoba.ViewModels.Pages
 
         public override Task InitializeAsync(object navigationData)
         {
-#if DEBUG
-            InviteTitle = $"This is a test!!!";
-            return base.InitializeAsync(navigationData);     
-#endif
-            
-            
             if (navigationData is ConnectionInvitationMessage invite)
             {
                 InviteTitle = $"Trust {invite.Label}?";
@@ -127,7 +113,6 @@ namespace mikoba.ViewModels.Pages
                     $"{invite.Label} wants to send you a secure request.";
                 _invite = invite;
             }
-
             return base.InitializeAsync(navigationData);
         }
 

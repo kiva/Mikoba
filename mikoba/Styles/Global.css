@@ -4,6 +4,12 @@
     box-shadow: none;
 }
 
+.CredentialFieldFrame {
+    border-radius: 12;
+    margin-bottom: 10;
+    box-shadow: none;
+}
+
 .displayFrameText {
     font-weight: bolder;
     font-size: 16;
@@ -21,9 +27,29 @@
     margin-top: 20;
 }
 
+.LabelStyle {
+    font-size: 18;
+    color: #004FD4;
+    font-weight: bolder;
+    margin-bottom: 20;
+    margin-top: 20;
+}
+
 .header2 {
     font-size: 18;
     color: #004FD4;
     margin-bottom: 20;
     margin-top: 20;
+}
+
+.SecondaryButton {
+    background-color: #fff;
+    text-color: #000;
+    border-radius: 8;
+}
+
+.PrimaryButton {
+    background-color: #004FD4;
+    text-color: #fff;
+    border-radius: 8;
 }

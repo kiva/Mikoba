@@ -4,7 +4,6 @@ using mikoba.Extensions;
 using mikoba.Services;
 using mikoba.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.Markup;
 
 namespace mikoba.UI.Pages.Wallet
 {

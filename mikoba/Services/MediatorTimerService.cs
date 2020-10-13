@@ -1,12 +1,5 @@
 using System;
-using System.Diagnostics;
-using System.Linq;
 using System.Timers;
-using Autofac;
-using Hyperledger.Aries.Agents;
-using Hyperledger.Aries.Routing;
-using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace mikoba.Services
 {
@@ -21,7 +14,7 @@ namespace mikoba.Services
             {
                 Enabled = false,
                 AutoReset = true,
-                Interval = TimeSpan.FromSeconds(5).TotalMilliseconds
+                Interval = TimeSpan.FromSeconds(2).TotalMilliseconds
             };
             this.Action = action;
             timer.Elapsed += Timer_Elapsed;
@@ -31,6 +24,7 @@ namespace mikoba.Services
         {
             if (this.Action != null)
             {
+                Console.WriteLine("Mediator Timer Tick!");
                 this.Action();
             }
         }

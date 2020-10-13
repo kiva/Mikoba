@@ -14,5 +14,6 @@ namespace mikoba
         internal const string AllowFingerprint = "mikoba.AllowFingerprint";
         
         internal const string EndpointUri = "https://ec2.protocol-dev.kiva.org/";
+        public static string DefaultMasterSecret = "TheMikobaMasterSecret";
     }
 }

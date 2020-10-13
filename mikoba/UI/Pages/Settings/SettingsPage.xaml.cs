@@ -1,4 +1,3 @@
-using mikoba.UI.ViewModels;
 using Xamarin.Forms;
 
 namespace mikoba.UI.Pages.Settings

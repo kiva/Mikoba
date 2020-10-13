@@ -1,4 +1,3 @@
-using mikoba.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

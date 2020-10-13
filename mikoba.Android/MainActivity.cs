@@ -1,10 +1,6 @@
-﻿using System;
-using Java.Lang;
+﻿using Java.Lang;
 using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 using Android;
 using System.Collections.Generic;
@@ -18,7 +14,7 @@ using SVG.Forms.Plugin.Droid;
 
 namespace mikoba.Droid
 {
-    [Activity(Label = "mikoba", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Kiva Protocol Wallet", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
 

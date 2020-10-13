@@ -5,6 +5,7 @@ using Autofac.Extensions.DependencyInjection;
 using Hyperledger.Aries.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using mikoba.Services;
 using Xamarin.Essentials;
 
 namespace mikoba
@@ -16,9 +17,10 @@ namespace mikoba
             return XamarinHost.CreateDefaultBuilder<App>()
                 .ConfigureServices((_, services) =>
                 {
-                    services.AddAriesFramework(builder => builder.RegisterEdgeAgent(
+                    services.AddAriesFramework(builder => builder.RegisterEdgeAgent<MikobaAgent> (
                         options: options =>
                         {
+                            options.PoolName = "kiva";
                             options.EndpointUri = AppConstant.EndpointUri;
                             options.WalletConfiguration.StorageConfiguration =
                                 new WalletConfiguration.WalletStorageConfiguration
@@ -36,7 +38,8 @@ namespace mikoba
                                 path3: "tails");
                         },
                         delayProvisioning: true));
-
+                    services.AddSingleton<IPoolConfigurator, PoolConfigurator>();
+                    
                     var containerBuilder = new ContainerBuilder();
                     containerBuilder.RegisterAssemblyModules(typeof(KernelModule).Assembly);
                     if (platformSpecific != null)

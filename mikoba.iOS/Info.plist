@@ -9,23 +9,20 @@
 	<key>CFBundleName</key>
 	<string>global.kiva.protocol</string>
 	<key>CFBundleVersion</key>
-	<string>1.5</string>
+	<string>1.8</string>
 	<key>MinimumOSVersion</key>
-	<string>10.00</string>
+	<string>14.1</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Please allow access to the camera to scan barcodes.</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
-		<integer>2</integer>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -36,9 +33,9 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Please allow access to the camera to scan barcodes.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Need your face to unlock!</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
 </dict>
 </plist>

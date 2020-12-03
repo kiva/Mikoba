@@ -41,8 +41,8 @@
     <MtouchLink>Full</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <CodesignProvision>Automatic:AppStore</CodesignProvision>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignProvision>iOS Team Store Provisioning Profile: global.kiva.protocol.wallet</CodesignProvision>
+    <CodesignKey>Apple Distribution: Kiva Microfunds (ESFSK7M5YP)</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -73,6 +73,12 @@
     <MtouchLink>SdkOnly</MtouchLink>
     <MtouchSdkVersion>13.7</MtouchSdkVersion>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Android|AnyCPU' ">
+    <OutputPath>bin\Release Android\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release | Android|AnyCPU' ">
+    <OutputPath>bin\Release | Android\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
@@ -88,6 +94,7 @@
     <ImageAsset Include="Assets.xcassets\Contents.json" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\ios-marketing.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\ios-marketing-1.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
@@ -165,5 +172,28 @@
     <BundleResource Include="Resources\camera_icon.svg" />
     <BundleResource Include="Resources\cornercircles_left.svg" />
     <BundleResource Include="Resources\fingerprint_icon.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon-40.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon-40@2x.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon-40@3x.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon-60@2x.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon-60@3x.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon-72.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon-72@2x.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon-76.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon-76@2x.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon-83.5@2x.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon-small-50.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon-small-50@2x.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon-small.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon-small@2x.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon-small@3x.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\icon@2x.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\notification-icon@2x.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\notification-icon@3x.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\notification-icon~ipad.png" />
+    <Content Include="Assets.xcassets\AppIcon.appiconset\notification-icon~ipad@2x.png" />
   </ItemGroup>
 </Project>

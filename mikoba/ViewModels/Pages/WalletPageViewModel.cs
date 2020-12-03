@@ -172,7 +172,6 @@ namespace mikoba.ViewModels.Pages
         public async Task RefreshData()
         {
             IsRefreshing = true;
-            await this.RefreshConnections();
             await this.RefreshCredentials();
             await this.RefreshEntries();
             HasContent = this.Entries.Any();

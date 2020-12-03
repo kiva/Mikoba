@@ -195,9 +195,6 @@ namespace mikoba.ViewModels.Pages
                     var attributes = new List<SSICredentialAttribute>();
                     foreach (var attribute in Credential.Attributes)
                     {
-                        var allowedFiels = new String[]
-                            {"nationalId", "photo~attach", "dateOfBirth", "birthDate", "firstName", "lastName"};
-                        if (!allowedFiels.Contains(attribute.Name)) continue;
                         if (attribute.Name.Contains("photo~") && PhotoAttach == null)
                         {
                             PhotoAttach = Xamarin.Forms.ImageSource.FromStream(

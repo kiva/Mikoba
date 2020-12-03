@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.0.6" package="global.kiva.protocol.mikoba" android:versionCode="6">
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29" />
+	<uses-sdk android:minSdkVersion="29" android:targetSdkVersion="29" />
 	<application android:label="Kiva Protocol Wallet" android:icon="@mipmap/icon" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.FLASHLIGHT" />

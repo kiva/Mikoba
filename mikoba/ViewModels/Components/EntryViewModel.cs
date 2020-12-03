@@ -21,7 +21,7 @@ namespace mikoba.ViewModels.Components
         {
             if (this.Credential != null)
             {
-                DisplayName = "Civil Registry Office";
+                DisplayName = "Kiva Credential";
                 Tag = "Issue Date: " + this.Credential._credential.CreatedAtUtc?.ToString("MM/dd/yy");
                 this.OrganizationType = "Government";
                 HasConnection = false;

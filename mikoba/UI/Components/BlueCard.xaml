@@ -34,7 +34,7 @@
                 CornerRadius="10"
                 HasShadow="False"
                 OutlineColor="#F0F0F0"
-                BackgroundColor="#006ED3" />
+                BackgroundColor="#64A547" />
             <forms:CachedImage
                 Grid.Column="2"
                 Grid.Row="0"
@@ -43,7 +43,7 @@
                 VerticalOptions="CenterAndExpand"
                 FadeAnimationEnabled="true"
                 DownsampleUseDipUnits="true"
-                Source="https://imgur.com/XHPk04j.png"
+                Source="https://i.imgur.com/20Ufyvu.png"
                 Aspect="AspectFit" />
             <Label
                 Grid.Row="1"

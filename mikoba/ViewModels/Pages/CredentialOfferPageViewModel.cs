@@ -67,10 +67,7 @@ namespace mikoba.ViewModels.Pages
             {
                 var (request, _) = await _credentialService.CreateRequestAsync(context, _transport.Record.Id);
                 await _messageService.SendAsync(context.Wallet, request, _transport.MessageContext.Connection);
-                //if (messageContext.ContextRecord is CredentialRecord newCredentialRecord)
-                //{
-                //     _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
-                //}
+                _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
                 ShowReceipt = true;
             }
             catch (Exception ex)
@@ -123,7 +120,6 @@ namespace mikoba.ViewModels.Pages
                 var previewAttributes = new List<SSICredentialAttribute>();
                 foreach (var attribute in _transport.Message.CredentialPreview.Attributes)
                 {
-                    if (!AllowedFields.Contains(attribute.Name)) continue;
                     if (attribute.Name.Contains("~") && PhotoAttach == null)
                     {
                         PhotoAttach = ImageSource.FromStream(() =>
@@ -138,6 +134,7 @@ namespace mikoba.ViewModels.Pages
                         });
                     }
                 }
+
                 PreviewAttributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
                 PreviewAttributes.AddRange(previewAttributes);
             }

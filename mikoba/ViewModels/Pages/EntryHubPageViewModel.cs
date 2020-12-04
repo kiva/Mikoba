@@ -150,38 +150,6 @@ namespace mikoba.ViewModels.Pages
 
         #region Work
 
-        // private async void checkForWalletChanges()
-        // {
-        //     Device.BeginInvokeOnMainThread(
-        //         async () =>
-        //         {
-        //             _mediatorTimer.Pause();
-        //             var context = await _contextProvider.GetContextAsync();
-        //             var results = await _edgeClientService.FetchInboxAsync(context);
-        //             var credentialsRecords = await _credentialService.ListAsync(context);
-        //             SSICredentialViewModel lastCredential = null;
-        //             foreach (var credentialRecord in credentialsRecords)
-        //             {
-        //                 var credential = new SSICredentialViewModel(credentialRecord);
-        //                 if (!credential.IsAccepted)
-        //                 {
-        //                     lastCredential = credential;
-        //                     break;
-        //                 }
-        //             }
-        //             if (lastCredential != null)
-        //             {
-        //                 await NavigationService.NavigateToAsync<CredentialOfferPageViewModel>(lastCredential,
-        //                     NavigationType.Modal);
-        //                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
-        //             }
-        //             else
-        //             {
-        //                 _mediatorTimer.Start();
-        //             }
-        //         });
-        // }
-
         public override Task InitializeAsync(object navigationData)
         {
             if (navigationData is EntryViewModel entry)

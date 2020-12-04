@@ -220,14 +220,6 @@ namespace mikoba.ViewModels.Pages
         public async Task RefreshEntries()
         {
             var entries = new List<EntryViewModel>();
-            foreach (var connection in Connections)
-            {
-                var entry = _scope.Resolve<EntryViewModel>();
-                entry.Connection = connection;
-                entry.Setup();
-                entries.Add(entry);
-            }
-
             foreach (var credential in Credentials)
             {
                 var entry = _scope.Resolve<EntryViewModel>();

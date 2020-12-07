@@ -40,7 +40,10 @@ namespace mikoba.ViewModels.Components
 
         public Command OpenCommand
         {
-            get => new Command(async () => { await NavigationService.NavigateToAsync<EntryHubPageViewModel>(this); });
+            get => new Command(async () =>
+            {
+                await NavigationService.NavigateToAsync<EntryHubPageViewModel>(this);
+            });
         }
 
         #endregion

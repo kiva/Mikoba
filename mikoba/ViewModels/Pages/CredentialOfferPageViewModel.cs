@@ -15,6 +15,8 @@ using mikoba.Extensions;
 using mikoba.Services;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
+using Sentry;
+using Sentry.Protocol;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -58,25 +60,46 @@ namespace mikoba.ViewModels.Pages
 
         #region Commands
 
-        public ICommand CloseReceiptCommand => new Command(async () => { await NavigationService.PopModalAsync(); });
+        public ICommand CloseReceiptCommand => new Command(async () =>
+        {
+            SentrySdk.CaptureEvent(new SentryEvent()
+            {
+                Message = "Close Receipt Screen",
+                Level = SentryLevel.Info
+            });
+            _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
+            await NavigationService.PopModalAsync();
+        });
 
         public ICommand AcceptCommand => new Command(async () =>
         {
             var context = await _contextProvider.GetContextAsync();
             try
             {
+                SentrySdk.CaptureEvent(new SentryEvent()
+                {
+                    Message = "Accept Credential",
+                    Level = SentryLevel.Info
+                });
                 var (request, _) = await _credentialService.CreateRequestAsync(context, _transport.Record.Id);
                 await _messageService.SendAsync(context.Wallet, request, _transport.MessageContext.Connection);
-                _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
                 ShowReceipt = true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                SentrySdk.CaptureException(ex);
             }
         });
 
-        public ICommand DeclineCommand => new Command(async () => { await NavigationService.PopModalAsync(); });
+        public ICommand DeclineCommand => new Command(async () =>
+        {
+            SentrySdk.CaptureEvent(new SentryEvent()
+            {
+                Message = "Decline Credential",
+                Level = SentryLevel.Info
+            });
+            await NavigationService.PopModalAsync();
+        });
 
         #endregion
 

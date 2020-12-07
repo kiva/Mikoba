@@ -290,5 +290,9 @@
       <DependentUpon>BlueCard.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\Components\RedCard.xaml.cs">
+      <DependentUpon>RedCard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

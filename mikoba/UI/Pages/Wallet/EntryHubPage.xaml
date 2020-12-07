@@ -42,7 +42,7 @@
                          HorizontalOptions="FillAndExpand">
                 
                 <Grid IsVisible="{Binding HasCredential}">
-                <components:BlueCard 
+                <components:RedCard 
                     BindingContext="{Binding Entry}" />
                 </Grid>
                 

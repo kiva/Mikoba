@@ -44,8 +44,7 @@ namespace mikoba.ViewModels.Pages
             _scope = scope;
             _mediatorTimer = new MediatorTimerService(this.CheckMediator);
         }
-        
-        
+
         private async void CheckMediator()
         {
             Device.BeginInvokeOnMainThread(async () =>
@@ -141,9 +140,11 @@ namespace mikoba.ViewModels.Pages
             WelcomeText =
                 $"Hello {Preferences.Get(AppConstant.FullName, "Horacio")}, welcome to your new Wallet.  Get started by receiving your first ID.";
             IsRefreshing = false;
-            _eventAggregator?.GetEventByType<CoreDispatchedEvent>()
-                .Where(_ => _.Type == DispatchType.ConnectionsUpdated)
-                .Subscribe(async _ => await RefreshData());
+            _eventAggregator.GetEventByType<CoreDispatchedEvent>()
+                .Subscribe(async _ =>
+                {
+                    await RefreshData();
+                });
             _mediatorTimer.Start();
             await base.InitializeAsync(navigationData);
         }

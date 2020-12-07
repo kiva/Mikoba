@@ -1,6 +1,7 @@
 ﻿using FFImageLoading.Forms.Platform;
 using Foundation;
 using Microsoft.Extensions.DependencyInjection;
+using Sentry;
 using SVG.Forms.Plugin.iOS;
 using UIKit;
 
@@ -13,6 +14,7 @@ namespace mikoba.iOS
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
         private App _application;
+
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -27,17 +29,20 @@ namespace mikoba.iOS
 #endif
             global::Xamarin.Forms.Forms.Init();
             ZXing.Net.Mobile.Forms.iOS.Platform.Init();
-            
+
             //Image Plugin Support
             CachedImageRenderer.Init();
             SvgImageRenderer.Init();
-            
-            var host = HostBuilder
-                .BuildHost(typeof(KernelModule).Assembly)
-                .Build();
-            _application = host.Services.GetRequiredService<App>();
-            LoadApplication(new App());
-            
+
+            using (SentrySdk.Init("https://b345f91dcc414d339dead4d6e52e8615@o7540.ingest.sentry.io/5544833"))
+            {
+                var host = HostBuilder
+                    .BuildHost(typeof(KernelModule).Assembly)
+                    .Build();
+                _application = host.Services.GetRequiredService<App>();
+                LoadApplication(new App());
+            }
+
             return base.FinishedLaunching(app, options);
         }
     }

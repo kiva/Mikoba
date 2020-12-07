@@ -18,6 +18,7 @@ using mikoba.ViewModels.Pages.Login;
 using mikoba.ViewModels.Pages.Onboarding;
 using Plugin.Fingerprint;
 using Plugin.Fingerprint.Abstractions;
+using Sentry;
 
 namespace mikoba
 {
@@ -45,7 +46,7 @@ namespace mikoba
         protected override async void OnStart()
         {
             await Host.StartAsync();
-            
+
             //Wallet
             _navigationService.AddPageViewModelBinding<WalletPageViewModel, WalletPage>();
             _navigationService.AddPageViewModelBinding<AcceptConnectionInviteViewModel, AcceptConnectionInvitePage>();
@@ -53,13 +54,13 @@ namespace mikoba
             _navigationService.AddPageViewModelBinding<ProofRequestViewModel, ProofRequestPage>();
             _navigationService.AddPageViewModelBinding<EntryHubPageViewModel, EntryHubPage>();
             _navigationService.AddPageViewModelBinding<SplashPageViewModel, SplashPage>();
-           
+
             //Onboarding
             _navigationService.AddPageViewModelBinding<WalletOwnerInputViewModel, WalletOwnerInputPage>();
             _navigationService.AddPageViewModelBinding<WalletPinSetViewModel, WalletPinSetPage>();
             _navigationService.AddPageViewModelBinding<WalletPinConfirmViewModel, WalletPinConfirmationPage>();
             _navigationService.AddPageViewModelBinding<WalletCreationViewModel, WalletCreationPage>();
-            
+
             //Permissions
             _navigationService.AddPageViewModelBinding<AllowCameraConfirmationViewModel, AllowCameraConfirmationPage>();
             _navigationService.AddPageViewModelBinding<AllowPushNotificationViewModel, AllowPushNotificationPage>();
@@ -67,7 +68,7 @@ namespace mikoba
             //Login
             _navigationService.AddPageViewModelBinding<FingerprintLoginViewModel, FingerprintLoginPage>();
             _navigationService.AddPageViewModelBinding<PINLoginViewModel, PINLoginPage>();
-            
+
             if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
             {
                 var fpAuthStatus = await CrossFingerprint.Current.GetAvailabilityAsync();
@@ -83,19 +84,16 @@ namespace mikoba
             }
             else
             {
-                await _navigationService.NavigateToAsync<SplashPageViewModel>();    
+                await _navigationService.NavigateToAsync<SplashPageViewModel>();
             }
-            
         }
 
         protected override void OnSleep()
         {
-         
         }
 
         protected override void OnResume()
         {
-         
         }
     }
 }

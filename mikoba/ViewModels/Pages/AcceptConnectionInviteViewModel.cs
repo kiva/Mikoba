@@ -10,6 +10,8 @@ using mikoba.Services;
 using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
+using Sentry;
+using Sentry.Protocol;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages
@@ -52,6 +54,11 @@ namespace mikoba.ViewModels.Pages
             var context = await _contextProvider.GetContextAsync();
             try
             {
+                SentrySdk.CaptureEvent(new SentryEvent()
+                {
+                    Message = "Trust Connection",
+                    Level = SentryLevel.Info
+                });
                 var (msg, record) = await _connectionService.CreateRequestAsync(context, _invite);
                 msg.Label = _invite.Label;
                 msg.ImageUrl = _invite.ImageUrl;
@@ -61,10 +68,10 @@ namespace mikoba.ViewModels.Pages
                 entry.Connection = _scope.Resolve<SSIConnectionViewModel>(new NamedParameter("record", record));
                 entry.Setup();
                 await this.NavigationService.PopModalAsync();
-                await this.NavigationService.NavigateToAsync<EntryHubPageViewModel>(entry);
             }
             catch (Exception ex)
             {
+                SentrySdk.CaptureException(ex);
                 await this.NavigationService.PopModalAsync();
             }
         });

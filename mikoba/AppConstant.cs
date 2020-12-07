@@ -6,7 +6,7 @@ namespace mikoba
 
         public const string AndroidAnalyticsKey = "injected-via-ci";
 
-        internal const string LocalWalletProvisioned = "aries.settings.walletprovisioned";
+        internal const string LocalWalletProvisioned = "aries.settings.walletprovisioned-1";
         internal const string LocalWalletFirstView = "aries.settings.walletfirstview";
         internal const string EnableFirstActionsView = "mikoba.EnableFirstActionsView";
         internal const string FullName = "mikoba.fullName";

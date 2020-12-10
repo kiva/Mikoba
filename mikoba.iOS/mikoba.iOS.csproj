@@ -76,6 +76,9 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Android|AnyCPU' ">
     <OutputPath>bin\Release Android\</OutputPath>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Android|AnyCPU' ">
+    <OutputPath>bin\Debug Android\</OutputPath>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release | Android|AnyCPU' ">
     <OutputPath>bin\Release | Android\</OutputPath>
   </PropertyGroup>
@@ -157,7 +160,7 @@
     <EmbeddedResource Include="Resources\locationpin.svg" />
     <EmbeddedResource Include="Resources\orange.svg" />
     <EmbeddedResource Include="Resources\pink.svg" />
-    <BundleResource Include="Resources\pool_genesis.txn" />
+    <BundleResource Include="Resources\pool_kiva_sandbox" />
     <EmbeddedResource Include="Resources\qrcodescan.svg" />
     <EmbeddedResource Include="Resources\rightcaret.svg" />
     <EmbeddedResource Include="Resources\secure.svg" />

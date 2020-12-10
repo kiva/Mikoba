@@ -54,11 +54,6 @@ namespace mikoba.ViewModels.Pages
             var context = await _contextProvider.GetContextAsync();
             try
             {
-                SentrySdk.CaptureEvent(new SentryEvent()
-                {
-                    Message = "Trust Connection",
-                    Level = SentryLevel.Info
-                });
                 var (msg, record) = await _connectionService.CreateRequestAsync(context, _invite);
                 msg.Label = _invite.Label;
                 msg.ImageUrl = _invite.ImageUrl;
@@ -71,7 +66,7 @@ namespace mikoba.ViewModels.Pages
             }
             catch (Exception ex)
             {
-                SentrySdk.CaptureException(ex);
+                Console.WriteLine(ex.Message);
                 await this.NavigationService.PopModalAsync();
             }
         });

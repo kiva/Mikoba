@@ -81,7 +81,7 @@ namespace mikoba.ViewModels.Pages
             await NavigationService.NavigateBackAsync();
         });
 
-        public ICommand GoBackCommand => new Command(async () => { await NavigationService.NavigateBackAsync(); });
+        public new ICommand GoBackCommand => new Command(async () => { await NavigationService.NavigateBackAsync(); });
 
         #endregion
 

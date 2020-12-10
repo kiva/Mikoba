@@ -19,16 +19,18 @@ namespace mikoba.ViewModels.Pages.Onboarding
             
             CheckNotificationPermissions = new Command(async () =>
             {
+                await NavigationService.NavigateToAsync<WalletCreationViewModel>();
+                //TODO: Review this code.
                 // var status = await Permissions.RequestAsync<Permissions.Reminders>();
                 // if (status == PermissionStatus.Granted)
                 // {
-                AdvancePage();
+                
                 // }
             });
             
             SkipStep = new Command(async () =>
             {
-                AdvancePage();
+                await NavigationService.NavigateToAsync<WalletCreationViewModel>();
             });
         }
         
@@ -42,12 +44,8 @@ namespace mikoba.ViewModels.Pages.Onboarding
 
         #endregion
 
-        public async void AdvancePage()
-        {
-            await NavigationService.NavigateToAsync<WalletCreationViewModel>();
-        }
         
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
         
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

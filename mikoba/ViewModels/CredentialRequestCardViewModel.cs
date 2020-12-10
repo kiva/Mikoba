@@ -74,7 +74,7 @@ namespace mikoba.ViewModels
         
         public CredentialRequestCardViewModel()
         {
-            this.OnClickShareCommand = new Command(async () =>
+            this.OnClickShareCommand = new Command( () =>
             {
                 IsShared = true;
                 IsRequested = false;
@@ -90,7 +90,7 @@ namespace mikoba.ViewModels
             IsDeclined = false;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

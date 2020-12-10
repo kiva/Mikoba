@@ -6,7 +6,7 @@ using mikoba.Annotations;
 
 namespace mikoba.ViewModels
 {
-    public class CredentialOfferCardViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class CredentialOfferCardViewModel : KivaBaseViewModel
     {
         public ICommand OnClickAcceptCommand  { get; set; }
         public ICommand OnClickDeclineCommand { get; set; }
@@ -74,16 +74,14 @@ namespace mikoba.ViewModels
         
         public CredentialOfferCardViewModel()
         {
-            this.OnClickAcceptCommand = new Command(async () =>
+            this.OnClickAcceptCommand = new Command( () =>
             {
                 IsAccepted = true;
                 IsOffered = false;
-                // await WalletPageViewModel.Instance.NavigationService.PopAsync();
             });
-            this.OnClickDeclineCommand = new Command(async () =>
+            this.OnClickDeclineCommand = new Command( () =>
             {
                 //TODO: Create Message Service
-                //await DisplayAlert ("Alert", "You have been alerted", "OK");
             });
             
             IsOffered = true;
@@ -91,7 +89,7 @@ namespace mikoba.ViewModels
             IsDeclined = false;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

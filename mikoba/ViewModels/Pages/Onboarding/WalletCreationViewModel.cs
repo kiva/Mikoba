@@ -3,9 +3,12 @@ using Autofac;
 using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Agents.Edge;
 using Hyperledger.Indy.AnonCredsApi;
+using Microsoft.AppCenter.Analytics;
 using mikoba.Services;
 using mikoba.ViewModels.Pages;
 using ReactiveUI;
+using Sentry;
+using Sentry.Protocol;
 using Xamarin.Essentials;
 
 namespace mikoba.ViewModels.Pages.Onboarding
@@ -50,6 +53,13 @@ namespace mikoba.ViewModels.Pages.Onboarding
 
             await _poolConfigurator.ConfigurePoolsAsync();
             await _edgeProvisioningService.ProvisionAsync();
+            
+            SentrySdk.CaptureEvent(new SentryEvent()
+            {
+                Message = "Initialized Wallet",
+                Level = SentryLevel.Info
+            });
+            Analytics.TrackEvent("Initialized Wallet");
             
             await Task.Delay(100);
             ProgressInfo = "Checking Permissions";

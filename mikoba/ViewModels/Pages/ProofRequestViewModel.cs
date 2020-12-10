@@ -35,10 +35,7 @@ namespace mikoba.ViewModels.Pages
         }
 
         private ProofRequestTransport _proofRequestTransport;
-        private ProofRequest _proofRequest;
         private CredentialRecord _credential;
-
-        private List<Credential> _potentialCredentials;
 
         #region Services
 
@@ -177,7 +174,6 @@ namespace mikoba.ViewModels.Pages
                     _scope.Resolve<SSICredentialViewModel>(new NamedParameter("credential", _credential));
                 foreach (var attribute in credentialViewModel.Attributes)
                 {
-                    if (!AllowedFields.Contains(attribute.Name)) continue;
                     if (attribute.Name.Contains("~") && PhotoAttach == null)
                     {
                         PhotoAttach = ImageSource.FromStream(() =>

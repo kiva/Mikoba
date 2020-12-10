@@ -38,7 +38,7 @@ namespace mikoba.ViewModels
         public ICommand ClaimWalletCommand {
             get => new Command(async () =>
             {
-                //TODO: Show a Dialog
+                await NavigationService.NavigateToAsync<WalletOwnerInputViewModel>();
             });
         }
         #endregion

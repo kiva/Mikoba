@@ -122,13 +122,11 @@ namespace mikoba.ViewModels.SSI
             {
                 ResponseRequested = true
             };
-
-            bool success = false;
+            
             try
             {
                 var response = await _messageService.SendReceiveAsync(context.Wallet, message, Record) as UnpackedMessageContext;
                 var trustPingResponse = response.GetMessage<TrustPingResponseMessage>();
-                success = true;
             }
             catch (Exception)
             {

@@ -7,19 +7,6 @@ namespace mikoba
 {
     static class WalletUtils
     {
-        public static async Task CreateWalletAsync(string config, string credentials)
-        {
-            try
-            {
-                
-            }
-            catch (WalletExistsException)
-            {
-                //Swallow expected exception if it happens.
-                Console.WriteLine("Wallet Creation Failed");
-            }
-        }
-
         public static async Task DeleteWalletAsync(string config, string credentials)
         {
             try

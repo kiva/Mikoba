@@ -33,16 +33,13 @@ namespace mikoba.iOS
             //Image Plugin Support
             CachedImageRenderer.Init();
             SvgImageRenderer.Init();
-
-            using (SentrySdk.Init("https://b345f91dcc414d339dead4d6e52e8615@o7540.ingest.sentry.io/5544833"))
-            {
+            
                 var host = HostBuilder
                     .BuildHost(typeof(KernelModule).Assembly)
                     .Build();
                 _application = host.Services.GetRequiredService<App>();
                 LoadApplication(new App());
-            }
-
+                
             return base.FinishedLaunching(app, options);
         }
     }

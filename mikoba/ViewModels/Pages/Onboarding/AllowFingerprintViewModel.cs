@@ -29,21 +29,16 @@ namespace mikoba.ViewModels.Pages.Onboarding
             AllowFingerprints = new Command(async () =>
             {
                 Preferences.Set(AppConstant.AllowFingerprint, true);
-                AdvancePage();
+                await  NavigationService.NavigateToAsync<AllowCameraConfirmationViewModel>();
             });
             
             SkipStep = new Command(async () =>
             {
-                AdvancePage();
+                await  NavigationService.NavigateToAsync<AllowCameraConfirmationViewModel>();
             });
         }
-        
-        public async void AdvancePage()
-        {
-            await NavigationService.NavigateToAsync<AllowCameraConfirmationViewModel>();
-        }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
         
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

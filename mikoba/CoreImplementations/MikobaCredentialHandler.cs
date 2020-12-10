@@ -20,9 +20,12 @@ namespace mikoba.CoreImplementations
 {
     public class MikobaCredentialHandler : IMessageHandler
     {
+//TODO: Fix unused dependencies        
+#pragma warning disable 649
         private readonly AgentOptions _agentOptions;
         private readonly ICredentialService _credentialService;
         private readonly IWalletRecordService _recordService;
+#pragma warning restore 649
 
         private static MikobaCredentialHandler Instance { get; set; }
 
@@ -119,7 +122,7 @@ namespace mikoba.CoreImplementations
                     else
                     {
                         // Auto create credential if set in the agent option
-                        if (_agentOptions.AutoRespondCredentialRequest)
+                        if (_agentOptions != null && _agentOptions.AutoRespondCredentialRequest)
                         {
                             var (message, record) =
                                 await _credentialService.CreateCredentialAsync(agentContext, recordId);

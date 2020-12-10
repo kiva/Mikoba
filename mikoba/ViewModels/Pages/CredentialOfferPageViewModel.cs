@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using DynamicData;
 using Hyperledger.Aries.Agents;
-using Hyperledger.Aries.Configuration;
 using Hyperledger.Aries.Contracts;
 using Hyperledger.Aries.Features.DidExchange;
 using Hyperledger.Aries.Features.IssueCredential;
 using Hyperledger.Indy.AnonCredsApi;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using mikoba.Extensions;
 using mikoba.Services;
 using mikoba.ViewModels.SSI;
@@ -28,33 +29,27 @@ namespace mikoba.ViewModels.Pages
             {"nationalId", "photo~attach", "dateOfBirth", "birthDate", "firstName", "lastName"};
 
         public CredentialOfferPageViewModel(INavigationService navigationService,
-            IConnectionService connectionService,
             IMessageService messageService,
             IAgentProvider contextProvider,
             ICredentialService credentialService,
             IEventAggregator eventAggregator)
             : base("Accept Invitation", navigationService)
         {
-            _connectionService = connectionService;
             _contextProvider = contextProvider;
             _messageService = messageService;
             _contextProvider = contextProvider;
             _eventAggregator = eventAggregator;
             _credentialService = credentialService;
         }
-
-        private CredentialOfferMessage _offerMessage;
+        
         private CredentialOfferTransport _transport;
 
         #region Services
 
         private readonly ICredentialService _credentialService;
-        private readonly IProvisioningService _provisioningService;
-        private readonly IConnectionService _connectionService;
         private readonly IMessageService _messageService;
         private readonly IAgentProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
-        private SSICredentialViewModel _ssiCredentialViewModel;
 
         #endregion
 
@@ -62,32 +57,36 @@ namespace mikoba.ViewModels.Pages
 
         public ICommand CloseReceiptCommand => new Command(async () =>
         {
-            SentrySdk.CaptureEvent(new SentryEvent()
-            {
-                Message = "Close Receipt Screen",
-                Level = SentryLevel.Info
-            });
             _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
             await NavigationService.PopModalAsync();
         });
 
         public ICommand AcceptCommand => new Command(async () =>
         {
-            var context = await _contextProvider.GetContextAsync();
             try
             {
+                var context = await _contextProvider.GetContextAsync();
                 SentrySdk.CaptureEvent(new SentryEvent()
                 {
-                    Message = "Accept Credential",
+                    Message = "Click Accept Credential",
                     Level = SentryLevel.Info
                 });
+                Analytics.TrackEvent("Click Accept Credential");
                 var (request, _) = await _credentialService.CreateRequestAsync(context, _transport.Record.Id);
                 await _messageService.SendAsync(context.Wallet, request, _transport.MessageContext.Connection);
+                SentrySdk.CaptureEvent(new SentryEvent()
+                {
+                    Message = "Saved Credential",
+                    Level = SentryLevel.Info
+                });
+                Analytics.TrackEvent("Saved Credential");
                 ShowReceipt = true;
             }
             catch (Exception ex)
             {
+                Crashes.TrackError(ex);
                 SentrySdk.CaptureException(ex);
+                Console.WriteLine(ex.Message);
             }
         });
 

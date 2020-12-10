@@ -50,12 +50,9 @@ namespace mikoba.CoreImplementations
                     {
                         var _proofService = App.Container.Resolve<IProofService>();
                         var navigation = App.Container.Resolve<INavigationService>();
-
                         var presentation = messageContext.GetMessage<RequestPresentationMessage>();
-
                         var holderProofRequest =
                             await _proofService.ProcessRequestAsync(agentContext, presentation, messageContext.Connection);
-
                         messageContext.ContextRecord = await _proofService.GetAsync(agentContext, holderProofRequest.Id);
 
                         var transport = new ProofRequestTransport()

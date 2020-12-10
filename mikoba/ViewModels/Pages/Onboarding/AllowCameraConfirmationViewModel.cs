@@ -33,7 +33,7 @@ namespace mikoba.ViewModels.Pages.Onboarding
                 }
             });
             
-            SkipStep = new Command(async () =>
+            SkipStep = new Command( () =>
             {
                 AdvancePage();
             });
@@ -44,7 +44,7 @@ namespace mikoba.ViewModels.Pages.Onboarding
             await NavigationService.NavigateToAsync<AllowPushNotificationViewModel>();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
         
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

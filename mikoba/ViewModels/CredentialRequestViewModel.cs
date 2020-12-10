@@ -19,8 +19,5 @@ namespace mikoba.ViewModels
                 return m_instance;
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
     }
 }

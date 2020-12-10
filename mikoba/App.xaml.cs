@@ -1,6 +1,9 @@
 using System;
 using Autofac;
 using Hyperledger.Aries.Agents;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Microsoft.Extensions.Hosting;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -46,6 +49,11 @@ namespace mikoba
         protected override async void OnStart()
         {
             await Host.StartAsync();
+            
+            
+            AppCenter.Start("android=acc3a7fc-65e0-497a-b317-3da135a86a64;" +
+                            "ios=56836175-d366-4a59-893b-58f866799cbc",
+                typeof(Analytics), typeof(Crashes));
 
             //Wallet
             _navigationService.AddPageViewModelBinding<WalletPageViewModel, WalletPage>();

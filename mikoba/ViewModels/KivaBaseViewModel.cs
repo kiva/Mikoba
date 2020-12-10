@@ -37,7 +37,7 @@ namespace mikoba.ViewModels
 
         public Command GoBackCommand
         {
-            get => new Command(async () =>
+            get => new Command( () =>
             {
                 if (this.NavigationService != null)
                 {
@@ -47,7 +47,7 @@ namespace mikoba.ViewModels
         }
 
         public Command GoToSettingsCommand { 
-            get => new Command(async () =>
+            get => new Command( () =>
             {
                 if (this.NavigationService == null)
                 {

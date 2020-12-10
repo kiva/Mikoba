@@ -70,13 +70,13 @@ namespace mikoba.UI.Pages.Connections
             base.OnDisappearing();
         }
 
-        private async void ScannerView_OnScanResult(Result result)
+        private void ScannerView_OnScanResult(Result result)
         {
             //If not invoking on the UI thread the App crashes
-            Device.BeginInvokeOnMainThread(async () => { await DoSomething(); });
+            Device.BeginInvokeOnMainThread(async () => { await handleScanResults(); });
         }
 
-        private async Task DoSomething()
+        private async Task handleScanResults()
         {
             ScannerView.IsAnalyzing = false;
             Application.Current.Properties["WalletInitialized"] = true;
@@ -90,7 +90,7 @@ namespace mikoba.UI.Pages.Connections
         private void Button_OnClicked(object sender, EventArgs e)
         {
             //If not invoking on the UI thread the App crashes
-            Device.BeginInvokeOnMainThread(async () => { await DoSomething(); });
+            Device.BeginInvokeOnMainThread(async () => { await handleScanResults(); });
         }
     }
 }

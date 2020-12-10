@@ -4,7 +4,7 @@ using mikoba.ViewModels;
 
 namespace mikoba.UI.ViewModels
 {
-    public class SettingsPageViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class SettingsPageViewModel : KivaBaseViewModel
     {
         private static SettingsPageViewModel m_instance;
         
@@ -56,7 +56,5 @@ namespace mikoba.UI.ViewModels
                 LeftIcon = this.Secure,
             });
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

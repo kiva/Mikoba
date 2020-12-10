@@ -24,8 +24,7 @@ namespace mikoba.Services
         
         public void RegisterContainerPage()
         {
-           // _navigationPage = new NavigationPage(new SplashPage());
-           CurrentApplication.MainPage = new NavigationPage();
+            CurrentApplication.MainPage = new NavigationPage();
         }
         
         private readonly ILifetimeScope _scope;
@@ -201,7 +200,9 @@ namespace mikoba.Services
             Page page = CreateAndBindPage(viewModelType, viewModel, parameter, false);
 
             if (type == NavigationType.Modal)
-                    await CurrentApplication.MainPage.Navigation.PushModalAsync(page);
+            {
+                await CurrentApplication.MainPage.Navigation.PushModalAsync(page);
+            }
             else
             {
                 if (page is IRootView)
@@ -213,12 +214,16 @@ namespace mikoba.Services
                     CurrentApplication.MainPage = page;
                 }
                 else if (CurrentApplication.MainPage is NavigationPage navPage)
+                {
                     await navPage.Navigation.PushAsync(page);
+                }
                 //TODO OS-194 else throw exception as the page and Navigation type combination isnt valid
             }
 
             if (page.BindingContext is IBaseViewModel vm)
+            {
                 await vm.InitializeAsync(parameter);
+            }
         }
 
         protected Type GetPageTypeForViewModel(Type viewModelType, bool isPopup)

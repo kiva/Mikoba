@@ -150,7 +150,7 @@ namespace mikoba.ViewModels.Pages.Login
         
         #endregion
         
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
         
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

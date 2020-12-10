@@ -127,7 +127,7 @@ namespace mikoba.ViewModels.Pages.Onboarding
         
         #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
         
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Input;
 using Autofac;
 using DynamicData;
@@ -19,6 +20,7 @@ using mikoba.UI.ViewModels;
 using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
+using Sentry;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -26,6 +28,8 @@ namespace mikoba.ViewModels.Pages
 {
     public class WalletPageViewModel : KivaBaseViewModel
     {
+        private Timer timer;
+
         public WalletPageViewModel(
             INavigationService navigationService,
             IConnectionService connectionService,
@@ -33,7 +37,7 @@ namespace mikoba.ViewModels.Pages
             IEdgeClientService edgeClientService,
             IAgentProvider agentContextProvider,
             IEventAggregator eventAggregator,
-            ILifetimeScope scope) : 
+            ILifetimeScope scope) :
             base("Wallet Page", navigationService)
         {
             _credentialService = credentialService;
@@ -45,7 +49,7 @@ namespace mikoba.ViewModels.Pages
             _mediatorTimer = new MediatorTimerService(this.CheckMediator);
         }
 
-        private async void CheckMediator()
+        private void CheckMediator()
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
@@ -55,8 +59,8 @@ namespace mikoba.ViewModels.Pages
                 _mediatorTimer.Start();
             });
         }
-        
-        private MediatorTimerService _mediatorTimer;
+
+        private readonly MediatorTimerService _mediatorTimer;
 
 
         #region Services
@@ -132,20 +136,23 @@ namespace mikoba.ViewModels.Pages
 
         public override async Task InitializeAsync(object navigationData)
         {
+            SentrySdk.CaptureEvent(
+                new SentryEvent()
+                {
+                    Message = "Load Home Page"
+                });
+
             Preferences.Set(AppConstant.LocalWalletFirstView, false);
             IsRefreshing = true;
-            await RefreshCredentials();
-            await RefreshConnections();
             await RefreshEntries();
             WelcomeText =
                 $"Hello {Preferences.Get(AppConstant.FullName, "Horacio")}, welcome to your new Wallet.  Get started by receiving your first ID.";
             IsRefreshing = false;
             _eventAggregator.GetEventByType<CoreDispatchedEvent>()
-                .Subscribe(async _ =>
-                {
-                    await RefreshData();
-                });
+                .Subscribe(async _ => { await RefreshData(); });
             _mediatorTimer.Start();
+            timer = new Timer {Enabled = true, AutoReset = true, Interval = TimeSpan.FromSeconds(10).TotalMilliseconds};
+            timer.Elapsed += new ElapsedEventHandler((object sender, ElapsedEventArgs e) => { RefreshData(); });
             await base.InitializeAsync(navigationData);
         }
 
@@ -173,9 +180,7 @@ namespace mikoba.ViewModels.Pages
         public async Task RefreshData()
         {
             IsRefreshing = true;
-            await this.RefreshCredentials();
             await this.RefreshEntries();
-            HasContent = this.Entries.Any();
             IsRefreshing = false;
         }
 
@@ -187,9 +192,7 @@ namespace mikoba.ViewModels.Pages
             IList<SSICredentialViewModel> credentialsVms = new List<SSICredentialViewModel>();
             foreach (var credentialRecord in credentialsRecords)
             {
-                //Only show credentials that have been store in the wallet, the ones with a CredentialId.
-                //If the record has an ID that only means that it was process as part of a request.
-                if (credentialRecord.CredentialId == null) continue; 
+                if (credentialRecord.CredentialId == null) continue;
                 SSICredentialViewModel credential =
                     _scope.Resolve<SSICredentialViewModel>(new NamedParameter("credential", credentialRecord));
                 credentialsVms.Add(credential);
@@ -199,6 +202,8 @@ namespace mikoba.ViewModels.Pages
             Credentials.InsertRange(credentialsVms);
         }
 
+        //TODO: Move this to upcoming history view.
+        // ReSharper disable once UnusedMember.Global
         public async Task RefreshConnections()
         {
             var context = await _agentContextProvider.GetContextAsync();
@@ -218,8 +223,9 @@ namespace mikoba.ViewModels.Pages
             Connections.InsertRange(connectionVms);
         }
 
-        public async Task RefreshEntries()
+        private async Task RefreshEntries()
         {
+            await this.RefreshCredentials();
             var entries = new List<EntryViewModel>();
             foreach (var credential in Credentials)
             {
@@ -234,7 +240,7 @@ namespace mikoba.ViewModels.Pages
             HasContent = Entries.Any();
         }
 
-        public async Task ScanInvite()
+        private async Task ScanInvite()
         {
             var expectedFormat = ZXing.BarcodeFormat.QR_CODE;
             var opts = new ZXing.Mobile.MobileBarcodeScanningOptions
@@ -250,36 +256,36 @@ namespace mikoba.ViewModels.Pages
                 var message = await MessageDecoder.ParseMessageAsync(result.Text);
                 if (message is ConnectionInvitationMessage)
                 {
-                    ConnectionInvitationMessage inviteMessage = (ConnectionInvitationMessage)message;
+                    ConnectionInvitationMessage inviteMessage = (ConnectionInvitationMessage) message;
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        await NavigationService.NavigateToAsync<AcceptConnectionInviteViewModel>(inviteMessage, NavigationType.Modal);
+                        await NavigationService.NavigateToAsync<AcceptConnectionInviteViewModel>(inviteMessage,
+                            NavigationType.Modal);
                     });
                 }
                 else if (message is CredentialOfferMessage)
                 {
-                    CredentialOfferMessage credentialOffer = (CredentialOfferMessage)message;
+                    CredentialOfferMessage credentialOffer = (CredentialOfferMessage) message;
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        await NavigationService.NavigateToAsync<CredentialOfferPageViewModel>(credentialOffer, NavigationType.Modal);
+                        await NavigationService.NavigateToAsync<CredentialOfferPageViewModel>(credentialOffer,
+                            NavigationType.Modal);
                     });
                 }
                 else if (message is RequestPresentationMessage)
                 {
-                    RequestPresentationMessage credentialRequest = (RequestPresentationMessage)message;
+                    RequestPresentationMessage credentialRequest = (RequestPresentationMessage) message;
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        await NavigationService.NavigateToAsync<ProofRequestViewModel>(credentialRequest, NavigationType.Modal);
+                        await NavigationService.NavigateToAsync<ProofRequestViewModel>(credentialRequest,
+                            NavigationType.Modal);
                     });
                 }
-                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                Console.WriteLine(ex.Message);
             }
-
-           
         }
 
         #endregion

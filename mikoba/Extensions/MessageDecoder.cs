@@ -43,9 +43,10 @@ namespace mikoba.Extensions
                 var result = new UnpackedMessageContext(unpacked.Message, senderKey);
                 return GetInternalMessage(result);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 // throw new AriesFrameworkException(ErrorCode.InvalidMessage, "Failed to un-pack message", e);
+                Console.WriteLine(ex);
                 return null;
                 
             }
@@ -101,7 +102,7 @@ namespace mikoba.Extensions
             }
             catch (Exception ex)
             {
-                Console.WriteLine("error");
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }

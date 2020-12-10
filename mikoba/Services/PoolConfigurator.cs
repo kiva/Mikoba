@@ -18,7 +18,7 @@ namespace mikoba.Services
 
         private Dictionary<string, string> poolConfigs = new Dictionary<string, string>
         {
-            { "kiva", "pool_genesis.txn" },
+            { "kiva", "pool_kiva_sandbox" },
         };
 
         public PoolConfigurator(

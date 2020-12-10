@@ -13,6 +13,7 @@ namespace mikoba.Services
         private const string USERNAME = "";
         private const string PASSWORD = "";
         
+        // ReSharper disable once UnusedMember.Global
         public async Task<TokenResponse> GetAccessInfo()
         {
             var endpoint = AUTH0_DOMAIN + "/oauth/token";
@@ -27,16 +28,18 @@ namespace mikoba.Services
             var wc = new WebClient {Headers = {["Content-Type"] = "application/json"}};
             try
             {
-                var response = wc.UploadString(endpoint, method, json);
+                var response =await wc.UploadStringTaskAsync(endpoint, method, json);
                 var userResult = JsonConvert.DeserializeObject<TokenResponse>(response);
                 return userResult;
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return null;
             }
         }
         
+        // ReSharper disable once UnusedMember.Global
         public async Task<OtpResponse> RequestOTPCode(string nin, string phoneNumber)
         {
             var endpoint = AUTH0_DOMAIN + "/oauth/token";
@@ -51,12 +54,13 @@ namespace mikoba.Services
             var wc = new WebClient {Headers = {["Content-Type"] = "application/json"}};
             try
             {
-                var response = wc.UploadString(endpoint, method, json);
+                var response = await wc.UploadStringTaskAsync(endpoint, method, json);
                 var userResult = JsonConvert.DeserializeObject<OtpResponse>(response);
                 return userResult;
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }
@@ -75,12 +79,13 @@ namespace mikoba.Services
             var wc = new WebClient {Headers = {["Content-Type"] = "application/json"}};
             try
             {
-                var response = wc.UploadString(endpoint, method, json);
+                var response = await wc.UploadStringTaskAsync(endpoint, method, json);
                 var userResult = JsonConvert.DeserializeObject<KycResponse>(response);
                 return userResult;
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return null;
             }
         }

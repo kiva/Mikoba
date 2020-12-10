@@ -12,7 +12,7 @@ namespace mikoba.UI.Pages
             InitializeComponent();
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             this.AppLogo.IsVisible = false;
             this.gridOptions.IsVisible = true;

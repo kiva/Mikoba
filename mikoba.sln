@@ -35,6 +35,7 @@ Global
 		{612F8D66-E72F-4E0C-A9BB-0A83B1657160}.Debug Android|Any CPU.ActiveCfg = Debug Android|Any CPU
 		{612F8D66-E72F-4E0C-A9BB-0A83B1657160}.Debug Android|Any CPU.Build.0 = Debug Android|Any CPU
 		{612F8D66-E72F-4E0C-A9BB-0A83B1657160}.Debug Android|Any CPU.Deploy.0 = Debug Android|Any CPU
+		{612F8D66-E72F-4E0C-A9BB-0A83B1657160}.Release Android|Any CPU.Deploy.0 = Release Android|Any CPU
 		{DDF25F85-3DB2-4BB8-AFFA-8C4FEC08D80C}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
 		{DDF25F85-3DB2-4BB8-AFFA-8C4FEC08D80C}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
 		{DDF25F85-3DB2-4BB8-AFFA-8C4FEC08D80C}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator

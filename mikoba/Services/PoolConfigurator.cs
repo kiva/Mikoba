@@ -5,8 +5,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Hyperledger.Aries.Contracts;
 using Hyperledger.Indy.PoolApi;
+using Microsoft.AppCenter.Crashes;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Sentry;
 using Xamarin.Essentials;
 
 namespace mikoba.Services
@@ -54,10 +56,11 @@ namespace mikoba.Services
                 {
                     // OK
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    logger.LogCritical(e, "Couldn't create pool config");
-                    //throw;
+                    logger.LogCritical(ex, "Couldn't create pool config");
+                    Crashes.TrackError(ex);
+                    SentrySdk.CaptureException(ex);
                 }
             }
         }

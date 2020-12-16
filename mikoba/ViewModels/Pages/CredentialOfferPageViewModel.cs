@@ -142,10 +142,12 @@ namespace mikoba.ViewModels.Pages
                 var previewAttributes = new List<SSICredentialAttribute>();
                 foreach (var attribute in _transport.Message.CredentialPreview.Attributes)
                 {
-                    if (attribute.Name.Contains("~") && PhotoAttach == null)
+                    // TODO: "No image found" placeholder
+                    if (PhotoAttachParser.IsCorrectParameter(attribute.Name, PhotoAttach))
                     {
+                        string value = PhotoAttachParser.ReturnAttachment(attribute.Value.ToString());
                         PhotoAttach = ImageSource.FromStream(() =>
-                            new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));
+                            new MemoryStream(Convert.FromBase64String(value)));
                     }
                     else
                     {

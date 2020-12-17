@@ -14,6 +14,7 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using mikoba.Extensions;
 using mikoba.Services;
+using mikoba.UI.Helpers;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
 using Sentry;
@@ -142,10 +143,12 @@ namespace mikoba.ViewModels.Pages
                 var previewAttributes = new List<SSICredentialAttribute>();
                 foreach (var attribute in _transport.Message.CredentialPreview.Attributes)
                 {
+                    // TODO: "No image found" placeholder
                     if (attribute.Name.Contains("~") && PhotoAttach == null)
                     {
+                        string value = PhotoAttachParser.ReturnAttachment(attribute.Value.ToString());
                         PhotoAttach = ImageSource.FromStream(() =>
-                            new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));
+                            new MemoryStream(Convert.FromBase64String(value)));
                     }
                     else
                     {

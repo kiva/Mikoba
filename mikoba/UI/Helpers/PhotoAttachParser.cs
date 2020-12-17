@@ -2,7 +2,7 @@ using System;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 
-namespace mikoba.Services
+namespace mikoba.UI.Helpers
 {
     public class PhotoAttachParser
     {
@@ -23,11 +23,6 @@ namespace mikoba.Services
             }
 
             return ret;
-        }
-
-        public static bool IsCorrectParameter(string parameter, ImageSource photoAttach)
-        {
-            return parameter.Contains("~") && photoAttach != null;
         }
     }
 }

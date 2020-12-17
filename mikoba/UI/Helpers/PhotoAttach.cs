@@ -1,4 +1,4 @@
-namespace mikoba.Services
+namespace mikoba.UI.Helpers
 {
     public class PhotoAttach
     {

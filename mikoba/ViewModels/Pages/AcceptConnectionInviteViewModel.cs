@@ -5,14 +5,17 @@ using Autofac;
 using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Contracts;
 using Hyperledger.Aries.Features.DidExchange;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using mikoba.Extensions;
-using mikoba.Services;
 using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
 using Sentry;
 using Sentry.Protocol;
+using West.Extensions.Xamarin;
 using Xamarin.Forms;
+using INavigationService = mikoba.Services.INavigationService;
 
 namespace mikoba.ViewModels.Pages
 {
@@ -24,6 +27,7 @@ namespace mikoba.ViewModels.Pages
             IMessageService messageService,
             IAgentProvider contextProvider,
             IEventAggregator eventAggregator,
+            IDialogService dialogService,
             ILifetimeScope scope)
             : base("Accept Invitation", navigationService)
         {
@@ -33,6 +37,7 @@ namespace mikoba.ViewModels.Pages
             _contextProvider = contextProvider;
             _eventAggregator = eventAggregator;
             _scope = scope;
+            _dialogService = dialogService;
         }
 
         private ConnectionInvitationMessage _invite;
@@ -44,6 +49,9 @@ namespace mikoba.ViewModels.Pages
         private readonly IAgentProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
         private readonly ILifetimeScope _scope;
+        private readonly IDialogService _dialogService;
+        
+        
 
         #endregion
 
@@ -54,6 +62,13 @@ namespace mikoba.ViewModels.Pages
             var context = await _contextProvider.GetContextAsync();
             try
             {
+                SentrySdk.CaptureEvent(new SentryEvent()
+                {
+                    Message = "Click Accept Connection",
+                    Level = SentryLevel.Info
+                });
+                Analytics.TrackEvent("Click Accept Connection");
+                
                 var (msg, record) = await _connectionService.CreateRequestAsync(context, _invite);
                 msg.Label = _invite.Label;
                 msg.ImageUrl = _invite.ImageUrl;
@@ -62,11 +77,22 @@ namespace mikoba.ViewModels.Pages
                 var entry = _scope.Resolve<EntryViewModel>();
                 entry.Connection = _scope.Resolve<SSIConnectionViewModel>(new NamedParameter("record", record));
                 entry.Setup();
+                
+                SentrySdk.CaptureEvent(new SentryEvent()
+                {
+                    Message = "Accepted Connection",
+                    Level = SentryLevel.Info
+                });
+                Analytics.TrackEvent("Accepted Connection");
+                
                 await this.NavigationService.PopModalAsync();
             }
             catch (Exception ex)
             {
+                Crashes.TrackError(ex);
+                SentrySdk.CaptureException(ex);
                 Console.WriteLine(ex.Message);
+                await _dialogService.ShowAlertAsync("Can't accept connection", ex.Message, "OK");
                 await this.NavigationService.PopModalAsync();
             }
         });

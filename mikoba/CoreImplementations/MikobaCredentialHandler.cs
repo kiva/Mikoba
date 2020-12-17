@@ -10,11 +10,13 @@ using Hyperledger.Aries.Extensions;
 using Hyperledger.Aries.Features.IssueCredential;
 using Hyperledger.Aries.Features.PresentProof;
 using Hyperledger.Aries.Storage;
+using Microsoft.AppCenter.Crashes;
 using Microsoft.Extensions.Options;
 using mikoba.Services;
 using mikoba.ViewModels.Pages;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Sentry;
 
 namespace mikoba.CoreImplementations
 {
@@ -101,6 +103,8 @@ namespace mikoba.CoreImplementations
                     }
                     catch (Exception ex)
                     {
+                        Crashes.TrackError(ex);
+                        SentrySdk.CaptureException(ex);
                         Console.WriteLine(ex.Message);
                     }
                     return null;
@@ -152,9 +156,10 @@ namespace mikoba.CoreImplementations
                     }
                     catch (Exception ex)
                     {
+                        Crashes.TrackError(ex);
+                        SentrySdk.CaptureException(ex);
                         Console.WriteLine(ex.Message);
                     }
-
                     return null;
                 }
                 default:

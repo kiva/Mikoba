@@ -144,7 +144,7 @@ namespace mikoba.ViewModels.Pages
                 foreach (var attribute in _transport.Message.CredentialPreview.Attributes)
                 {
                     // TODO: "No image found" placeholder
-                    if (attribute.Name.Contains("~") && PhotoAttach != null)
+                    if (attribute.Name.Contains("~") && PhotoAttach == null)
                     {
                         string value = PhotoAttachParser.ReturnAttachment(attribute.Value.ToString());
                         PhotoAttach = ImageSource.FromStream(() =>

@@ -13,6 +13,7 @@ using Hyperledger.Aries.Features.PresentProof;
 using mikoba.Extensions;
 using mikoba.Services;
 using mikoba.ViewModels.SSI;
+using mikoba.UI.Helpers;
 using Newtonsoft.Json;
 using ReactiveUI;
 using Xamarin.Forms;
@@ -174,10 +175,12 @@ namespace mikoba.ViewModels.Pages
                     _scope.Resolve<SSICredentialViewModel>(new NamedParameter("credential", _credential));
                 foreach (var attribute in credentialViewModel.Attributes)
                 {
+                    // TODO: "No image found" placeholder
                     if (attribute.Name.Contains("~") && PhotoAttach == null)
                     {
+                        string value = PhotoAttachParser.ReturnAttachment(attribute.Value.ToString());
                         PhotoAttach = ImageSource.FromStream(() =>
-                            new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));
+                            new MemoryStream(Convert.FromBase64String(value)));
                     }
                     else
                     {

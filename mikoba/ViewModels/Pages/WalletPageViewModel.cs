@@ -14,6 +14,7 @@ using Hyperledger.Aries.Features.DidExchange;
 using Hyperledger.Aries.Features.IssueCredential;
 using Hyperledger.Aries.Features.PresentProof;
 using Hyperledger.Aries.Routing;
+using Microsoft.AppCenter.Crashes;
 using mikoba.Extensions;
 using mikoba.Services;
 using mikoba.UI.ViewModels;
@@ -53,10 +54,22 @@ namespace mikoba.ViewModels.Pages
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-                _mediatorTimer.Pause();
-                var context = await _agentContextProvider.GetContextAsync();
-                await _edgeClientService.FetchInboxAsync(context);
-                _mediatorTimer.Start();
+                try
+                {
+                    _mediatorTimer.Pause();
+                    var context = await _agentContextProvider.GetContextAsync();
+                    await _edgeClientService.FetchInboxAsync(context);
+                }
+                catch (Exception ex)
+                {
+                    Crashes.TrackError(ex);
+                    SentrySdk.CaptureException(ex);
+                }
+                finally
+                {
+                    await RefreshData(); 
+                    _mediatorTimer.Start();
+                }
             });
         }
 
@@ -75,8 +88,6 @@ namespace mikoba.ViewModels.Pages
         #endregion
 
         #region UI Properties
-
-        public ObservableCollection<WalletActionModel> WalletActions { get; set; }
 
         private string _welcomeText;
 
@@ -146,13 +157,13 @@ namespace mikoba.ViewModels.Pages
             IsRefreshing = true;
             await RefreshEntries();
             WelcomeText =
-                $"Hello {Preferences.Get(AppConstant.FullName, "Horacio")}, welcome to your new Wallet.  Get started by receiving your first ID.";
+                $"Hello {Preferences.Get(AppConstant.FullName, "")}, welcome to your new Wallet.  Get started by receiving your first ID.";
             IsRefreshing = false;
             _eventAggregator.GetEventByType<CoreDispatchedEvent>()
                 .Subscribe(async _ => { await RefreshData(); });
             _mediatorTimer.Start();
-            timer = new Timer {Enabled = true, AutoReset = true, Interval = TimeSpan.FromSeconds(10).TotalMilliseconds};
-            timer.Elapsed += new ElapsedEventHandler((object sender, ElapsedEventArgs e) => { RefreshData(); });
+            
+            
             await base.InitializeAsync(navigationData);
         }
 
@@ -162,10 +173,7 @@ namespace mikoba.ViewModels.Pages
 
         public ICommand ScanCodeCommand
         {
-            get { return new Command(async () =>
-            {
-                await this.ScanInvite();
-            }); }
+            get { return new Command(async () => { await this.ScanInvite(); }); }
         }
 
         public ICommand RefreshCommand

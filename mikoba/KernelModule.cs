@@ -48,6 +48,11 @@ namespace mikoba
                 .RegisterType<MediatorTimerService>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            
+            builder
+                .RegisterType<DialogService>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
 
             var loggerFactory = LoggerFactory.Create(logBuilder => { logBuilder.AddConsole().AddDebug(); });
             builder

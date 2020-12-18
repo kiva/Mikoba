@@ -19,8 +19,11 @@ using mikoba.ViewModels.SSI;
 using ReactiveUI;
 using Sentry;
 using Sentry.Protocol;
+using West.Extensions.Xamarin;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using ZXing.Net.Mobile.Forms;
+using INavigationService = mikoba.Services.INavigationService;
 
 namespace mikoba.ViewModels.Pages
 {
@@ -33,6 +36,7 @@ namespace mikoba.ViewModels.Pages
             IMessageService messageService,
             IAgentProvider contextProvider,
             ICredentialService credentialService,
+            IDialogService dialogService,
             IEventAggregator eventAggregator)
             : base("Accept Invitation", navigationService)
         {
@@ -41,12 +45,14 @@ namespace mikoba.ViewModels.Pages
             _contextProvider = contextProvider;
             _eventAggregator = eventAggregator;
             _credentialService = credentialService;
+            _dialogService = dialogService;
         }
         
         private CredentialOfferTransport _transport;
 
         #region Services
 
+        private readonly IDialogService _dialogService;
         private readonly ICredentialService _credentialService;
         private readonly IMessageService _messageService;
         private readonly IAgentProvider _contextProvider;
@@ -87,7 +93,14 @@ namespace mikoba.ViewModels.Pages
             {
                 Crashes.TrackError(ex);
                 SentrySdk.CaptureException(ex);
+                SentrySdk.CaptureEvent(new SentryEvent()
+                {
+                    Message = "Failed to Save Credential",
+                    Level = SentryLevel.Error
+                });
+                Analytics.TrackEvent("Failed to Save Credential");
                 Console.WriteLine(ex.Message);
+                await _dialogService.ShowAlertAsync("Can't add credential", ex.Message, "OK");
             }
         });
 

@@ -68,11 +68,6 @@
                         HeightRequest="35"
                         WidthRequest="35"
                         HorizontalOptions="Start" />
-                    <components:KivaSvgImage
-                        ImageKey="gear"
-                        HeightRequest="35"
-                        WidthRequest="35"
-                        HorizontalOptions="EndAndExpand" />
                 </StackLayout>
                 <ScrollView
                     HorizontalOptions="FillAndExpand"

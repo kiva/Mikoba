@@ -9,6 +9,7 @@ using Microsoft.AppCenter.Crashes;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Sentry;
+using Sentry.Protocol;
 using Xamarin.Essentials;
 
 namespace mikoba.Services
@@ -52,15 +53,20 @@ namespace mikoba.Services
                     await poolService.CreatePoolAsync(config.Key, filename)
                         .ConfigureAwait(false);
                 }
-                catch (PoolLedgerConfigExistsException)
+                catch (PoolLedgerConfigExistsException ex)
                 {
                     // OK
+                    logger.LogCritical(ex, "Pool already exists");
+                    Crashes.TrackError(ex);
+                    SentrySdk.CaptureException(ex);
+                    
                 }
                 catch (Exception ex)
                 {
                     logger.LogCritical(ex, "Couldn't create pool config");
                     Crashes.TrackError(ex);
                     SentrySdk.CaptureException(ex);
+                    SentrySdk.CaptureMessage("Couldn't create pool", SentryLevel.Error);
                 }
             }
         }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.0.6" package="global.kiva.protocol.wallet" android:versionCode="7">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="2.0.6" package="global.kiva.protocol.wallet" android:versionCode="8">
 	<uses-sdk android:minSdkVersion="29" android:targetSdkVersion="29" />
 	<application android:label="Protocol Wallet" android:icon="@mipmap/icon" />
 	<uses-permission android:name="android.permission.CAMERA" />

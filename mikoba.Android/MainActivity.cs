@@ -5,6 +5,7 @@ using Android.OS;
 using Android;
 using System.Collections.Generic;
 using System.Linq;
+using Autofac;
 using FFImageLoading.Forms.Platform;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Plugin.CurrentActivity;
 using Plugin.Fingerprint;
 using Sentry;
+using Sentry.Protocol;
 using SVG.Forms.Plugin.Droid;
 
 namespace mikoba.Droid
@@ -35,8 +37,12 @@ namespace mikoba.Droid
         private void CheckAndRequestRequiredPermissions()
         {
             for (int i = 0; i < _permissionsRequired.Length; i++)
+            {
                 if (CheckSelfPermission(_permissionsRequired[i]) != (int) Permission.Granted)
+                {
                     _permissionsToBeGranted.Add(_permissionsRequired[i]);
+                }
+            }
 
             if (_permissionsToBeGranted.Any())
             {
@@ -44,7 +50,10 @@ namespace mikoba.Droid
                 RequestPermissions(_permissionsRequired.ToArray(), _requestCode);
             }
             else
+            {
                 System.Diagnostics.Debug.WriteLine("Device already has all the required permissions");
+            }
+                
         }
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -72,7 +81,7 @@ namespace mikoba.Droid
             // Initializing User Dialogs
             // Android requires that we set content root.
             var host = HostBuilder
-                .BuildHost(typeof(KernelModule).Assembly)
+                .BuildHost(typeof(PlatformModule).Assembly)
                 .UseContentRoot(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal)).Build();
 
             JavaSystem.LoadLibrary("c++_shared");
@@ -84,6 +93,15 @@ namespace mikoba.Droid
             CrossFingerprint.SetCurrentActivityResolver(() => CrossCurrentActivity.Current.Activity);
         }
 
+        public class PlatformModule : Module
+        {
+            protected override void Load(ContainerBuilder builder)
+            {
+                base.Load(builder);
+                builder.RegisterModule(new KernelModule());
+            }
+        }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions,
             Permission[] grantResults)
         {
@@ -92,7 +110,7 @@ namespace mikoba.Droid
             if (grantResults.Length == _permissionsToBeGranted.Count)
             {
                 System.Diagnostics.Debug.WriteLine(
-                    "All permissions required that werent granted, have now been granted");
+                    "All permissions required that weren't granted, have now been granted");
             }
             else
             {

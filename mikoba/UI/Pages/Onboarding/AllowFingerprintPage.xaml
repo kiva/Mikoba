@@ -72,7 +72,7 @@
         <Grid
             HorizontalOptions="Center"
             Row="4">
-            <StackLayout VerticalOptions="Start"
+            <StackLayout VerticalOptions="End"
                          Orientation="Horizontal"
                          HorizontalOptions="Center">
                 <Button
@@ -85,7 +85,7 @@
                     Command="{Binding SkipStep}"
                     WidthRequest="152"
                     TextTransform="None"
-                    Margin="24,0,8,0"
+                    Margin="24,0,8,24"
                     FontSize="13" />
                 <Button
                     Text="OK"
@@ -94,7 +94,7 @@
                     WidthRequest="152"
                     Padding="20"
                     Command="{Binding AllowFingerprints}"
-                    Margin="0,0,20,0"
+                    Margin="0,0,20,24"
                     BackgroundColor="#004FD4"
                     TextColor="White"
                     FontSize="13" />

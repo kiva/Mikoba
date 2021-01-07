@@ -34,12 +34,13 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
-    <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
     <AndroidHttpClientHandlerType>System.Net.Http.HttpClientHandler</AndroidHttpClientHandlerType>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
-    <AndroidLinkTool>r8</AndroidLinkTool>
-    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <AndroidLinkTool></AndroidLinkTool>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-<AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
+<AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
 <AndroidPackageFormat>aab</AndroidPackageFormat>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Android|AnyCPU' ">
@@ -68,7 +69,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Android|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
@@ -77,6 +78,7 @@
     <AndroidPackageFormat>aab</AndroidPackageFormat>
     <OutputPath>bin\Debug Android\</OutputPath>
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <AndroidLinkMode>None</AndroidLinkMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release | Android|AnyCPU' ">
     <OutputPath>bin\Release | Android\</OutputPath>

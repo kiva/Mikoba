@@ -22,6 +22,7 @@ namespace mikoba
                         {
                             options.PoolName = "kiva";
                             options.EndpointUri = AppConstant.EndpointUri;
+                            
                             options.WalletConfiguration.StorageConfiguration =
                                 new WalletConfiguration.WalletStorageConfiguration
                                 {
@@ -30,8 +31,10 @@ namespace mikoba
                                         path2: ".indy_client",
                                         path3: "wallets")
                                 };
+                            
                             options.WalletConfiguration.Id = "MobileWallet";
                             options.WalletCredentials.Key = "SecretWalletKey";
+                            
                             options.RevocationRegistryDirectory = Path.Combine(
                                 path1: FileSystem.AppDataDirectory,
                                 path2: ".indy_client",

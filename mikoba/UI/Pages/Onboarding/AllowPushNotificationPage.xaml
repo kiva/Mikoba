@@ -44,7 +44,8 @@
                 <Label
                     Text="Receive notifications about your Wallet?"
                     FontFamily="KivaPostGrot-Medium"
-                    FontSize="21"
+                    FontSize="20"
+                    LineHeight="1.2"
                     TextColor="#004FD4"
                     Margin="75, 0, 75, 100"
                     VerticalOptions="Start"
@@ -77,9 +78,10 @@
                 HorizontalTextAlignment="Center"
                 HorizontalOptions="Center"
                 LineBreakMode="WordWrap"
+                TextColor="#4F4F4F"
                 WidthRequest="280">
                 <Label.Text>
-                    Kiva will only use your camera to scan QR codes. This will allow you to receive your digital identifications from places like your government agencies.
+                    You'll receive notifications about your credential offers, requests and updates
                 </Label.Text>
             </Label>
         </Grid>
@@ -108,7 +110,7 @@
                     WidthRequest="152"
                     Padding="20"
                     Command="{Binding CheckNotificationPermissions}"
-                    Margin="0,0,20,24"
+                    Margin="0,0,24,24"
                     BackgroundColor="#004FD4"
                     TextColor="White"
                     FontSize="13" />

@@ -42,11 +42,12 @@
             Row="1">
             <StackLayout>
                 <Label
-                    Text="Would you like to turn on Fingerprint Login?"
+                    Text="Would you like to enable fingerprint login?"
                     FontFamily="KivaPostGrot-Medium"
                     FontSize="21"
+                    LineHeight="1.2"
                     TextColor="#004FD4"
-                    Margin="75, 0, 75, 100"
+                    Margin="40, 0, 40, 100"
                     VerticalOptions="Start"
                     WidthRequest="280"
                     HorizontalTextAlignment="Center"
@@ -94,7 +95,7 @@
                     WidthRequest="152"
                     Padding="20"
                     Command="{Binding AllowFingerprints}"
-                    Margin="0,0,20,24"
+                    Margin="0,0,24,24"
                     BackgroundColor="#004FD4"
                     TextColor="White"
                     FontSize="13" />

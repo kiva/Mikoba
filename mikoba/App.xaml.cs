@@ -9,6 +9,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using mikoba.Services;
 using mikoba.UI.Pages;
+using mikoba.UI.Components;
 using mikoba.UI.Pages.Connections;
 using mikoba.UI.Pages.Credentials;
 using mikoba.UI.Pages.Login;
@@ -49,8 +50,8 @@ namespace mikoba
         protected override async void OnStart()
         {
             await Host.StartAsync();
-            
-            
+
+
             AppCenter.Start("android=acc3a7fc-65e0-497a-b317-3da135a86a64;" +
                             "ios=56836175-d366-4a59-893b-58f866799cbc",
                 typeof(Analytics), typeof(Crashes));
@@ -76,7 +77,7 @@ namespace mikoba
             //Login
             _navigationService.AddPageViewModelBinding<FingerprintLoginViewModel, FingerprintLoginPage>();
             _navigationService.AddPageViewModelBinding<PINLoginViewModel, PINLoginPage>();
-
+            
             if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
             {
                 var fpAuthStatus = await CrossFingerprint.Current.GetAvailabilityAsync();

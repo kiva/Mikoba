@@ -1,20 +1,16 @@
-using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using System.Windows.Input;
-using Hyperledger.Aries.Contracts;
+using Autofac;
+using Hyperledger.Aries.Runtime;
 using mikoba.Extensions;
+using Xamarin.Forms;
 using SVG.Forms.Plugin.Abstractions;
+using Xamarin.Forms.Xaml;
+using mikoba.ViewModels.Components;
 
 namespace mikoba.UI.Components
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Notification : ContentView
     {
-        #region Services
-        private readonly IEventAggregator eventAggregator;
-        #endregion
-        
         public static readonly BindableProperty NotificationTextProperty =
             BindableProperty.Create("NotificationText", typeof(string), typeof(Notification), default(string));
         public string NotificationText
@@ -30,19 +26,16 @@ namespace mikoba.UI.Components
             get { return (string)GetValue(LeftSvgImageProperty); }
             set { SetValue(LeftSvgImageProperty, value); }
         }
-
-        public static readonly BindableProperty CommandProperty =
-            BindableProperty.Create("Command", typeof(ICommand), typeof(MenuOption), null);
         
-
         public Notification()
         {
             InitializeComponent();
             leftSvgImage.SetBinding(SvgImage.SvgPathProperty, new Binding("LeftSvgImage", source: this));
         }
 
-        void OnSwiped(System.Object sender, System.EventArgs e)
+        private void SwipeGestureRecognizer_OnSwiped(object sender, SwipedEventArgs e)
         {
+            var eventAggregator =  App.Container.Resolve<EventAggregator>();
             eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.NotificationDismissed});
         }
     }

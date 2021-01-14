@@ -21,6 +21,7 @@
         <StyleSheet Source="../../../Styles/Global.css" />
         <ResourceDictionary>
             <extensions:InverseBooleanConverter x:Key="BooleanInverse" />
+            <extensions:StringNullOrEmptyBoolConverter x:Key="StringNullOrEmptyBool" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid HorizontalOptions="Fill"
@@ -139,6 +140,7 @@
             </Grid>
         </StackLayout>
         <components:Notification
+            IsVisible="{Binding NotificationText, Converter={StaticResource StringNullOrEmptyBool}}"
             NotificationText="{Binding NotificationText}"
             HorizontalOptions="Center"
             VerticalOptions="Start"

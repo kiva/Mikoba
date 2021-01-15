@@ -5,7 +5,6 @@ using Xamarin.Forms;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using mikoba.Annotations;
-using Autofac;
 
 namespace mikoba.ViewModels.Components
 {

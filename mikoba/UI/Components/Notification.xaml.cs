@@ -1,4 +1,5 @@
 using Autofac;
+using Hyperledger.Aries.Contracts;
 using Hyperledger.Aries.Runtime;
 using mikoba.Extensions;
 using Xamarin.Forms;
@@ -35,8 +36,8 @@ namespace mikoba.UI.Components
 
         private void SwipeGestureRecognizer_OnSwiped(object sender, SwipedEventArgs e)
         {
-            var eventAggregator =  App.Container.Resolve<EventAggregator>();
-            eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.NotificationDismissed});
+            var eventAggregator =  App.Container.Resolve<IEventAggregator>();
+            eventAggregator.Publish(new CoreDispatchedEvent() { Type = DispatchType.NotificationDismissed });
         }
     }
 }

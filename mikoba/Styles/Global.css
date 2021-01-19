@@ -19,6 +19,14 @@
     margin-top: 4;
 }
 
+.notificationText {
+    font-weight: bold;
+    font-size: 16;
+    color: #169D00;
+    width: 250;
+    margin-top: 4;
+}
+
 .header1 {
     font-size: 21;
     color: #004FD4;

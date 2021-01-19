@@ -97,6 +97,13 @@ namespace mikoba.ViewModels.Pages
             set => this.RaiseAndSetIfChanged(ref _welcomeText, value);
         }
 
+        private string _notificationText;
+
+        public string NotificationText {
+            get => _notificationText;
+            set => this.RaiseAndSetIfChanged(ref _notificationText, value);
+        }
+
         private bool _isRefreshing;
 
         public bool IsRefreshing
@@ -156,14 +163,22 @@ namespace mikoba.ViewModels.Pages
             Preferences.Set(AppConstant.LocalWalletFirstView, false);
             IsRefreshing = true;
             await RefreshEntries();
-            WelcomeText =
+           WelcomeText  =
                 $"Hello {Preferences.Get(AppConstant.FullName, "")}, welcome to your new Wallet.  Get started by receiving your first ID.";
             IsRefreshing = false;
             _eventAggregator.GetEventByType<CoreDispatchedEvent>()
-                .Subscribe(async _ => { await RefreshData(); });
+                .Subscribe(async _ => {
+                    if (_.Type == DispatchType.ConnectionsUpdated)
+                    {
+                        NotificationText  = "Connection accepted";
+                    } else if (_.Type == DispatchType.NotificationDismissed)
+                    {
+                        NotificationText  = "";
+                    }
+                    await RefreshData();
+                });
             _mediatorTimer.Start();
-            
-            
+
             await base.InitializeAsync(navigationData);
         }
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns:local="clr-namespace:mikoba"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
+    x:Class="mikoba.UI.Components.Notification">
+    <ContentView.Content>
+        <Frame
+            StyleClass="displayFrame"
+        >
+            <Frame.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Up" Swiped="SwipeGestureRecognizer_OnSwiped" />
+            </Frame.GestureRecognizers>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                </Grid.ColumnDefinitions>
+                <abstractions:SvgImage
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    x:Name="leftSvgImage"
+                    SvgAssembly="{Binding SvgAssembly}"
+                    HeightRequest="30"
+                    WidthRequest="30" />
+                <Label
+                    Grid.Column="1"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center"
+                    HorizontalTextAlignment="Start"
+                    StyleClass="notificationText"
+                    Text="{Binding NotificationText}"
+                    FontFamily="KivaPostGrot-Medium" />
+            </Grid>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

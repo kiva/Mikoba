@@ -21,6 +21,7 @@
         <StyleSheet Source="../../../Styles/Global.css" />
         <ResourceDictionary>
             <extensions:InverseBooleanConverter x:Key="BooleanInverse" />
+            <extensions:StringNullOrEmptyBoolConverter x:Key="StringNullOrEmptyBool" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid HorizontalOptions="Fill"
@@ -129,7 +130,6 @@
                     VerticalOptions="End"
                     Grid.Row="1">
                     <components:ActionButton
-                        Grid.Row="1"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         Margin="0,0,0,50"
@@ -139,5 +139,13 @@
                 </StackLayout>
             </Grid>
         </StackLayout>
+        <components:Notification
+            IsVisible="{Binding NotificationText, Converter={StaticResource StringNullOrEmptyBool}}"
+            NotificationText="{Binding NotificationText}"
+            HorizontalOptions="Center"
+            VerticalOptions="Start"
+            Margin="0,0,0,10"
+            LeftSvgImage="mikoba.Images.successcheck.svg"
+        />
     </Grid>
 </ContentPage>

@@ -108,6 +108,8 @@ namespace mikoba.ViewModels
         public string Anonymous { get; } = "mikoba.Images.anonymousprofilepic.svg";
 
         public string FingerprintIcon { get; } = "mikoba.Images.fingerprint_icon.svg";
+
+        public string SuccessCheck { get; } = "mikoba.Images.successcheck.svg";
         
         #endregion
 

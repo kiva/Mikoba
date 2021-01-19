@@ -4,6 +4,7 @@ namespace mikoba.Extensions
     {
         ConnectionsUpdated,
         ConnectionCreated,
+        NotificationDismissed,
     }
 
     public class CoreDispatchedEvent

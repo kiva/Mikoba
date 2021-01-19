@@ -127,6 +127,7 @@
     <EmbeddedResource Include="Images\kiva.svg" />
     <EmbeddedResource Include="Images\orange.svg" />
     <EmbeddedResource Include="Images\pink.svg" />
+    <EmbeddedResource Include="Images\successcheck.svg" />
     <EmbeddedResource Include="Images\wave.svg" />
     <EmbeddedResource Include="Images\dots.svg" />
     <EmbeddedResource Remove="UI\CredentialsListView.xaml" />

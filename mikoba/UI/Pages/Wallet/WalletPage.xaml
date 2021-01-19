@@ -25,29 +25,6 @@
     </ContentPage.Resources>
     <Grid HorizontalOptions="Fill"
           VerticalOptions="Fill">
-        <components:KivaSvgImage
-            ImageKey="wave"
-            StyleClass="waveBackground"
-            HeightRequest="300"
-            WidthRequest="400"
-            Margin="0,-200,0,0"
-            BackgroundColor="#F2F2F2"
-            HorizontalOptions="End"
-            VerticalOptions="Start" />
-        <components:KivaSvgImage
-            ImageKey="orange"
-            HeightRequest="200"
-            WidthRequest="214"
-            BackgroundColor="#F2F2F2"
-            HorizontalOptions="Start"
-            VerticalOptions="End" />
-        <components:KivaSvgImage
-            ImageKey="dots"
-            HeightRequest="83"
-            WidthRequest="97"
-            BackgroundColor="#F2F2F2"
-            HorizontalOptions="End"
-            VerticalOptions="End" />
         <StackLayout StyleClass="content"
                      Orientation="Vertical"
                      HorizontalOptions="Center">

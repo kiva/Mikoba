@@ -35,10 +35,15 @@
                     <RowDefinition Height="60" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
                 <StackLayout
                     StyleClass="topLogos"
                     Orientation="Horizontal"
-                    HorizontalOptions="FillAndExpand">
+                    Grid.Column="0"
+                    HorizontalOptions="StartAndExpand">
                     <components:KivaSvgImage
                         effects:RoundCornersEffect.CornerRadius="10"
                         ImageKey="kivalogoblue"
@@ -46,9 +51,24 @@
                         WidthRequest="35"
                         HorizontalOptions="Start" />
                 </StackLayout>
+                <StackLayout
+                    StyleClass="topLogos"
+                    Orientation="Horizontal"
+                    Grid.Column="1"
+                    HorizontalOptions="EndAndExpand">
+                    <components:ActionButton
+                        Grid.Row="1"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Margin="0,0,0,10"
+                        ActionButtonSvg="mikoba.Images.gear.svg"
+                        ActionButtonText=""
+                        Command="{Binding SettingsCommand}" />
+                </StackLayout>
                 <ScrollView
                     HorizontalOptions="FillAndExpand"
-                    Grid.Row="1">
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2">
                     <StackLayout BindableLayout.ItemsSource="{Binding Entries}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>

@@ -13,7 +13,9 @@ using mikoba.UI.Pages.Connections;
 using mikoba.UI.Pages.Credentials;
 using mikoba.UI.Pages.Login;
 using mikoba.UI.Pages.Onboarding;
+using mikoba.UI.Pages.Settings;
 using mikoba.UI.Pages.Wallet;
+using mikoba.UI.ViewModels;
 using mikoba.ViewModels;
 using mikoba.ViewModels.Pages;
 using mikoba.ViewModels.SSI;
@@ -62,6 +64,7 @@ namespace mikoba
             _navigationService.AddPageViewModelBinding<ProofRequestViewModel, ProofRequestPage>();
             _navigationService.AddPageViewModelBinding<EntryHubPageViewModel, EntryHubPage>();
             _navigationService.AddPageViewModelBinding<SplashPageViewModel, SplashPage>();
+            _navigationService.AddPageViewModelBinding<SettingsPageViewModel, SettingsPage>();
 
             //Onboarding
             _navigationService.AddPageViewModelBinding<WalletOwnerInputViewModel, WalletOwnerInputPage>();

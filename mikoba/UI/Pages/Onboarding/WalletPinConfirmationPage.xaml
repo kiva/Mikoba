@@ -17,11 +17,12 @@
           VerticalOptions="Fill">
         <Grid.RowDefinitions>
             <RowDefinition Height="80" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid Row="0"
               IsVisible="{Binding  NoError}"
+              HeightRequest="60"
               HorizontalOptions="Fill"
               VerticalOptions="Fill">
             <components:BackButton
@@ -38,6 +39,7 @@
         <Grid Row="0"
               IsVisible="{Binding NoMatch}"
               HorizontalOptions="Fill"
+              HeightRequest="60"
               VerticalOptions="Fill">
             <Label
                 TextColor="#FFFFFF"

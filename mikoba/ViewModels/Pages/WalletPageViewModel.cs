@@ -206,6 +206,16 @@ namespace mikoba.ViewModels.Pages
         public ICommand RefreshCommand
         {
             get => new Command(async () => { await this.RefreshCredentials(); });
+        }        
+        
+        
+        public ICommand SettingsCommand
+        
+        {
+            get => new Command(async () =>
+            {
+                await NavigationService.NavigateToAsync<SettingsPageViewModel>();
+            });
         }
 
         #endregion

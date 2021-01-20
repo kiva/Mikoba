@@ -26,29 +26,6 @@
     </ContentPage.Resources>
     <Grid HorizontalOptions="Fill"
           VerticalOptions="Fill">
-        <components:KivaSvgImage
-            ImageKey="wave"
-            StyleClass="waveBackground"
-            HeightRequest="300"
-            WidthRequest="400"
-            Margin="0,-200,0,0"
-            BackgroundColor="#F2F2F2"
-            HorizontalOptions="End"
-            VerticalOptions="Start" />
-        <components:KivaSvgImage
-            ImageKey="orange"
-            HeightRequest="200"
-            WidthRequest="214"
-            BackgroundColor="#F2F2F2"
-            HorizontalOptions="Start"
-            VerticalOptions="End" />
-        <components:KivaSvgImage
-            ImageKey="dots"
-            HeightRequest="83"
-            WidthRequest="97"
-            BackgroundColor="#F2F2F2"
-            HorizontalOptions="End"
-            VerticalOptions="End" />
         <StackLayout StyleClass="content"
                      Orientation="Vertical"
                      HorizontalOptions="Center">
@@ -59,10 +36,15 @@
                     <RowDefinition Height="60" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
                 <StackLayout
                     StyleClass="topLogos"
                     Orientation="Horizontal"
-                    HorizontalOptions="FillAndExpand">
+                    Grid.Column="0"
+                    HorizontalOptions="StartAndExpand">
                     <components:KivaSvgImage
                         effects:RoundCornersEffect.CornerRadius="10"
                         ImageKey="kivalogoblue"
@@ -70,9 +52,24 @@
                         WidthRequest="35"
                         HorizontalOptions="Start" />
                 </StackLayout>
+                <StackLayout
+                    StyleClass="topLogos"
+                    Orientation="Horizontal"
+                    Grid.Column="1"
+                    HorizontalOptions="EndAndExpand">
+                    <components:ActionButton
+                        Grid.Row="1"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Margin="0,0,0,10"
+                        ActionButtonSvg="mikoba.Images.gear.svg"
+                        ActionButtonText=""
+                        Command="{Binding SettingsCommand}" />
+                </StackLayout>
                 <ScrollView
                     HorizontalOptions="FillAndExpand"
-                    Grid.Row="1">
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2">
                     <StackLayout BindableLayout.ItemsSource="{Binding Entries}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>

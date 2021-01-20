@@ -78,6 +78,7 @@ namespace mikoba.ViewModels.Pages
                     Message = "Click Accept Credential",
                     Level = SentryLevel.Info
                 });
+                _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialAccepted});
                 Analytics.TrackEvent("Click Accept Credential");
                 var (request, _) = await _credentialService.CreateRequestAsync(context, _transport.Record.Id);
                 await _messageService.SendAsync(context.Wallet, request, _transport.MessageContext.Connection);
@@ -88,6 +89,8 @@ namespace mikoba.ViewModels.Pages
                 });
                 Analytics.TrackEvent("Saved Credential");
                 ShowReceipt = true;
+                await NavigationService.PopModalAsync();
+                await NavigationService.NavigateToAsync<WalletPageViewModel>();
             }
             catch (Exception ex)
             {
@@ -98,6 +101,7 @@ namespace mikoba.ViewModels.Pages
                     Message = "Failed to Save Credential",
                     Level = SentryLevel.Error
                 });
+                _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialAcceptanceFailed});
                 Analytics.TrackEvent("Failed to Save Credential");
                 Console.WriteLine(ex.Message);
                 await _dialogService.ShowAlertAsync("Can't add credential", ex.Message, "OK");
@@ -106,11 +110,13 @@ namespace mikoba.ViewModels.Pages
 
         public ICommand DeclineCommand => new Command(async () =>
         {
+            
             SentrySdk.CaptureEvent(new SentryEvent()
             {
                 Message = "Decline Credential",
                 Level = SentryLevel.Info
             });
+            _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialDeclined});
             await NavigationService.PopModalAsync();
         });
 

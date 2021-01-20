@@ -74,6 +74,8 @@ namespace mikoba.ViewModels.Pages
                 msg.ImageUrl = _invite.ImageUrl;
                 await _messageService.SendAsync(context.Wallet, msg, record);
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
+                _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionCreated});
+
                 var entry = _scope.Resolve<EntryViewModel>();
                 entry.Connection = _scope.Resolve<SSIConnectionViewModel>(new NamedParameter("record", record));
                 entry.Setup();
@@ -135,10 +137,10 @@ namespace mikoba.ViewModels.Pages
         {
             if (navigationData is ConnectionInvitationMessage invite)
             {
-                InviteTitle = $"Trust {invite.Label}?";
+                InviteTitle = $"Allow {invite.Label} to send you requests?";
                 InviterUrl = invite.ImageUrl;
                 InviteContents =
-                    $"{invite.Label} wants to send you a secure request.";
+                    $"{invite.Label} will be allowed to issue you credentials or verify your existing credentials.";
                 _invite = invite;
             }
             return base.InitializeAsync(navigationData);

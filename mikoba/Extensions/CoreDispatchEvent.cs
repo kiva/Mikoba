@@ -5,6 +5,10 @@ namespace mikoba.Extensions
         ConnectionsUpdated,
         ConnectionCreated,
         NotificationDismissed,
+        CredentialAccepted,
+        CredentialDeclined,
+        CredentialAcceptanceFailed,
+        CredentialRemoved
     }
 
     public class CoreDispatchedEvent

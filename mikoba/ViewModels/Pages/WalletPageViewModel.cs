@@ -168,9 +168,21 @@ namespace mikoba.ViewModels.Pages
             IsRefreshing = false;
             _eventAggregator.GetEventByType<CoreDispatchedEvent>()
                 .Subscribe(async _ => {
-                    if (_.Type == DispatchType.ConnectionsUpdated)
+                    if (_.Type == DispatchType.ConnectionCreated)
                     {
-                        NotificationText  = "Connection accepted";
+                        NotificationText  = "Kiva can now send you requests.";
+                    } else if (_.Type == DispatchType.CredentialAccepted)
+                    {
+                        NotificationText  = "Credential accepted.";
+                    } else if (_.Type == DispatchType.CredentialDeclined)
+                    {
+                        NotificationText  = "Failed to save credential.";
+                    } else if (_.Type == DispatchType.CredentialAcceptanceFailed)
+                    {
+                        NotificationText  = "Credential declined.";
+                    } else if (_.Type == DispatchType.CredentialRemoved)
+                    {
+                        NotificationText  = "Credential deleted.";
                     } else if (_.Type == DispatchType.NotificationDismissed)
                     {
                         NotificationText  = "";

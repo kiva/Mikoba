@@ -78,6 +78,7 @@ namespace mikoba.ViewModels.Pages
             var context = await _contextProvider.GetContextAsync();
             await _credentialService.DeleteCredentialAsync(context, _credential._credential.Id);
             _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
+            _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialRemoved});
             await NavigationService.NavigateBackAsync();
         });
 

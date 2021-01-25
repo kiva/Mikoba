@@ -30,21 +30,19 @@ namespace mikoba.ViewModels.SSI
 
         public static string FormatCredentialName(string source)
         {
-            switch (source)
+            var formattedCredentialName = Char.ToString(Char.ToUpper(source[0]));
+            for(int i = 1; i < source.Length; i++)
             {
-                case "nationalId": 
-                    return "National ID";
-                case "firstName": 
-                    return "First Name";
-                case "lastName": 
-                    return "Last Name";
-                case "dateOfBirth": 
-                    return "Birth Date";
-                case "birthDate": 
-                    return "BirthDate";
-                default: 
-                    return source;
+                if (Char.IsUpper(source[i]) && Char.ToString(source[i-1]) != " ")
+                {
+                    formattedCredentialName = formattedCredentialName + " " + Char.ToUpper(source[i]);
+                }
+                else
+                {
+                    formattedCredentialName = formattedCredentialName + source[i];
+                }
             }
+            return formattedCredentialName;
         }
         
         public SSICredentialViewModel(

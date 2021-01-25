@@ -1,9 +1,15 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using Hyperledger.Aries.Features.IssueCredential;
 using mikoba.Extensions;
 using mikoba.Services;
 using ReactiveUI;
 using Xamarin.Essentials;
+using Newtonsoft.Json;
+using Sentry;
+using Microsoft.AppCenter.Crashes;
 
 namespace mikoba.ViewModels.SSI
 {
@@ -25,6 +31,65 @@ namespace mikoba.ViewModels.SSI
                     Name = cred.Name,
                     Value = cred.Value,
                 });
+            }
+        }
+        
+        private static string _credentialDisplayNamesJsonString;
+        public static string CredentialDisplayNamesJsonString
+        {
+            get
+            {
+                return _credentialDisplayNamesJsonString;
+            }
+            set
+            {
+                _credentialDisplayNamesJsonString = value;
+            }
+        }
+        
+        private static string _credentialDisplayNames;
+        public static string CredentialDisplayNames
+        {
+            get
+            {
+                return _credentialDisplayNames;
+            }
+            set
+            {
+                _credentialDisplayNames = value;
+            }
+        }
+
+        private static void LoadData()
+        {
+            var assembly = typeof(SSICredentialViewModel).GetTypeInfo().Assembly;
+            foreach (var res in assembly.GetManifestResourceNames())
+            {
+                if (res.Contains("CredentialMapping.json"))
+                {
+                    Stream stream = assembly.GetManifestResourceStream(res);
+
+                    using (var reader = new StreamReader(stream))
+                    {
+                        string data = "";
+                        while ((data = reader.ReadLine()) != null)
+                        {
+                            CredentialDisplayNamesJsonString = CredentialDisplayNamesJsonString + data;
+                        }
+
+                        try
+                        {
+                            
+                            var CredentialDisplayNames = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(CredentialDisplayNamesJsonString);
+                        }
+                        catch (Exception ex)
+                        {
+                            Crashes.TrackError(ex);
+                            SentrySdk.CaptureException(ex);
+                            Console.WriteLine(ex.Message);
+                        }
+                    }
+                }
             }
         }
 
@@ -52,6 +117,7 @@ namespace mikoba.ViewModels.SSI
             nameof(SSICredentialViewModel),
             navigationService
         ) {
+            LoadData();
             _credential = credential;
             Console.WriteLine("credential-id:"  + credential.Id);
             Preferences.Set("credential-id", credential.Id);

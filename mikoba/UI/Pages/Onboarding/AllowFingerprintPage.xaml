@@ -58,12 +58,14 @@
             HorizontalOptions="Center"
             Row="2">
             <StackLayout>
-                <Image
-                    x:Name="FingerprintImage"
-                    VerticalOptions="Start"
-                    HorizontalOptions="Center"
+                <abstractions:SvgImage
+                    SvgAssembly="{Binding SvgAssembly}"
+                    SvgPath="{Binding FingerprintIcon}"
+                    HeightRequest="46"
                     WidthRequest="46"
-                    HeightRequest="46" />
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start" />
             </StackLayout>
         </Grid>
         <Grid

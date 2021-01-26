@@ -28,6 +28,7 @@
                     VerticalTextAlignment="Center"
                     IsPassword="True"
                     Placeholder="_"
+                    WidthRequest="40"
                     IsTextPredictionEnabled="false" />
                 <controls:BorderlessEntry
                     TextChanged="SwitchFocus"
@@ -42,6 +43,7 @@
                     HorizontalTextAlignment="Center"
                     IsPassword="True"
                     Placeholder="_"
+                    WidthRequest="40"
                     VerticalTextAlignment="Center"
                     IsTextPredictionEnabled="false" />
                 <controls:BorderlessEntry
@@ -58,6 +60,7 @@
                     VerticalTextAlignment="Center"
                     IsPassword="True"
                     Placeholder="_"
+                    WidthRequest="40"
                     IsTextPredictionEnabled="false" />
                 <controls:BorderlessEntry
                     TextChanged="SubmitPIN"
@@ -73,6 +76,7 @@
                     VerticalTextAlignment="Center"
                     IsPassword="True"
                     Placeholder="_"
+                    WidthRequest="40"
                     IsTextPredictionEnabled="false" />
             </Grid>
         </StackLayout>

@@ -183,6 +183,12 @@ namespace mikoba.ViewModels.Pages
                     } else if (_.Type == DispatchType.CredentialRemoved)
                     {
                         NotificationText  = "Credential deleted.";
+                    } else if (_.Type == DispatchType.CredentialShared)
+                    {
+                        NotificationText = "Credential shared.";
+                    } else if (_.Type == DispatchType.CredentialShareFailed)
+                    {
+                        NotificationText = "Credential share failed.";
                     } else if (_.Type == DispatchType.NotificationDismissed)
                     {
                         NotificationText  = "";

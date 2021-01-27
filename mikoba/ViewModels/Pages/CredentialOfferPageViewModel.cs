@@ -88,7 +88,6 @@ namespace mikoba.ViewModels.Pages
                     Level = SentryLevel.Info
                 });
                 Analytics.TrackEvent("Saved Credential");
-                ShowReceipt = true;
                 await NavigationService.PopModalAsync();
                 await NavigationService.NavigateToAsync<WalletPageViewModel>();
             }

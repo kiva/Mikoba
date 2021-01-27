@@ -8,7 +8,9 @@ namespace mikoba.Extensions
         CredentialAccepted,
         CredentialDeclined,
         CredentialAcceptanceFailed,
-        CredentialRemoved
+        CredentialRemoved,
+        CredentialShared,
+        CredentialShareFailed
     }
 
     public class CoreDispatchedEvent

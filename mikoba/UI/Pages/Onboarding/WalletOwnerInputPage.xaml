@@ -62,7 +62,7 @@
                     VerticalOptions="Start"
                     HorizontalOptions="CenterAndExpand"
                     HorizontalTextAlignment="Center"
-                    MinimumWidthRequest="160"
+                    MinimumWidthRequest="280"
                     TextColor="#000000"
                     BackgroundColor="#F9F9F9"
                     Text="{Binding Owner}"

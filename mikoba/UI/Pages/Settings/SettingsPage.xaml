@@ -21,8 +21,7 @@
           Margin="20"
           VerticalOptions="Fill">
         <Grid.RowDefinitions>
-            <RowDefinition Height="120"/>
-            <RowDefinition Height="120"/>
+            <RowDefinition Height="60"/>
             <RowDefinition />
         </Grid.RowDefinitions>
         <Button Grid.Row="0"

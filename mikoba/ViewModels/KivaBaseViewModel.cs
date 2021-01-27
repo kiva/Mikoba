@@ -41,7 +41,7 @@ namespace mikoba.ViewModels
             {
                 if (this.NavigationService != null)
                 {
-                    // this.NavigationService.PopAsync();
+                    this.NavigationService.NavigateBackAsync();
                 }
             });
         }

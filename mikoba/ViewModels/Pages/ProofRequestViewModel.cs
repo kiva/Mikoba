@@ -91,6 +91,7 @@ namespace mikoba.ViewModels.Pages
             var context = await _contextProvider.GetContextAsync();
             var _messageService = App.Container.Resolve<IMessageService>();
             var _proofService = App.Container.Resolve<IProofService>();
+            var success = true;
             try
             {
                 var requestedCredentials = await buildCredentials();
@@ -101,11 +102,21 @@ namespace mikoba.ViewModels.Pages
             }
             catch (Exception ex)
             {
+                success = false;
                 Console.WriteLine(ex);
             }
             finally
             {
-                this.ShowReceipt = true;
+                await NavigationService.NavigateToAsync<WalletPageViewModel>();
+                if (success)
+                {
+                    _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialShared});
+                }
+                else
+                {
+                    _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialShareFailed});
+                }
+                
             }
         });
 

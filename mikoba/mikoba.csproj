@@ -202,6 +202,8 @@
     <EmbeddedResource Include="Images\bank.svg" />
     <None Remove="Images\gov.svg" />
     <EmbeddedResource Include="Images\gov.svg" />
+    <None Remove="Resources\CredentialMapping\CredentialMapping.json" />
+    <EmbeddedResource Include="Resources\CredentialMapping\CredentialMapping.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="UI\CredentialsListView.xaml.cs" />

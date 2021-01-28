@@ -134,6 +134,11 @@ namespace mikoba.ViewModels.Pages
             {
                 await NavigationService.PopModalAsync();
             }
+        });        
+        
+        public ICommand CloseModalCommand => new Command(async () =>
+        {
+            await NavigationService.PopModalAsync();
         });
 
         #endregion
@@ -154,6 +159,22 @@ namespace mikoba.ViewModels.Pages
         {
             get => _photoAttach;
             set => this.RaiseAndSetIfChanged(ref _photoAttach, value);
+        }
+        
+        private string _screenSubtitle;
+
+        public string ScreenSubtitle
+        {
+            get => _screenSubtitle;
+            set => this.RaiseAndSetIfChanged(ref _screenSubtitle, value);
+        }
+        
+        private string _connectionText;
+
+        public string ConnectionText
+        {
+            get => _connectionText;
+            set => this.RaiseAndSetIfChanged(ref _connectionText, value);
         }
 
         private RangeEnabledObservableCollection<SSICredentialAttribute> _requestedAttributes =
@@ -202,6 +223,9 @@ namespace mikoba.ViewModels.Pages
                         });
                     }
                 }
+
+                ConnectionText = "Request from Kiva";
+                ScreenSubtitle = DateTime.Now.ToLongDateString();
 
                 RequestedAttributes.Clear();
                 RequestedAttributes.AddRange(requestedAttributes);

@@ -59,12 +59,7 @@ namespace mikoba.ViewModels.Pages.Onboarding
                 await _edgeProvisioningService.ProvisionAsync();
                 Preferences.Set(AppConstant.LocalWalletProvisioned, true);
 
-                SentrySdk.CaptureEvent(new SentryEvent()
-                {
-                    Message = "Initialized Wallet",
-                    Level = SentryLevel.Info
-                });
-                Analytics.TrackEvent("Initialized Wallet");
+                Tracking.TrackEvent("Initialized Wallet");
 
                 await Task.Delay(100);
                 ProgressInfo = "Checking Permissions";

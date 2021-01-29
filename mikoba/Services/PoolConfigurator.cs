@@ -40,7 +40,7 @@ namespace mikoba.Services
                 try
                 {
                     // Path for bundled genesis txn
-                    var rootPath = System.Environment.GetFolderPath(Environment.SpecialFolder.a);
+                    var rootPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                     var cache = FileSystem.CacheDirectory;
                     var filename = Path.Combine(rootPath, "genesis.txn");
 
@@ -61,17 +61,11 @@ namespace mikoba.Services
                 catch (PoolLedgerConfigExistsException ex)
                 {
                     // OK
-                    logger.LogCritical(ex, "Pool already exists");
-                    Crashes.TrackError(ex);
-                    SentrySdk.CaptureException(ex);
-                    
+                    Tracking.TrackException(ex, "Pool already exists");
                 }
                 catch (Exception ex)
                 {
-                    logger.LogCritical(ex, "Couldn't create pool config");
-                    Crashes.TrackError(ex);
-                    SentrySdk.CaptureException(ex);
-                    SentrySdk.CaptureMessage("Couldn't create pool", SentryLevel.Error);
+                    Tracking.TrackException(ex,"Couldn't create pool");
                 }
             }
         }

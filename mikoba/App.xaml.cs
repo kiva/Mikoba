@@ -76,6 +76,7 @@ namespace mikoba
             _navigationService.AddPageViewModelBinding<AllowCameraConfirmationViewModel, AllowCameraConfirmationPage>();
             _navigationService.AddPageViewModelBinding<AllowPushNotificationViewModel, AllowPushNotificationPage>();
             _navigationService.AddPageViewModelBinding<AllowFingerprintViewModel, AllowFingerprintPage>();
+
             //Login
             _navigationService.AddPageViewModelBinding<FingerprintLoginViewModel, FingerprintLoginPage>();
             _navigationService.AddPageViewModelBinding<PINLoginViewModel, PINLoginPage>();

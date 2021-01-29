@@ -5,45 +5,23 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
-             mc:Ignorable="d" 
+             xmlns:effects="clr-namespace:mikoba.Effects;assembly=mikoba"
+             xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
+             mc:Ignorable="d"
              x:Class="mikoba.UI.Pages.SplashPage"
              NavigationPage.HasNavigationBar="False"
-             BackgroundColor="#F9F9F9">
+             BackgroundColor="#FAFAFA">
     <Grid HorizontalOptions="Fill"
           VerticalOptions="Fill">
-        <abstractions:SvgImage
-            SvgAssembly="{Binding SvgAssembly}"
-            SvgPath="{Binding Wave}"
-            HeightRequest="235"
-            WidthRequest="180"
-            BackgroundColor="#F9F9F9"
-            HorizontalOptions="End"
-            VerticalOptions="Start" />
-        <abstractions:SvgImage
-            SvgAssembly="{Binding SvgAssembly}"
-            SvgPath="{Binding Orange}"
-            HeightRequest="200"
-            WidthRequest="214"
-            BackgroundColor="#F9F9F9"
-            HorizontalOptions="Start"
-            VerticalOptions="End" />
-        <abstractions:SvgImage
-            SvgAssembly="{Binding SvgAssembly}"
-            SvgPath="{Binding Dots}"
-            HeightRequest="83"
-            WidthRequest="97"
-            BackgroundColor="#F9F9F9"
-            HorizontalOptions="End"
-            VerticalOptions="End" />
-        <abstractions:SvgImage
+        <components:KivaSvgImage
             x:Name="AppLogo"
-            SvgAssembly="{Binding SvgAssembly}"
-            SvgPath="{Binding KivaLogo}"
+            effects:RoundCornersEffect.CornerRadius="10"
+            ImageKey="kiva"
             HeightRequest="100"
             WidthRequest="100"
             BackgroundColor="#F9F9F9"
             HorizontalOptions="Center"
-            VerticalOptions="Center" />
+            VerticalOptions="Center" /> 
         <Grid x:Name="gridOptions"
               IsVisible="False"
               HorizontalOptions="Fill"
@@ -52,63 +30,49 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </d:Grid.ColumnDefinitions>
-
-            <StackLayout Orientation="Vertical"
-                         d:Grid.ColumnSpan="2"
-                         HorizontalOptions="Center"
-                         VerticalOptions="Center">
+            <StackLayout
+                Orientation="Vertical"
+                d:Grid.ColumnSpan="2"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
                 <Label
                     HorizontalTextAlignment="Center"
                     VerticalTextAlignment="Center"
-                    TextColor="#004FD4"
+                    TextColor="#246EC2"
                     FontSize="27"
+                    Width="300"
                     FontAttributes="Bold">
-                    Hey there!
-                </Label>
-                <Label
-                    HorizontalTextAlignment="Center"
-                    VerticalTextAlignment="Center"
-                    TextColor="#004FD4"
-                    FontSize="27"
-                    FontAttributes="Bold">
-                    Welcome to your
-                </Label>
-                <Label
-                    HorizontalTextAlignment="Center"
-                    VerticalTextAlignment="Center"
-                    TextColor="#004FD4"
-                    FontSize="27"
-                    FontAttributes="Bold">
-                    Kiva Wallet.
+                    Welcome to your Kiva Wallet, a place to safely store all your digital credentials.
                 </Label>
             </StackLayout>
-            <StackLayout VerticalOptions="End"
-                         d:Grid.ColumnSpan="2"
-                         Orientation="Horizontal"
-                         HorizontalOptions="Center"
-                         Margin="0,0,0,40">
-                <Button
-                    Command="{Binding ClaimWalletCommand}"
-                    TextTransform="None"
-                    Text="I have a Wallet"
-                    Margin="20,0,0,0"
-                    Padding="20"
-                    CornerRadius="8"
-                    FontAttributes="Bold"
-                    BackgroundColor="#FFFFFF"
-                    TextColor="#000"
-                    FontSize="20" 
-                    />
+            <StackLayout
+                VerticalOptions="End"
+                d:Grid.ColumnSpan="2"
+                Grid.Column="0"
+                Orientation="Vertical"
+                HorizontalOptions="Center"
+                Margin="0,0,0,40">
                 <Button
                     Command="{Binding GetStartedCommand}"
                     TextTransform="None"
-                    Text="Get started"
-                    Margin="0,0,20,0"
+                    Text="Start a new wallet"
+                    Margin="0,0,0,20"
                     FontAttributes="Bold"
                     CornerRadius="8"
                     Padding="20"
-                    BackgroundColor="#004FD4"
+                    BackgroundColor="#246EC2"
                     TextColor="White"
+                    FontSize="20" />
+                <Button
+                    Command="{Binding ClaimWalletCommand}"
+                    TextTransform="None"
+                    Text="I have a wallet already"
+                    Margin="0,0,0,0"
+                    Padding="20"
+                    CornerRadius="8"
+                    FontAttributes="Bold"
+                    BackgroundColor="#FAFAFA"
+                    TextColor="#246EC2"
                     FontSize="20" />
             </StackLayout>
         </Grid>

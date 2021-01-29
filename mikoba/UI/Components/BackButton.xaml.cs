@@ -18,7 +18,7 @@ namespace mikoba.UI.Components
 
         public ICommand Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
+            get { return (ICommand) GetValue(CommandProperty); }
             set { SetValue(CommandProperty, value); }
         }
 
@@ -27,7 +27,7 @@ namespace mikoba.UI.Components
 
         public object CommandParameter
         {
-            get { return (object)GetValue(CommandParameterProperty); }
+            get { return (object) GetValue(CommandParameterProperty); }
             set { SetValue(CommandParameterProperty, value); }
         }
 
@@ -38,10 +38,9 @@ namespace mikoba.UI.Components
 
         void ClickBack(System.Object sender, System.EventArgs e)
         {
-            if (Command != null)
+            if (Command != null && Command.CanExecute(CommandParameter))
             {
-                if (Command.CanExecute(CommandParameter))
-                    Command.Execute(CommandParameter);
+                Command.Execute(CommandParameter);
             }
         }
     }

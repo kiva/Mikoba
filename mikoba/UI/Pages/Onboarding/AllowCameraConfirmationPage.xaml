@@ -26,14 +26,6 @@
         <Grid Row="0"
               HorizontalOptions="Fill"
               VerticalOptions="Fill">
-            <abstractions:SvgImage
-                SvgAssembly="{Binding SvgAssembly}"
-                SvgPath="{Binding CornerCircles_Left}"
-                HeightRequest="81"
-                WidthRequest="48.81"
-                BackgroundColor="Transparent"
-                HorizontalOptions="Start"
-                VerticalOptions="Start" />
             <components:BackButton
                 Command="{Binding GoBack}"/>
             <Label

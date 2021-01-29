@@ -40,7 +40,7 @@
                     VerticalTextAlignment="Center"
                     TextColor="#246EC2"
                     FontSize="27"
-                    Width="300"
+                    WidthRequest="300"
                     FontAttributes="Bold">
                     Welcome to your Kiva Wallet, a place to safely store all your digital credentials.
                 </Label>

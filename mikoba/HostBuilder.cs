@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Reflection;
 using Autofac;
@@ -17,32 +18,31 @@ namespace mikoba
             return XamarinHost.CreateDefaultBuilder<App>()
                 .ConfigureServices((_, services) =>
                 {
-                    services.AddAriesFramework(builder => builder.RegisterEdgeAgent<MikobaAgent> (
+                    var rootPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    var walletPath = Path.Combine(path1: rootPath, path2: ".indy_client", path3: "wallets");
+                    var tailsPath = Path.Combine(path1: FileSystem.AppDataDirectory, path2: ".indy_client", path3: "tails");
+
+                    services.AddAriesFramework(builder => builder.RegisterEdgeAgent<MikobaAgent>(
                         options: options =>
                         {
-                            options.PoolName = "kiva";
+                            options.PoolName = "kiva-sandbox";
                             options.EndpointUri = AppConstant.EndpointUri;
-                            
+
                             options.WalletConfiguration.StorageConfiguration =
                                 new WalletConfiguration.WalletStorageConfiguration
                                 {
-                                    Path = Path.Combine(
-                                        path1: FileSystem.AppDataDirectory,
-                                        path2: ".indy_client",
-                                        path3: "wallets")
+                                    Path = walletPath
                                 };
-                            
+
                             options.WalletConfiguration.Id = "MobileWallet";
                             options.WalletCredentials.Key = "SecretWalletKey";
-                            
-                            options.RevocationRegistryDirectory = Path.Combine(
-                                path1: FileSystem.AppDataDirectory,
-                                path2: ".indy_client",
-                                path3: "tails");
+
+                            options.RevocationRegistryDirectory = tailsPath;
                         },
                         delayProvisioning: true));
                     services.AddSingleton<IPoolConfigurator, PoolConfigurator>();
-                    
+
+
                     var containerBuilder = new ContainerBuilder();
                     containerBuilder.RegisterAssemblyModules(typeof(KernelModule).Assembly);
                     if (platformSpecific != null)

@@ -34,14 +34,6 @@
                 FontSize="15"
                 Margin="0, 24, 0, 0"
                 TextColor="#004FD4" />
-            <abstractions:SvgImage
-                SvgAssembly="{Binding SvgAssembly}"
-                SvgPath="{Binding CornerCircles}"
-                HeightRequest="81"
-                WidthRequest="57"
-                BackgroundColor="#F9F9F9"
-                HorizontalOptions="End"
-                VerticalOptions="Start" />
         </Grid>
         <Grid
             HorizontalOptions="Center"

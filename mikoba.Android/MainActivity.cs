@@ -62,6 +62,9 @@ namespace mikoba.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+            
+            JavaSystem.LoadLibrary("c++_shared");
+            JavaSystem.LoadLibrary("indy");
 
             //Telemetry
             SentrySdk.Init("https://29fb995fc23549159102c71041f25617@o7540.ingest.sentry.io/5320493");
@@ -78,18 +81,20 @@ namespace mikoba.Droid
             
             ZXing.Mobile.MobileBarcodeScanner.Initialize(Application);
 
+            //Marshmellow and above require permission requests to be made at runtime
+            if ((int) Build.VERSION.SdkInt >= 23)
+            {
+                CheckAndRequestRequiredPermissions();
+            }
+
             // Initializing User Dialogs
             // Android requires that we set content root.
             var host = HostBuilder
                 .BuildHost(typeof(PlatformModule).Assembly)
                 .UseContentRoot(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal)).Build();
 
-            JavaSystem.LoadLibrary("c++_shared");
-            JavaSystem.LoadLibrary("indy");
-
-
+            
             LoadApplication(host.Services.GetRequiredService<App>());
-            CheckAndRequestRequiredPermissions();
             CrossFingerprint.SetCurrentActivityResolver(() => CrossCurrentActivity.Current.Activity);
         }
 
@@ -102,24 +107,23 @@ namespace mikoba.Droid
             }
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions,
-            Permission[] grantResults)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
-            global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions,
-                grantResults);
             if (grantResults.Length == _permissionsToBeGranted.Count)
             {
                 System.Diagnostics.Debug.WriteLine(
-                    "All permissions required that weren't granted, have now been granted");
+                    "All permissions required that werent granted, have now been granted");
             }
             else
             {
                 System.Diagnostics.Debug.WriteLine("Some permissions requested were denied by the user");
             }
-
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions,
+                grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+        
     }
 
     public class Crashes

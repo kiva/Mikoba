@@ -53,7 +53,6 @@ namespace mikoba
         {
             await Host.StartAsync();
 
-
             AppCenter.Start("android=acc3a7fc-65e0-497a-b317-3da135a86a64;" +
                             "ios=56836175-d366-4a59-893b-58f866799cbc",
                 typeof(Analytics), typeof(Crashes));

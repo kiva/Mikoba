@@ -125,6 +125,7 @@
     <EmbeddedResource Include="Images\background4.svg" />
     <EmbeddedResource Include="Images\government.svg" />
     <EmbeddedResource Include="Images\kiva.svg" />
+    <EmbeddedResource Include="Images\back.svg" />
     <EmbeddedResource Include="Images\orange.svg" />
     <EmbeddedResource Include="Images\pink.svg" />
     <EmbeddedResource Include="Images\successcheck.svg" />

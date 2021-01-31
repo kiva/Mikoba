@@ -103,9 +103,7 @@ namespace mikoba.CoreImplementations
                     }
                     catch (Exception ex)
                     {
-                        Crashes.TrackError(ex);
-                        SentrySdk.CaptureException(ex);
-                        Console.WriteLine(ex.Message);
+                        Tracking.TrackException(ex);
                     }
                     return null;
                 }

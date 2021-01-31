@@ -8,6 +8,7 @@ using Hyperledger.Aries.Features.DidExchange;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using mikoba.Extensions;
+using mikoba.Services;
 using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
@@ -62,13 +63,9 @@ namespace mikoba.ViewModels.Pages
             var context = await _contextProvider.GetContextAsync();
             try
             {
-                SentrySdk.CaptureEvent(new SentryEvent()
-                {
-                    Message = "Click Accept Connection",
-                    Level = SentryLevel.Info
-                });
-                Analytics.TrackEvent("Click Accept Connection");
                 
+                Tracking.TrackEvent("Click Accept Connection");
+
                 var (msg, record) = await _connectionService.CreateRequestAsync(context, _invite);
                 msg.Label = _invite.Label;
                 msg.ImageUrl = _invite.ImageUrl;
@@ -79,14 +76,9 @@ namespace mikoba.ViewModels.Pages
                 var entry = _scope.Resolve<EntryViewModel>();
                 entry.Connection = _scope.Resolve<SSIConnectionViewModel>(new NamedParameter("record", record));
                 entry.Setup();
-                
-                SentrySdk.CaptureEvent(new SentryEvent()
-                {
-                    Message = "Accepted Connection",
-                    Level = SentryLevel.Info
-                });
-                Analytics.TrackEvent("Accepted Connection");
-                
+
+                Tracking.TrackEvent("Accepted Connection");
+
                 await this.NavigationService.PopModalAsync();
             }
             catch (Exception ex)

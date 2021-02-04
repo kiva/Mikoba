@@ -19,14 +19,16 @@
                     Grid.Column="0"
                     FontSize="20"
                     FontFamily="KivaPostGrot-Medium"
-                    VerticalOptions="Start"
+                    VerticalOptions="CenterAndExpand"
                     HorizontalOptions="CenterAndExpand"
-                    TextColor="#F76C18"
+                    TextColor="Black"
                     Keyboard="Numeric"
                     Text="{Binding First}"
                     HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"
                     IsPassword="True"
                     Placeholder="_"
+                    WidthRequest="40"
                     IsTextPredictionEnabled="false" />
                 <controls:BorderlessEntry
                     TextChanged="SwitchFocus"
@@ -35,12 +37,14 @@
                     FontFamily="KivaPostGrot-Medium"
                     VerticalOptions="Start"
                     HorizontalOptions="CenterAndExpand"
-                    TextColor="#F76C18"
+                    TextColor="Black"
                     Keyboard="Numeric"
                     Text="{Binding Second}"
                     HorizontalTextAlignment="Center"
                     IsPassword="True"
                     Placeholder="_"
+                    WidthRequest="40"
+                    VerticalTextAlignment="Center"
                     IsTextPredictionEnabled="false" />
                 <controls:BorderlessEntry
                     TextChanged="SwitchFocus"
@@ -49,12 +53,14 @@
                     FontFamily="KivaPostGrot-Medium"
                     VerticalOptions="Start"
                     HorizontalOptions="CenterAndExpand"
-                    TextColor="#F76C18"
+                    TextColor="Black"
                     Keyboard="Numeric"
                     Text="{Binding Third}"
                     HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"
                     IsPassword="True"
                     Placeholder="_"
+                    WidthRequest="40"
                     IsTextPredictionEnabled="false" />
                 <controls:BorderlessEntry
                     TextChanged="SubmitPIN"
@@ -63,12 +69,14 @@
                     FontFamily="KivaPostGrot-Medium"
                     VerticalOptions="Start"
                     HorizontalOptions="CenterAndExpand"
-                    TextColor="#F76C18"
+                    TextColor="Black"
                     Keyboard="Numeric"
                     Text="{Binding Fourth}"
                     HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"
                     IsPassword="True"
                     Placeholder="_"
+                    WidthRequest="40"
                     IsTextPredictionEnabled="false" />
             </Grid>
         </StackLayout>

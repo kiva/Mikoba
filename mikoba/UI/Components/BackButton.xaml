@@ -4,6 +4,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
+    xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
+    xmlns:effects="clr-namespace:mikoba.Effects;assembly=mikoba"
     x:Class="mikoba.UI.Components.BackButton"
     HorizontalOptions="Start"
     VerticalOptions="Start"
@@ -16,15 +18,14 @@
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Tapped="ClickBack"/>
                 </StackLayout.GestureRecognizers>
-                <abstractions:SvgImage
-                    SvgAssembly="{Binding SvgAssembly}"
-                    SvgPath="{Binding LeftArrowYellow}"
+                <components:KivaSvgImage
+                    Grid.Column="0"
+                    effects:RoundCornersEffect.CornerRadius="10"
+                    ImageKey="back"
                     HeightRequest="32"
-                    BackgroundColor="Transparent"
                     WidthRequest="32"
-                    Margin="0"
-                    VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand" />
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center" />
             </StackLayout>
         </Frame>
     </ContentView.Content>

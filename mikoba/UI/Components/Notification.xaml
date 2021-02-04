@@ -4,28 +4,29 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
+    xmlns:components="clr-namespace:mikoba.UI.Components;assembly=mikoba"
+    xmlns:effects="clr-namespace:mikoba.Effects;assembly=mikoba"
     x:Class="mikoba.UI.Components.Notification">
     <ContentView.Content>
         <Frame
-            StyleClass="displayFrame"
-        >
+            StyleClass="displayFrame">
             <Frame.GestureRecognizers>
                 <SwipeGestureRecognizer Direction="Up" Swiped="SwipeGestureRecognizer_OnSwiped" />
             </Frame.GestureRecognizers>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="10" />
                 </Grid.ColumnDefinitions>
-                <abstractions:SvgImage
-                    Grid.Column="0"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
+                <components:KivaSvgImage
                     x:Name="leftSvgImage"
-                    SvgAssembly="{Binding SvgAssembly}"
-                    HeightRequest="30"
-                    WidthRequest="30" />
+                    Grid.Column="0"
+                    ImageKey="successcheck"
+                    HeightRequest="25"
+                    WidthRequest="25"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center" />
                 <Label
                     Grid.Column="1"
                     HorizontalOptions="FillAndExpand"

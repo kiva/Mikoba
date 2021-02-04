@@ -14,7 +14,9 @@ using mikoba.UI.Pages.Connections;
 using mikoba.UI.Pages.Credentials;
 using mikoba.UI.Pages.Login;
 using mikoba.UI.Pages.Onboarding;
+using mikoba.UI.Pages.Settings;
 using mikoba.UI.Pages.Wallet;
+using mikoba.UI.ViewModels;
 using mikoba.ViewModels;
 using mikoba.ViewModels.Pages;
 using mikoba.ViewModels.SSI;
@@ -51,7 +53,6 @@ namespace mikoba
         {
             await Host.StartAsync();
 
-
             AppCenter.Start("android=acc3a7fc-65e0-497a-b317-3da135a86a64;" +
                             "ios=56836175-d366-4a59-893b-58f866799cbc",
                 typeof(Analytics), typeof(Crashes));
@@ -63,6 +64,7 @@ namespace mikoba
             _navigationService.AddPageViewModelBinding<ProofRequestViewModel, ProofRequestPage>();
             _navigationService.AddPageViewModelBinding<EntryHubPageViewModel, EntryHubPage>();
             _navigationService.AddPageViewModelBinding<SplashPageViewModel, SplashPage>();
+            _navigationService.AddPageViewModelBinding<SettingsPageViewModel, SettingsPage>();
 
             //Onboarding
             _navigationService.AddPageViewModelBinding<WalletOwnerInputViewModel, WalletOwnerInputPage>();
@@ -74,6 +76,7 @@ namespace mikoba
             _navigationService.AddPageViewModelBinding<AllowCameraConfirmationViewModel, AllowCameraConfirmationPage>();
             _navigationService.AddPageViewModelBinding<AllowPushNotificationViewModel, AllowPushNotificationPage>();
             _navigationService.AddPageViewModelBinding<AllowFingerprintViewModel, AllowFingerprintPage>();
+
             //Login
             _navigationService.AddPageViewModelBinding<FingerprintLoginViewModel, FingerprintLoginPage>();
             _navigationService.AddPageViewModelBinding<PINLoginViewModel, PINLoginPage>();

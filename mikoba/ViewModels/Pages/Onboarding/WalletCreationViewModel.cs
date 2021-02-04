@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Autofac;
 using Hyperledger.Aries.Agents;
@@ -18,15 +19,18 @@ namespace mikoba.ViewModels.Pages.Onboarding
 
         public WalletCreationViewModel(
             INavigationService navigationService,
+            IPoolConfigurator poolConfigurator,
             IEdgeProvisioningService edgeProvisioningService
         )
         : base("Wallet Creation", navigationService)
         {
             _edgeProvisioningService = edgeProvisioningService;
+            _poolConfigurator = poolConfigurator;
         }
 
         private IEdgeProvisioningService _edgeProvisioningService;
-
+        private readonly IPoolConfigurator _poolConfigurator;
+        
         #region UI Properties
         
         private string _progressInfo;
@@ -49,32 +53,31 @@ namespace mikoba.ViewModels.Pages.Onboarding
         
         public override async Task InitializeAsync(object navigationData)
         {
-            var _poolConfigurator = App.Container.Resolve<IPoolConfigurator>();
-
-            await _poolConfigurator.ConfigurePoolsAsync();
-            await _edgeProvisioningService.ProvisionAsync();
-            
-            SentrySdk.CaptureEvent(new SentryEvent()
+            try
             {
-                Message = "Initialized Wallet",
-                Level = SentryLevel.Info
-            });
-            Analytics.TrackEvent("Initialized Wallet");
-            
-            await Task.Delay(100);
-            ProgressInfo = "Checking Permissions";
-            Progress = 0.30;
-            await Task.Delay(100);
-            ProgressInfo = "Getting Storage Access";
-            Progress = 0.50;
-            await Task.Delay(100);
-            ProgressInfo = "Creating Wallet";
-            Progress = 1;
-            await WalletService.ProvisionWallet();
-            ProgressInfo = "Wallet Created";
-            Preferences.Set(AppConstant.LocalWalletProvisioned, true);
-            await Task.Delay(2000);
-            await NavigationService.NavigateToAsync<WalletPageViewModel>();
+                await _poolConfigurator.ConfigurePoolsAsync();
+                await _edgeProvisioningService.ProvisionAsync();
+                Preferences.Set(AppConstant.LocalWalletProvisioned, true);
+
+                Tracking.TrackEvent("Initialized Wallet");
+
+                await Task.Delay(100);
+                ProgressInfo = "Checking Permissions";
+                Progress = 0.30;
+                await Task.Delay(100);
+                ProgressInfo = "Getting Storage Access";
+                Progress = 0.50;
+                await Task.Delay(100);
+                ProgressInfo = "Creating Wallet";
+                Progress = 1;
+                ProgressInfo = "Wallet Created";
+                await Task.Delay(2000);
+                await NavigationService.NavigateToAsync<WalletPageViewModel>();
+            }
+            catch (Exception ex)
+            {
+                SentrySdk.CaptureException(ex);
+            }
         }
         
         #endregion

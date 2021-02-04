@@ -16,20 +16,5 @@
         <StyleSheet Source="../../../Styles/Global.css"></StyleSheet>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome back!"
-                   FontSize="20"
-                   LineHeight="24"
-                   TextColor="#004FD4"
-                   Margin="40, 80, 40, 178"
-                   VerticalOptions="Start"
-                   HorizontalOptions="CenterAndExpand" />
-            <Image
-                x:Name="FingerprintImage"
-                VerticalOptions="Start"
-                HorizontalOptions="Center"
-                WidthRequest="76"
-                HeightRequest="76" />
-        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

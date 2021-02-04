@@ -73,11 +73,9 @@ namespace mikoba.ViewModels.Pages
             try
             {
                 var context = await _contextProvider.GetContextAsync();
-                SentrySdk.CaptureEvent(new SentryEvent()
-                {
-                    Message = "Click Accept Credential",
-                    Level = SentryLevel.Info
-                });
+
+                Tracking.TrackEvent("Click Accept Credential");
+                
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialAccepted});
                 Analytics.TrackEvent("Click Accept Credential");
                 var (request, _) = await _credentialService.CreateRequestAsync(context, _transport.Record.Id);
@@ -93,28 +91,16 @@ namespace mikoba.ViewModels.Pages
             }
             catch (Exception ex)
             {
-                Crashes.TrackError(ex);
-                SentrySdk.CaptureException(ex);
-                SentrySdk.CaptureEvent(new SentryEvent()
-                {
-                    Message = "Failed to Save Credential",
-                    Level = SentryLevel.Error
-                });
+                
+                Tracking.TrackException(ex, "Failed to Save Credential");
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialAcceptanceFailed});
-                Analytics.TrackEvent("Failed to Save Credential");
-                Console.WriteLine(ex.Message);
                 await _dialogService.ShowAlertAsync("Can't add credential", ex.Message, "OK");
             }
         });
 
         public ICommand DeclineCommand => new Command(async () =>
         {
-            
-            SentrySdk.CaptureEvent(new SentryEvent()
-            {
-                Message = "Decline Credential",
-                Level = SentryLevel.Info
-            });
+            Tracking.TrackEvent("Decline Credential");
             _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialDeclined});
             await NavigationService.PopModalAsync();
         });

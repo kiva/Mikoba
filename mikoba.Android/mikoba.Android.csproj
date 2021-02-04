@@ -35,9 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
+    <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
     <AndroidHttpClientHandlerType>System.Net.Http.HttpClientHandler</AndroidHttpClientHandlerType>
-    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+    <AndroidEnableSGenConcurrent>false</AndroidEnableSGenConcurrent>
     <AndroidLinkTool></AndroidLinkTool>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
@@ -55,16 +55,17 @@
 <AndroidPackageFormat>aab</AndroidPackageFormat>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Android|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>false</DebugSymbols>
     <DebugType>portable</DebugType>
     <Optimize>true</Optimize>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-    <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
+    <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
     <AndroidPackageFormat>aab</AndroidPackageFormat>
     <OutputPath>bin\Release Android\</OutputPath>
+    <AndroidEnableSGenConcurrent>false</AndroidEnableSGenConcurrent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Android|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -160,32 +161,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidNativeLibrary Include="..\libs\android\arm64-v8a\libc++_shared.so">
-      <Link>android\arm64-v8a\libc++_shared.so</Link>
-    </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\libs\android\arm64-v8a\libindy.so">
-      <Link>android\arm64-v8a\libindy.so</Link>
-    </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\libs\android\armeabi-v7a\libindy.so">
-      <Link>android\armeabi-v7a\libindy.so</Link>
-    </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\libs\android\armeabi-v7a\libc++_shared.so">
-      <Link>android\armeabi-v7a\libc++_shared.so</Link>
-    </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\libs\android\x86\libindy.so">
-      <Link>android\x86\libindy.so</Link>
-    </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\libs\android\x86\libc++_shared.so">
-      <Link>android\x86\libc++_shared.so</Link>
-    </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\libs\android\x86_64\libindy.so">
-      <Link>android\x86_64\libindy.so</Link>
-    </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="..\libs\android\x86_64\libc++_shared.so">
-      <Link>android\x86_64\libc++_shared.so</Link>
-    </AndroidNativeLibrary>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\drawable\dots.svg" />
     <EmbeddedResource Include="Resources\drawable\kiva.svg" />
     <EmbeddedResource Include="Resources\drawable\locationpin.svg" />
@@ -204,6 +179,32 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\pool_kiva_sandbox" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidNativeLibrary Include="..\libs\android\arm64-v8a\libc++_shared.so">
+      <Link>Libraries/arm64-v8a/libc++_shared.so</Link>
+    </AndroidNativeLibrary>
+    <AndroidNativeLibrary Include="..\libs\android\arm64-v8a\libindy.so">
+      <Link>Libraries/arm64-v8a/libindy.so</Link>
+    </AndroidNativeLibrary>
+    <AndroidNativeLibrary Include="..\libs\android\armeabi-v7a\libc++_shared.so">
+      <Link>Libraries/armeabi-v7a/libc++_shared.so</Link>
+    </AndroidNativeLibrary>
+    <AndroidNativeLibrary Include="..\libs\android\armeabi-v7a\libindy.so">
+      <Link>Libraries/armeabi-v7a/libindy.so</Link>
+    </AndroidNativeLibrary>
+    <AndroidNativeLibrary Include="..\libs\android\x86\libc++_shared.so">
+      <Link>Libraries/x86/libc++_shared.so</Link>
+    </AndroidNativeLibrary>
+    <AndroidNativeLibrary Include="..\libs\android\x86\libindy.so">
+      <Link>Libraries/x86/libindy.so</Link>
+    </AndroidNativeLibrary>
+    <AndroidNativeLibrary Include="..\libs\android\x86_64\libc++_shared.so">
+      <Link>Libraries/x86_64/libc++_shared.so</Link>
+    </AndroidNativeLibrary>
+    <AndroidNativeLibrary Include="..\libs\android\x86_64\libindy.so">
+      <Link>Libraries/x86_64/libindy.so</Link>
+    </AndroidNativeLibrary>
   </ItemGroup>
  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

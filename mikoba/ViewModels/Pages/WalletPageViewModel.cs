@@ -22,8 +22,10 @@ using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
 using Sentry;
+using West.Extensions.Xamarin;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using INavigationService = mikoba.Services.INavigationService;
 
 namespace mikoba.ViewModels.Pages
 {
@@ -38,6 +40,7 @@ namespace mikoba.ViewModels.Pages
             IEdgeClientService edgeClientService,
             IAgentProvider agentContextProvider,
             IEventAggregator eventAggregator,
+            IDialogService dialogService,
             ILifetimeScope scope) :
             base("Wallet Page", navigationService)
         {
@@ -46,6 +49,7 @@ namespace mikoba.ViewModels.Pages
             _connectionService = connectionService;
             _eventAggregator = eventAggregator;
             _edgeClientService = edgeClientService;
+            _dialogService = dialogService;
             _scope = scope;
             _mediatorTimer = new MediatorTimerService(this.CheckMediator);
         }
@@ -84,6 +88,7 @@ namespace mikoba.ViewModels.Pages
         private readonly IConnectionService _connectionService;
         private readonly IAgentProvider _agentContextProvider;
         private readonly ILifetimeScope _scope;
+        private readonly IDialogService _dialogService;
 
         #endregion
 
@@ -221,6 +226,15 @@ namespace mikoba.ViewModels.Pages
             get => new Command(async () =>
             {
                 await NavigationService.NavigateToAsync<SettingsPageViewModel>();
+            });
+        }
+        
+        
+        public ICommand RecoverWalletCommand
+        {
+            get => new Command(async () =>
+            {
+                await _dialogService.ShowAlertAsync("Not implemented!", "Notice", "OK");
             });
         }
 

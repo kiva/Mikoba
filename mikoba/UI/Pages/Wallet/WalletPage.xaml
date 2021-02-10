@@ -112,10 +112,14 @@
                         ActionButtonSvg="mikoba.Images.qrcodescan2.svg"
                         ActionButtonText="Scan QR Code"
                         Command="{Binding ScanCodeCommand}" />
-                    <Label
+                    
+                    <Button
+                        Background="Transparent"
                         TextColor="#004ED4"
                         FontFamily="KivaPostGrot-Medium"
+                        TextTransform="None"
                         FontSize="15"
+                        Command="{Binding RecoverWalletCommand}"
                         HorizontalOptions="CenterAndExpand"
                         Text="Recover Wallet Instead" />
                 </StackLayout>

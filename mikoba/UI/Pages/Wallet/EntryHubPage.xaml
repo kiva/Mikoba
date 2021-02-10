@@ -20,14 +20,11 @@
     <ContentPage.Resources>
         <StyleSheet Source="../../../Styles/WalletHomePage.css" />
         <StyleSheet Source="../../../Styles/Global.css" />
-        <ResourceDictionary>
-            <extensions:InverseBooleanConverter x:Key="BooleanInverse" />
-        </ResourceDictionary>
     </ContentPage.Resources>
     <Grid HorizontalOptions="Fill"
           VerticalOptions="Fill">
         <Grid.RowDefinitions>
-            <RowDefinition Height="80" />
+            <RowDefinition Height="50" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Row="0"
@@ -58,7 +55,7 @@
                     HasShadow="False"
                     StyleClass="displayFrame">
                     <StackLayout>
-                        <Label FontFamily="KivaPostGrot-Bold">Photo</Label>
+                        <Label TextColor="Black"  FontFamily="KivaPostGrot-Bold">Photo</Label>
                         <Image Source="{Binding PhotoAttach}"
                                BackgroundColor="Transparent"
                                HorizontalOptions="Center"
@@ -78,8 +75,8 @@
                                         HasShadow="False"
                                         StyleClass="displayFrame">
                                         <StackLayout>
-                                            <Label FontFamily="KivaPostGrot-Bold" Text="{Binding DisplayName}" />
-                                            <Label FontFamily="KivaPostGrot-Light" Text="{Binding Value}" />
+                                            <Label TextColor="Black" FontFamily="KivaPostGrot-Bold" Text="{Binding DisplayName}" />
+                                            <Label TextColor="Black"  FontFamily="KivaPostGrot-Light" Text="{Binding Value}" />
                                         </StackLayout>
                                     </Frame>
                                 </Grid>
@@ -91,16 +88,10 @@
                     IsVisible="{Binding HasCredential}"
                     Grid.Column="0"
                     HorizontalOptions="Center"
+                    Margin="0,0,0,20"
                     VerticalOptions="End"
                     ActionButtonText="Remove Credential"
                     Command="{Binding RemoveCredentialCommand}" />
-                <components:ActionButton
-                    IsVisible="{Binding HasConnection}"
-                    Grid.Column="0"
-                    HorizontalOptions="Center"
-                    VerticalOptions="End"
-                    ActionButtonText="Close Connection"
-                    Command="{Binding RemoveConnectionCommand}" />
             </StackLayout>
         </ScrollView>
     </Grid>

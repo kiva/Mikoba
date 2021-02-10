@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Autofac;
@@ -17,12 +18,16 @@ using Hyperledger.Aries.Storage;
 using mikoba.CoreImplementations;
 using mikoba.Extensions;
 using mikoba.Services;
+using mikoba.UI.Helpers;
 using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
+using Newtonsoft.Json;
 using ReactiveUI;
+using West.Extensions.Xamarin;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using CredentialPreviewAttribute = mikoba.ViewModels.Components.CredentialPreviewAttribute;
+using INavigationService = mikoba.Services.INavigationService;
 
 namespace mikoba.ViewModels.Pages
 {
@@ -34,6 +39,7 @@ namespace mikoba.ViewModels.Pages
             ICredentialService credentialService,
             IEdgeClientService edgeClientService,
             IAgentProvider contextProvider,
+            IDialogService dialogService,
             IEventAggregator eventAggregator
         )
             : base("Hub Page", navigationService)
@@ -44,6 +50,7 @@ namespace mikoba.ViewModels.Pages
             _credentialService = credentialService;
             _eventAggregator = eventAggregator;
             _edgeClientService = edgeClientService;
+            _dialogService = dialogService;
         }
 
         #region Services
@@ -53,6 +60,7 @@ namespace mikoba.ViewModels.Pages
         private readonly IAgentProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
         private readonly IEdgeClientService _edgeClientService;
+        private readonly IDialogService _dialogService;
 
         #endregion
 
@@ -75,14 +83,31 @@ namespace mikoba.ViewModels.Pages
 
         public ICommand RemoveCredentialCommand => new Command(async () =>
         {
-            var context = await _contextProvider.GetContextAsync();
-            await _credentialService.DeleteCredentialAsync(context, _credential._credential.Id);
-            _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
-            _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialRemoved});
-            await NavigationService.NavigateBackAsync();
+            try
+            {
+                //TODO: Move away from this library that has non implemented methods
+                // var userConfirmation = await _dialogService.ShowAlertAsync("Are you sure you want to remove this credential?",
+                //     "Confirmation", "Yes", "No, Cancel");
+                // if (!userConfirmation)
+                // {
+                //     return;
+                // }
+                var context = await _contextProvider.GetContextAsync();
+                await _credentialService.DeleteCredentialAsync(context, _credential._credential.Id);
+                _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
+                _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialRemoved});
+                await NavigationService.NavigateBackAsync();
+            }
+            catch(Exception ex)
+            {
+                Tracking.TrackException(ex, "Remove Credential");
+            }
         });
 
-        public new ICommand GoBackCommand => new Command(async () => { await NavigationService.NavigateBackAsync(); });
+        public new ICommand GoBackCommand => new Command(async () =>
+        {
+            await NavigationService.NavigateBackAsync();
+        });
 
         #endregion
 
@@ -164,10 +189,11 @@ namespace mikoba.ViewModels.Pages
                     var attributes = new List<SSICredentialAttribute>();
                     foreach (var attribute in Credential.Attributes)
                     {
-                        if (attribute.Name.Contains("photo~") && PhotoAttach == null)
+                        if (attribute.Name.Contains("~") && PhotoAttach == null)
                         {
-                            PhotoAttach = Xamarin.Forms.ImageSource.FromStream(
-                                () => new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));
+                            string value = PhotoAttachParser.ReturnAttachment(attribute.Value.ToString());
+                            PhotoAttach = ImageSource.FromStream(() =>
+                                new MemoryStream(Convert.FromBase64String(value)));
                         }
                         else
                         {

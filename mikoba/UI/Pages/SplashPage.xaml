@@ -34,15 +34,30 @@
                 Orientation="Vertical"
                 d:Grid.ColumnSpan="2"
                 HorizontalOptions="Center"
-                VerticalOptions="Center">
+                Margin="0,150,0,0"
+                VerticalOptions="Start">
                 <Label
-                    HorizontalTextAlignment="Center"
+                    HorizontalTextAlignment="Start"
                     VerticalTextAlignment="Center"
                     TextColor="#246EC2"
-                    FontSize="27"
-                    WidthRequest="300"
-                    FontAttributes="Bold">
+                    FontSize="24"
+                    FontAttributes="None"
+                    WidthRequest="300">
+                    <Label.Text>
+                        Hey, there!
+                    </Label.Text>
+                    </Label>
+                    <Label
+                        LineHeight="1.2"
+                    HorizontalTextAlignment="Start"
+                    VerticalTextAlignment="Center"
+                    TextColor="#246EC2"
+                    FontSize="24"
+                    FontAttributes="None"
+                    WidthRequest="300">
+                    <Label.Text>
                     Welcome to your Kiva Wallet, a place to safely store all your digital credentials.
+                    </Label.Text>
                 </Label>
             </StackLayout>
             <StackLayout
@@ -56,9 +71,9 @@
                     Command="{Binding GetStartedCommand}"
                     TextTransform="None"
                     Text="Start a new wallet"
-                    Margin="0,0,0,20"
-                    FontAttributes="Bold"
-                    CornerRadius="8"
+                    Margin="0,0,0,0"
+                    FontAttributes="None"
+                    CornerRadius="200"
                     Padding="20"
                     BackgroundColor="#246EC2"
                     TextColor="White"
@@ -70,7 +85,7 @@
                     Margin="0,0,0,0"
                     Padding="20"
                     CornerRadius="8"
-                    FontAttributes="Bold"
+                    FontAttributes="None"
                     BackgroundColor="#FAFAFA"
                     TextColor="#246EC2"
                     FontSize="20" />

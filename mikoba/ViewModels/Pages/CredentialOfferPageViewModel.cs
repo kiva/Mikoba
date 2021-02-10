@@ -75,20 +75,22 @@ namespace mikoba.ViewModels.Pages
                 var context = await _contextProvider.GetContextAsync();
 
                 Tracking.TrackEvent("Click Accept Credential");
-                
-                _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialAccepted});
                 Analytics.TrackEvent("Click Accept Credential");
                 var (request, _) = await _credentialService.CreateRequestAsync(context, _transport.Record.Id);
                 await _messageService.SendAsync(context.Wallet, request, _transport.MessageContext.Connection);
-                
-                Tracking.TrackEvent("Save Credential");
-                
+
                 await NavigationService.PopModalAsync();
-                await NavigationService.NavigateToAsync<WalletPageViewModel>();
+
+                _eventAggregator.Publish(new CoreDispatchedEvent()
+                {
+                    Type = DispatchType.CredentialAccepted,
+                    Data = _transport.Record.Id
+                });
+
+                Tracking.TrackEvent("Save Credential");
             }
             catch (Exception ex)
             {
-                
                 Tracking.TrackException(ex, "Failed to Save Credential");
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialAcceptanceFailed});
                 await _dialogService.ShowAlertAsync("Can't add credential", ex.Message, "OK");
@@ -112,6 +114,23 @@ namespace mikoba.ViewModels.Pages
         {
             get => _showReceipt;
             set => this.RaiseAndSetIfChanged(ref _showReceipt, value);
+        }
+
+
+        private string _connectionEstablishedText;
+
+        public string ConnectionEstablishedText
+        {
+            get => _connectionEstablishedText;
+            set => this.RaiseAndSetIfChanged(ref _connectionEstablishedText, value);
+        }
+
+        private string _offerByText;
+
+        public string OfferByText
+        {
+            get => _offerByText;
+            set => this.RaiseAndSetIfChanged(ref _offerByText, value);
         }
 
 
@@ -147,6 +166,7 @@ namespace mikoba.ViewModels.Pages
                     // TODO: "No image found" placeholder
                     if (attribute.Name.Contains("~") && PhotoAttach == null)
                     {
+                        //TODO: Ensure that in this portion of the code there isn't a notion of base64, just bytes.
                         string value = PhotoAttachParser.ReturnAttachment(attribute.Value.ToString());
                         PhotoAttach = ImageSource.FromStream(() =>
                             new MemoryStream(Convert.FromBase64String(value)));
@@ -164,7 +184,11 @@ namespace mikoba.ViewModels.Pages
                 PreviewAttributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
                 PreviewAttributes.AddRange(previewAttributes);
             }
-
+            
+            //TODO: "Jul 12, 2020 8:08 pm";
+            ConnectionEstablishedText = DateTime.Now.ToLongDateString();
+            OfferByText = "Offer by Kiva";
+            
             return base.InitializeAsync(navigationData);
         }
 

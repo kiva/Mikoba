@@ -1,28 +1,16 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using mikoba.Services;
 using mikoba.ViewModels;
 
 namespace mikoba.UI.ViewModels
 {
     public class SettingsPageViewModel : KivaBaseViewModel
     {
-        private static SettingsPageViewModel m_instance;
-        
         public ObservableCollection<WalletActionModel> SettingsActions { get; set; }
-        
-        public static SettingsPageViewModel Instance
-        {
-            get
-            {
-                if (m_instance == null)
-                {
-                    m_instance = new SettingsPageViewModel();
-                }
-                return m_instance;
-            }
-        }
-        
-        public SettingsPageViewModel()
+
+        public SettingsPageViewModel(INavigationService navigationService)
+             : base("Settings", navigationService)
         {
             SettingsActions = new ObservableCollection<WalletActionModel>();
             SettingsActions.Add(new WalletActionModel

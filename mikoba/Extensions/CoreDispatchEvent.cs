@@ -16,5 +16,6 @@ namespace mikoba.Extensions
     public class CoreDispatchedEvent
     {
         public DispatchType Type { get; set; }
+        public string Data { get; set; }
     }
 }

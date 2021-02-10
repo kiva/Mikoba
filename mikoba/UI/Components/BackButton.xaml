@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentView 
+<ContentView
     xmlns:local="clr-namespace:mikoba"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -10,23 +10,14 @@
     HorizontalOptions="Start"
     VerticalOptions="Start"
     BackgroundColor="Transparent"
-    Margin="12, 12, 0, 0"
->
-    <ContentView.Content>
-        <Frame Padding="0" Margin="0" HasShadow="False" BackgroundColor="Transparent">
-            <StackLayout Padding="0" Margin="0">
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="ClickBack"/>
-                </StackLayout.GestureRecognizers>
-                <components:KivaSvgImage
-                    Grid.Column="0"
-                    effects:RoundCornersEffect.CornerRadius="10"
-                    ImageKey="back"
-                    HeightRequest="32"
-                    WidthRequest="32"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center" />
-            </StackLayout>
-        </Frame>
-    </ContentView.Content>
+    Margin="12, 12, 0, 0">
+    <components:KivaSvgImage
+        Grid.Column="0"
+        x:Name="SvgImage"
+        effects:RoundCornersEffect.CornerRadius="10"
+        ImageKey="back"
+        HeightRequest="32"
+        WidthRequest="32"
+        VerticalOptions="Center"
+        HorizontalOptions="Center" />
 </ContentView>

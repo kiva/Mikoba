@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 using mikoba.Services;
 using ReactiveUI;
 using Xamarin.Forms;
@@ -42,6 +43,17 @@ namespace mikoba.ViewModels
                 if (this.NavigationService != null)
                 {
                     this.NavigationService.NavigateBackAsync();
+                }
+            });
+        }
+        
+        public Command GoBackPopupCommand
+        {
+            get => new Command( () =>
+            {
+                if (this.NavigationService != null)
+                {
+                    this.NavigationService.PopModalAsync();
                 }
             });
         }

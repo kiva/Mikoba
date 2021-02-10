@@ -102,6 +102,8 @@ namespace mikoba.ViewModels.Pages
             set => this.RaiseAndSetIfChanged(ref _welcomeText, value);
         }
 
+        private string _lastCredentialCreatedId;
+        
         private string _notificationText;
 
         public string NotificationText
@@ -182,6 +184,10 @@ namespace mikoba.ViewModels.Pages
                     else if (_.Type == DispatchType.CredentialAccepted)
                     {
                         NotificationText = "Credential accepted.";
+                        if (!string.IsNullOrWhiteSpace(_.Data))
+                        {
+                            _lastCredentialCreatedId = _.Data;
+                        }
                     }
                     else if (_.Type == DispatchType.CredentialDeclined)
                     {
@@ -254,6 +260,23 @@ namespace mikoba.ViewModels.Pages
             IsRefreshing = true;
             await this.RefreshEntries();
             IsRefreshing = false;
+            await ExecutePostCredentialActions();
+        }
+
+        private async Task ExecutePostCredentialActions()
+        {
+            if (!string.IsNullOrWhiteSpace(_lastCredentialCreatedId))
+            {
+                var credentialToOpen = Entries.FirstOrDefault(x =>
+                {
+                    return x.HasCredential && x.Credential._credential.CredentialId == _lastCredentialCreatedId;
+                });
+                if (credentialToOpen != null)
+                {
+                    _lastCredentialCreatedId = null;
+                    await NavigationService.NavigateToAsync<EntryHubPageViewModel>(credentialToOpen);
+                }
+            }
         }
 
         public async Task RefreshCredentials()

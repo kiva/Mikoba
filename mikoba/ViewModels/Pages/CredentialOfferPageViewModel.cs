@@ -75,19 +75,22 @@ namespace mikoba.ViewModels.Pages
                 var context = await _contextProvider.GetContextAsync();
 
                 Tracking.TrackEvent("Click Accept Credential");
-                
-                _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialAccepted});
                 Analytics.TrackEvent("Click Accept Credential");
                 var (request, _) = await _credentialService.CreateRequestAsync(context, _transport.Record.Id);
                 await _messageService.SendAsync(context.Wallet, request, _transport.MessageContext.Connection);
-                
-                Tracking.TrackEvent("Save Credential");
-                
+
                 await NavigationService.PopModalAsync();
+
+                _eventAggregator.Publish(new CoreDispatchedEvent()
+                {
+                    Type = DispatchType.CredentialAccepted,
+                    Data = _transport.Record.Id
+                });
+
+                Tracking.TrackEvent("Save Credential");
             }
             catch (Exception ex)
             {
-                
                 Tracking.TrackException(ex, "Failed to Save Credential");
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialAcceptanceFailed});
                 await _dialogService.ShowAlertAsync("Can't add credential", ex.Message, "OK");

@@ -120,19 +120,18 @@ namespace mikoba.ViewModels.Pages
             }
         });
 
-        public ICommand CloseReceiptCommand => new Command(async () => { await NavigationService.PopModalAsync(); });
-
         public ICommand DeclineCommand => new Command(async () =>
         {
             try
             {
                 var context = await _contextProvider.GetContextAsync();
                 var _proofService = App.Container.Resolve<IProofService>() as DefaultProofService;
-                await _proofService.RejectProofRequestAsync(context, _proofRequestTransport.Message.Requests[0].Id);
-            }
-            finally
-            {
+                await _proofService.RejectProofRequestAsync(context, _proofRequestTransport.Record.Id);
                 await NavigationService.PopModalAsync();
+            }
+            catch (Exception ex)
+            {
+                Tracking.TrackException(ex, "Declined Proof");
             }
         });        
         
@@ -167,6 +166,15 @@ namespace mikoba.ViewModels.Pages
         {
             get => _screenSubtitle;
             set => this.RaiseAndSetIfChanged(ref _screenSubtitle, value);
+        }        
+        
+        
+        private string _connectionEstablishedText;
+
+        public string ConnectionEstablishedText
+        {
+            get => _connectionEstablishedText;
+            set => this.RaiseAndSetIfChanged(ref _connectionEstablishedText, value);
         }
         
         private string _connectionText;
@@ -226,6 +234,7 @@ namespace mikoba.ViewModels.Pages
 
                 ConnectionText = "Request from Kiva";
                 ScreenSubtitle = DateTime.Now.ToLongDateString();
+                ConnectionEstablishedText = DateTime.Now.ToLongDateString();
 
                 RequestedAttributes.Clear();
                 RequestedAttributes.AddRange(requestedAttributes);

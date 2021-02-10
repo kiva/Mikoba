@@ -114,6 +114,23 @@ namespace mikoba.ViewModels.Pages
         }
 
 
+        private string _connectionEstablishedText;
+
+        public string ConnectionEstablishedText
+        {
+            get => _connectionEstablishedText;
+            set => this.RaiseAndSetIfChanged(ref _connectionEstablishedText, value);
+        }
+
+        private string _offerByText;
+
+        public string OfferByText
+        {
+            get => _offerByText;
+            set => this.RaiseAndSetIfChanged(ref _offerByText, value);
+        }
+
+
         private ImageSource _photoAttach;
 
         public ImageSource PhotoAttach
@@ -163,7 +180,11 @@ namespace mikoba.ViewModels.Pages
                 PreviewAttributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
                 PreviewAttributes.AddRange(previewAttributes);
             }
-
+            
+            //TODO: "Jul 12, 2020 8:08 pm";
+            ConnectionEstablishedText = DateTime.Now.ToLongDateString();
+            OfferByText = "Offer by Kiva";
+            
             return base.InitializeAsync(navigationData);
         }
 

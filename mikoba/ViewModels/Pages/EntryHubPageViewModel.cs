@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Autofac;
@@ -17,8 +18,10 @@ using Hyperledger.Aries.Storage;
 using mikoba.CoreImplementations;
 using mikoba.Extensions;
 using mikoba.Services;
+using mikoba.Tools;
 using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
+using Newtonsoft.Json;
 using ReactiveUI;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -167,10 +170,10 @@ namespace mikoba.ViewModels.Pages
                     var attributes = new List<SSICredentialAttribute>();
                     foreach (var attribute in Credential.Attributes)
                     {
-                        if (attribute.Name.Contains("photo~") && PhotoAttach == null)
+                        if (attribute.Name.Contains("~") && PhotoAttach == null)
                         {
                             PhotoAttach = Xamarin.Forms.ImageSource.FromStream(
-                                () => new MemoryStream(Convert.FromBase64String(attribute.Value.ToString())));
+                                () => new MemoryStream(CredentialTools.ProcessJSONImageField(attribute.Value.ToString())));
                         }
                         else
                         {

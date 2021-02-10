@@ -91,7 +91,6 @@ namespace mikoba
                     var rootPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                     var walletPath = Path.Combine(path1: rootPath, path2: ".indy_client", path3: "wallets");
                     var tailsPath = Path.Combine(path1: FileSystem.AppDataDirectory, path2: ".indy_client", path3: "tails");
-
                     services.AddAriesFramework(builder => builder.RegisterEdgeAgent<MikobaAgent>(
                         options: options =>
                         {
@@ -103,7 +102,6 @@ namespace mikoba
                                 {
                                     Path = walletPath
                                 };
-
                             options.WalletConfiguration.Id = "MobileWallet";
                             options.WalletCredentials.Key = "SecretWalletKey";
 
@@ -111,15 +109,12 @@ namespace mikoba
                         },
                         delayProvisioning: true));
                     services.AddSingleton<IPoolConfigurator, PoolConfigurator>();
-
-
                     var containerBuilder = new ContainerBuilder();
                     containerBuilder.RegisterAssemblyModules(typeof(KernelModule).Assembly);
                     if (platformSpecific != null)
                     {
                         containerBuilder.RegisterAssemblyModules(platformSpecific);
                     }
-
                     containerBuilder.Populate(services);
                     App.Container = containerBuilder.Build();
                 });

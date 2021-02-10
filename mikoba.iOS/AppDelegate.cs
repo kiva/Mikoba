@@ -36,9 +36,7 @@ namespace mikoba.iOS
             CachedImageRenderer.Init();
             SvgImageRenderer.Init();
             
-                var host = HostBuilder
-                    .BuildHost(typeof(KernelModule).Assembly)
-                    .Build();
+                var host = App.BuildHost(typeof(KernelModule).Assembly).Build();
                 _application = host.Services.GetRequiredService<App>();
                 LoadApplication(new App());
                 

@@ -240,7 +240,7 @@ namespace mikoba.ViewModels.Pages
             var context = await _agentContextProvider.GetContextAsync();
             var credentialsRecords = await _credentialService.ListAsync(context);
 
-            IList<SSICredentialViewModel> credentialsVms = new List<SSICredentialViewModel>();
+            var credentialsVms = new List<SSICredentialViewModel>();
             foreach (var credentialRecord in credentialsRecords)
             {
                 if (credentialRecord.CredentialId == null) continue;

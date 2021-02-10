@@ -84,7 +84,6 @@ namespace mikoba.ViewModels.Pages
                 Tracking.TrackEvent("Save Credential");
                 
                 await NavigationService.PopModalAsync();
-                await NavigationService.NavigateToAsync<WalletPageViewModel>();
             }
             catch (Exception ex)
             {

@@ -20,7 +20,7 @@ namespace mikoba.Services
 
         private Dictionary<string, string> poolConfigs = new Dictionary<string, string>
         {
-            { "kiva-sandbox", "pool_kiva_sandbox" }
+            { "kiva_sandbox", "pool_kiva_sandbox" }
         };
 
         private readonly ILogger<PoolConfigurator> logger;
@@ -40,9 +40,8 @@ namespace mikoba.Services
                 try
                 {
                     // Path for bundled genesis txn
-                    var rootPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                     var cache = FileSystem.CacheDirectory;
-                    var filename = Path.Combine(rootPath, "genesis.txn");
+                    var filename = Path.Combine(cache, "genesis.txn");
 
                     // Dump file contents to cached filename
                     using (var stream = await FileSystem.OpenAppPackageFileAsync(config.Value))

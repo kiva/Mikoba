@@ -25,8 +25,11 @@
               HeightRequest="60"
               HorizontalOptions="Fill"
               VerticalOptions="Fill">
+            
             <components:BackButton
-                Command="{Binding GoBack}"/>
+                Command="{Binding GoBackCommand}"/>
+            
+            
             <Label
                 Text="Step 3 of 6"
                 FontFamily="KivaPostGrot-Medium"

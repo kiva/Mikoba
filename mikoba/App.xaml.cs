@@ -1,9 +1,14 @@
 using System;
+using System.IO;
+using System.Reflection;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Hyperledger.Aries.Agents;
+using Hyperledger.Aries.Storage;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -57,30 +62,8 @@ namespace mikoba
                             "ios=56836175-d366-4a59-893b-58f866799cbc",
                 typeof(Analytics), typeof(Crashes));
 
-            //Wallet
-            _navigationService.AddPageViewModelBinding<WalletPageViewModel, WalletPage>();
-            _navigationService.AddPageViewModelBinding<AcceptConnectionInviteViewModel, AcceptConnectionInvitePage>();
-            _navigationService.AddPageViewModelBinding<CredentialOfferPageViewModel, CredentialOfferPage>();
-            _navigationService.AddPageViewModelBinding<ProofRequestViewModel, ProofRequestPage>();
-            _navigationService.AddPageViewModelBinding<EntryHubPageViewModel, EntryHubPage>();
-            _navigationService.AddPageViewModelBinding<SplashPageViewModel, SplashPage>();
-            _navigationService.AddPageViewModelBinding<SettingsPageViewModel, SettingsPage>();
+            ConfigureScreensAndViewModels();
 
-            //Onboarding
-            _navigationService.AddPageViewModelBinding<WalletOwnerInputViewModel, WalletOwnerInputPage>();
-            _navigationService.AddPageViewModelBinding<WalletPinSetViewModel, WalletPinSetPage>();
-            _navigationService.AddPageViewModelBinding<WalletPinConfirmViewModel, WalletPinConfirmationPage>();
-            _navigationService.AddPageViewModelBinding<WalletCreationViewModel, WalletCreationPage>();
-
-            //Permissions
-            _navigationService.AddPageViewModelBinding<AllowCameraConfirmationViewModel, AllowCameraConfirmationPage>();
-            _navigationService.AddPageViewModelBinding<AllowPushNotificationViewModel, AllowPushNotificationPage>();
-            _navigationService.AddPageViewModelBinding<AllowFingerprintViewModel, AllowFingerprintPage>();
-
-            //Login
-            _navigationService.AddPageViewModelBinding<FingerprintLoginViewModel, FingerprintLoginPage>();
-            _navigationService.AddPageViewModelBinding<PINLoginViewModel, PINLoginPage>();
-            
             if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
             {
                 var fpAuthStatus = await CrossFingerprint.Current.GetAvailabilityAsync();
@@ -98,6 +81,75 @@ namespace mikoba
             {
                 await _navigationService.NavigateToAsync<SplashPageViewModel>();
             }
+        }
+        
+        public static IHostBuilder BuildHost(Assembly platformSpecific = null)
+        {
+            return XamarinHost.CreateDefaultBuilder<App>()
+                .ConfigureServices((_, services) =>
+                {
+                    var rootPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    var walletPath = Path.Combine(path1: rootPath, path2: ".indy_client", path3: "wallets");
+                    var tailsPath = Path.Combine(path1: FileSystem.AppDataDirectory, path2: ".indy_client", path3: "tails");
+
+                    services.AddAriesFramework(builder => builder.RegisterEdgeAgent<MikobaAgent>(
+                        options: options =>
+                        {
+                            options.PoolName = "kiva_sandbox";
+                            options.EndpointUri = AppConstant.EndpointUri;
+
+                            options.WalletConfiguration.StorageConfiguration =
+                                new WalletConfiguration.WalletStorageConfiguration
+                                {
+                                    Path = walletPath
+                                };
+
+                            options.WalletConfiguration.Id = "MobileWallet";
+                            options.WalletCredentials.Key = "SecretWalletKey";
+
+                            options.RevocationRegistryDirectory = tailsPath;
+                        },
+                        delayProvisioning: true));
+                    services.AddSingleton<IPoolConfigurator, PoolConfigurator>();
+
+
+                    var containerBuilder = new ContainerBuilder();
+                    containerBuilder.RegisterAssemblyModules(typeof(KernelModule).Assembly);
+                    if (platformSpecific != null)
+                    {
+                        containerBuilder.RegisterAssemblyModules(platformSpecific);
+                    }
+
+                    containerBuilder.Populate(services);
+                    App.Container = containerBuilder.Build();
+                });
+        }
+
+        private void ConfigureScreensAndViewModels()
+        {
+            //Wallet
+            _navigationService.AddPageViewModelBinding<WalletPageViewModel, WalletPage>();
+            _navigationService.AddPageViewModelBinding<AcceptConnectionInviteViewModel, AcceptConnectionInvitePage>();
+            _navigationService.AddPageViewModelBinding<CredentialOfferPageViewModel, CredentialOfferPage>();
+            _navigationService.AddPageViewModelBinding<ProofRequestViewModel, ProofRequestPage>();
+            _navigationService.AddPageViewModelBinding<EntryHubPageViewModel, EntryHubPage>();
+            _navigationService.AddPageViewModelBinding<SplashPageViewModel, SplashPage>();
+            _navigationService.AddPageViewModelBinding<SettingsPageViewModel, SettingsPage>();
+
+            //Onboarding
+            _navigationService.AddPageViewModelBinding<WalletOwnerInputViewModel, WalletOwnerInputPage>();
+            _navigationService.AddPageViewModelBinding<WalletPinSetViewModel, WalletPinSetPage>();
+            _navigationService.AddPageViewModelBinding<WalletPinConfirmationViewModel, WalletPinConfirmationPage>();
+            _navigationService.AddPageViewModelBinding<WalletCreationViewModel, WalletCreationPage>();
+
+            //Permissions
+            _navigationService.AddPageViewModelBinding<AllowCameraConfirmationViewModel, AllowCameraConfirmationPage>();
+            _navigationService.AddPageViewModelBinding<AllowPushNotificationViewModel, AllowPushNotificationPage>();
+            _navigationService.AddPageViewModelBinding<AllowFingerprintViewModel, AllowFingerprintPage>();
+
+            //Login
+            _navigationService.AddPageViewModelBinding<FingerprintLoginViewModel, FingerprintLoginPage>();
+            _navigationService.AddPageViewModelBinding<PINLoginViewModel, PINLoginPage>();
         }
 
         protected override void OnSleep()

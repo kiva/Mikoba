@@ -19,6 +19,7 @@ using mikoba.CoreImplementations;
 using mikoba.Extensions;
 using mikoba.Services;
 using mikoba.Tools;
+using mikoba.UI.Helpers;
 using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
 using Newtonsoft.Json;
@@ -172,8 +173,9 @@ namespace mikoba.ViewModels.Pages
                     {
                         if (attribute.Name.Contains("~") && PhotoAttach == null)
                         {
-                            PhotoAttach = Xamarin.Forms.ImageSource.FromStream(
-                                () => new MemoryStream(CredentialTools.ProcessJSONImageField(attribute.Value.ToString())));
+                            string value = PhotoAttachParser.ReturnAttachment(attribute.Value.ToString());
+                            PhotoAttach = ImageSource.FromStream(() =>
+                                new MemoryStream(Convert.FromBase64String(value)));
                         }
                         else
                         {

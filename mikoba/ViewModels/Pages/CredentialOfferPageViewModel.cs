@@ -163,6 +163,7 @@ namespace mikoba.ViewModels.Pages
                     // TODO: "No image found" placeholder
                     if (attribute.Name.Contains("~") && PhotoAttach == null)
                     {
+                        //TODO: Ensure that in this portion of the code there isn't a notion of base64, just bytes.
                         string value = PhotoAttachParser.ReturnAttachment(attribute.Value.ToString());
                         PhotoAttach = ImageSource.FromStream(() =>
                             new MemoryStream(Convert.FromBase64String(value)));

@@ -9,14 +9,14 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels
 {
-    public abstract class KivaBaseViewModel : ReactiveObject, IBaseViewModel
+    public abstract class MikobaBaseViewModel : ReactiveObject, IBaseViewModel
     {
-        public KivaBaseViewModel(string title, INavigationService navigationService)
+        public MikobaBaseViewModel(string title, INavigationService navigationService)
         {
             this.NavigationService = navigationService;
         }
 
-        protected KivaBaseViewModel()
+        protected MikobaBaseViewModel()
         {
             
         }

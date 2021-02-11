@@ -14,7 +14,7 @@ using Xamarin.Essentials;
 
 namespace mikoba.ViewModels.Pages.Onboarding
 {
-    public sealed class WalletCreationViewModel : KivaBaseViewModel
+    public sealed class WalletCreationViewModel : MikobaBaseViewModel
     {
 
         public WalletCreationViewModel(

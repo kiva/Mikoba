@@ -10,7 +10,7 @@ using Plugin.Fingerprint.Abstractions;
 
 namespace mikoba.ViewModels.Pages.Login
 {
-    public class FingerprintLoginViewModel : KivaBaseViewModel
+    public class FingerprintLoginViewModel : MikobaBaseViewModel
     {
         public FingerprintLoginViewModel(INavigationService navigationService) : base("Fingerprint Login", navigationService)
         {

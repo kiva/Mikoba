@@ -2,7 +2,7 @@ using mikoba.ViewModels;
 
 namespace mikoba.UI
 {
-    public class CredentialModel : KivaBaseViewModel
+    public class CredentialModel : MikobaBaseViewModel
     {
         private string _organization;
         private string _memberId;

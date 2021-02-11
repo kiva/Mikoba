@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace mikoba.UI.ViewModels
 {
-    public class WalletActionModel : KivaBaseViewModel
+    public class WalletActionModel : MikobaBaseViewModel
     {
         public string RightIcon { get; set; }
         public string LeftIcon { get; set; }

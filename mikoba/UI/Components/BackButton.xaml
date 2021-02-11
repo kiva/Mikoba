@@ -11,7 +11,7 @@
     VerticalOptions="Start"
     BackgroundColor="Transparent"
     Margin="12, 12, 0, 0">
-    <components:KivaSvgImage
+    <components:MikobaSvgImage
         Grid.Column="0"
         x:Name="SvgImage"
         effects:RoundCornersEffect.CornerRadius="10"

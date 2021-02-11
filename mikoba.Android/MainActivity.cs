@@ -32,7 +32,7 @@ namespace mikoba.Droid
             JavaSystem.LoadLibrary("indy");
 
             //Telemetry
-            SentrySdk.Init("https://29fb995fc23549159102c71041f25617@o7540.ingest.sentry.io/5320493");
+            SentrySdk.Init("sentryKit");
 
             //Xamarin Plugin Support
             CachedImageRenderer.Init(false);

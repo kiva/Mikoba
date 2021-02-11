@@ -13,7 +13,7 @@
              BackgroundColor="#FAFAFA">
     <Grid HorizontalOptions="Fill"
           VerticalOptions="Fill">
-        <components:KivaSvgImage
+        <components:MikobaSvgImage
             x:Name="AppLogo"
             effects:RoundCornersEffect.CornerRadius="10"
             ImageKey="kiva"
@@ -73,7 +73,7 @@
                     Text="Start a new wallet"
                     Margin="0,0,0,0"
                     FontAttributes="None"
-                    CornerRadius="200"
+                    CornerRadius="30"
                     Padding="20"
                     BackgroundColor="#246EC2"
                     TextColor="White"

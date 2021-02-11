@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Components
 {
-    public class EntryViewModel : KivaBaseViewModel
+    public class EntryViewModel : MikobaBaseViewModel
     {
         public EntryViewModel(INavigationService navigationService)
             : base("Action Hub", navigationService)

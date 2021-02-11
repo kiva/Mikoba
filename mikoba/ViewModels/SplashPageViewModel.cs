@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels
 {
-    public class SplashPageViewModel : KivaBaseViewModel
+    public class SplashPageViewModel : MikobaBaseViewModel
     {
         public SplashPageViewModel(
             INavigationService navigationService)

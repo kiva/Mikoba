@@ -20,7 +20,7 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages
 {
-    public class ProofRequestViewModel : KivaBaseViewModel
+    public class ProofRequestViewModel : MikobaBaseViewModel
     {
         private static readonly string[] AllowedFields =
             {"nationalId", "photo~attach", "dateOfBirth", "birthDate", "firstName", "lastName"};
@@ -102,8 +102,7 @@ namespace mikoba.ViewModels.Pages
             }
             catch (Exception ex)
             {
-                success = false;
-                Console.WriteLine(ex);
+                Tracking.TrackException(ex, "Share Credential");
             }
             finally
             {

@@ -27,7 +27,7 @@ using INavigationService = mikoba.Services.INavigationService;
 
 namespace mikoba.ViewModels.Pages
 {
-    public class CredentialOfferPageViewModel : KivaBaseViewModel
+    public class CredentialOfferPageViewModel : MikobaBaseViewModel
     {
         private static readonly string[] AllowedFields =
             {"nationalId", "photo~attach", "dateOfBirth", "birthDate", "firstName", "lastName"};

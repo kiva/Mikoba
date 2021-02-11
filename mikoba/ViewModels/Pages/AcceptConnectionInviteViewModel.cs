@@ -20,7 +20,7 @@ using INavigationService = mikoba.Services.INavigationService;
 
 namespace mikoba.ViewModels.Pages
 {
-    public class AcceptConnectionInviteViewModel : KivaBaseViewModel
+    public class AcceptConnectionInviteViewModel : MikobaBaseViewModel
     {
         public AcceptConnectionInviteViewModel(
             INavigationService navigationService,

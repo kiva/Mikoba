@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages.Onboarding
 {
-    public class AllowFingerprintViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class AllowFingerprintViewModel : MikobaBaseViewModel, INotifyPropertyChanged
     {
         public ICommand GoBack { get; set; }
         

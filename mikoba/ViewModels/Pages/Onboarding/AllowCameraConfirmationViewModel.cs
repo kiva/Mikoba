@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages.Onboarding
 {
-    public class AllowCameraConfirmationViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class AllowCameraConfirmationViewModel : MikobaBaseViewModel, INotifyPropertyChanged
     {
         public ICommand GoBack { get; set; }
 

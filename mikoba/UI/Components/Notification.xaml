@@ -19,7 +19,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="10" />
                 </Grid.ColumnDefinitions>
-                <components:KivaSvgImage
+                <components:MikobaSvgImage
                     x:Name="leftSvgImage"
                     Grid.Column="0"
                     ImageKey="successcheck"

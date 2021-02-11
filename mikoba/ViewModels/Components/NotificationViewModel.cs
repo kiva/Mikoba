@@ -8,7 +8,7 @@ using mikoba.Annotations;
 
 namespace mikoba.ViewModels.Components
 {
-    public class NotificationViewModel: KivaBaseViewModel
+    public class NotificationViewModel: MikobaBaseViewModel
     {
         public NotificationViewModel(
             IEventAggregator eventAggregator

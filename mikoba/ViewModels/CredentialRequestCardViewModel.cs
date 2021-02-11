@@ -6,7 +6,7 @@ using mikoba.Annotations;
 
 namespace mikoba.ViewModels
 {
-    public class CredentialRequestCardViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class CredentialRequestCardViewModel : MikobaBaseViewModel, INotifyPropertyChanged
     {
         public ICommand OnClickShareCommand  { get; set; }
         public ICommand OnClickDeclineCommand { get; set; }

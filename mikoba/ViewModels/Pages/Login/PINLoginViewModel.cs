@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages.Login
 {
-    public class PINLoginViewModel : KivaBaseViewModel
+    public class PINLoginViewModel : MikobaBaseViewModel
     {
         public PINLoginViewModel(
             INavigationService navigationService) : base("PIN Login", navigationService)

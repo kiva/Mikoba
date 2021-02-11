@@ -29,7 +29,7 @@ using INavigationService = mikoba.Services.INavigationService;
 
 namespace mikoba.ViewModels.Pages
 {
-    public class WalletPageViewModel : KivaBaseViewModel
+    public class WalletPageViewModel : MikobaBaseViewModel
     {
         private Timer timer;
 

@@ -43,7 +43,7 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <components:KivaSvgImage
+                <components:MikobaSvgImage
                     Grid.Column="0"
                     effects:RoundCornersEffect.CornerRadius="10"
                     ImageKey="kivalogoblue"
@@ -52,7 +52,7 @@
                     VerticalOptions="Center"
                     HorizontalOptions="Start" />
                 
-                <components:KivaSvgImage
+                <components:MikobaSvgImage
                     Grid.Column="1"
                     effects:RoundCornersEffect.CornerRadius="10"
                     ImageKey="gear"

@@ -5,7 +5,7 @@ using mikoba.ViewModels;
 
 namespace mikoba.UI.ViewModels
 {
-    public class SettingsPageViewModel : KivaBaseViewModel
+    public class SettingsPageViewModel : MikobaBaseViewModel
     {
         public ObservableCollection<WalletActionModel> SettingsActions { get; set; }
 

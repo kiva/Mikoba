@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages.Onboarding
 {
-    public class WalletPinSetViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class WalletPinSetViewModel : MikobaBaseViewModel, INotifyPropertyChanged
     {
         public WalletPinSetViewModel(INavigationService navigationService)
          : base("Pin Set", navigationService)

@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages.Onboarding
 {
-    public class WalletPinConfirmationViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class WalletPinConfirmationViewModel : MikobaBaseViewModel, INotifyPropertyChanged
     {
         public WalletPinConfirmationViewModel(INavigationService navigationService)
             : base ("Confirm Pin", navigationService)

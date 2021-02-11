@@ -31,7 +31,7 @@ using INavigationService = mikoba.Services.INavigationService;
 
 namespace mikoba.ViewModels.Pages
 {
-    public class EntryHubPageViewModel : KivaBaseViewModel
+    public class EntryHubPageViewModel : MikobaBaseViewModel
     {
         public EntryHubPageViewModel(
             INavigationService navigationService,

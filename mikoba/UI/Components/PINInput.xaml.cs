@@ -1,10 +1,13 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Hyperledger.Aries.Extensions;
 using mikoba.Annotations;
 using mikoba.Services;
 using mikoba.UI.Controls;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
 namespace mikoba.UI.Components
@@ -42,6 +45,8 @@ namespace mikoba.UI.Components
         public void SwitchFocus(object sender, TextChangedEventArgs e)
         {
             var entry = sender as BorderlessEntry;
+            Console.WriteLine("Aloha");
+            Console.WriteLine(e.ToJson());
             var newText = e.NewTextValue;
             var oldText = e.OldTextValue;
             var entries = InputContainer.Children;
@@ -100,9 +105,27 @@ namespace mikoba.UI.Components
             }
         }
 
+        public void SubmitWithReturn([CanBeNull] object sender, EventArgs e)
+        {
+            if (FinishCommand != null)
+            {
+                if (FinishCommand.CanExecute(FinishCommandParameter))
+                {
+                    FinishCommand.Execute(FinishCommandParameter);
+                }
+            }
+        }
+
         public PINInput()
         {
             InitializeComponent();
+        }
+
+        public void Lajhem(object sender, EventArgs e)
+        {
+            Console.WriteLine("THE BACK BUTTON WAS PRESSED WOOOOOOO");
+            var entry = sender as BorderlessEntry;
+            // Console.WriteLine($"The text is {entry.Text}");
         }
 
         protected override async void OnParentSet()

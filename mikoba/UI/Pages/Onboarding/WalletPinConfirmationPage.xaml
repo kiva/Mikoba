@@ -49,7 +49,6 @@
                 BackgroundColor="#DE6156"
                 FontFamily="KivaPostGrot-Medium"
                 FontSize="15"
-                LineHeight="17"
                 HeightRequest="60"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="Start"

@@ -64,6 +64,7 @@
                     IsTextPredictionEnabled="false" />
                 <controls:BorderlessEntry
                     TextChanged="SubmitPIN"
+                    Completed="SubmitWithReturn"
                     Grid.Column="3"
                     FontSize="20"
                     FontFamily="KivaPostGrot-Medium"

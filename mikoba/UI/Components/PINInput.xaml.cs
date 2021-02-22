@@ -120,7 +120,7 @@ namespace mikoba.UI.Components
             InitializeComponent();
         }
 
-        public void Lajhem(object sender, BackButtonEventArgs e)
+        public void HandleDelete(object sender, BackButtonEventArgs e)
         {
             var entry = sender as BorderlessEntry;
             var entries = InputContainer.Children;

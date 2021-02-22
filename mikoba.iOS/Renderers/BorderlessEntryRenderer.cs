@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.Remoting.Channels;
 using Hyperledger.Aries.Extensions;
+using mikoba.Extensions;
 using mikoba.iOS.Renderers;
 using mikoba.UI.Controls;
 using UIKit;
@@ -15,6 +16,8 @@ namespace mikoba.iOS.Renderers
     public class BorderlessEntryRenderer : EntryRenderer, IUITextFieldDelegate
     {
         IElementController ElementController => Element as IElementController;
+
+        protected BackButtonEventArgs TheEvent { get; set; }
 
         public string OldValue { get; set; }
         public string NewValue { get; set; }
@@ -43,8 +46,15 @@ namespace mikoba.iOS.Renderers
             textField.EditingChanged += OnEditingChanged;
             textField.OnDeleteBackwardKey += (sender, ev) =>
             {
-                var customEvent = new BackButtonEventArgs(NewValue, OldValue);
-                entry.OnBackButtonPress(sender, customEvent);
+                if (TheEvent != null)
+                {
+                    if (OldValue == TheEvent.OldValue)
+                    {
+                        OldValue = "";
+                    }
+                }
+                TheEvent = new BackButtonEventArgs(NewValue, OldValue);
+                entry.OnBackButtonPress(entry, TheEvent);
             };
 
             SetNativeControl(textField);
@@ -81,18 +91,6 @@ namespace mikoba.iOS.Renderers
         void OnEditingChanged(object sender, EventArgs e)
         {
             ElementController.SetValueFromRenderer(Entry.TextProperty, Control.Text);
-        }
-    }
-
-    public class BackButtonEventArgs : EventArgs
-    {
-        public string NewValue { get; set; }
-        public string OldValue { get; set; }
-
-        public BackButtonEventArgs(string newValue, string oldValue)
-        {
-            NewValue = String.IsNullOrEmpty(newValue) ? "" : newValue;
-            OldValue = String.IsNullOrEmpty(oldValue) ? "" : oldValue;
         }
     }
 }

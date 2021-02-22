@@ -1,21 +1,20 @@
 using System;
 using Hyperledger.Aries.Extensions;
+using mikoba.Extensions;
 using Xamarin.Forms;
 
 namespace mikoba.UI.Controls
 {
     public class BorderlessEntry : Entry
     {
-        public delegate void BackButtonPressEventHandler(object sender, EventArgs e);
+        public delegate void BackButtonPressEventHandler(object sender, BackButtonEventArgs e);
 
         public event BackButtonPressEventHandler OnBackButton;
         
         public BorderlessEntry() {}
 
-        public void OnBackButtonPress(object sender, EventArgs e)
+        public void OnBackButtonPress(object sender, BackButtonEventArgs e)
         {
-            Console.WriteLine("Here's your custom event");
-            Console.WriteLine(e.ToJson());
             if (OnBackButton != null)
             {
                 OnBackButton(sender, e);

@@ -32,6 +32,7 @@
                     IsTextPredictionEnabled="false" />
                 <controls:BorderlessEntry
                     TextChanged="SwitchFocus"
+                    OnBackButton="Lajhem"
                     Grid.Column="1"
                     FontSize="20"
                     FontFamily="KivaPostGrot-Medium"
@@ -48,6 +49,7 @@
                     IsTextPredictionEnabled="false" />
                 <controls:BorderlessEntry
                     TextChanged="SwitchFocus"
+                    OnBackButton="Lajhem"
                     Grid.Column="2"
                     FontSize="20"
                     FontFamily="KivaPostGrot-Medium"
@@ -63,7 +65,7 @@
                     WidthRequest="40"
                     IsTextPredictionEnabled="false" />
                 <controls:BorderlessEntry
-                    TextChanged="SubmitPIN"
+                    OnBackButton="Lajhem"
                     Completed="SubmitWithReturn"
                     Grid.Column="3"
                     FontSize="20"

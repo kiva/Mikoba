@@ -1,12 +1,14 @@
-using West.Extensions.Xamarin;
+using Acr.UserDialogs;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using Autofac.Util;
 using Xamarin.Forms;
 
 namespace mikoba.Services
 {
-    public class DialogService : IDialogService
+    public class DialogService : IUserDialogs
     {
         public async Task ShowError(string message,
             string title,
@@ -99,30 +101,205 @@ namespace mikoba.Services
                 "OK");
         }
 
-        public async Task ShowAlertAsync(string message, string title, string cancelLabel)
+        public async Task AlertAsync(
+            string message,
+            string title = null,
+            string okText = null,
+            CancellationToken? cancelToken = null)
         {
             await Application.Current.MainPage.DisplayAlert(
                 title,
                 message,
-                cancelLabel);
+                "Cancel");
+        }
+        
+        public async Task AlertAsync(AlertConfig config, CancellationToken? cancelToken = null) {
+            await Application.Current.MainPage.DisplayAlert(
+                config.Title,
+                config.Message,
+                "Cancel");
         }
 
-        public async Task<bool> ShowConfirmAsync(string message, string title, string acceptLabel, string cancelLabel)
+        public async Task<string> ActionSheetAsync(
+            string title,
+            string cancel,
+            string destructive,
+            CancellationToken? cancelToken = null,
+            params string[] buttons)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<string> SelectActionAsync(string message, string title, IEnumerable<string> buttons)
+        public IDisposable ActionSheet(ActionSheetConfig config)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<string> SelectActionAsync(string message, string title, string cancelLabel, IEnumerable<string> buttons)
+
+        public IDisposable Alert(AlertConfig alertConfig)
+        {
+            throw new NotImplementedException();
+        }
+        
+        public IDisposable Alert(string message, string title, string cancelLabel)
+        {
+            throw new NotImplementedException();
+        }
+        
+        
+        public IDisposable Confirm(ConfirmConfig config)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<string> SelectActionAsync(string message, string title, string cancelLabel, string destructiveLabel, IEnumerable<string> buttons)
+        public async Task<bool> ConfirmAsync(
+          string message,
+          string title = null,
+          string okText = null,
+          string cancelText = null,
+          CancellationToken? cancelToken = null)
+        {
+           await Application.Current.MainPage.DisplayAlert(
+                title,
+                message,
+                okText,
+                cancelText);
+           return true;
+        }
+
+        public async Task<bool> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken = null)
+        {
+            await Application.Current.MainPage.DisplayAlert(
+                config.Title,
+                config.Message,
+                config.OkText,
+                config.CancelText);
+            return true;
+        }
+
+        public IDisposable DatePrompt(DatePromptConfig config)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<DatePromptResult> DatePromptAsync(
+          DatePromptConfig config,
+          CancellationToken? cancelToken = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<DatePromptResult> DatePromptAsync(
+          string title = null,
+          DateTime? selectedDate = null,
+          CancellationToken? cancelToken = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDisposable TimePrompt(TimePromptConfig config)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<TimePromptResult> TimePromptAsync(
+          TimePromptConfig config,
+          CancellationToken? cancelToken = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<TimePromptResult> TimePromptAsync(
+          string title = null,
+          TimeSpan? selectedTime = null,
+          CancellationToken? cancelToken = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDisposable Prompt(PromptConfig config)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<PromptResult> PromptAsync(
+          string message,
+          string title = null,
+          string okText = null,
+          string cancelText = null,
+          string placeholder = "",
+          InputType inputType = InputType.Default,
+          CancellationToken? cancelToken = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<PromptResult> PromptAsync(
+          PromptConfig config,
+          CancellationToken? cancelToken = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDisposable Login(LoginConfig config)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<LoginResult> LoginAsync(
+          string title = null,
+          string message = null,
+          CancellationToken? cancelToken = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<LoginResult> LoginAsync(LoginConfig config, CancellationToken? cancelToken = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IProgressDialog Progress(ProgressDialogConfig config)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IProgressDialog Loading(
+          string title = null,
+          Action onCancel = null,
+          string cancelText = null,
+          bool show = true,
+          MaskType? maskType = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IProgressDialog Progress(
+          string title = null,
+          Action onCancel = null,
+          string cancelText = null,
+          bool show = true,
+          MaskType? maskType = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ShowLoading(string title = null, MaskType? maskType = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void HideLoading()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDisposable Toast(string title, TimeSpan? dismissTimer = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDisposable Toast(ToastConfig cfg)
         {
             throw new NotImplementedException();
         }

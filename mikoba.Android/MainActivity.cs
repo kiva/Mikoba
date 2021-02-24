@@ -14,6 +14,7 @@ using Plugin.CurrentActivity;
 using Plugin.Fingerprint;
 using Sentry;
 using SVG.Forms.Plugin.Droid;
+using Acr.UserDialogs;
 
 namespace mikoba.Droid
 {
@@ -33,6 +34,9 @@ namespace mikoba.Droid
 
             //Telemetry
             SentrySdk.Init("sentryKit");
+            
+            //User Dialogs
+            UserDialogs.Init(this);
 
             //Xamarin Plugin Support
             CachedImageRenderer.Init(false);

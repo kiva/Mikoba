@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using Autofac;
 using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Contracts;
@@ -28,7 +29,7 @@ namespace mikoba.ViewModels.Pages
             IMessageService messageService,
             IAgentProvider contextProvider,
             IEventAggregator eventAggregator,
-            IDialogService dialogService,
+            IUserDialogs dialogService,
             ILifetimeScope scope)
             : base("Accept Invitation", navigationService)
         {
@@ -50,7 +51,7 @@ namespace mikoba.ViewModels.Pages
         private readonly IAgentProvider _contextProvider;
         private readonly IEventAggregator _eventAggregator;
         private readonly ILifetimeScope _scope;
-        private readonly IDialogService _dialogService;
+        private readonly IUserDialogs _dialogService;
         
         
 
@@ -86,7 +87,7 @@ namespace mikoba.ViewModels.Pages
                 Crashes.TrackError(ex);
                 SentrySdk.CaptureException(ex);
                 Console.WriteLine(ex.Message);
-                await _dialogService.ShowAlertAsync("Can't accept connection", ex.Message, "OK");
+                await _dialogService.AlertAsync("Can't accept connection", ex.Message, "OK");
                 await this.NavigationService.PopModalAsync();
             }
         });

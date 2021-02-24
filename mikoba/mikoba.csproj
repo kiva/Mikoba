@@ -28,6 +28,7 @@
     <DebugType>full</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.475" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.AppCenter" Version="4.0.0" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.0.0" />

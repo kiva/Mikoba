@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
@@ -22,9 +20,9 @@ using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
 using Sentry;
-using West.Extensions.Xamarin;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Acr.UserDialogs;
 using INavigationService = mikoba.Services.INavigationService;
 
 namespace mikoba.ViewModels.Pages
@@ -40,7 +38,7 @@ namespace mikoba.ViewModels.Pages
             IEdgeClientService edgeClientService,
             IAgentProvider agentContextProvider,
             IEventAggregator eventAggregator,
-            IDialogService dialogService,
+            IUserDialogs dialogService,
             ILifetimeScope scope) :
             base("Wallet Page", navigationService)
         {
@@ -88,7 +86,7 @@ namespace mikoba.ViewModels.Pages
         private readonly IConnectionService _connectionService;
         private readonly IAgentProvider _agentContextProvider;
         private readonly ILifetimeScope _scope;
-        private readonly IDialogService _dialogService;
+        private readonly IUserDialogs _dialogService;
 
         #endregion
 
@@ -247,7 +245,7 @@ namespace mikoba.ViewModels.Pages
         {
             get => new Command(async () =>
             {
-                await _dialogService.ShowAlertAsync("Not implemented!", "Notice", "OK");
+                await _dialogService.AlertAsync("Not implemented!", "Notice", "OK");
             });
         }
 

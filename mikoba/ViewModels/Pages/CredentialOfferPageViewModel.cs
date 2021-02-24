@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using DynamicData;
 using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Contracts;
@@ -36,7 +37,7 @@ namespace mikoba.ViewModels.Pages
             IMessageService messageService,
             IAgentProvider contextProvider,
             ICredentialService credentialService,
-            IDialogService dialogService,
+            IUserDialogs dialogService,
             IEventAggregator eventAggregator)
             : base("Accept Invitation", navigationService)
         {
@@ -52,7 +53,7 @@ namespace mikoba.ViewModels.Pages
 
         #region Services
 
-        private readonly IDialogService _dialogService;
+        private readonly IUserDialogs _dialogService;
         private readonly ICredentialService _credentialService;
         private readonly IMessageService _messageService;
         private readonly IAgentProvider _contextProvider;
@@ -93,7 +94,7 @@ namespace mikoba.ViewModels.Pages
             {
                 Tracking.TrackException(ex, "Failed to Save Credential");
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialAcceptanceFailed});
-                await _dialogService.ShowAlertAsync("Can't add credential", ex.Message, "OK");
+                await _dialogService.AlertAsync("Can't add credential", ex.Message, "OK");
             }
         });
 

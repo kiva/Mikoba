@@ -8,7 +8,7 @@ namespace mikoba
     {
         public MikobaAgent(IServiceProvider provider) : base(provider)
         {
-            Console.WriteLine("Mikoba in da House");
+            
         }
     
         /// <summary>

@@ -53,6 +53,7 @@
                     IsVisible="{Binding HasCredential}"
                     BorderColor="#DFDFDF"
                     HasShadow="False"
+                    BackgroundColor="White"
                     StyleClass="displayFrame">
                     <StackLayout>
                         <Label TextColor="Black"  FontFamily="KivaPostGrot-Bold">Photo</Label>
@@ -72,6 +73,7 @@
                                 <Grid>
                                     <Frame
                                         BorderColor="#DFDFDF"
+                                        BackgroundColor="White"
                                         HasShadow="False"
                                         StyleClass="displayFrame">
                                         <StackLayout>

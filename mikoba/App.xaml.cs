@@ -62,13 +62,13 @@ namespace mikoba
 
             ConfigureScreensAndViewModels();
 
-            if (true)
+            if (Preferences.Get(AppConstant.LocalWalletProvisioned, false))
             {
                 var fpAuthStatus = await CrossFingerprint.Current.GetAvailabilityAsync();
                 if (fpAuthStatus == FingerprintAvailability.Available &&
                     Preferences.Get(AppConstant.AllowFingerprint, false))
                 {
-                    await _navigationService.NavigateToAsync<PINLoginViewModel>();
+                    await _navigationService.NavigateToAsync<FingerprintLoginViewModel>();
                 }
                 else
                 {

@@ -56,7 +56,6 @@ namespace mikoba.Droid.Renderers
             
                 entry.TextChanged += (sender, args) =>
                 {
-                    Console.WriteLine("Definitely happening");
                     OldValue = args.OldTextValue;
                     NewValue = args.NewTextValue;
                 };

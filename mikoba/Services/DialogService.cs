@@ -98,7 +98,8 @@ namespace mikoba.Services
             await Application.Current.MainPage.DisplayAlert(
                 title,
                 message,
-                "OK");
+                "Ok",
+                "Cancel");
         }
 
         public async Task AlertAsync(
@@ -110,14 +111,14 @@ namespace mikoba.Services
             await Application.Current.MainPage.DisplayAlert(
                 title,
                 message,
-                "Cancel");
+                okText);
         }
         
         public async Task AlertAsync(AlertConfig config, CancellationToken? cancelToken = null) {
             await Application.Current.MainPage.DisplayAlert(
                 config.Title,
                 config.Message,
-                "Cancel");
+                config.OkText);
         }
 
         public async Task<string> ActionSheetAsync(
@@ -138,18 +139,31 @@ namespace mikoba.Services
 
         public IDisposable Alert(AlertConfig alertConfig)
         {
-            throw new NotImplementedException();
+            return Application.Current.MainPage.DisplayAlert(
+                alertConfig.Title,
+                alertConfig.Message,
+                alertConfig.OkText
+            );
         }
         
         public IDisposable Alert(string message, string title, string cancelLabel)
         {
-            throw new NotImplementedException();
+            return Application.Current.MainPage.DisplayAlert(
+                title,
+                message,
+                cancelLabel
+                );
         }
-        
-        
+
+
         public IDisposable Confirm(ConfirmConfig config)
         {
-            throw new NotImplementedException();
+            return Application.Current.MainPage.DisplayAlert(
+                config.Title,
+                config.CancelText,
+                config.Message,
+                config.OkText
+            );
         }
 
         public async Task<bool> ConfirmAsync(
@@ -159,22 +173,21 @@ namespace mikoba.Services
           string cancelText = null,
           CancellationToken? cancelToken = null)
         {
-           await Application.Current.MainPage.DisplayAlert(
+           return await Application.Current.MainPage.DisplayAlert(
                 title,
                 message,
                 okText,
                 cancelText);
-           return true;
         }
 
         public async Task<bool> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken = null)
         {
-            await Application.Current.MainPage.DisplayAlert(
+            return await Application.Current.MainPage.DisplayAlert(
                 config.Title,
+                config.CancelText,
                 config.Message,
-                config.OkText,
-                config.CancelText);
-            return true;
+                config.OkText
+                );
         }
 
         public IDisposable DatePrompt(DatePromptConfig config)
@@ -231,14 +244,27 @@ namespace mikoba.Services
           InputType inputType = InputType.Default,
           CancellationToken? cancelToken = null)
         {
-            throw new NotImplementedException();
+            var res = await Application.Current.MainPage.DisplayPromptAsync(
+                title,
+                message,
+                okText,
+                cancelText);
+            var promptResult = new PromptResult(true, res);
+            return promptResult;
         }
 
         public async Task<PromptResult> PromptAsync(
           PromptConfig config,
           CancellationToken? cancelToken = null)
         {
-            throw new NotImplementedException();
+            var res = await Application.Current.MainPage.DisplayPromptAsync(
+                config.Title,
+                config.CancelText,
+                config.Message,
+                config.OkText
+            );
+            var promptResult = new PromptResult(true, res);
+            return promptResult;
         }
 
         public IDisposable Login(LoginConfig config)

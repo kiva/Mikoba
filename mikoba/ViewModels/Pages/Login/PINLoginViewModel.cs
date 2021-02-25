@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages.Login
 {
-    public class PINLoginViewModel : MikobaBaseViewModel
+    public class PINLoginViewModel : MikobaBaseViewModel, INotifyPropertyChanged
     {
         public PINLoginViewModel(
             INavigationService navigationService) : base("PIN Login", navigationService)

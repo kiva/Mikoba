@@ -20,19 +20,18 @@
           VerticalOptions="Fill">
         <Grid.RowDefinitions>
             <RowDefinition Height="80" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid Row="0"
               IsVisible="{Binding NoMatch}"
               HorizontalOptions="Fill"
+              HeightRequest="60"
               VerticalOptions="Fill">
             <Label
                 TextColor="#FFFFFF"
                 BackgroundColor="#DE6156"
                 FontFamily="KivaPostGrot-Medium"
                 FontSize="15"
-                LineHeight="17"
                 HeightRequest="60"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="Start"
@@ -43,7 +42,7 @@
         </Grid>
         <Grid
             HorizontalOptions="Center"
-            Row="2">
+            Row="1">
             <StackLayout>
                 <Label
                     Text="Welcome back!"

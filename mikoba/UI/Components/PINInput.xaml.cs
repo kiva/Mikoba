@@ -1,10 +1,14 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Hyperledger.Aries.Extensions;
 using mikoba.Annotations;
+using mikoba.Extensions;
 using mikoba.Services;
 using mikoba.UI.Controls;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
 namespace mikoba.UI.Components
@@ -38,60 +42,71 @@ namespace mikoba.UI.Components
             get { return GetValue(FocusDelayProperty); }
             set { SetValue(FocusDelayProperty, value); }
         }
-        
+
+        public BackButtonEventArgs MostRecentBackPress { get; set; }
+
         public void SwitchFocus(object sender, TextChangedEventArgs e)
         {
             var entry = sender as BorderlessEntry;
             var newText = e.NewTextValue;
             var oldText = e.OldTextValue;
+            bool isNewEmpty = String.IsNullOrEmpty(newText);
+            bool isOldEmpty = String.IsNullOrEmpty(oldText);
             var entries = InputContainer.Children;
-            if (IsDelete(newText))
+            if (!isOldEmpty && !isNewEmpty)
             {
-                FocusBack(entries, entry);
+                entry.Text = oldText;
+                FocusNext(entries, entry, newText);
             }
-            else
+            else if (!isNewEmpty)
             {
                 FocusNext(entries, entry);
             }
         }
 
-        private void FocusBack(Grid.IGridList<View> entries, BorderlessEntry e)
+        private void FocusBack(Grid.IGridList<View> entries, BorderlessEntry e, bool deleteValue = false)
         {
+            MostRecentBackPress = null;
             int index = entries.IndexOf(e);
             if (index > -1 && (index - 1) >= 0)
             {
-                var prev = entries.ElementAt(index - 1);
+                var prev = (BorderlessEntry) entries.ElementAt(index - 1);
+                var input = prev.Text;
                 prev?.Focus();
+                if (deleteValue)
+                {
+                    prev.Text = "";
+                    MostRecentBackPress = new BackButtonEventArgs("", input);
+                }
             }
         }
 
-        private void FocusNext(Grid.IGridList<View> entries, BorderlessEntry e)
+        private void FocusNext(Grid.IGridList<View> entries, BorderlessEntry e, string input = "")
         {
             int index = entries.IndexOf(e);
             if (index > -1 && (index + 1) <= entries.Count)
             {
-                var next = entries.ElementAt(index + 1);
+                var next = (BorderlessEntry) entries.ElementAt(index + 1);
                 next?.Focus();
+                next.Text = input;
             }
         }
         
-        private bool IsDelete(string neu)
-        {
-            if (string.IsNullOrEmpty(neu))
-            {
-                return true;
-            }
-            return false;
-        }
 
         public void SubmitPIN(object sender, TextChangedEventArgs e)
         {
-            if (IsDelete(e.NewTextValue))
+            if (FinishCommand != null)
             {
-                var entry = sender as BorderlessEntry;
-                FocusBack(InputContainer.Children, entry);
+                if (FinishCommand.CanExecute(FinishCommandParameter))
+                {
+                    FinishCommand.Execute(FinishCommandParameter);
+                }
             }
-            else if (FinishCommand != null)
+        }
+
+        public void SubmitWithReturn([CanBeNull] object sender, EventArgs e)
+        {
+            if (FinishCommand != null)
             {
                 if (FinishCommand.CanExecute(FinishCommandParameter))
                 {
@@ -103,6 +118,20 @@ namespace mikoba.UI.Components
         public PINInput()
         {
             InitializeComponent();
+        }
+
+        public void HandleDelete(object sender, BackButtonEventArgs e)
+        {
+            var entry = sender as BorderlessEntry;
+            var entries = InputContainer.Children;
+            if (String.IsNullOrEmpty(e.OldValue) || (MostRecentBackPress != null && MostRecentBackPress.OldValue == e.OldValue))
+            {
+                FocusBack(entries, entry, true);
+            }
+            else
+            {
+                MostRecentBackPress = e;
+            }
         }
 
         protected override async void OnParentSet()

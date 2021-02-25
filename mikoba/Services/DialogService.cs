@@ -1,9 +1,7 @@
 using Acr.UserDialogs;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac.Util;
 using Xamarin.Forms;
 
 namespace mikoba.Services

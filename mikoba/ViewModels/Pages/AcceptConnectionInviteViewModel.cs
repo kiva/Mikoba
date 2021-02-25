@@ -6,7 +6,6 @@ using Autofac;
 using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Contracts;
 using Hyperledger.Aries.Features.DidExchange;
-using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using mikoba.Extensions;
 using mikoba.Services;
@@ -14,8 +13,6 @@ using mikoba.ViewModels.Components;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
 using Sentry;
-using Sentry.Protocol;
-using West.Extensions.Xamarin;
 using Xamarin.Forms;
 using INavigationService = mikoba.Services.INavigationService;
 

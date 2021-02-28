@@ -1,28 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using DynamicData;
 using Hyperledger.Aries.Agents;
 using Hyperledger.Aries.Contracts;
-using Hyperledger.Aries.Features.DidExchange;
 using Hyperledger.Aries.Features.IssueCredential;
-using Hyperledger.Indy.AnonCredsApi;
 using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 using mikoba.Extensions;
 using mikoba.Services;
 using mikoba.UI.Helpers;
 using mikoba.ViewModels.SSI;
 using ReactiveUI;
-using Sentry;
-using Sentry.Protocol;
-using West.Extensions.Xamarin;
-using Xamarin.Essentials;
 using Xamarin.Forms;
-using ZXing.Net.Mobile.Forms;
 using INavigationService = mikoba.Services.INavigationService;
 
 namespace mikoba.ViewModels.Pages
@@ -36,7 +28,7 @@ namespace mikoba.ViewModels.Pages
             IMessageService messageService,
             IAgentProvider contextProvider,
             ICredentialService credentialService,
-            IDialogService dialogService,
+            IUserDialogs dialogService,
             IEventAggregator eventAggregator)
             : base("Accept Invitation", navigationService)
         {
@@ -52,7 +44,7 @@ namespace mikoba.ViewModels.Pages
 
         #region Services
 
-        private readonly IDialogService _dialogService;
+        private readonly IUserDialogs _dialogService;
         private readonly ICredentialService _credentialService;
         private readonly IMessageService _messageService;
         private readonly IAgentProvider _contextProvider;
@@ -93,7 +85,7 @@ namespace mikoba.ViewModels.Pages
             {
                 Tracking.TrackException(ex, "Failed to Save Credential");
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialAcceptanceFailed});
-                await _dialogService.ShowAlertAsync("Can't add credential", ex.Message, "OK");
+                await _dialogService.AlertAsync("Can't add credential", ex.Message, "OK");
             }
         });
 

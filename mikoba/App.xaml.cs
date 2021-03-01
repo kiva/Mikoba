@@ -58,7 +58,8 @@ namespace mikoba
         {
             await Host.StartAsync();
 
-            AppCenter.Start("appCenterKey", typeof(Analytics), typeof(Crashes));
+            AppCenter.Start("appCenterKey",
+                typeof(Analytics), typeof(Crashes));
 
             ConfigureScreensAndViewModels();
 

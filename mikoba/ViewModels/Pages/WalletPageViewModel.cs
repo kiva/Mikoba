@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
@@ -24,10 +22,12 @@ using ReactiveUI;
 using Sentry;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Acr.UserDialogs;
+using INavigationService = mikoba.Services.INavigationService;
 
 namespace mikoba.ViewModels.Pages
 {
-    public class WalletPageViewModel : KivaBaseViewModel
+    public class WalletPageViewModel : MikobaBaseViewModel
     {
         private Timer timer;
 
@@ -38,6 +38,7 @@ namespace mikoba.ViewModels.Pages
             IEdgeClientService edgeClientService,
             IAgentProvider agentContextProvider,
             IEventAggregator eventAggregator,
+            IUserDialogs dialogService,
             ILifetimeScope scope) :
             base("Wallet Page", navigationService)
         {
@@ -46,6 +47,7 @@ namespace mikoba.ViewModels.Pages
             _connectionService = connectionService;
             _eventAggregator = eventAggregator;
             _edgeClientService = edgeClientService;
+            _dialogService = dialogService;
             _scope = scope;
             _mediatorTimer = new MediatorTimerService(this.CheckMediator);
         }
@@ -67,7 +69,7 @@ namespace mikoba.ViewModels.Pages
                 }
                 finally
                 {
-                    await RefreshData(); 
+                    await RefreshData();
                     _mediatorTimer.Start();
                 }
             });
@@ -84,6 +86,7 @@ namespace mikoba.ViewModels.Pages
         private readonly IConnectionService _connectionService;
         private readonly IAgentProvider _agentContextProvider;
         private readonly ILifetimeScope _scope;
+        private readonly IUserDialogs _dialogService;
 
         #endregion
 
@@ -97,9 +100,12 @@ namespace mikoba.ViewModels.Pages
             set => this.RaiseAndSetIfChanged(ref _welcomeText, value);
         }
 
+        private string _lastCredentialCreatedId;
+        
         private string _notificationText;
 
-        public string NotificationText {
+        public string NotificationText
+        {
             get => _notificationText;
             set => this.RaiseAndSetIfChanged(ref _notificationText, value);
         }
@@ -163,36 +169,49 @@ namespace mikoba.ViewModels.Pages
             Preferences.Set(AppConstant.LocalWalletFirstView, false);
             IsRefreshing = true;
             await RefreshEntries();
-           WelcomeText  =
+            WelcomeText =
                 $"Hello {Preferences.Get(AppConstant.FullName, "")}, welcome to your new Wallet.  Get started by receiving your first ID.";
             IsRefreshing = false;
             _eventAggregator.GetEventByType<CoreDispatchedEvent>()
-                .Subscribe(async _ => {
+                .Subscribe(async _ =>
+                {
                     if (_.Type == DispatchType.ConnectionCreated)
                     {
-                        NotificationText  = "Kiva can now send you requests.";
-                    } else if (_.Type == DispatchType.CredentialAccepted)
+                        NotificationText = "Kiva can now send you requests.";
+                    }
+                    else if (_.Type == DispatchType.CredentialAccepted)
                     {
-                        NotificationText  = "Credential accepted.";
-                    } else if (_.Type == DispatchType.CredentialDeclined)
+                        NotificationText = "Credential accepted.";
+                        if (!string.IsNullOrWhiteSpace(_.Data))
+                        {
+                            _lastCredentialCreatedId = _.Data;
+                        }
+                    }
+                    else if (_.Type == DispatchType.CredentialDeclined)
                     {
-                        NotificationText  = "Failed to save credential.";
-                    } else if (_.Type == DispatchType.CredentialAcceptanceFailed)
+                        NotificationText = "Failed to save credential.";
+                    }
+                    else if (_.Type == DispatchType.CredentialAcceptanceFailed)
                     {
-                        NotificationText  = "Credential declined.";
-                    } else if (_.Type == DispatchType.CredentialRemoved)
+                        NotificationText = "Credential declined.";
+                    }
+                    else if (_.Type == DispatchType.CredentialRemoved)
                     {
-                        NotificationText  = "Credential deleted.";
-                    } else if (_.Type == DispatchType.CredentialShared)
+                        NotificationText = "Credential deleted.";
+                    }
+                    else if (_.Type == DispatchType.CredentialShared)
                     {
                         NotificationText = "Credential shared.";
-                    } else if (_.Type == DispatchType.CredentialShareFailed)
+                    }
+                    else if (_.Type == DispatchType.CredentialShareFailed)
                     {
                         NotificationText = "Credential share failed.";
-                    } else if (_.Type == DispatchType.NotificationDismissed)
-                    {
-                        NotificationText  = "";
                     }
+                    else if (_.Type == DispatchType.NotificationDismissed)
+                    {
+                        NotificationText = "";
+                    }
+
                     await RefreshData();
                 });
             _mediatorTimer.Start();
@@ -212,15 +231,21 @@ namespace mikoba.ViewModels.Pages
         public ICommand RefreshCommand
         {
             get => new Command(async () => { await this.RefreshCredentials(); });
-        }        
-        
-        
+        }
+
+
         public ICommand SettingsCommand
-        
+
+        {
+            get => new Command(async () => { await NavigationService.NavigateToAsync<SettingsPageViewModel>(); });
+        }
+
+
+        public ICommand RecoverWalletCommand
         {
             get => new Command(async () =>
             {
-                await NavigationService.NavigateToAsync<SettingsPageViewModel>();
+                await _dialogService.AlertAsync("Not implemented!", "Notice", "OK");
             });
         }
 
@@ -233,6 +258,23 @@ namespace mikoba.ViewModels.Pages
             IsRefreshing = true;
             await this.RefreshEntries();
             IsRefreshing = false;
+            await ExecutePostCredentialActions();
+        }
+
+        private async Task ExecutePostCredentialActions()
+        {
+            if (!string.IsNullOrWhiteSpace(_lastCredentialCreatedId))
+            {
+                var credentialToOpen = Entries.FirstOrDefault(x =>
+                {
+                    return x.HasCredential && x.Credential._credential.CredentialId == _lastCredentialCreatedId;
+                });
+                if (credentialToOpen != null)
+                {
+                    _lastCredentialCreatedId = null;
+                    await NavigationService.NavigateToAsync<EntryHubPageViewModel>(credentialToOpen);
+                }
+            }
         }
 
         public async Task RefreshCredentials()
@@ -240,7 +282,7 @@ namespace mikoba.ViewModels.Pages
             var context = await _agentContextProvider.GetContextAsync();
             var credentialsRecords = await _credentialService.ListAsync(context);
 
-            IList<SSICredentialViewModel> credentialsVms = new List<SSICredentialViewModel>();
+            var credentialsVms = new List<SSICredentialViewModel>();
             foreach (var credentialRecord in credentialsRecords)
             {
                 if (credentialRecord.CredentialId == null) continue;

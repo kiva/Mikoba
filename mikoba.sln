@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mikoba.iOS", "mikoba.iOS\mi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mikoba", "mikoba\mikoba.csproj", "{F832351C-E821-4F2F-A8B8-50F34E95A4FB}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "mikoba.UITests", "mikoba.UITests\mikoba.UITests.csproj", "{818639FA-F82D-4652-94B9-AF4400BA0BE4}"
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "mikoba.UITests", "mikoba.UITests\mikoba.UITests.csproj", "{FFFFCC07-0CDD-4640-BDC4-B8DAA97C68EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,15 +60,15 @@ Global
 		{F832351C-E821-4F2F-A8B8-50F34E95A4FB}.Release Android|Any CPU.Build.0 = Release Android|Any CPU
 		{F832351C-E821-4F2F-A8B8-50F34E95A4FB}.Debug Android|Any CPU.ActiveCfg = Debug|Any CPU
 		{F832351C-E821-4F2F-A8B8-50F34E95A4FB}.Debug Android|Any CPU.Build.0 = Debug|Any CPU
-		{818639FA-F82D-4652-94B9-AF4400BA0BE4}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{818639FA-F82D-4652-94B9-AF4400BA0BE4}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{818639FA-F82D-4652-94B9-AF4400BA0BE4}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{818639FA-F82D-4652-94B9-AF4400BA0BE4}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{818639FA-F82D-4652-94B9-AF4400BA0BE4}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{818639FA-F82D-4652-94B9-AF4400BA0BE4}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{818639FA-F82D-4652-94B9-AF4400BA0BE4}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{818639FA-F82D-4652-94B9-AF4400BA0BE4}.Release|iPhone.Build.0 = Release|Any CPU
-		{818639FA-F82D-4652-94B9-AF4400BA0BE4}.Debug Android|Any CPU.ActiveCfg = Debug Android|Any CPU
+		{FFFFCC07-0CDD-4640-BDC4-B8DAA97C68EC}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{FFFFCC07-0CDD-4640-BDC4-B8DAA97C68EC}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{FFFFCC07-0CDD-4640-BDC4-B8DAA97C68EC}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{FFFFCC07-0CDD-4640-BDC4-B8DAA97C68EC}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{FFFFCC07-0CDD-4640-BDC4-B8DAA97C68EC}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{FFFFCC07-0CDD-4640-BDC4-B8DAA97C68EC}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{FFFFCC07-0CDD-4640-BDC4-B8DAA97C68EC}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{FFFFCC07-0CDD-4640-BDC4-B8DAA97C68EC}.Release|iPhone.Build.0 = Release|Any CPU
+		{FFFFCC07-0CDD-4640-BDC4-B8DAA97C68EC}.Debug Android|Any CPU.ActiveCfg = Debug Android|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		version = 0.4

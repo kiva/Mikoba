@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages.Onboarding
 {
-    public class AllowPushNotificationViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class AllowPushNotificationViewModel : MikobaBaseViewModel, INotifyPropertyChanged
     {
         public AllowPushNotificationViewModel(INavigationService navigationService)
         : base("Allow Push Notifications", navigationService)

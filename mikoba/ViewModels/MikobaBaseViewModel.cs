@@ -2,20 +2,21 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 using mikoba.Services;
 using ReactiveUI;
 using Xamarin.Forms;
 
 namespace mikoba.ViewModels
 {
-    public abstract class KivaBaseViewModel : ReactiveObject, IBaseViewModel
+    public abstract class MikobaBaseViewModel : ReactiveObject, IBaseViewModel
     {
-        public KivaBaseViewModel(string title, INavigationService navigationService)
+        public MikobaBaseViewModel(string title, INavigationService navigationService)
         {
             this.NavigationService = navigationService;
         }
 
-        protected KivaBaseViewModel()
+        protected MikobaBaseViewModel()
         {
             
         }
@@ -42,6 +43,17 @@ namespace mikoba.ViewModels
                 if (this.NavigationService != null)
                 {
                     this.NavigationService.NavigateBackAsync();
+                }
+            });
+        }
+        
+        public Command GoBackPopupCommand
+        {
+            get => new Command( () =>
+            {
+                if (this.NavigationService != null)
+                {
+                    this.NavigationService.PopModalAsync();
                 }
             });
         }

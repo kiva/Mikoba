@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages.Onboarding
 {
-    public class WalletPinSetViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class WalletPinSetViewModel : MikobaBaseViewModel, INotifyPropertyChanged
     {
         public WalletPinSetViewModel(INavigationService navigationService)
          : base("Pin Set", navigationService)
@@ -28,7 +28,7 @@ namespace mikoba.ViewModels.Pages.Onboarding
                 if (!string.IsNullOrEmpty(First) && !string.IsNullOrEmpty(Second) && !string.IsNullOrEmpty(Third) &&
                     !string.IsNullOrEmpty(Fourth))
                 {
-                    await NavigationService.NavigateToAsync<WalletPinConfirmViewModel>($"{First}{Second}{Third}{Fourth}");
+                    await NavigationService.NavigateToAsync<WalletPinConfirmationViewModel>($"{First}{Second}{Third}{Fourth}");
                 }
             });
         }

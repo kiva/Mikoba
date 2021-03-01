@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -8,11 +9,6 @@ namespace mikoba.UI.Components
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BackButton : ContentView
     {
-        public Assembly SvgAssembly
-        {
-            get { return typeof(App).GetTypeInfo().Assembly; }
-        }
-
         public static readonly BindableProperty CommandProperty =
             BindableProperty.Create("Command", typeof(ICommand), typeof(BackButton), null);
 
@@ -34,14 +30,13 @@ namespace mikoba.UI.Components
         public BackButton()
         {
             InitializeComponent();
-        }
-
-        void ClickBack(System.Object sender, System.EventArgs e)
-        {
-            if (Command != null && Command.CanExecute(CommandParameter))
+            SvgImage.Command = new Command(() =>
             {
-                Command.Execute(CommandParameter);
-            }
+                if (this.Command != null)
+                {
+                    this.Command.Execute(null);
+                }
+            });
         }
     }
 }

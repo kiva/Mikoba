@@ -6,7 +6,7 @@ using mikoba.Annotations;
 
 namespace mikoba.ViewModels
 {
-    public class CredentialOfferCardViewModel : KivaBaseViewModel
+    public class CredentialOfferCardViewModel : MikobaBaseViewModel
     {
         public ICommand OnClickAcceptCommand  { get; set; }
         public ICommand OnClickDeclineCommand { get; set; }

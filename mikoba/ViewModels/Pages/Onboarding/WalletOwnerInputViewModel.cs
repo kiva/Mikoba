@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages.Onboarding
 {
-    public class WalletOwnerInputViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class WalletOwnerInputViewModel : MikobaBaseViewModel, INotifyPropertyChanged
     {
         public WalletOwnerInputViewModel(INavigationService navigationService)
             : base("Owner Input", navigationService)

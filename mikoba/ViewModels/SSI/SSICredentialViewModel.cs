@@ -13,7 +13,7 @@ using Microsoft.AppCenter.Crashes;
 
 namespace mikoba.ViewModels.SSI
 {
-    public class SSICredentialViewModel : KivaBaseViewModel
+    public class SSICredentialViewModel : MikobaBaseViewModel
     {
         public SSICredentialViewModel()
         {

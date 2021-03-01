@@ -2,7 +2,7 @@
 
 namespace mikoba.ViewModels
 {
-    public class CredentialRequestViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class CredentialRequestViewModel : MikobaBaseViewModel, INotifyPropertyChanged
     {
         private static CredentialRequestViewModel m_instance;
 

@@ -6,11 +6,11 @@ using Xamarin.Forms;
 
 namespace mikoba.UI.Components
 {
-    public class KivaSvgImage : SvgImage
+    public class MikobaSvgImage : SvgImage
     {
         private string _imageKey;
         
-        public KivaSvgImage()
+        public MikobaSvgImage()
         {
             this.SvgAssembly = typeof(App).GetTypeInfo().Assembly;
             var tapGestureRecognizer = new TapGestureRecognizer();

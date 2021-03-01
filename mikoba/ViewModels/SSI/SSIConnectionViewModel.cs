@@ -15,7 +15,7 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels.SSI
 {
-    public class SSIConnectionViewModel : KivaBaseViewModel
+    public class SSIConnectionViewModel : MikobaBaseViewModel
     {
         public SSIConnectionViewModel(INavigationService navigationService,
                                    IAgentProvider agentContextProvider,

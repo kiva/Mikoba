@@ -12,11 +12,11 @@ namespace mikoba.Droid
     #endif
     public class MainApplication : Application
     {
-        public MainApplication(IntPtr handle, JniHandleOwnership transer)
-            : base(handle, transer)
+        public MainApplication(IntPtr handle, JniHandleOwnership transfer)
+            : base(handle, transfer)
         {
         }
-
+    
         public override void OnCreate()
         {
             base.OnCreate();

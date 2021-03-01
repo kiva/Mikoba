@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="2.0.6" package="global.kiva.protocol.wallet" android:versionCode="8">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="2.0.16" package="global.kiva.protocol.wallet" android:installLocation="internalOnly" android:versionCode="16">
 	<uses-sdk android:minSdkVersion="29" android:targetSdkVersion="29" />
-	<application android:label="Protocol Wallet" android:icon="@mipmap/icon" />
+	<application android:requestLegacyExternalStorage="true" android:label="Protocol Wallet" android:icon="@mipmap/icon" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.FLASHLIGHT" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

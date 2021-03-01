@@ -11,16 +11,12 @@ using Xamarin.Forms;
 
 namespace mikoba.ViewModels.Pages.Onboarding
 {
-    public class WalletPinConfirmViewModel : KivaBaseViewModel, INotifyPropertyChanged
+    public class WalletPinConfirmationViewModel : MikobaBaseViewModel, INotifyPropertyChanged
     {
-        public WalletPinConfirmViewModel(INavigationService navigationService)
+        public WalletPinConfirmationViewModel(INavigationService navigationService)
             : base ("Confirm Pin", navigationService)
         {
             NoError = true;
-            GoBack = new Command(async () =>
-            {
-                await NavigationService.NavigateBackAsync();
-            });
             ConfirmPin = new Command(async () =>
             {
                 if (!string.IsNullOrEmpty(First) && !string.IsNullOrEmpty(Second) && !string.IsNullOrEmpty(Third) &&

@@ -70,7 +70,6 @@ namespace mikoba.ViewModels.Pages
                 Analytics.TrackEvent("Click Accept Credential");
                 var (request, _) = await _credentialService.CreateRequestAsync(context, _transport.Record.Id);
                 await _messageService.SendAsync(context.Wallet, request, _transport.MessageContext.Connection);
-
                 await NavigationService.PopModalAsync();
 
                 _eventAggregator.Publish(new CoreDispatchedEvent()
@@ -79,7 +78,7 @@ namespace mikoba.ViewModels.Pages
                     Data = _transport.Record.Id
                 });
 
-                Tracking.TrackEvent("Save Credential");
+                Tracking.TrackEvent("Saved Credential");
             }
             catch (Exception ex)
             {

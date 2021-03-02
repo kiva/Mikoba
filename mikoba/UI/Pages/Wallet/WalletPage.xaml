@@ -2,6 +2,7 @@
 
 <ContentPage
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -61,8 +62,6 @@
                     Command="{Binding SettingsCommand}"
                     VerticalOptions="Center"
                     HorizontalOptions="End" />
-
-
                 <ScrollView
                     HorizontalOptions="FillAndExpand"
                     Grid.Row="1"
@@ -77,25 +76,34 @@
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
                 </ScrollView>
-                
-                <Label
-                    Grid.Row="1"
-                    Grid.ColumnSpan="2"
+                <StackLayout
                     IsVisible="{Binding HasContent, Converter={StaticResource BooleanInverse}}"
-                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Type=Constant, Constant=30}"
-                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
-                    HorizontalOptions="Center"
-                    WidthRequest="300"
-                    LineHeight="1.5"
-                    TextColor="#004FD4"
-                    FontSize="21"
-                    VerticalOptions="Start"
-                    Margin="0,80,0,0"
-                    HorizontalTextAlignment="Start"
-                    VerticalTextAlignment="Start"
-                    FontFamily="KivaPostGrot-Light"
-                    Text="{Binding WelcomeText}" />
-                
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2">
+                    <abstractions:SvgImage
+                        IsVisible="{Binding ShowPaperIcon}"
+                        SvgAssembly="{Binding SvgAssembly}"
+                        SvgPath="{Binding PapersIcon}"
+                        HeightRequest="100"
+                        WidthRequest="100"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Start" />
+                    <Label
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Type=Constant, Constant=30}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
+                        HorizontalOptions="Center"
+                        WidthRequest="300"
+                        LineHeight="1.5"
+                        TextColor="#004FD4"
+                        FontSize="21"
+                        VerticalOptions="Start"
+                        Margin="0,80,0,0"
+                        HorizontalTextAlignment="Start"
+                        VerticalTextAlignment="Start"
+                        FontFamily="KivaPostGrot-Light"
+                        Text="{Binding WelcomeText}" />
+                </StackLayout>
                 <StackLayout
                     WidthRequest="250"
                     IsVisible="{Binding HasContent, Converter={StaticResource BooleanInverse}}"

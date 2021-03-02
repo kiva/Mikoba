@@ -1,4 +1,6 @@
 using System.Threading.Tasks;
+using System.Windows.Input;
+using mikoba.UI.Components;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

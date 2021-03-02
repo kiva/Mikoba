@@ -1,9 +1,11 @@
+using System;
 using System.Windows.Input;
 using Hyperledger.Aries.Contracts;
 using mikoba.Extensions;
 using Xamarin.Forms;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Autofac;
 using mikoba.Annotations;
 
 namespace mikoba.ViewModels.Components

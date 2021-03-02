@@ -1,3 +1,4 @@
+using System;
 using Autofac;
 using Hyperledger.Aries.Contracts;
 using Hyperledger.Aries.Runtime;

@@ -33,19 +33,19 @@ namespace mikoba.ViewModels.Pages.Onboarding
             });
         }
         
-        private string owner = string.Empty;
+        private string _owner = string.Empty;
 
         public string Owner
         {
             get
             {
-                return owner;
+                return _owner;
             }
             set
             {
-                if (owner != value)
+                if (_owner != value)
                 {
-                    owner = value;
+                    _owner = value;
                     OnPropertyChanged(nameof(Owner));
                 }
             }

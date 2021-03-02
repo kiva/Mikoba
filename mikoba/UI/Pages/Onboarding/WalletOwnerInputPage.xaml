@@ -69,6 +69,11 @@
                         </Keyboard>
                     </Entry.Keyboard>
                 </controls:BorderlessEntry>
+                <components:ActionButton
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    ActionButtonText="Done"
+                    Command="{Binding SetOwner}"/>
             </StackLayout>
         </Grid>
     </Grid>

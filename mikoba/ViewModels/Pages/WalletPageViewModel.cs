@@ -74,6 +74,18 @@ namespace mikoba.ViewModels.Pages
                 }
             });
         }
+        
+        private void StartDismissalTimer()
+        {
+            Device.StartTimer (new TimeSpan (0, 0, 5), () =>
+            {
+                Device.BeginInvokeOnMainThread (() => 
+                {
+                    NotificationText = "";
+                });
+                return false;
+            });
+        }
 
         private readonly MediatorTimerService _mediatorTimer;
 
@@ -98,6 +110,14 @@ namespace mikoba.ViewModels.Pages
         {
             get => _welcomeText;
             set => this.RaiseAndSetIfChanged(ref _welcomeText, value);
+        }
+
+        private bool _showPaperIcon;
+
+        public bool ShowPaperIcon
+        {
+            get => _showPaperIcon;
+            set => this.RaiseAndSetIfChanged(ref _showPaperIcon, value);
         }
 
         private string _lastCredentialCreatedId;
@@ -169,19 +189,24 @@ namespace mikoba.ViewModels.Pages
             Preferences.Set(AppConstant.LocalWalletFirstView, false);
             IsRefreshing = true;
             await RefreshEntries();
+            ShowPaperIcon = false;
             WelcomeText =
                 $"Hello {Preferences.Get(AppConstant.FullName, "")}, welcome to your new Wallet.  Get started by receiving your first ID.";
             IsRefreshing = false;
             _eventAggregator.GetEventByType<CoreDispatchedEvent>()
                 .Subscribe(async _ =>
                 {
+                    WelcomeText = "There are no credentials in your wallet yet.  Once you receive a credential, you will see it here.";
+                    ShowPaperIcon = true;
                     if (_.Type == DispatchType.ConnectionCreated)
                     {
                         NotificationText = "Kiva can now send you requests.";
+                        StartDismissalTimer();
                     }
                     else if (_.Type == DispatchType.CredentialAccepted)
                     {
                         NotificationText = "Credential accepted.";
+                        StartDismissalTimer();
                         if (!string.IsNullOrWhiteSpace(_.Data))
                         {
                             _lastCredentialCreatedId = _.Data;
@@ -189,23 +214,28 @@ namespace mikoba.ViewModels.Pages
                     }
                     else if (_.Type == DispatchType.CredentialDeclined)
                     {
-                        NotificationText = "Failed to save credential.";
+                        NotificationText = "Credential offer declined.";
+                        StartDismissalTimer();
                     }
                     else if (_.Type == DispatchType.CredentialAcceptanceFailed)
                     {
                         NotificationText = "Credential declined.";
+                        StartDismissalTimer();
                     }
                     else if (_.Type == DispatchType.CredentialRemoved)
                     {
                         NotificationText = "Credential deleted.";
+                        StartDismissalTimer();
                     }
                     else if (_.Type == DispatchType.CredentialShared)
                     {
                         NotificationText = "Credential shared.";
+                        StartDismissalTimer();
                     }
                     else if (_.Type == DispatchType.CredentialShareFailed)
                     {
-                        NotificationText = "Credential share failed.";
+                        NotificationText = "Failed to save credential.";
+                        StartDismissalTimer();
                     }
                     else if (_.Type == DispatchType.NotificationDismissed)
                     {

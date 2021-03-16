@@ -33,7 +33,7 @@ namespace mikoba.Droid
             JavaSystem.LoadLibrary("indy");
 
             //Telemetry
-            SentrySdk.Init("sentryKit");
+            // SentrySdk.Init("sentryKit");
             
             //User Dialogs
             UserDialogs.Init(this);

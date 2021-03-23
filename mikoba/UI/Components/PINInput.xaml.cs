@@ -95,7 +95,7 @@ namespace mikoba.UI.Components
 
         public void SubmitPIN(object sender, TextChangedEventArgs e)
         {
-            if (FinishCommand != null)
+            if (FinishCommand != null && !String.IsNullOrEmpty(e.NewTextValue))
             {
                 if (FinishCommand.CanExecute(FinishCommandParameter))
                 {

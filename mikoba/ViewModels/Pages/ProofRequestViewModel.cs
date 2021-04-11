@@ -97,7 +97,7 @@ namespace mikoba.ViewModels.Pages
                 var requestedCredentials = await buildCredentials();
                 (var proofMessage, var _) = await _proofService.CreatePresentationAsync(context,
                     _proofRequestTransport.Record.Id, requestedCredentials);
-                await _messageService.SendAsync(context.Wallet, proofMessage,
+                await _messageService.SendAsync(context, proofMessage,
                     _proofRequestTransport.MessageContext.Connection);
             }
             catch (Exception ex)

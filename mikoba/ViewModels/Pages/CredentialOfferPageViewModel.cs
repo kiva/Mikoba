@@ -69,7 +69,7 @@ namespace mikoba.ViewModels.Pages
                 Tracking.TrackEvent("Click Accept Credential");
                 Analytics.TrackEvent("Click Accept Credential");
                 var (request, _) = await _credentialService.CreateRequestAsync(context, _transport.Record.Id);
-                await _messageService.SendAsync(context.Wallet, request, _transport.MessageContext.Connection);
+                await _messageService.SendAsync(context, request, _transport.MessageContext.Connection);
                 await NavigationService.PopModalAsync();
 
                 _eventAggregator.Publish(new CoreDispatchedEvent()

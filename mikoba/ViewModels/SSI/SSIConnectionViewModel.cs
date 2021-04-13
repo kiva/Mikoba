@@ -68,7 +68,7 @@ namespace mikoba.ViewModels.SSI
 
             try
             {
-                var response = await _messageService.SendReceiveAsync(context.Wallet, message, Record) as UnpackedMessageContext;
+                var response = await _messageService.SendReceiveAsync(context, message, Record) as UnpackedMessageContext;
                 protocols = response.GetMessage<DiscoveryDiscloseMessage>();
             }
             catch (Exception)
@@ -125,7 +125,7 @@ namespace mikoba.ViewModels.SSI
             
             try
             {
-                var response = await _messageService.SendReceiveAsync(context.Wallet, message, Record) as UnpackedMessageContext;
+                var response = await _messageService.SendReceiveAsync(context, message, Record) as UnpackedMessageContext;
                 var trustPingResponse = response.GetMessage<TrustPingResponseMessage>();
             }
             catch (Exception)

@@ -67,7 +67,7 @@ namespace mikoba.ViewModels.Pages
                 var (msg, record) = await _connectionService.CreateRequestAsync(context, _invite);
                 msg.Label = _invite.Label;
                 msg.ImageUrl = _invite.ImageUrl;
-                await _messageService.SendAsync(context.Wallet, msg, record);
+                await _messageService.SendAsync(context, msg, record);
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionsUpdated});
                 _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.ConnectionCreated});
 

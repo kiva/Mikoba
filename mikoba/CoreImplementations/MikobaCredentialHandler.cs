@@ -169,6 +169,8 @@ namespace mikoba.CoreImplementations
         private async Task<CredentialRecord> UpdateValuesAsync(string credentialId,
             CredentialIssueMessage credentialIssue, IAgentContext agentContext)
         {
+            var _credentialService = App.Container.Resolve<ICredentialService>();
+            var _recordService = App.Container.Resolve<IWalletRecordService>();
             var credentialAttachment = credentialIssue.Credentials.FirstOrDefault(x => x.Id == "libindy-cred-0")
                                        ?? throw new ArgumentException("Credential attachment not found");
 

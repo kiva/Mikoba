@@ -115,7 +115,6 @@ namespace mikoba.ViewModels.Pages
                 {
                     _eventAggregator.Publish(new CoreDispatchedEvent() {Type = DispatchType.CredentialShareFailed});
                 }
-                
             }
         });
 

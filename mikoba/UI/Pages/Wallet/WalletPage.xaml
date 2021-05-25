@@ -66,6 +66,7 @@
                 <ScrollView
                     HorizontalOptions="FillAndExpand"
                     Grid.Row="1"
+                    Grid.RowSpan="2"
                     Grid.ColumnSpan="2">
                     <StackLayout BindableLayout.ItemsSource="{Binding Entries}">
                         <BindableLayout.ItemTemplate>

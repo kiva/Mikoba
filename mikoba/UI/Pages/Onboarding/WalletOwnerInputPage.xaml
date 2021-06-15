@@ -74,6 +74,14 @@
                     VerticalOptions="End"
                     ActionButtonText="Done"
                     Command="{Binding SetOwner}"/>
+                <Label
+                    Text="{Binding OwnerError}"
+                    FontFamily="KivaPostGrot-Medium"
+                    FontSize="15"
+                    TextColor="#EB5042"
+                    HeightRequest="50"
+                    VerticalOptions="Start"
+                    HorizontalOptions="Center" />
             </StackLayout>
         </Grid>
     </Grid>

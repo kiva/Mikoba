@@ -24,17 +24,41 @@ namespace mikoba.ViewModels.Pages.Onboarding
                 if (!Owner.Equals(string.Empty))
                 {
                     Preferences.Set(AppConstant.FullName, Owner);
+                    SetOwnerError("");
                     await NavigationService.NavigateToAsync<WalletPinSetViewModel>();
                 }
                 else
                 {
+                    SetOwnerError("Wallet owner field cannot be empty.");
                     Console.WriteLine("Unable to set the wallet owner");
                 }
             });
+            
+            
         }
         
         private string _owner = string.Empty;
-
+        private string _ownerError = string.Empty;
+        
+        void SetOwnerError(string error)
+        {
+            OwnerError = error;
+        }
+        public string OwnerError
+        {
+            get
+            {
+                return _ownerError;
+            }
+            set
+            {
+                if (_ownerError != value)
+                {
+                    _ownerError = value;
+                    OnPropertyChanged(nameof(OwnerError));
+                }
+            }
+        }
         public string Owner
         {
             get

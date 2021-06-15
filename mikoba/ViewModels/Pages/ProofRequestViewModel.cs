@@ -23,7 +23,7 @@ namespace mikoba.ViewModels.Pages
     public class ProofRequestViewModel : MikobaBaseViewModel
     {
         private static readonly string[] AllowedFields =
-            {"nationalId", "photo~attach", "dateOfBirth", "birthDate", "firstName", "lastName"};
+            {"nationalId", "photo~attach", "dateOfBirth", "birthDate", "firstName", "lastName", "hireDate"};
 
         public ProofRequestViewModel(
             INavigationService navigationService,

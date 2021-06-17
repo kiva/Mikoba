@@ -227,7 +227,8 @@ namespace mikoba.ViewModels.SSI
             {
                 try
                 {
-                    DateTime date = UnixTimestampToDateTime(Convert.ToDouble(value));
+                    var millisecondUnixTimeStamp = Convert.ToDouble(value) * 1000;
+                    var date = UnixTimestampToDateTime(millisecondUnixTimeStamp);
                     string format = "yyyy'-'MM'-'dd";
                     return date.ToString(format);
                 }

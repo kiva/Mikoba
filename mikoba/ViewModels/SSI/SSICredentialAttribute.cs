@@ -13,6 +13,13 @@ namespace mikoba.ViewModels.SSI
                 return SSICredentialViewModel.FormatCredentialName(this.Name);
             }
         }
+        public string DisplayValue
+        {
+            get
+            {
+                return SSICredentialViewModel.FormatCredentialValue(this.Name, this.Value);
+            }
+        }
 
         public object Value { get; set; }
 

@@ -61,192 +61,23 @@ namespace mikoba.ViewModels.SSI
             }
         }
 
-
-
-        class CredentialOverlay
-        {
-            public string CredentialId;
-            public Dictionary<string, CredentialOverlayField> Fields { get; set; }
-        }
-
-        class CredentialOverlayField
-        {
-            public string Name { get; set; }
-            public Dictionary<string,string> Properties { get; set; }
-
-            public string DisplayName
-            {
-                get
-                {
-                    return Properties["name"];
-                }
-            }
-            
-            public string DataType
-            {
-                get
-                {
-                    return Properties["dataType"];
-                }
-            }
-        }
-
-        private static CredentialOverlay GetCredentialOverlay()
-        {
-            var result = new CredentialOverlay();
-            result.Fields = new Dictionary<string, CredentialOverlayField>()
-            {
-                {"firstName", new CredentialOverlayField() {
-                   Properties = new Dictionary<string, string>()
-                   {
-                       {"name", "First Name"},
-                       {"dataType", "text"}
-                   }
-                }},
-                {"lastName", new CredentialOverlayField() {
-                    Properties = new Dictionary<string, string>()
-                    {
-                        {"name", "Last Name"},
-                        {"dataType", "text"}
-                    }
-                }},
-                {"companyEmail", new CredentialOverlayField() {
-                    Properties = new Dictionary<string, string>()
-                    {
-                        {"name", "Company Email"},
-                        {"dataType", "text"}
-                    }
-                }},
-                {"currentTitle", new CredentialOverlayField() {
-                    Properties = new Dictionary<string, string>()
-                    {
-                        {"name", "Current Title"},
-                        {"dataType", "text"}
-                    }
-                }},
-                {"team", new CredentialOverlayField() {
-                    Properties = new Dictionary<string, string>()
-                    {
-                        {"name", "Team"},
-                        {"dataType", "text"}
-                    }
-                }},
-                {"hireDate", new CredentialOverlayField() {
-                    Properties = new Dictionary<string, string>()
-                    {
-                        {"name", "Hire Date"},
-                        {"dataType", "date"}
-                    }
-                }},
-                {"officeLocation", new CredentialOverlayField() {
-                    Properties = new Dictionary<string, string>()
-                    {
-                        {"name", "Office Location"},
-                        {"dataType", "text"}
-                    }
-                }},
-                {"phoneNumber", new CredentialOverlayField() {
-                    Properties = new Dictionary<string, string>()
-                    {
-                        {"name", "Phone Number"},
-                        {"dataType", "text"}
-                    }
-                }},
-                {"photo~attach", new CredentialOverlayField() {
-                    Properties = new Dictionary<string, string>()
-                    {
-                        {"name", "Photo"},
-                        {"dataType", "image/jpeg;base64"}
-                    }
-                }},
-                {"type", new CredentialOverlayField() {
-                    Properties = new Dictionary<string, string>()
-                    {
-                        {"name", "Type"},
-                        {"dataType", "selection"}
-                    }
-                }},
-                {"endDate", new CredentialOverlayField() {
-                    Properties = new Dictionary<string, string>()
-                    {
-                        {"name", "End Date"},
-                        {"dataType", "date"}
-                    }
-                }}
-            };
-            
-            var assembly = typeof(SSICredentialViewModel).GetTypeInfo().Assembly;
-
-            foreach (var res in assembly.GetManifestResourceNames())
-            {
-                if (res.Contains("CredentialMapping.json"))
-                {
-                    CredentialDisplayNamesJsonString = "";
-                    Stream stream = assembly.GetManifestResourceStream(res);
-
-                    using (var reader = new StreamReader(stream))
-                    {
-                        string data = "";
-                        while ((data = reader.ReadLine()) != null)
-                        {
-                            CredentialDisplayNamesJsonString = CredentialDisplayNamesJsonString + data;
-                        }
-
-                        try
-                        {
-                            var CredentialDisplayNames = JsonConvert.DeserializeObject<CredentialOverlay>(CredentialDisplayNamesJsonString);
-                        }
-                        catch (Exception ex)
-                        {
-                            Crashes.TrackError(ex);
-                            SentrySdk.CaptureException(ex);
-                            Console.WriteLine(ex.Message);
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
         public static string FormatCredentialName(string source)
         {
-            var overlay = GetCredentialOverlay();
+            var overlay = OverlayResolver.GetCredentialOverlay();
             if (overlay.Fields.ContainsKey(source))
             {
                 return overlay.Fields[source].DisplayName;
             }
 
             return source;
-        }
+        }        
         
-        private object FormatCredentialValue(string name, object value)
+        public static string FormatCredentialValue(string name, object value)
         {
-            var overlay = GetCredentialOverlay();
-            if (overlay.Fields[name].DataType == "date")
-            {
-                try
-                {
-                    var millisecondUnixTimeStamp = Convert.ToDouble(value) * 1000;
-                    var date = UnixTimestampToDateTime(millisecondUnixTimeStamp);
-                    string format = "yyyy'-'MM'-'dd";
-                    return date.ToString(format);
-                }
-                catch
-                {
-                    return "Date format invalid";
-                }
-            }
-            return value;
+            var overlay = OverlayResolver.GetCredentialOverlay();
+            return CredentialFormatters.FormatCredentialValue(overlay, name, value.ToString());
         }
-        
-        private DateTime UnixTimestampToDateTime(double unixTime)
-        {
-            var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            dtDateTime = dtDateTime.AddMilliseconds(unixTime);
-            return dtDateTime;
-        }
-        
+
         public SSICredentialViewModel(
             INavigationService navigationService,
             CredentialRecord credential
@@ -255,6 +86,9 @@ namespace mikoba.ViewModels.SSI
             navigationService
         ) {
             _credential = credential;
+
+            var overlay = OverlayResolver.GetCredentialOverlay();
+            
             Console.WriteLine("credential-id:"  + credential.Id);
             Preferences.Set("credential-id", credential.Id);
             Attributes = new RangeEnabledObservableCollection<SSICredentialAttribute>();
@@ -263,7 +97,7 @@ namespace mikoba.ViewModels.SSI
                 Attributes.Add(new SSICredentialAttribute()
                 {
                     Name = cred.Name,
-                    Value = this.FormatCredentialValue(cred.Name, cred.Value),
+                    Value =  cred.Value,
                 });
             }
         }
